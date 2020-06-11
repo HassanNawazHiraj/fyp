@@ -14,7 +14,9 @@ Installation instructions :
 
 6.php artisan migrate
 
-7.php artisan db:seed
+7.composer dump-autoload
+
+8.php artisan db:seed
 
 
 login using
