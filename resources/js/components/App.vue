@@ -1,11 +1,12 @@
 <template>
     <div class="container">
-        <h1>hello</h1>
-        <div id="nav">
-            <router-link to="/">Example</router-link> |
-            <router-link to="/test">Test</router-link>
+        <div class="text-center my-3 display-4">
+            <div id="nav">
+                <router-link to="/">Example</router-link> |
+                <router-link to="/test">Test</router-link> |
+                <router-link to="/login">Login</router-link>
+            </div>
         </div>
-        <!-- <p>This is a paragraph.</p> -->
 
         <router-view></router-view>
     </div>
@@ -17,4 +18,25 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+#app {
+    font-family: Avenir, Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-align: center;
+    color: #2c3e50;
+}
+
+#nav {
+    padding: 30px;
+}
+
+#nav a {
+    font-weight: bold;
+    color: #2c3e50;
+}
+
+#nav a.router-link-exact-active {
+    color: #42b983;
+}
+</style>
