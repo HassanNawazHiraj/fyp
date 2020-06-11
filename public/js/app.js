@@ -6509,7 +6509,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n#app[data-v-332fccf4] {\r\n    font-family: Avenir, Helvetica, Arial, sans-serif;\r\n    -webkit-font-smoothing: antialiased;\r\n    -moz-osx-font-smoothing: grayscale;\r\n    text-align: center;\r\n    color: #2c3e50;\n}\n#nav[data-v-332fccf4] {\r\n    padding: 30px;\n}\n#nav a[data-v-332fccf4] {\r\n    font-weight: bold;\r\n    color: #2c3e50;\n}\n#nav a.router-link-exact-active[data-v-332fccf4] {\r\n    color: #42b983;\n}\r\n", ""]);
+exports.push([module.i, "\n#app[data-v-332fccf4] {\n    font-family: Avenir, Helvetica, Arial, sans-serif;\n    -webkit-font-smoothing: antialiased;\n    -moz-osx-font-smoothing: grayscale;\n    text-align: center;\n    color: #2c3e50;\n}\n#nav[data-v-332fccf4] {\n    padding: 30px;\n}\n#nav a[data-v-332fccf4] {\n    font-weight: bold;\n    color: #2c3e50;\n}\n#nav a.router-link-exact-active[data-v-332fccf4] {\n    color: #42b983;\n}\n", ""]);
 
 // exports
 
@@ -54089,7 +54089,8 @@ var routes = [{
   component: _components_Login_vue__WEBPACK_IMPORTED_MODULE_4__["default"]
 }];
 var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
-  routes: routes
+  routes: routes,
+  mode: 'history'
 });
 /* harmony default export */ __webpack_exports__["default"] = (router);
 
