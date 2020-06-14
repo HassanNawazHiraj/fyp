@@ -8,15 +8,24 @@ Vue.use(VueRouter);
 
 const routes = [{
         path: "/",
-        component: ExampleComponent
+        component: ExampleComponent,
+        meta: {
+            guest: true,
+        }
     },
     {
         path: "/test",
-        component: Test
+        component: Test,
+        meta: {
+            guest: true,
+        }
     },
     {
         path: "/login",
-        component: Login
+        component: Login,
+        meta: {
+            guest: true,
+        }
     }
 ];
 
