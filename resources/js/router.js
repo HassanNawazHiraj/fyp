@@ -1,37 +1,40 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import ExampleComponent from "./components/ExampleComponent.vue";
-import Test from "./components/Test.vue";
-import Login from "./components/Login.vue";
+import Home from './components/Home.vue';
+import Login from './components/Login.vue';
+import Layout from './components/Layout.vue';
 
 Vue.use(VueRouter);
 
 const routes = [{
         path: "/",
-        component: ExampleComponent,
-        meta: {
-            guest: true,
-        }
+        component: Layout,
+        children: [{
+            path: "",
+            component: Login,
+            meta: {
+                guest: true,
+            }
+        }, ],
     },
     {
-        path: "/test",
-        component: Test,
+        path: "/portal",
+        component: AdminLayout,
         meta: {
-            guest: true,
-        }
-    },
-    {
-        path: "/login",
-        component: Login,
-        meta: {
-            guest: true,
-        }
+            auth: true,
+        },
+        childern: [{
+            path: "",
+            component: DashboardComponent,
+        }]
     }
+
 ];
 
 const router = new VueRouter({
+    mode: "history",
+    base: process.env.BASE_URL,
     routes,
-    mode: 'history'
 });
 
 export default router;

@@ -1,20 +1,42 @@
+import "bootstrap";
+import "bootstrap/dist/css/bootstrap.min.css";
+
 import Vue from "vue";
-import router from "./router";
+import App from "./App.vue";
+import router from "./router.js";
+import Auth from "./packages/Auth.js";
+// import BackendService from "./services/backend-service";
 
-import App from "./components/App.vue";
-import ExampleComponent from "./components/ExampleComponent";
-import Test from "./components/Test.vue";
-import Login from "./components/Login.vue";
+// const backendService = new BackendService();
+// Vue.prototype.$backendService = backendService;
 
-require("./bootstrap");
 
-const app = new Vue({
-    el: "#app",
-    components: {
-        App,
-        ExampleComponent,
-        Test,
-        Login
-    },
-    router
+Vue.use(Auth);
+
+window.axios = require("axios");
+window.axios.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";
+window.axios.defaults.baseURL = Vue.auth.getBaseUrl();
+axios.defaults.headers.common["Authorization"] =
+    "Bearer " + Vue.auth.getToken();
+window.$ = window.jQuery = require('jquery');
+
+Vue.config.productionTip = false;
+
+router.beforeEach((to, from, next) => {
+    if (to.matched.some((record) => record.meta.guest)) {
+        if (Vue.auth.isAuthenticated()) {
+            next();
+        } else next();
+    } else if (to.matched.some((record) => record.meta.auth)) {
+        if (!Vue.auth.isAuthenticated()) {
+            next({
+                path: "/login",
+            });
+        } else next();
+    } else next();
 });
+
+new Vue({
+    router,
+    render: (h) => h(App),
+}).$mount("#app");
