@@ -1,58 +1,21 @@
 <template>
-  <!-- <div class="container">
-    <div class="row">
-      <div class="col-md-3" />
-      <div class="col-md-6">
-        <h2 class="h1-responsive font-weight-bold text-center my-4">Log-in</h2>
-        <div class="alert alert-danger" role="alert" v-if="error.show">{{ error.message }}</div>
-        <form v-on:submit.prevent="login" class="login-form ml-5 mr-5">
-          <div class="form-group">
-            <input
-              type="email"
-              class="form-control"
-              name="email"
-              placeholder="Email"
-              v-model="email"
-              required
-            />
-          </div>
-          <div class="form-group">
-            <input
-              type="password"
-              class="form-control"
-              name="password"
-              placeholder="Password"
-              v-model="password"
-              required
-            />
-          </div>
-
-          <div class="text-center">
-            <input type="submit" class="btn btn-primary text-light" value="Login" />
-          </div>
-        </form>
-      </div>
-      <div class="col-md-3" />
-    </div>
-  </div> -->
-
     <div class="form-screen">
-        <a href="index.html" class="spur-logo"><i class="fa fa-user-circle"></i> <span>NECEAC Portal Login</span></a>
+        <a class="spur-logo"><i class="fa fa-user-circle"></i> <span>NECEAC Portal Login</span></a>
         <div class="card account-dialog">
             <div class="card-header bg-primary text-white"> Please sign in </div>
             <div class="card-body">
                 <div class="alert alert-danger" role="alert" v-if="error.show">{{ error.message }}</div>
                 <form v-on:submit.prevent="login">
                     <div class="form-group">
-                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" v-model="email">
+                        <input type="email" class="form-control" placeholder="Enter email" v-model="email">
                     </div>
                     <div class="form-group">
-                        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" v-model="password">
+                        <input type="password" class="form-control" placeholder="Password" v-model="password">
                     </div>
                     <div class="form-group">
                         <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="customCheck1">
-                            <label class="custom-control-label" for="customCheck1">Remember me</label>
+                            <input type="checkbox" class="custom-control-input">
+                            <label class="custom-control-label">Remember me</label>
                         </div>
                     </div>
                     <div class="account-dialog-actions">

@@ -1998,43 +1998,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Login",
   methods: {
@@ -21337,12 +21300,7 @@ var render = function() {
                   }
                 ],
                 staticClass: "form-control",
-                attrs: {
-                  type: "email",
-                  id: "exampleInputEmail1",
-                  "aria-describedby": "emailHelp",
-                  placeholder: "Enter email"
-                },
+                attrs: { type: "email", placeholder: "Enter email" },
                 domProps: { value: _vm.email },
                 on: {
                   input: function($event) {
@@ -21366,11 +21324,7 @@ var render = function() {
                   }
                 ],
                 staticClass: "form-control",
-                attrs: {
-                  type: "password",
-                  id: "exampleInputPassword1",
-                  placeholder: "Password"
-                },
+                attrs: { type: "password", placeholder: "Password" },
                 domProps: { value: _vm.password },
                 on: {
                   input: function($event) {
@@ -21397,15 +21351,11 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c(
-      "a",
-      { staticClass: "spur-logo", attrs: { href: "index.html" } },
-      [
-        _c("i", { staticClass: "fa fa-user-circle" }),
-        _vm._v(" "),
-        _c("span", [_vm._v("NECEAC Portal Login")])
-      ]
-    )
+    return _c("a", { staticClass: "spur-logo" }, [
+      _c("i", { staticClass: "fa fa-user-circle" }),
+      _vm._v(" "),
+      _c("span", [_vm._v("NECEAC Portal Login")])
+    ])
   },
   function() {
     var _vm = this
@@ -21415,17 +21365,12 @@ var staticRenderFns = [
       _c("div", { staticClass: "custom-control custom-checkbox" }, [
         _c("input", {
           staticClass: "custom-control-input",
-          attrs: { type: "checkbox", id: "customCheck1" }
+          attrs: { type: "checkbox" }
         }),
         _vm._v(" "),
-        _c(
-          "label",
-          {
-            staticClass: "custom-control-label",
-            attrs: { for: "customCheck1" }
-          },
-          [_vm._v("Remember me")]
-        )
+        _c("label", { staticClass: "custom-control-label" }, [
+          _vm._v("Remember me")
+        ])
       ])
     ])
   },
