@@ -3,7 +3,8 @@ import VueRouter from "vue-router";
 import Home from './components/Home.vue';
 import Login from './components/Login.vue';
 import Layout from './components/Layout.vue';
-
+import AdminLayout from './components/Admin/AdminLayout.vue';
+import DashboardComponent from './components/Admin/Dashboardcomponent.vue';
 Vue.use(VueRouter);
 
 const routes = [{

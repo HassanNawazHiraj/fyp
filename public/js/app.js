@@ -36748,6 +36748,70 @@ new vue__WEBPACK_IMPORTED_MODULE_2___default.a({
 
 /***/ }),
 
+/***/ "./resources/js/components/Admin/AdminLayout.vue":
+/*!*******************************************************!*\
+  !*** ./resources/js/components/Admin/AdminLayout.vue ***!
+  \*******************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+var render, staticRenderFns
+var script = {}
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_0__["default"])(
+  script,
+  render,
+  staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+component.options.__file = "resources/js/components/Admin/AdminLayout.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/Admin/Dashboardcomponent.vue":
+/*!**************************************************************!*\
+  !*** ./resources/js/components/Admin/Dashboardcomponent.vue ***!
+  \**************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+var render, staticRenderFns
+var script = {}
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_0__["default"])(
+  script,
+  render,
+  staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+component.options.__file = "resources/js/components/Admin/Dashboardcomponent.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
 /***/ "./resources/js/components/Home.vue":
 /*!******************************************!*\
   !*** ./resources/js/components/Home.vue ***!
@@ -37040,6 +37104,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_Home_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/Home.vue */ "./resources/js/components/Home.vue");
 /* harmony import */ var _components_Login_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/Login.vue */ "./resources/js/components/Login.vue");
 /* harmony import */ var _components_Layout_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/Layout.vue */ "./resources/js/components/Layout.vue");
+/* harmony import */ var _components_Admin_AdminLayout_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/Admin/AdminLayout.vue */ "./resources/js/components/Admin/AdminLayout.vue");
+/* harmony import */ var _components_Admin_Dashboardcomponent_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/Admin/Dashboardcomponent.vue */ "./resources/js/components/Admin/Dashboardcomponent.vue");
+
+
 
 
 
@@ -37058,13 +37126,13 @@ var routes = [{
   }]
 }, {
   path: "/portal",
-  component: AdminLayout,
+  component: _components_Admin_AdminLayout_vue__WEBPACK_IMPORTED_MODULE_5__["default"],
   meta: {
     auth: true
   },
   childern: [{
     path: "",
-    component: DashboardComponent
+    component: _components_Admin_Dashboardcomponent_vue__WEBPACK_IMPORTED_MODULE_6__["default"]
   }]
 }];
 var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
