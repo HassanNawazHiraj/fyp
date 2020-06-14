@@ -36734,7 +36734,7 @@ _router_js__WEBPACK_IMPORTED_MODULE_4__["default"].beforeEach(function (to, from
   })) {
     if (!vue__WEBPACK_IMPORTED_MODULE_2___default.a.auth.isAuthenticated()) {
       next({
-        path: "/login"
+        path: "/"
       });
     } else next();
   } else next();

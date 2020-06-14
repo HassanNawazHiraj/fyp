@@ -30,7 +30,7 @@ router.beforeEach((to, from, next) => {
     } else if (to.matched.some((record) => record.meta.auth)) {
         if (!Vue.auth.isAuthenticated()) {
             next({
-                path: "/login",
+                path: "/",
             });
         } else next();
     } else next();
