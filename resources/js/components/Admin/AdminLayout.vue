@@ -77,9 +77,9 @@
             <h1 class="display-4">Hello, world!</h1>
             <p class="lead">This is the admin dashboard of the application.</p>
           </div>
-
+ Here starts dashboard component
           <div>
-            <router-view />
+            <router-view></router-view>
           </div>
         </div>
       </main>

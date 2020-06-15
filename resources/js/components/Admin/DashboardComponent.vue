@@ -1,10 +1,6 @@
 <template>
-  <div class="container bg-danger">test</div>
+  <div>
+      <p>hello</p>
+  </div>
 </template>
 
-<script>
-export default {};
-</script>
-
-<style>
-</style>
