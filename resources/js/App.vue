@@ -12,7 +12,5 @@
 </style>
 
 <script>
-export default {
-
-}
+export default {};
 </script>
