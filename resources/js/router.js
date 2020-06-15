@@ -7,16 +7,19 @@ import AdminLayout from "./components/Admin/AdminLayout.vue";
 import DashboardComponent from "./components/Admin/DashboardComponent.vue";
 Vue.use(VueRouter);
 
-const routes = [{
+const routes = [
+    {
         path: "/",
         component: Layout,
         meta: {
             guest: true
         },
-        children: [{
-            path: "",
-            component: Login,
-        }, ],
+        children: [
+            {
+                path: "",
+                component: Login
+            }
+        ]
     },
     {
         path: "/portal",
@@ -24,13 +27,13 @@ const routes = [{
         meta: {
             auth: true
         },
-        children: [{
-            path: "",
-            component: DashboardComponent,
-        }, ],
+        children: [
+            {
+                path: "",
+                component: DashboardComponent
+            }
+        ]
     }
-
-
 ];
 
 const router = new VueRouter({

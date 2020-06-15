@@ -2018,13 +2018,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({});
 
@@ -6643,7 +6636,7 @@ exports.push([module.i, "@import url(https://use.fontawesome.com/releases/v5.4.1
 exports.push([module.i, "@import url(/css/spur.css);", ""]);
 
 // module
-exports.push([module.i, "\n", ""]);
+exports.push([module.i, "\r\n", ""]);
 
 // exports
 
@@ -21298,15 +21291,84 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "dash" }, [
-    _vm._m(0),
+    _c("div", { staticClass: "dash-nav dash-nav-dark" }, [
+      _c(
+        "header",
+        [
+          _vm._m(0),
+          _vm._v(" "),
+          _c(
+            "router-link",
+            { staticClass: "spur-logo", attrs: { to: "/portal" } },
+            [
+              _c("i", { staticClass: "fa fa-user-circle" }),
+              _vm._v(" "),
+              _c("span", [_vm._v("NCEAC")])
+            ]
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "nav",
+        { staticClass: "dash-nav-list" },
+        [
+          _c(
+            "router-link",
+            { staticClass: "dash-nav-item", attrs: { to: "/portal" } },
+            [
+              _c("i", { staticClass: "fas fa-home" }),
+              _vm._v(" Dashboard\n      ")
+            ]
+          ),
+          _vm._v(" "),
+          _vm._m(1),
+          _vm._v(" "),
+          _vm._m(2)
+        ],
+        1
+      )
+    ]),
     _vm._v(" "),
     _c("div", { staticClass: "dash-app" }, [
-      _vm._m(1),
+      _c("header", { staticClass: "dash-toolbar" }, [
+        _vm._m(3),
+        _vm._v(" "),
+        _c("div", { staticClass: "tools" }, [
+          _vm._m(4),
+          _vm._v(" "),
+          _c("div", { staticClass: "dropdown tools-item" }, [
+            _vm._m(5),
+            _vm._v(" "),
+            _c(
+              "div",
+              {
+                staticClass: "dropdown-menu dropdown-menu-right",
+                attrs: { "aria-labelledby": "dropdownMenu1" }
+              },
+              [
+                _c(
+                  "a",
+                  { staticClass: "dropdown-item", attrs: { href: "#" } },
+                  [_vm._v("Profile")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "router-link",
+                  { staticClass: "dropdown-item", attrs: { to: "/" } },
+                  [_vm._v("Logout")]
+                )
+              ],
+              1
+            )
+          ])
+        ])
+      ]),
       _vm._v(" "),
       _c("main", { staticClass: "dash-content bg-light" }, [
         _c("div", { staticClass: "container-fluid" }, [
-          _vm._m(2),
-          _vm._v("\nHere starts dashboard component\n         "),
+          _vm._v("\n        Here starts dashboard component\n        "),
           _c("div", [_c("router-view")], 1)
         ])
       ])
@@ -21318,80 +21380,39 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "dash-nav dash-nav-dark" }, [
-      _c("header", [
-        _c("a", { staticClass: "menu-toggle", attrs: { href: "#!" } }, [
-          _c("i", { staticClass: "fas fa-bars" })
-        ]),
-        _vm._v(" "),
-        _c("a", { staticClass: "spur-logo", attrs: { href: "/portal" } }, [
-          _c("i", { staticClass: "fa fa-user-circle" }),
-          _vm._v(" "),
-          _c("span", [_vm._v("NCEAC")])
-        ])
-      ]),
+    return _c("a", { staticClass: "menu-toggle", attrs: { href: "#!" } }, [
+      _c("i", { staticClass: "fas fa-bars" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "dash-nav-dropdown" }, [
+      _c(
+        "a",
+        {
+          staticClass: "dash-nav-item dash-nav-dropdown-toggle",
+          attrs: { href: "#" }
+        },
+        [
+          _c("i", { staticClass: "fa fa-university" }),
+          _vm._v(" Faculity\n        ")
+        ]
+      ),
       _vm._v(" "),
-      _c("nav", { staticClass: "dash-nav-list" }, [
-        _c("a", { staticClass: "dash-nav-item", attrs: { href: "/portal" } }, [
-          _c("i", { staticClass: "fas fa-home" }),
-          _vm._v(" Dashboard\n       ")
-        ]),
+      _c("div", { staticClass: "dash-nav-dropdown-menu" }, [
+        _c(
+          "a",
+          { staticClass: "dash-nav-dropdown-item", attrs: { href: "#" } },
+          [_vm._v("View")]
+        ),
         _vm._v(" "),
-        _c("div", { staticClass: "dash-nav-dropdown" }, [
-          _c(
-            "a",
-            {
-              staticClass: "dash-nav-item dash-nav-dropdown-toggle",
-              attrs: { href: "#!" }
-            },
-            [
-              _c("i", { staticClass: "fa fa-university" }),
-              _vm._v(" Faculity\n         ")
-            ]
-          ),
-          _vm._v(" "),
-          _c("div", { staticClass: "dash-nav-dropdown-menu" }, [
-            _c(
-              "a",
-              { staticClass: "dash-nav-dropdown-item", attrs: { href: "#" } },
-              [_vm._v("View")]
-            ),
-            _vm._v(" "),
-            _c(
-              "a",
-              { staticClass: "dash-nav-dropdown-item", attrs: { href: "#" } },
-              [_vm._v("Add")]
-            )
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "dash-nav-dropdown" }, [
-          _c(
-            "a",
-            {
-              staticClass: "dash-nav-item dash-nav-dropdown-toggle",
-              attrs: { href: "#!" }
-            },
-            [
-              _c("i", { staticClass: "fa fa-book" }),
-              _vm._v(" Course\n         ")
-            ]
-          ),
-          _vm._v(" "),
-          _c("div", { staticClass: "dash-nav-dropdown-menu" }, [
-            _c(
-              "a",
-              { staticClass: "dash-nav-dropdown-item", attrs: { href: "#" } },
-              [_vm._v("View")]
-            ),
-            _vm._v(" "),
-            _c(
-              "a",
-              { staticClass: "dash-nav-dropdown-item", attrs: { href: "#" } },
-              [_vm._v("Add")]
-            )
-          ])
-        ])
+        _c(
+          "a",
+          { staticClass: "dash-nav-dropdown-item", attrs: { href: "#" } },
+          [_vm._v("Add")]
+        )
       ])
     ])
   },
@@ -21399,54 +21420,28 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("header", { staticClass: "dash-toolbar" }, [
-      _c("a", { staticClass: "menu-toggle", attrs: { href: "#!" } }, [
-        _c("i", { staticClass: "fas fa-bars" })
-      ]),
+    return _c("div", { staticClass: "dash-nav-dropdown" }, [
+      _c(
+        "a",
+        {
+          staticClass: "dash-nav-item dash-nav-dropdown-toggle",
+          attrs: { href: "#" }
+        },
+        [_c("i", { staticClass: "fa fa-book" }), _vm._v(" Course\n        ")]
+      ),
       _vm._v(" "),
-      _c("a", { staticClass: "searchbox-toggle", attrs: { href: "#!" } }, [
-        _c("i", { staticClass: "fas fa-search" })
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "tools" }, [
-        _c("a", { staticClass: "tools-item", attrs: { href: "#!" } }, [
-          _c("i", { staticClass: "fas fa-bell" }),
-          _vm._v(" "),
-          _c("i", { staticClass: "tools-item-count" }, [_vm._v("4")])
-        ]),
+      _c("div", { staticClass: "dash-nav-dropdown-menu" }, [
+        _c(
+          "a",
+          { staticClass: "dash-nav-dropdown-item", attrs: { href: "#" } },
+          [_vm._v("View")]
+        ),
         _vm._v(" "),
-        _c("div", { staticClass: "dropdown tools-item" }, [
-          _c(
-            "a",
-            {
-              attrs: {
-                href: "#",
-                id: "dropdownMenu1",
-                "data-toggle": "dropdown",
-                "aria-haspopup": "true",
-                "aria-expanded": "false"
-              }
-            },
-            [_c("i", { staticClass: "fas fa-user" })]
-          ),
-          _vm._v(" "),
-          _c(
-            "div",
-            {
-              staticClass: "dropdown-menu dropdown-menu-right",
-              attrs: { "aria-labelledby": "dropdownMenu1" }
-            },
-            [
-              _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
-                _vm._v("Profile")
-              ]),
-              _vm._v(" "),
-              _c("a", { staticClass: "dropdown-item", attrs: { href: "/" } }, [
-                _vm._v("Logout")
-              ])
-            ]
-          )
-        ])
+        _c(
+          "a",
+          { staticClass: "dash-nav-dropdown-item", attrs: { href: "#" } },
+          [_vm._v("Add")]
+        )
       ])
     ])
   },
@@ -21454,13 +21449,43 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "jumbotron" }, [
-      _c("h1", { staticClass: "display-4" }, [_vm._v("Hello, world!")]),
-      _vm._v(" "),
-      _c("p", { staticClass: "lead" }, [
-        _vm._v("This is the admin dashboard of the application.")
-      ])
-    ])
+    return _c(
+      "a",
+      { staticClass: "menu-toggle", staticStyle: { cursor: "pointer" } },
+      [_c("i", { staticClass: "fas fa-bars" })]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "a",
+      { staticClass: "tools-item", staticStyle: { cursor: "pointer" } },
+      [
+        _c("i", { staticClass: "fas fa-bell" }),
+        _vm._v(" "),
+        _c("i", { staticClass: "tools-item-count" }, [_vm._v("4")])
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "a",
+      {
+        staticStyle: { cursor: "pointer" },
+        attrs: {
+          id: "dropdownMenu1",
+          "data-toggle": "dropdown",
+          "aria-haspopup": "true",
+          "aria-expanded": "false"
+        }
+      },
+      [_c("i", { staticClass: "fas fa-user" })]
+    )
   }
 ]
 render._withStripped = true
@@ -21491,7 +21516,15 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", [_c("p", [_vm._v("hello")])])
+    return _c("div", [
+      _c("div", { staticClass: "jumbotron" }, [
+        _c("h1", { staticClass: "display-4" }, [_vm._v("Hello, world!")]),
+        _vm._v(" "),
+        _c("p", { staticClass: "lead" }, [
+          _vm._v("This is the admin dashboard of the application.")
+        ])
+      ])
+    ])
   }
 ]
 render._withStripped = true

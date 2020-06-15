@@ -5,19 +5,19 @@
         <a href="#!" class="menu-toggle">
           <i class="fas fa-bars"></i>
         </a>
-        <a href="/portal" class="spur-logo">
+        <router-link to="/portal" class="spur-logo">
           <i class="fa fa-user-circle"></i>
           <span>NCEAC</span>
-        </a>
+        </router-link>
       </header>
 
       <nav class="dash-nav-list">
-        <a href="/portal" class="dash-nav-item">
+        <router-link to="/portal" class="dash-nav-item">
           <i class="fas fa-home"></i> Dashboard
-        </a>
+        </router-link>
 
         <div class="dash-nav-dropdown">
-          <a href="#!" class="dash-nav-item dash-nav-dropdown-toggle">
+          <a href="#" class="dash-nav-item dash-nav-dropdown-toggle">
             <i class="fa fa-university"></i> Faculity
           </a>
 
@@ -28,7 +28,7 @@
         </div>
 
         <div class="dash-nav-dropdown">
-          <a href="#!" class="dash-nav-item dash-nav-dropdown-toggle">
+          <a href="#" class="dash-nav-item dash-nav-dropdown-toggle">
             <i class="fa fa-book"></i> Course
           </a>
           <div class="dash-nav-dropdown-menu">
@@ -40,44 +40,37 @@
     </div>
     <div class="dash-app">
       <header class="dash-toolbar">
-        <a href="#!" class="menu-toggle">
+        <a class="menu-toggle" style="cursor: pointer">
           <i class="fas fa-bars"></i>
-        </a>
-        <a href="#!" class="searchbox-toggle">
-          <i class="fas fa-search"></i>
         </a>
 
         <div class="tools">
-          <a href="#!" class="tools-item">
+          <a class="tools-item" style="cursor: pointer">
             <i class="fas fa-bell"></i>
             <i class="tools-item-count">4</i>
           </a>
 
           <div class="dropdown tools-item">
             <a
-              href="#"
               class
               id="dropdownMenu1"
               data-toggle="dropdown"
               aria-haspopup="true"
               aria-expanded="false"
+              style="cursor: pointer"
             >
               <i class="fas fa-user"></i>
             </a>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu1">
               <a class="dropdown-item" href="#">Profile</a>
-              <a class="dropdown-item" href="/">Logout</a>
+              <router-link class="dropdown-item" to="/">Logout</router-link>
             </div>
           </div>
         </div>
       </header>
       <main class="dash-content bg-light">
         <div class="container-fluid">
-          <div class="jumbotron">
-            <h1 class="display-4">Hello, world!</h1>
-            <p class="lead">This is the admin dashboard of the application.</p>
-          </div>
- Here starts dashboard component
+          Here starts dashboard component
           <div>
             <router-view></router-view>
           </div>
