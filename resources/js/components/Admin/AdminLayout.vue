@@ -16,7 +16,14 @@
           <i class="fas fa-home"></i> Dashboard
         </router-link>
 
-        <div class="dash-nav-dropdown">
+        <router-link to="/portal/form" class="dash-nav-item">
+          <i class="fas fa-book"></i> Course performa form
+        </router-link>
+
+
+
+
+        <!-- <div class="dash-nav-dropdown">
           <a href="#" class="dash-nav-item dash-nav-dropdown-toggle">
             <i class="fa fa-university"></i> Faculity
           </a>
@@ -35,7 +42,7 @@
             <a href="#" class="dash-nav-dropdown-item">View</a>
             <a href="#" class="dash-nav-dropdown-item">Add</a>
           </div>
-        </div>
+        </div> -->
       </nav>
     </div>
     <div class="dash-app">
@@ -70,7 +77,6 @@
       </header>
       <main class="dash-content bg-light">
         <div class="container-fluid">
-          Here starts dashboard component
           <div>
             <router-view></router-view>
           </div>

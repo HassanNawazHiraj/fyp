@@ -5,21 +5,19 @@ import Login from "./components/Login.vue";
 import Layout from "./components/Layout.vue";
 import AdminLayout from "./components/Admin/AdminLayout.vue";
 import DashboardComponent from "./components/Admin/DashboardComponent.vue";
+import FormComponent from "./components/Admin/FormComponent.vue";
 Vue.use(VueRouter);
 
-const routes = [
-    {
+const routes = [{
         path: "/",
         component: Layout,
         meta: {
             guest: true
         },
-        children: [
-            {
-                path: "",
-                component: Login
-            }
-        ]
+        children: [{
+            path: "",
+            component: Login
+        }]
     },
     {
         path: "/portal",
@@ -27,10 +25,13 @@ const routes = [
         meta: {
             auth: true
         },
-        children: [
-            {
+        children: [{
                 path: "",
                 component: DashboardComponent
+            },
+            {
+                path: "form",
+                component: FormComponent,
             }
         ]
     }
