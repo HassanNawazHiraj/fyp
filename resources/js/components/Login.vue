@@ -70,6 +70,11 @@
 <script>
 export default {
   name: "Login",
+  mounted: function() {
+      if(this.$auth.isAuthenticated()) {
+          this.$router.push("/portal");
+      }
+  },
   methods: {
     login() {
       this.loading = true;

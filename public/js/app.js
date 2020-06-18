@@ -2137,6 +2137,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Login",
+  mounted: function mounted() {
+    if (this.$auth.isAuthenticated()) {
+      this.$router.push("/portal");
+    }
+  },
   methods: {
     login: function login() {
       this.loading = true;
