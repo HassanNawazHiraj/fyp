@@ -87,7 +87,6 @@
 </template>
 
 <script>
-import "../../../../public/js/spur";
 export default {};
 </script>
 
