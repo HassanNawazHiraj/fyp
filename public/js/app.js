@@ -2531,6 +2531,18 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2540,7 +2552,10 @@ __webpack_require__.r(__webpack_exports__);
       base_path: "/api/",
       errors: [],
       modal_mode: "add",
-      id: ""
+      id: "",
+      toastTitle: "",
+      toastMessage: "",
+      toastClass: "d-none"
     };
   },
   mounted: function mounted() {
@@ -2577,6 +2592,10 @@ __webpack_require__.r(__webpack_exports__);
         if (response.status == 200) {
           me.closeModal("addModal");
           me.list();
+          me.toastTitle = "Add";
+          me.toastMessage = "Field added successfully";
+          me.toastClass = "d-block";
+          $(".toast").toast("show");
         }
       })["catch"](function (error) {
         console.log(error);
@@ -2613,6 +2632,10 @@ __webpack_require__.r(__webpack_exports__);
         if (response.status == 200) {
           me.closeModal("addModal");
           me.list();
+          me.toastTitle = "Update";
+          me.toastMessage = "Field updated successfully";
+          me.toastClass = "d-block";
+          $(".toast").toast("show");
         }
       })["catch"](function (error) {
         for (var key in error.response.data.errors) {
@@ -2635,6 +2658,10 @@ __webpack_require__.r(__webpack_exports__);
         if (response.status == 200) {
           me.closeModal("deleteModal");
           me.list();
+          me.toastTitle = "Delete";
+          me.toastMessage = "Field deleted successfully";
+          me.toastClass = "d-block";
+          $(".toast").toast("show");
         }
       })["catch"](function (error) {
         for (var key in error.response.data.errors) {
@@ -7303,7 +7330,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 exports.push([module.i, "@import url(/css/sb-admin-2.min.css);", ""]);
 
 // module
-exports.push([module.i, "\n", ""]);
+exports.push([module.i, "\r\n", ""]);
 
 // exports
 
@@ -7322,7 +7349,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 exports.push([module.i, "@import url(https://fonts.googleapis.com/css?family=Nunito:400,600|Open+Sans:400,600,700);", ""]);
 
 // module
-exports.push([module.i, "\n\n", ""]);
+exports.push([module.i, "\r\n\r\n", ""]);
 
 // exports
 
@@ -23244,6 +23271,44 @@ var render = function() {
           ]
         )
       ]
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        class: _vm.toastClass,
+        staticStyle: { position: "absolute", top: "0", right: "0" }
+      },
+      [
+        _c(
+          "div",
+          {
+            staticClass: "toast m-5",
+            attrs: {
+              role: "alert",
+              "data-delay": "5000",
+              "data-autohide": "true"
+            }
+          },
+          [
+            _c("div", { staticClass: "toast-header", class: _vm.toastClass }, [
+              _c("strong", { staticClass: "mr-auto" }, [
+                _vm._v(_vm._s(_vm.toastTitle))
+              ]),
+              _vm._v(" "),
+              _c("small", { staticClass: "text-muted ml-5" }, [
+                _vm._v("just now")
+              ]),
+              _vm._v(" "),
+              _vm._m(5)
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "toast-body" }, [
+              _vm._v(_vm._s(_vm.toastMessage))
+            ])
+          ]
+        )
+      ]
     )
   ])
 }
@@ -23325,6 +23390,23 @@ var staticRenderFns = [
         [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
       )
     ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "button",
+      {
+        staticClass: "ml-2 mb-1 close",
+        attrs: {
+          type: "button",
+          "data-dismiss": "toast",
+          "aria-label": "Close"
+        }
+      },
+      [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+    )
   }
 ]
 render._withStripped = true
@@ -39198,15 +39280,14 @@ __webpack_require__.r(__webpack_exports__);
 /*!***********************************************************************!*\
   !*** ./resources/js/components/Admin/CoursePerformaFormComponent.vue ***!
   \***********************************************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _CoursePerformaFormComponent_vue_vue_type_template_id_76ca8743___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CoursePerformaFormComponent.vue?vue&type=template&id=76ca8743& */ "./resources/js/components/Admin/CoursePerformaFormComponent.vue?vue&type=template&id=76ca8743&");
 /* harmony import */ var _CoursePerformaFormComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CoursePerformaFormComponent.vue?vue&type=script&lang=js& */ "./resources/js/components/Admin/CoursePerformaFormComponent.vue?vue&type=script&lang=js&");
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _CoursePerformaFormComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _CoursePerformaFormComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
@@ -39236,7 +39317,7 @@ component.options.__file = "resources/js/components/Admin/CoursePerformaFormComp
 /*!************************************************************************************************!*\
   !*** ./resources/js/components/Admin/CoursePerformaFormComponent.vue?vue&type=script&lang=js& ***!
   \************************************************************************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

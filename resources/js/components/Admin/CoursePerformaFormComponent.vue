@@ -1,6 +1,5 @@
 <template>
   <div class="container-fluid">
-    <!-- DataTales Example -->
     <div class="card shadow mb-4">
       <div class="card-header py-3">
         <h6 class="m-0 font-weight-bold text-primary">
@@ -118,8 +117,21 @@
         </div>
       </div>
     </div>
+
+    <!-- Toast -->
+    <div style="position: absolute; top: 0; right: 0;" v-bind:class="toastClass">
+      <div class="toast m-5" role="alert" data-delay="5000" data-autohide="true">
+        <div class="toast-header" v-bind:class="toastClass">
+          <strong class="mr-auto">{{toastTitle}}</strong>
+          <small class="text-muted ml-5">just now</small>
+          <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="toast-body">{{toastMessage}}</div>
+      </div>
+    </div>
   </div>
-  <!-- /.container-fluid -->
 </template>
 
 <script>
@@ -132,7 +144,10 @@ export default {
       base_path: "/api/",
       errors: [],
       modal_mode: "add",
-      id: ""
+      id: "",
+      toastTitle: "",
+      toastMessage: "",
+      toastClass: "d-none"
     };
   },
   mounted: function() {
@@ -175,6 +190,10 @@ export default {
           if (response.status == 200) {
             me.closeModal("addModal");
             me.list();
+            me.toastTitle = "Add";
+            me.toastMessage = "Field added successfully";
+            me.toastClass = "d-block";
+            $(".toast").toast("show");
           }
         })
         .catch(function(error) {
@@ -214,6 +233,10 @@ export default {
           if (response.status == 200) {
             me.closeModal("addModal");
             me.list();
+            me.toastTitle = "Update";
+            me.toastMessage = "Field updated successfully";
+            me.toastClass = "d-block";
+            $(".toast").toast("show");
           }
         })
         .catch(function(error) {
@@ -239,6 +262,10 @@ export default {
           if (response.status == 200) {
             me.closeModal("deleteModal");
             me.list();
+            me.toastTitle = "Delete";
+            me.toastMessage = "Field deleted successfully";
+            me.toastClass = "d-block";
+            $(".toast").toast("show");
           }
         })
         .catch(function(error) {
