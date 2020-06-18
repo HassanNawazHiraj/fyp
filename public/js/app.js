@@ -2507,6 +2507,30 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2588,6 +2612,28 @@ __webpack_require__.r(__webpack_exports__);
       axios.post(me.base_path + "formFields/" + me.id, formData, {}).then(function (response) {
         if (response.status == 200) {
           me.closeModal("addModal");
+          me.list();
+        }
+      })["catch"](function (error) {
+        for (var key in error.response.data.errors) {
+          if (error.response.data.errors.hasOwnProperty(key)) {
+            me.errors.push(error.response.data.errors[key][0]);
+          }
+        }
+      });
+    },
+    remove: function remove(id) {
+      this.id = id;
+      $("#deleteModal").modal("show");
+    },
+    perform_delete: function perform_delete() {
+      var me = this;
+      me.errors = [];
+      axios.post(me.base_path + "formFields/" + me.id, {
+        _method: "DELETE"
+      }).then(function (response) {
+        if (response.status == 200) {
+          me.closeModal("deleteModal");
           me.list();
         }
       })["catch"](function (error) {
@@ -23145,6 +23191,59 @@ var render = function() {
           ]
         )
       ]
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass: "modal fade",
+        attrs: {
+          id: "deleteModal",
+          tabindex: "-1",
+          role: "dialog",
+          "aria-hidden": "true"
+        }
+      },
+      [
+        _c(
+          "div",
+          { staticClass: "modal-dialog", attrs: { role: "document" } },
+          [
+            _c("div", { staticClass: "modal-content" }, [
+              _vm._m(4),
+              _vm._v(" "),
+              _c("div", { staticClass: "modal-body" }, [
+                _vm._v("Are you sure you want to delete this field?")
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "modal-footer" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-danger",
+                    attrs: { type: "button", id: "deleteModalButton" },
+                    on: {
+                      click: function($event) {
+                        return _vm.perform_delete()
+                      }
+                    }
+                  },
+                  [_vm._v("Delete")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-secondary",
+                    attrs: { type: "button", "data-dismiss": "modal" }
+                  },
+                  [_vm._v("Close")]
+                )
+              ])
+            ])
+          ]
+        )
+      ]
     )
   ])
 }
@@ -23204,6 +23303,27 @@ var staticRenderFns = [
       _c("label", { staticClass: "input-group-text px-3" }, [
         _vm._v("Field Type")
       ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-header" }, [
+      _c("h5", { staticClass: "modal-title" }, [_vm._v("Confirm")]),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "close",
+          attrs: {
+            type: "button",
+            "data-dismiss": "modal",
+            "aria-label": "Close"
+          }
+        },
+        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+      )
     ])
   }
 ]

@@ -94,6 +94,30 @@
         </div>
       </div>
     </div>
+
+    <!-- Delete modal -->
+    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Confirm</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">Are you sure you want to delete this field?</div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-danger"
+              id="deleteModalButton"
+              @click="perform_delete()"
+            >Delete</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
   <!-- /.container-fluid -->
 </template>
@@ -189,6 +213,31 @@ export default {
         .then(function(response) {
           if (response.status == 200) {
             me.closeModal("addModal");
+            me.list();
+          }
+        })
+        .catch(function(error) {
+          for (let key in error.response.data.errors) {
+            if (error.response.data.errors.hasOwnProperty(key)) {
+              me.errors.push(error.response.data.errors[key][0]);
+            }
+          }
+        });
+    },
+    remove(id) {
+      this.id = id;
+      $("#deleteModal").modal("show");
+    },
+    perform_delete() {
+      let me = this;
+      me.errors = [];
+      axios
+        .post(me.base_path + "formFields/" + me.id, {
+          _method: "DELETE"
+        })
+        .then(response => {
+          if (response.status == 200) {
+            me.closeModal("deleteModal");
             me.list();
           }
         })

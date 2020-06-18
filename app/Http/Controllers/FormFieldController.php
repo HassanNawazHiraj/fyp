@@ -90,8 +90,10 @@ class FormFieldController extends Controller
      * @param  \App\FormField  $formField
      * @return \Illuminate\Http\Response
      */
-    public function destroy(FormField $formField)
+    public function destroy($id)
     {
-        //
+        FormField::where('id', $id)->delete();
+
+        return response()->json([], 200);
     }
 }
