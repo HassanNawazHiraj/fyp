@@ -7187,7 +7187,7 @@ exports.push([module.i, "@import url(https://fonts.googleapis.com/css?family=Nun
 exports.push([module.i, "@import url(https://use.fontawesome.com/releases/v5.4.1/css/all.css);", ""]);
 
 // module
-exports.push([module.i, "\r\n", ""]);
+exports.push([module.i, "\n", ""]);
 
 // exports
 
