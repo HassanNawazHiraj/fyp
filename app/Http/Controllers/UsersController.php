@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\UserTypeRelation;
+use App\User;
 use Illuminate\Http\Request;
 
-class UserTypeRelationController extends Controller
+class UsersController extends Controller
 {
     /**
     * Display a listing of the resource.
@@ -15,7 +16,7 @@ class UserTypeRelationController extends Controller
    public function index()
    {
        return response()->json([
-           "items" => UserTypeRelation::get()
+           "items" => User::with(['types'])->get()
        ]);
    }
 

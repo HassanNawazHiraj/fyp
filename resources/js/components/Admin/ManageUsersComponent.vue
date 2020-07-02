@@ -240,10 +240,10 @@ export default {
         list() {
             let me = this;
             axios
-                .get(me.base_path + "formFields")
+                .get(me.base_path + "users")
                 .then(response => {
-                    // me.items = response.data.items;
-                    console.log(me.items);
+                     //me.items = response.data.items;
+                    console.log(response.data.items);
                     me.loading = false;
                 })
                 .catch(function(error) {

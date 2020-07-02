@@ -37,4 +37,8 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function types() {
+        return $this->belongsToMany('App\UserType', 'user_type_relations', 'user_id', 'user_type_id');
+    }
 }

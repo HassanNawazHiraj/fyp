@@ -3128,9 +3128,9 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     list: function list() {
       var me = this;
-      axios.get(me.base_path + "formFields").then(function (response) {
-        // me.items = response.data.items;
-        console.log(me.items);
+      axios.get(me.base_path + "users").then(function (response) {
+        //me.items = response.data.items;
+        console.log(response.data.items);
         me.loading = false;
       })["catch"](function (error) {
         me.loading = false;
@@ -7913,7 +7913,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 exports.push([module.i, "@import url(https://fonts.googleapis.com/css?family=Nunito:400,600|Open+Sans:400,600,700);", ""]);
 
 // module
-exports.push([module.i, "\r\n\r\n", ""]);
+exports.push([module.i, "\n\n", ""]);
 
 // exports
 
