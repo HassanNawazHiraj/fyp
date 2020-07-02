@@ -3117,13 +3117,32 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       items: [],
       user_name: "",
       user_email: "",
-      user_types: [],
+      user_types: [{
+        id: 1,
+        name: "Admin"
+      }, {
+        id: 2,
+        name: "Teacher"
+      }, {
+        id: 3,
+        name: "Teaching area in-charge"
+      }],
+      user_types_checked: [],
       base_path: "/api/",
       errors: [],
       modal_mode: "add",
@@ -3140,8 +3159,8 @@ __webpack_require__.r(__webpack_exports__);
     list: function list() {
       var me = this;
       axios.get(me.base_path + "users").then(function (response) {
-        me.items = response.data.items;
-        me.getUserTypes();
+        me.items = response.data.items; // me.getUserTypes();
+
         me.loading = false;
       })["catch"](function (error) {
         me.loading = false;
@@ -3158,8 +3177,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     add: function add() {
       this.modal_mode = "add";
-      this.field_name = "";
-      this.field_type = "text";
+      this.user_name = "";
+      this.user_email = "";
+      this.user_types_checked = [];
     },
     closeModal: function closeModal(id) {
       $("#" + id).modal("hide");
@@ -28277,7 +28297,69 @@ var render = function() {
                   _vm._v(" "),
                   _c("hr"),
                   _vm._v(" "),
-                  _vm._m(4)
+                  _c(
+                    "div",
+                    [
+                      _c(
+                        "label",
+                        { staticClass: "input-group-text px-3 mb-1" },
+                        [_vm._v("User Type")]
+                      ),
+                      _vm._v(" "),
+                      _vm._l(_vm.user_types, function(type) {
+                        return _c(
+                          "div",
+                          { key: type.id, staticClass: "form-control mb-1" },
+                          [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.user_types_checked,
+                                  expression: "user_types_checked"
+                                }
+                              ],
+                              attrs: { type: "checkbox" },
+                              domProps: {
+                                value: type.id,
+                                checked: Array.isArray(_vm.user_types_checked)
+                                  ? _vm._i(_vm.user_types_checked, type.id) > -1
+                                  : _vm.user_types_checked
+                              },
+                              on: {
+                                change: function($event) {
+                                  var $$a = _vm.user_types_checked,
+                                    $$el = $event.target,
+                                    $$c = $$el.checked ? true : false
+                                  if (Array.isArray($$a)) {
+                                    var $$v = type.id,
+                                      $$i = _vm._i($$a, $$v)
+                                    if ($$el.checked) {
+                                      $$i < 0 &&
+                                        (_vm.user_types_checked = $$a.concat([
+                                          $$v
+                                        ]))
+                                    } else {
+                                      $$i > -1 &&
+                                        (_vm.user_types_checked = $$a
+                                          .slice(0, $$i)
+                                          .concat($$a.slice($$i + 1)))
+                                    }
+                                  } else {
+                                    _vm.user_types_checked = $$c
+                                  }
+                                }
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("label", [_vm._v(_vm._s(type.name))])
+                          ]
+                        )
+                      })
+                    ],
+                    2
+                  )
                 ],
                 2
               ),
@@ -28337,7 +28419,7 @@ var render = function() {
           { staticClass: "modal-dialog", attrs: { role: "document" } },
           [
             _c("div", { staticClass: "modal-content" }, [
-              _vm._m(5),
+              _vm._m(4),
               _vm._v(" "),
               _c("div", { staticClass: "modal-body" }, [
                 _vm._v(
@@ -28410,7 +28492,7 @@ var render = function() {
                 _vm._v("just now")
               ]),
               _vm._v(" "),
-              _vm._m(6)
+              _vm._m(5)
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "toast-body" }, [
@@ -28479,22 +28561,6 @@ var staticRenderFns = [
     return _c("div", { staticClass: "input-group-prepend" }, [
       _c("label", { staticClass: "input-group-text px-3" }, [
         _vm._v("User Email")
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", [
-      _c("label", { staticClass: "input-group-text px-3 mb-1" }, [
-        _vm._v("User Type")
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "form-control" }, [
-        _c("input", { attrs: { type: "checkbox" } }),
-        _vm._v(" "),
-        _c("label", [_vm._v("Admin")])
       ])
     ])
   },

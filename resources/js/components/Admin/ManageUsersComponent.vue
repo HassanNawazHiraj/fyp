@@ -128,8 +128,17 @@
                             <label class="input-group-text px-3 mb-1"
                                 >User Type</label
                             >
-                            <div class="form-control">
-                                <input type="checkbox" /> <label>Admin</label>
+                            <div
+                                class="form-control mb-1"
+                                v-for="type in user_types"
+                                :key="type.id"
+                            >
+                                <input
+                                    type="checkbox"
+                                    v-bind:value="type.id"
+                                    v-model="user_types_checked"
+                                />
+                                <label>{{ type.name }}</label>
                             </div>
                         </div>
                     </div>
@@ -234,7 +243,12 @@ export default {
             items: [],
             user_name: "",
             user_email: "",
-            user_types: [],
+            user_types: [
+                { id: 1, name: "Admin" },
+                { id: 2, name: "Teacher" },
+                { id: 3, name: "Teaching area in-charge" }
+            ],
+            user_types_checked: [],
             base_path: "/api/",
             errors: [],
             modal_mode: "add",
@@ -254,7 +268,7 @@ export default {
                 .get(me.base_path + "users")
                 .then(response => {
                     me.items = response.data.items;
-                    me.getUserTypes();
+                    // me.getUserTypes();
                     me.loading = false;
                 })
                 .catch(function(error) {
@@ -275,8 +289,9 @@ export default {
         },
         add() {
             this.modal_mode = "add";
-            this.field_name = "";
-            this.field_type = "text";
+            this.user_name = "";
+            this.user_email = "";
+            this.user_types_checked = [];
         },
         closeModal(id) {
             $("#" + id).modal("hide");
