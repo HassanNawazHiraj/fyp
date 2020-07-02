@@ -37,7 +37,11 @@
                                 <td>{{ item.id }}</td>
                                 <td>{{ item.name }}</td>
                                 <td>{{ item.email }}</td>
-                                <td>{{ item.userType.name }}</td>
+                                <td v-for="type in item.types" :key="type.id">
+                                    <span class="badge badge-primary">{{
+                                        type.name
+                                    }}</span>
+                                </td>
                                 <td>
                                     <button
                                         class="btn btn-primary btn-sm"
@@ -75,7 +79,7 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">Add field</h5>
+                        <h5 class="modal-title">Add user</h5>
                         <button
                             type="button"
                             class="close"
@@ -97,30 +101,36 @@
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id
-                                    >Field Name</span
+                                    >User Name</span
                                 >
                             </div>
                             <input
                                 type="text"
                                 class="form-control"
-                                v-model="field_name"
+                                v-model="user_name"
                             />
                         </div>
 
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
                                 <label class="input-group-text px-3"
-                                    >Field Type</label
+                                    >User Email</label
                                 >
                             </div>
-                            <select
-                                class="custom-select"
-                                id="fieldTypeSelect"
-                                v-model="field_type"
+                            <input
+                                type="email"
+                                class="form-control"
+                                v-model="user_email"
+                            />
+                        </div>
+                        <hr />
+                        <div>
+                            <label class="input-group-text px-3 mb-1"
+                                >User Type</label
                             >
-                                <option value="text" selected>Text</option>
-                                <option value="file">File</option>
-                            </select>
+                            <div class="form-control">
+                                <input type="checkbox" /> <label>Admin</label>
+                            </div>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -222,8 +232,9 @@ export default {
     data() {
         return {
             items: [],
-            field_name: "",
-            field_type: "text",
+            user_name: "",
+            user_email: "",
+            user_types: [],
             base_path: "/api/",
             errors: [],
             modal_mode: "add",
@@ -242,12 +253,24 @@ export default {
             axios
                 .get(me.base_path + "users")
                 .then(response => {
-                     //me.items = response.data.items;
-                    console.log(response.data.items);
+                    me.items = response.data.items;
+                    me.getUserTypes();
                     me.loading = false;
                 })
                 .catch(function(error) {
                     me.loading = false;
+                });
+        },
+        getUserTypes() {
+            let me = this;
+            axios
+                .get(me.base_path + "users/types")
+                .then(response => {
+                    me.user_types = response.data.items;
+                    console.log("user types", response.data.items);
+                })
+                .catch(error => {
+                    console.log(error);
                 });
         },
         add() {

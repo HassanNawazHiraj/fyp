@@ -3107,12 +3107,23 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       items: [],
-      field_name: "",
-      field_type: "text",
+      user_name: "",
+      user_email: "",
+      user_types: [],
       base_path: "/api/",
       errors: [],
       modal_mode: "add",
@@ -3129,11 +3140,20 @@ __webpack_require__.r(__webpack_exports__);
     list: function list() {
       var me = this;
       axios.get(me.base_path + "users").then(function (response) {
-        //me.items = response.data.items;
-        console.log(response.data.items);
+        me.items = response.data.items;
+        me.getUserTypes();
         me.loading = false;
       })["catch"](function (error) {
         me.loading = false;
+      });
+    },
+    getUserTypes: function getUserTypes() {
+      var me = this;
+      axios.get(me.base_path + "users/types").then(function (response) {
+        me.user_types = response.data.items;
+        console.log("user types", response.data.items);
+      })["catch"](function (error) {
+        console.log(error);
       });
     },
     add: function add() {
@@ -7913,7 +7933,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 exports.push([module.i, "@import url(https://fonts.googleapis.com/css?family=Nunito:400,600|Open+Sans:400,600,700);", ""]);
 
 // module
-exports.push([module.i, "\n\n", ""]);
+exports.push([module.i, "\r\n\r\n", ""]);
 
 // exports
 
@@ -28087,61 +28107,72 @@ var render = function() {
               _c(
                 "tbody",
                 _vm._l(_vm.items, function(item) {
-                  return _c("tr", { key: item.id }, [
-                    _c("td", [_vm._v(_vm._s(item.id))]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v(_vm._s(item.name))]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v(_vm._s(item.email))]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v(_vm._s(item.userType.name))]),
-                    _vm._v(" "),
-                    _c("td", [
-                      _c(
-                        "button",
-                        {
-                          staticClass: "btn btn-primary btn-sm",
-                          attrs: {
-                            "data-toggle": "modal",
-                            "data-target": "#add_update_modal"
-                          },
-                          on: {
-                            click: function($event) {
-                              return _vm.edit(item)
+                  return _c(
+                    "tr",
+                    { key: item.id },
+                    [
+                      _c("td", [_vm._v(_vm._s(item.id))]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(item.name))]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(item.email))]),
+                      _vm._v(" "),
+                      _vm._l(item.types, function(type) {
+                        return _c("td", { key: type.id }, [
+                          _c("span", { staticClass: "badge badge-primary" }, [
+                            _vm._v(_vm._s(type.name))
+                          ])
+                        ])
+                      }),
+                      _vm._v(" "),
+                      _c("td", [
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-primary btn-sm",
+                            attrs: {
+                              "data-toggle": "modal",
+                              "data-target": "#add_update_modal"
+                            },
+                            on: {
+                              click: function($event) {
+                                return _vm.edit(item)
+                              }
                             }
-                          }
-                        },
-                        [
-                          _vm._v(
-                            "\n                                    Edit\n                                "
-                          )
-                        ]
-                      ),
-                      _vm._v(
-                        "\n                                 \n                                "
-                      ),
-                      _c(
-                        "button",
-                        {
-                          staticClass: "btn btn-danger btn-sm",
-                          attrs: {
-                            "data-toggle": "modal",
-                            "data-target": "#delete_modal"
                           },
-                          on: {
-                            click: function($event) {
-                              return _vm.remove(item.id)
+                          [
+                            _vm._v(
+                              "\n                                    Edit\n                                "
+                            )
+                          ]
+                        ),
+                        _vm._v(
+                          "\n                                 \n                                "
+                        ),
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-danger btn-sm",
+                            attrs: {
+                              "data-toggle": "modal",
+                              "data-target": "#delete_modal"
+                            },
+                            on: {
+                              click: function($event) {
+                                return _vm.remove(item.id)
+                              }
                             }
-                          }
-                        },
-                        [
-                          _vm._v(
-                            "\n                                    Delete\n                                "
-                          )
-                        ]
-                      )
-                    ])
-                  ])
+                          },
+                          [
+                            _vm._v(
+                              "\n                                    Delete\n                                "
+                            )
+                          ]
+                        )
+                      ])
+                    ],
+                    2
+                  )
                 }),
                 0
               )
@@ -28200,19 +28231,19 @@ var render = function() {
                         {
                           name: "model",
                           rawName: "v-model",
-                          value: _vm.field_name,
-                          expression: "field_name"
+                          value: _vm.user_name,
+                          expression: "user_name"
                         }
                       ],
                       staticClass: "form-control",
                       attrs: { type: "text" },
-                      domProps: { value: _vm.field_name },
+                      domProps: { value: _vm.user_name },
                       on: {
                         input: function($event) {
                           if ($event.target.composing) {
                             return
                           }
-                          _vm.field_name = $event.target.value
+                          _vm.user_name = $event.target.value
                         }
                       }
                     })
@@ -28221,48 +28252,32 @@ var render = function() {
                   _c("div", { staticClass: "input-group mb-3" }, [
                     _vm._m(3),
                     _vm._v(" "),
-                    _c(
-                      "select",
-                      {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.field_type,
-                            expression: "field_type"
-                          }
-                        ],
-                        staticClass: "custom-select",
-                        attrs: { id: "fieldTypeSelect" },
-                        on: {
-                          change: function($event) {
-                            var $$selectedVal = Array.prototype.filter
-                              .call($event.target.options, function(o) {
-                                return o.selected
-                              })
-                              .map(function(o) {
-                                var val = "_value" in o ? o._value : o.value
-                                return val
-                              })
-                            _vm.field_type = $event.target.multiple
-                              ? $$selectedVal
-                              : $$selectedVal[0]
-                          }
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.user_email,
+                          expression: "user_email"
                         }
-                      },
-                      [
-                        _c(
-                          "option",
-                          { attrs: { value: "text", selected: "" } },
-                          [_vm._v("Text")]
-                        ),
-                        _vm._v(" "),
-                        _c("option", { attrs: { value: "file" } }, [
-                          _vm._v("File")
-                        ])
-                      ]
-                    )
-                  ])
+                      ],
+                      staticClass: "form-control",
+                      attrs: { type: "email" },
+                      domProps: { value: _vm.user_email },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.user_email = $event.target.value
+                        }
+                      }
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _c("hr"),
+                  _vm._v(" "),
+                  _vm._m(4)
                 ],
                 2
               ),
@@ -28322,7 +28337,7 @@ var render = function() {
           { staticClass: "modal-dialog", attrs: { role: "document" } },
           [
             _c("div", { staticClass: "modal-content" }, [
-              _vm._m(4),
+              _vm._m(5),
               _vm._v(" "),
               _c("div", { staticClass: "modal-body" }, [
                 _vm._v(
@@ -28395,7 +28410,7 @@ var render = function() {
                 _vm._v("just now")
               ]),
               _vm._v(" "),
-              _vm._m(5)
+              _vm._m(6)
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "toast-body" }, [
@@ -28431,7 +28446,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "modal-header" }, [
-      _c("h5", { staticClass: "modal-title" }, [_vm._v("Add field")]),
+      _c("h5", { staticClass: "modal-title" }, [_vm._v("Add user")]),
       _vm._v(" "),
       _c(
         "button",
@@ -28453,7 +28468,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "input-group-prepend" }, [
       _c("span", { staticClass: "input-group-text", attrs: { id: "" } }, [
-        _vm._v("Field Name")
+        _vm._v("User Name")
       ])
     ])
   },
@@ -28463,7 +28478,23 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "input-group-prepend" }, [
       _c("label", { staticClass: "input-group-text px-3" }, [
-        _vm._v("Field Type")
+        _vm._v("User Email")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", [
+      _c("label", { staticClass: "input-group-text px-3 mb-1" }, [
+        _vm._v("User Type")
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "form-control" }, [
+        _c("input", { attrs: { type: "checkbox" } }),
+        _vm._v(" "),
+        _c("label", [_vm._v("Admin")])
       ])
     ])
   },

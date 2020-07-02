@@ -3,11 +3,19 @@
 namespace App\Http\Controllers;
 
 use App\UserTypeRelation;
+use App\UserType;
 use App\User;
 use Illuminate\Http\Request;
 
 class UsersController extends Controller
 {
+
+    public function getUserTypes(){
+        return response()->json([
+            "items" => UserType::get()
+        ]);
+    }
+
     /**
     * Display a listing of the resource.
     *
