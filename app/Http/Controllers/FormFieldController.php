@@ -15,7 +15,7 @@ class FormFieldController extends Controller
     public function index()
     {
         return response()->json([
-            "items" => FormFIeld::get()
+            "items" => FormFIeld::orderBy('sort_order')->get()
         ]);
     }
 
@@ -95,5 +95,18 @@ class FormFieldController extends Controller
         FormField::where('id', $id)->delete();
 
         return response()->json([], 200);
+    }
+
+    public function order(Request $request)
+    {
+        //return response()->json($request->categories[0]["id"], 200);
+        $items = $request->items;
+        for($i=0; $i<count($items); $i++) {
+            $item = FormField::find($items[$i]["id"]);
+            $item->sort_order = $i;
+            $item->save();
+        }
+        return response()->json("success", 200);
+
     }
 }

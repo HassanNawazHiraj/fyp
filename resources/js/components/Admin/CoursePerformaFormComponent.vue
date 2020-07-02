@@ -25,7 +25,13 @@
               </tr>
             </thead>
 
-            <tbody>
+            <draggable
+              v-model="items"
+              tag="tbody"
+              v-bind="dragOptions"
+              @start="drag = true"
+              @end="itemFinishMove"
+            >
               <tr v-for="item in items" :key="item.id">
                 <td>{{item.id}}</td>
                 <td>{{item.name}}</td>
@@ -46,7 +52,7 @@
                   >Delete</button>
                 </td>
               </tr>
-            </tbody>
+            </draggable>
           </table>
         </div>
       </div>
@@ -135,7 +141,21 @@
 </template>
 
 <script>
+import draggable from "vuedraggable";
 export default {
+  computed: {
+    dragOptions() {
+      return {
+        animation: 200,
+        group: "description",
+        disabled: false,
+        ghostClass: "ghost"
+      };
+    }
+  },
+  components: {
+    draggable
+  },
   data() {
     return {
       items: [],
@@ -154,6 +174,27 @@ export default {
     this.list();
   },
   methods: {
+    itemFinishMove() {
+      let me = this;
+      me.errors = [];
+      axios
+        .post(me.base_path + "formFields/order", {
+          items: this.items
+        })
+        .then(response => {
+          if (response.status == 200) {
+          }
+          console.log(response.data);
+        })
+        .catch(function(error) {
+          console.log(error);
+          for (let key in error.response.data.errors) {
+            if (error.response.data.errors.hasOwnProperty(key)) {
+              me.errors.push(error.response.data.errors[key][0]);
+            }
+          }
+        });
+    },
     list() {
       let me = this;
       axios

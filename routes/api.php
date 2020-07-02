@@ -19,3 +19,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::resource("formFields", "FormFieldController");
+Route::post("formFields/order", "FormFieldController@order");
