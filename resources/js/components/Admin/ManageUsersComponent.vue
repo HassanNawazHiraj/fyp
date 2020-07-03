@@ -164,7 +164,7 @@ export default {
       items: [],
       user_name: "",
       user_email: "",
-      user_password: "test123",
+      user_password: "",
       user_types: [],
       user_types_checked: [],
       base_path: "/api/",
@@ -212,7 +212,7 @@ export default {
       this.modal_mode = "add";
       this.user_name = "";
       this.user_email = "";
-      this.user_password = "test123";
+      this.user_password = "";
       this.user_types_checked = [];
     },
     closeModal(id) {
