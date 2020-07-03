@@ -3044,6 +3044,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -28241,6 +28244,14 @@ var render = function() {
                       }
                     })
                   ]),
+                  _vm._v(" "),
+                  _vm.modal_mode === "edit"
+                    ? _c("small", [
+                        _vm._v(
+                          "Leave field empty if you don't want to change password"
+                        )
+                      ])
+                    : _vm._e(),
                   _vm._v(" "),
                   _c("hr"),
                   _vm._v(" "),

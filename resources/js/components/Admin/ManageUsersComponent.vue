@@ -97,6 +97,9 @@
               </div>
               <input type="text" class="form-control" v-model="user_password" />
             </div>
+            <small
+              v-if="modal_mode === 'edit'"
+            >Leave field empty if you don't want to change password</small>
             <hr />
             <div>
               <label class="input-group-text px-3 mb-1">User Type</label>

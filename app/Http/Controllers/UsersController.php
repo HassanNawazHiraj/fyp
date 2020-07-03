@@ -97,35 +97,27 @@ class UsersController extends Controller
     {
         $formData = $request->validate([
             "name" => "required",
-        ]);
-
-        $item = FormField::find($id);
-        $item->name = $request->name;
-        $item->field_type = $request->field_type;
-        $item->save();
-
-        return response()->json($request, 200);
-
-        $formData = $request->validate([
-            "name" => "required",
-            "email" => "required|email|unique:users,email",
-            "password" => "required",
+            "email" => "required|email",
             "user_types" => "required"
         ]);
 
         $user = User::find($id);
         $user->name = $request->name;
         $user->email = $request->email;
-        $user->password = Hash::make($request->password);
-        // $user->save();
+        if($request->password != null || $request->password != ""){
+            $user->password = Hash::make($request->password);
+        }
+        $user->save();
 
         $types = explode(",",$request->user_types);
+        $userTypeRelation = UserTypeRelation::where('user_id', $id)->delete();
         foreach ($types as $type) {
-            // $userTypeRelation = new UserTypeRelation::where("user_id", $id);
-            // $userTypeRelation->user_id = $user->id;
-            // $userTypeRelation->user_type_id = $type;
-            // $userTypeRelation->save();
+            $userTypeRelation = new UserTypeRelation();
+            $userTypeRelation->user_id = $id;
+            $userTypeRelation->user_type_id = $type;
+            $userTypeRelation->save();
         }
+
         return response()->json($request, 200);
     }
 
