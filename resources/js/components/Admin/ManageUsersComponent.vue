@@ -65,7 +65,7 @@
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">Add user</h5>
+            <h5 class="modal-title">{{this.modal_mode}} user</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
@@ -231,7 +231,7 @@ export default {
             me.closeModal("addModal");
             me.list();
             me.toastTitle = "Add";
-            me.toastMessage = "Field added successfully";
+            me.toastMessage = "User added successfully";
             me.toastClass = "d-block";
             $(".toast").toast("show");
           }
@@ -254,8 +254,14 @@ export default {
       }
     },
     edit(item) {
-      this.field_name = item.name;
-      this.field_type = item.field_type;
+      this.user_types_checked = [];
+
+      this.user_name = item.name;
+      this.user_email = item.email;
+      this.user_password = "";
+      item.types.forEach(type => {
+        this.user_types_checked.push(type.id);
+      });
       this.id = item.id;
       this.modal_mode = "edit";
       $("#addModal").modal("show");
@@ -264,17 +270,20 @@ export default {
       let me = this;
       me.errors = [];
       let formData = new FormData();
-      formData.set("name", me.field_name);
-      formData.set("field_type", me.field_type);
+      formData.set("name", me.user_name);
+      formData.set("email", me.user_email);
+      formData.set("password", me.user_password);
+      formData.set("user_types", me.user_types_checked);
       formData.set("_method", "PUT");
+
       axios
-        .post(me.base_path + "formFields/" + me.id, formData, {})
+        .post(me.base_path + "users/" + me.id, formData, {})
         .then(function(response) {
           if (response.status == 200) {
             me.closeModal("addModal");
             me.list();
             me.toastTitle = "Update";
-            me.toastMessage = "Field updated successfully";
+            me.toastMessage = "User updated successfully";
             me.toastClass = "d-block";
             $(".toast").toast("show");
           }

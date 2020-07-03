@@ -3111,7 +3111,7 @@ __webpack_require__.r(__webpack_exports__);
           me.closeModal("addModal");
           me.list();
           me.toastTitle = "Add";
-          me.toastMessage = "Field added successfully";
+          me.toastMessage = "User added successfully";
           me.toastClass = "d-block";
           $(".toast").toast("show");
         }
@@ -3133,8 +3133,15 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     edit: function edit(item) {
-      this.field_name = item.name;
-      this.field_type = item.field_type;
+      var _this = this;
+
+      this.user_types_checked = [];
+      this.user_name = item.name;
+      this.user_email = item.email;
+      this.user_password = "";
+      item.types.forEach(function (type) {
+        _this.user_types_checked.push(type.id);
+      });
       this.id = item.id;
       this.modal_mode = "edit";
       $("#addModal").modal("show");
@@ -3143,15 +3150,17 @@ __webpack_require__.r(__webpack_exports__);
       var me = this;
       me.errors = [];
       var formData = new FormData();
-      formData.set("name", me.field_name);
-      formData.set("field_type", me.field_type);
+      formData.set("name", me.user_name);
+      formData.set("email", me.user_email);
+      formData.set("password", me.user_password);
+      formData.set("user_types", me.user_types_checked);
       formData.set("_method", "PUT");
-      axios.post(me.base_path + "formFields/" + me.id, formData, {}).then(function (response) {
+      axios.post(me.base_path + "users/" + me.id, formData, {}).then(function (response) {
         if (response.status == 200) {
           me.closeModal("addModal");
           me.list();
           me.toastTitle = "Update";
-          me.toastMessage = "Field updated successfully";
+          me.toastMessage = "User updated successfully";
           me.toastClass = "d-block";
           $(".toast").toast("show");
         }
@@ -28131,7 +28140,13 @@ var render = function() {
           { staticClass: "modal-dialog", attrs: { role: "document" } },
           [
             _c("div", { staticClass: "modal-content" }, [
-              _vm._m(1),
+              _c("div", { staticClass: "modal-header" }, [
+                _c("h5", { staticClass: "modal-title" }, [
+                  _vm._v(_vm._s(this.modal_mode) + " user")
+                ]),
+                _vm._v(" "),
+                _vm._m(1)
+              ]),
               _vm._v(" "),
               _c(
                 "div",
@@ -28441,22 +28456,18 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "modal-header" }, [
-      _c("h5", { staticClass: "modal-title" }, [_vm._v("Add user")]),
-      _vm._v(" "),
-      _c(
-        "button",
-        {
-          staticClass: "close",
-          attrs: {
-            type: "button",
-            "data-dismiss": "modal",
-            "aria-label": "Close"
-          }
-        },
-        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
-      )
-    ])
+    return _c(
+      "button",
+      {
+        staticClass: "close",
+        attrs: {
+          type: "button",
+          "data-dismiss": "modal",
+          "aria-label": "Close"
+        }
+      },
+      [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+    )
   },
   function() {
     var _vm = this
