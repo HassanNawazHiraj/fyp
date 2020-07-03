@@ -31,8 +31,8 @@
                 <td>{{ item.id }}</td>
                 <td>{{ item.name }}</td>
                 <td>{{ item.email }}</td>
-                <td v-for="type in item.types" :key="type.id">
-                  <span class="badge badge-primary">
+                <td>
+                  <span class="badge badge-primary mr-1" v-for="type in item.types" :key="type.id">
                     {{
                     type.name
                     }}
@@ -226,7 +226,7 @@ export default {
       axios
         .post(me.base_path + "users", formData, {})
         .then(function(response) {
-            console.log(response);
+          console.log(response);
           if (response.status == 200) {
             me.closeModal("addModal");
             me.list();

@@ -7867,7 +7867,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 exports.push([module.i, "@import url(https://fonts.googleapis.com/css?family=Nunito:400,600|Open+Sans:400,600,700);", ""]);
 
 // module
-exports.push([module.i, "\n\n", ""]);
+exports.push([module.i, "\r\n\r\n", ""]);
 
 // exports
 
@@ -28041,66 +28041,70 @@ var render = function() {
               _c(
                 "tbody",
                 _vm._l(_vm.items, function(item) {
-                  return _c(
-                    "tr",
-                    { key: item.id },
-                    [
-                      _c("td", [_vm._v(_vm._s(item.id))]),
-                      _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(item.name))]),
-                      _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(item.email))]),
-                      _vm._v(" "),
+                  return _c("tr", { key: item.id }, [
+                    _c("td", [_vm._v(_vm._s(item.id))]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(item.name))]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(item.email))]),
+                    _vm._v(" "),
+                    _c(
+                      "td",
                       _vm._l(item.types, function(type) {
-                        return _c("td", { key: type.id }, [
-                          _c("span", { staticClass: "badge badge-primary" }, [
+                        return _c(
+                          "span",
+                          {
+                            key: type.id,
+                            staticClass: "badge badge-primary mr-1"
+                          },
+                          [
                             _vm._v(
                               "\n                  " +
                                 _vm._s(type.name) +
                                 "\n                "
                             )
-                          ])
-                        ])
-                      }),
-                      _vm._v(" "),
-                      _c("td", [
-                        _c(
-                          "button",
-                          {
-                            staticClass: "btn btn-primary btn-sm",
-                            attrs: {
-                              "data-toggle": "modal",
-                              "data-target": "#add_update_modal"
-                            },
-                            on: {
-                              click: function($event) {
-                                return _vm.edit(item)
-                              }
-                            }
-                          },
-                          [_vm._v("Edit")]
-                        ),
-                        _vm._v("\n                 \n                "),
-                        _c(
-                          "button",
-                          {
-                            staticClass: "btn btn-danger btn-sm",
-                            attrs: {
-                              "data-toggle": "modal",
-                              "data-target": "#delete_modal"
-                            },
-                            on: {
-                              click: function($event) {
-                                return _vm.remove(item.id)
-                              }
-                            }
-                          },
-                          [_vm._v("Delete")]
+                          ]
                         )
-                      ])
-                    ],
-                    2
-                  )
+                      }),
+                      0
+                    ),
+                    _vm._v(" "),
+                    _c("td", [
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-primary btn-sm",
+                          attrs: {
+                            "data-toggle": "modal",
+                            "data-target": "#add_update_modal"
+                          },
+                          on: {
+                            click: function($event) {
+                              return _vm.edit(item)
+                            }
+                          }
+                        },
+                        [_vm._v("Edit")]
+                      ),
+                      _vm._v("\n                 \n                "),
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-danger btn-sm",
+                          attrs: {
+                            "data-toggle": "modal",
+                            "data-target": "#delete_modal"
+                          },
+                          on: {
+                            click: function($event) {
+                              return _vm.remove(item.id)
+                            }
+                          }
+                        },
+                        [_vm._v("Delete")]
+                      )
+                    ])
+                  ])
                 }),
                 0
               )

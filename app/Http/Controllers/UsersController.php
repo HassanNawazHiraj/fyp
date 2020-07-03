@@ -6,6 +6,7 @@ use App\User;
 use App\UserType;
 use App\UserTypeRelation;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class UsersController extends Controller
 {
@@ -41,7 +42,7 @@ class UsersController extends Controller
     {
         $formData = $request->validate([
             "name" => "required",
-            "email" => "required",
+            "email" => "required|email|unique:users,email",
             "password" => "required",
             "user_types" => "required"
         ]);
@@ -49,16 +50,16 @@ class UsersController extends Controller
         $user = new User();
         $user->name = $request->name;
         $user->email = $request->email;
-        $user->password = $request->password;
-        // $user->save();
+        $user->password = Hash::make($request->password);
+        $user->save();
 
         $types = explode(",",$request->user_types);
         foreach ($types as $type) {
             // you will get id in $type now
-            // $userTypeRelation = new UserTypeRelation();
-            // $userTypeRelation->user_id = $user->id;
-            // $userTypeRelation->user_type_id = $type;
-            // $userTypeRelation->save();
+            $userTypeRelation = new UserTypeRelation();
+            $userTypeRelation->user_id = $user->id;
+            $userTypeRelation->user_type_id = $type;
+            $userTypeRelation->save();
         }
         return response()->json($request, 200);
     }
