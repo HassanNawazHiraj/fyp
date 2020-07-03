@@ -3044,104 +3044,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       items: [],
       user_name: "",
       user_email: "",
-      user_types: [{
-        id: 1,
-        name: "Admin"
-      }, {
-        id: 2,
-        name: "Teacher"
-      }, {
-        id: 3,
-        name: "Teaching area in-charge"
-      }],
+      user_password: "test123",
+      user_types: [],
       user_types_checked: [],
       base_path: "/api/",
       errors: [],
@@ -3179,6 +3089,7 @@ __webpack_require__.r(__webpack_exports__);
       this.modal_mode = "add";
       this.user_name = "";
       this.user_email = "";
+      this.user_password = "test123";
       this.user_types_checked = [];
     },
     closeModal: function closeModal(id) {
@@ -3190,9 +3101,11 @@ __webpack_require__.r(__webpack_exports__);
       var me = this;
       me.errors = [];
       var formData = new FormData();
-      formData.set("name", me.field_name);
-      formData.set("field_type", me.field_type);
-      axios.post(me.base_path + "formFields", formData, {}).then(function (response) {
+      formData.set("name", me.user_name);
+      formData.set("email", me.user_email);
+      formData.set("password", me.user_password);
+      formData.set("user_types", me.user_types_checked);
+      axios.post(me.base_path + "users", formData, {}).then(function (response) {
         if (response.status == 200) {
           me.closeModal("addModal");
           me.list();
@@ -7953,7 +7866,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 exports.push([module.i, "@import url(https://fonts.googleapis.com/css?family=Nunito:400,600|Open+Sans:400,600,700);", ""]);
 
 // module
-exports.push([module.i, "\n\n", ""]);
+exports.push([module.i, "\r\n\r\n", ""]);
 
 // exports
 
@@ -28092,7 +28005,7 @@ var render = function() {
     _c("div", { staticClass: "card shadow mb-4" }, [
       _c("div", { staticClass: "card-header py-3" }, [
         _c("h6", { staticClass: "m-0 font-weight-bold text-primary" }, [
-          _vm._v("\n                Users\n                "),
+          _vm._v("\n        Users\n        "),
           _c(
             "a",
             {
@@ -28140,7 +28053,11 @@ var render = function() {
                       _vm._l(item.types, function(type) {
                         return _c("td", { key: type.id }, [
                           _c("span", { staticClass: "badge badge-primary" }, [
-                            _vm._v(_vm._s(type.name))
+                            _vm._v(
+                              "\n                  " +
+                                _vm._s(type.name) +
+                                "\n                "
+                            )
                           ])
                         ])
                       }),
@@ -28160,15 +28077,9 @@ var render = function() {
                               }
                             }
                           },
-                          [
-                            _vm._v(
-                              "\n                                    Edit\n                                "
-                            )
-                          ]
+                          [_vm._v("Edit")]
                         ),
-                        _vm._v(
-                          "\n                                 \n                                "
-                        ),
+                        _vm._v("\n                 \n                "),
                         _c(
                           "button",
                           {
@@ -28183,11 +28094,7 @@ var render = function() {
                               }
                             }
                           },
-                          [
-                            _vm._v(
-                              "\n                                    Delete\n                                "
-                            )
-                          ]
+                          [_vm._v("Delete")]
                         )
                       ])
                     ],
@@ -28233,13 +28140,7 @@ var render = function() {
                         staticClass: "alert alert-danger",
                         attrs: { role: "alert" }
                       },
-                      [
-                        _vm._v(
-                          "\n                        " +
-                            _vm._s(error) +
-                            "\n                    "
-                        )
-                      ]
+                      [_vm._v(_vm._s(error))]
                     )
                   }),
                   _vm._v(" "),
@@ -28290,6 +28191,32 @@ var render = function() {
                             return
                           }
                           _vm.user_email = $event.target.value
+                        }
+                      }
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "input-group mb-3" }, [
+                    _vm._m(4),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.user_password,
+                          expression: "user_password"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: { type: "text" },
+                      domProps: { value: _vm.user_password },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.user_password = $event.target.value
                         }
                       }
                     })
@@ -28371,11 +28298,7 @@ var render = function() {
                     staticClass: "btn btn-secondary",
                     attrs: { type: "button", "data-dismiss": "modal" }
                   },
-                  [
-                    _vm._v(
-                      "\n                        Cancel\n                    "
-                    )
-                  ]
+                  [_vm._v("Cancel")]
                 ),
                 _vm._v(" "),
                 _c(
@@ -28389,11 +28312,7 @@ var render = function() {
                       }
                     }
                   },
-                  [
-                    _vm._v(
-                      "\n                        Save\n                    "
-                    )
-                  ]
+                  [_vm._v("Save")]
                 )
               ])
             ])
@@ -28419,12 +28338,10 @@ var render = function() {
           { staticClass: "modal-dialog", attrs: { role: "document" } },
           [
             _c("div", { staticClass: "modal-content" }, [
-              _vm._m(4),
+              _vm._m(5),
               _vm._v(" "),
               _c("div", { staticClass: "modal-body" }, [
-                _vm._v(
-                  "\n                    Are you sure you want to delete this field?\n                "
-                )
+                _vm._v("Are you sure you want to delete this field?")
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "modal-footer" }, [
@@ -28439,11 +28356,7 @@ var render = function() {
                       }
                     }
                   },
-                  [
-                    _vm._v(
-                      "\n                        Delete\n                    "
-                    )
-                  ]
+                  [_vm._v("Delete")]
                 ),
                 _vm._v(" "),
                 _c(
@@ -28452,11 +28365,7 @@ var render = function() {
                     staticClass: "btn btn-secondary",
                     attrs: { type: "button", "data-dismiss": "modal" }
                   },
-                  [
-                    _vm._v(
-                      "\n                        Close\n                    "
-                    )
-                  ]
+                  [_vm._v("Close")]
                 )
               ])
             ])
@@ -28492,7 +28401,7 @@ var render = function() {
                 _vm._v("just now")
               ]),
               _vm._v(" "),
-              _vm._m(5)
+              _vm._m(6)
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "toast-body" }, [
@@ -28550,7 +28459,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "input-group-prepend" }, [
       _c("span", { staticClass: "input-group-text", attrs: { id: "" } }, [
-        _vm._v("User Name")
+        _vm._v("Name")
       ])
     ])
   },
@@ -28559,8 +28468,16 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "input-group-prepend" }, [
+      _c("label", { staticClass: "input-group-text px-3" }, [_vm._v("Email")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "input-group-prepend" }, [
       _c("label", { staticClass: "input-group-text px-3" }, [
-        _vm._v("User Email")
+        _vm._v("Password")
       ])
     ])
   },

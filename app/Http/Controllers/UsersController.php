@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\User;
 use App\UserType;
+use App\UserTypeRelation;
 use Illuminate\Http\Request;
 
 class UsersController extends Controller
@@ -38,7 +39,30 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $formData = $request->validate([
+            "name" => "required",
+            "email" => "required",
+            "password" => "required",
+            "user_types" => "required"
+        ]);
+
+        $user = new User();
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = $request->password;
+        // $user->save();
+
+        $types = $request->user_types;
+        dd($types);
+        foreach ($types as $type) {
+            // $userTypeRelation = new UserTypeRelation();
+            // $userTypeRelation->user_id = $user->id;
+            // $userTypeRelation->user_type_id = $type;
+            // $userTypeRelation->save();
+            dd($type);
+        }
+
+        return response()->json($request, 200);
     }
 
     /**
