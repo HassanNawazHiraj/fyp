@@ -3182,7 +3182,7 @@ __webpack_require__.r(__webpack_exports__);
     perform_delete: function perform_delete() {
       var me = this;
       me.errors = [];
-      axios.post(me.base_path + "formFields/" + me.id, {
+      axios.post(me.base_path + "users/" + me.id, {
         _method: "DELETE"
       }).then(function (response) {
         if (response.status == 200) {
@@ -28372,7 +28372,7 @@ var render = function() {
               _vm._m(5),
               _vm._v(" "),
               _c("div", { staticClass: "modal-body" }, [
-                _vm._v("Are you sure you want to delete this field?")
+                _vm._v("Are you sure you want to delete this user?")
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "modal-footer" }, [

@@ -127,7 +127,7 @@
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <div class="modal-body">Are you sure you want to delete this field?</div>
+          <div class="modal-body">Are you sure you want to delete this user?</div>
           <div class="modal-footer">
             <button
               type="button"
@@ -307,7 +307,7 @@ export default {
       let me = this;
       me.errors = [];
       axios
-        .post(me.base_path + "formFields/" + me.id, {
+        .post(me.base_path + "users/" + me.id, {
           _method: "DELETE"
         })
         .then(response => {
