@@ -268,7 +268,7 @@ export default {
                 .get(me.base_path + "users")
                 .then(response => {
                     me.items = response.data.items;
-                    // me.getUserTypes();
+                    me.getUserTypes();
                     me.loading = false;
                 })
                 .catch(function(error) {
@@ -278,7 +278,7 @@ export default {
         getUserTypes() {
             let me = this;
             axios
-                .get(me.base_path + "users/types")
+                .get(me.base_path + "user/types")
                 .then(response => {
                     me.user_types = response.data.items;
                     console.log("user types", response.data.items);

@@ -22,4 +22,4 @@ Route::resource("formFields", "FormFieldController");
 Route::post("formFields/order", "FormFieldController@order");
 
 Route::resource("users", "UsersController");
-Route::get("users/types", "UsersController@getUserTypes");
+Route::get("user/types", "UsersController@getUserTypes");

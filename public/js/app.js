@@ -3159,8 +3159,8 @@ __webpack_require__.r(__webpack_exports__);
     list: function list() {
       var me = this;
       axios.get(me.base_path + "users").then(function (response) {
-        me.items = response.data.items; // me.getUserTypes();
-
+        me.items = response.data.items;
+        me.getUserTypes();
         me.loading = false;
       })["catch"](function (error) {
         me.loading = false;
@@ -3168,7 +3168,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     getUserTypes: function getUserTypes() {
       var me = this;
-      axios.get(me.base_path + "users/types").then(function (response) {
+      axios.get(me.base_path + "user/types").then(function (response) {
         me.user_types = response.data.items;
         console.log("user types", response.data.items);
       })["catch"](function (error) {
@@ -7953,7 +7953,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 exports.push([module.i, "@import url(https://fonts.googleapis.com/css?family=Nunito:400,600|Open+Sans:400,600,700);", ""]);
 
 // module
-exports.push([module.i, "\r\n\r\n", ""]);
+exports.push([module.i, "\n\n", ""]);
 
 // exports
 
