@@ -3079,8 +3079,7 @@ __webpack_require__.r(__webpack_exports__);
     getUserTypes: function getUserTypes() {
       var me = this;
       axios.get(me.base_path + "user/types").then(function (response) {
-        me.user_types = response.data.items;
-        console.log("user types", response.data.items);
+        me.user_types = response.data.items; //console.log("user types", response.data.items);
       })["catch"](function (error) {
         console.log(error);
       });
@@ -3106,6 +3105,8 @@ __webpack_require__.r(__webpack_exports__);
       formData.set("password", me.user_password);
       formData.set("user_types", me.user_types_checked);
       axios.post(me.base_path + "users", formData, {}).then(function (response) {
+        console.log(response);
+
         if (response.status == 200) {
           me.closeModal("addModal");
           me.list();
@@ -7866,7 +7867,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 exports.push([module.i, "@import url(https://fonts.googleapis.com/css?family=Nunito:400,600|Open+Sans:400,600,700);", ""]);
 
 // module
-exports.push([module.i, "\r\n\r\n", ""]);
+exports.push([module.i, "\n\n", ""]);
 
 // exports
 

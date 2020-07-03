@@ -52,16 +52,14 @@ class UsersController extends Controller
         $user->password = $request->password;
         // $user->save();
 
-        $types = $request->user_types;
-        dd($types);
+        $types = explode(",",$request->user_types);
         foreach ($types as $type) {
+            // you will get id in $type now
             // $userTypeRelation = new UserTypeRelation();
             // $userTypeRelation->user_id = $user->id;
             // $userTypeRelation->user_type_id = $type;
             // $userTypeRelation->save();
-            dd($type);
         }
-
         return response()->json($request, 200);
     }
 

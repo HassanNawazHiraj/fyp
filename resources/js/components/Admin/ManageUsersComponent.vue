@@ -196,7 +196,7 @@ export default {
         .get(me.base_path + "user/types")
         .then(response => {
           me.user_types = response.data.items;
-          console.log("user types", response.data.items);
+          //console.log("user types", response.data.items);
         })
         .catch(error => {
           console.log(error);
@@ -226,6 +226,7 @@ export default {
       axios
         .post(me.base_path + "users", formData, {})
         .then(function(response) {
+            console.log(response);
           if (response.status == 200) {
             me.closeModal("addModal");
             me.list();
