@@ -3082,9 +3082,13 @@ __webpack_require__.r(__webpack_exports__);
     getUserTypes: function getUserTypes() {
       var me = this;
       axios.get(me.base_path + "user/types").then(function (response) {
-        me.user_types = response.data.items; //console.log("user types", response.data.items);
+        me.user_types = response.data.items;
       })["catch"](function (error) {
-        console.log(error);
+        for (var key in error.response.data.errors) {
+          if (error.response.data.errors.hasOwnProperty(key)) {
+            me.errors.push(error.response.data.errors[key][0]);
+          }
+        }
       });
     },
     add: function add() {
@@ -3108,8 +3112,6 @@ __webpack_require__.r(__webpack_exports__);
       formData.set("password", me.user_password);
       formData.set("user_types", me.user_types_checked);
       axios.post(me.base_path + "users", formData, {}).then(function (response) {
-        console.log(response);
-
         if (response.status == 200) {
           me.closeModal("addModal");
           me.list();
@@ -3119,8 +3121,6 @@ __webpack_require__.r(__webpack_exports__);
           $(".toast").toast("show");
         }
       })["catch"](function (error) {
-        console.log(error);
-
         for (var key in error.response.data.errors) {
           if (error.response.data.errors.hasOwnProperty(key)) {
             me.errors.push(error.response.data.errors[key][0]);

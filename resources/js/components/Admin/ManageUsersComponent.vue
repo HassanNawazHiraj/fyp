@@ -199,10 +199,13 @@ export default {
         .get(me.base_path + "user/types")
         .then(response => {
           me.user_types = response.data.items;
-          //console.log("user types", response.data.items);
         })
         .catch(error => {
-          console.log(error);
+          for (let key in error.response.data.errors) {
+            if (error.response.data.errors.hasOwnProperty(key)) {
+              me.errors.push(error.response.data.errors[key][0]);
+            }
+          }
         });
     },
     add() {
@@ -229,7 +232,6 @@ export default {
       axios
         .post(me.base_path + "users", formData, {})
         .then(function(response) {
-          console.log(response);
           if (response.status == 200) {
             me.closeModal("addModal");
             me.list();
@@ -240,7 +242,6 @@ export default {
           }
         })
         .catch(function(error) {
-          console.log(error);
           for (let key in error.response.data.errors) {
             if (error.response.data.errors.hasOwnProperty(key)) {
               me.errors.push(error.response.data.errors[key][0]);
