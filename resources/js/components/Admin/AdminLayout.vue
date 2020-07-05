@@ -53,8 +53,15 @@
                     </router-link>
                 </li>
 
-                <!-- Nav Item - Utilities Collapse Menu -->
                 <li class="nav-item">
+                    <router-link class="nav-link" to="/portal/manage-roles">
+                        <i class="fas fa-fw fa-table"></i>
+                        <span>Manage User Roles</span>
+                    </router-link>
+                </li>
+
+                <!-- Nav Item - Utilities Collapse Menu -->
+                <!-- <li class="nav-item">
                     <a
                         class="nav-link collapsed"
                         href="#"
@@ -92,16 +99,16 @@
                             >
                         </div>
                     </div>
-                </li>
+                </li> -->
 
-                <!-- Divider -->
-                <hr class="sidebar-divider" />
+                <!-- Divider
+                <hr class="sidebar-divider" /> -->
 
                 <!-- Heading -->
-                <div class="sidebar-heading">Addons</div>
+                <!-- <div class="sidebar-heading">Addons</div> -->
 
                 <!-- Nav Item - Pages Collapse Menu -->
-                <li class="nav-item">
+                <!-- <li class="nav-item">
                     <a
                         class="nav-link collapsed"
                         href="#"
@@ -138,23 +145,23 @@
                             >
                         </div>
                     </div>
-                </li>
+                </li> -->
 
                 <!-- Nav Item - Charts -->
-                <li class="nav-item">
+                <!-- <li class="nav-item">
                     <a class="nav-link" href="charts.html">
                         <i class="fas fa-fw fa-chart-area"></i>
                         <span>Charts</span>
                     </a>
-                </li>
+                </li> -->
 
                 <!-- Nav Item - Tables -->
-                <li class="nav-item">
+                <!-- <li class="nav-item">
                     <a class="nav-link" href="tables.html">
                         <i class="fas fa-fw fa-table"></i>
                         <span>Tables</span>
                     </a>
-                </li>
+                </li> -->
 
                 <!-- Divider -->
                 <hr class="sidebar-divider d-none d-md-block" />
@@ -497,7 +504,7 @@
                                     aria-expanded="false"
                                 >
                                     <span
-                                        class="mr-2 d-none d-lg-inline text-gray-600 small"
+                                        class="mr-2 d-none d-lg-inline text-gray-600 small" id="user_name"
                                         >Valerie Luna</span
                                     >
                                     <img
