@@ -29,14 +29,7 @@
               <tr v-for="item in items" :key="item.id">
                 <td>{{ item.id }}</td>
                 <td>{{ item.name }}</td>
-                <td>{{ item.permissions }}</td>
-                <td>
-                  <span class="badge badge-primary mr-1" v-for="type in item.types" :key="type.id">
-                    {{
-                    type.name
-                    }}
-                  </span>
-                </td>
+                <td><span class="badge badge-secondary" > {{item.permissions.length}}</span></td>
                 <td>
                   <button
                     class="btn btn-primary btn-sm"
@@ -78,33 +71,17 @@
             >{{ error }}</div>
             <div class="input-group mb-3">
               <div class="input-group-prepend">
-                <span class="input-group-text" id>Name</span>
+                <span class="input-group-text" id>Role name</span>
               </div>
-              <input type="text" class="form-control" v-model="user_name" />
+              <input type="text" class="form-control" v-model="name" />
             </div>
 
-            <div class="input-group mb-3">
-              <div class="input-group-prepend">
-                <label class="input-group-text px-3">Email</label>
-              </div>
-              <input type="email" class="form-control" v-model="user_email" />
-            </div>
-
-            <div class="input-group mb-3">
-              <div class="input-group-prepend">
-                <label class="input-group-text px-3">Password</label>
-              </div>
-              <input type="text" class="form-control" v-model="user_password" />
-            </div>
-            <small
-              v-if="modal_mode === 'edit'"
-            >Leave field empty if you don't want to change password</small>
+            <h4>Permissions</h4>
             <hr />
             <div>
-              <label class="input-group-text px-3 mb-1">User Type</label>
-              <div class="form-control mb-1" v-for="type in user_types" :key="type.id">
-                <input type="checkbox" v-bind:value="type.id" v-model="user_types_checked" />
-                <label>{{ type.name }}</label>
+              <div class="form-control mb-1" v-for="permission in permissions" :key="permission.name">
+                <input type="checkbox" v-model="user_permissions" :value="permission.value" />
+                <label>{{ permission.name }}</label>
               </div>
             </div>
           </div>
@@ -161,11 +138,22 @@ export default {
   data() {
     return {
       items: [],
-      user_name: "",
-      user_email: "",
-      user_password: "",
-      user_types: [],
-      user_types_checked: [],
+      name: "",
+      user_permissions : [],
+      permissions: [
+          {
+              name: "View Users",
+              value: "user_view"
+          },
+          {
+              name: "Add Users",
+              value: "user_add"
+          },
+          {
+              name: "Delete Users",
+              value: "user_delete"
+          },
+      ],
       base_path: "/api/",
       errors: [],
       modal_mode: "add",
@@ -211,9 +199,7 @@ export default {
     add() {
       this.modal_mode = "add";
       this.user_name = "";
-      this.user_email = "";
-      this.user_password = "";
-      this.user_types_checked = [];
+      this.user_permissions = [];
     },
     closeModal(id) {
       $("#" + id).modal("hide");
@@ -224,19 +210,16 @@ export default {
       let me = this;
       me.errors = [];
       let formData = new FormData();
-      formData.set("name", me.user_name);
-      formData.set("email", me.user_email);
-      formData.set("password", me.user_password);
-      formData.set("user_types", me.user_types_checked);
-
+      formData.set("name", me.name);
+      formData.set("permissions", JSON.stringify(me.user_permissions));
       axios
-        .post(me.base_path + "users", formData, {})
+        .post(me.base_path + "roles", formData, {})
         .then(function(response) {
           if (response.status == 200) {
             me.closeModal("addModal");
             me.list();
             me.toastTitle = "Add";
-            me.toastMessage = "User added successfully";
+            me.toastMessage = "User role added successfully";
             me.toastClass = "d-block";
             $(".toast").toast("show");
           }
@@ -308,7 +291,7 @@ export default {
       let me = this;
       me.errors = [];
       axios
-        .post(me.base_path + "users/" + me.id, {
+        .post(me.base_path + "roles/" + me.id, {
           _method: "DELETE"
         })
         .then(response => {

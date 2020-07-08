@@ -36,7 +36,16 @@ class UserRolesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            "name" => "required",
+            "permissions" => "required"
+        ]);
+        //dd(json_encode($request->permissions));
+        $user = new UserType();
+        $user->name = $request->name;
+        $user->permissions = json_decode($request->permissions);
+        $user->save();
+        return response()->json($request, 200);
     }
 
     /**
@@ -81,6 +90,6 @@ class UserRolesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        UserType::where('id', $id)->delete();
     }
 }

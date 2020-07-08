@@ -3030,38 +3030,22 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       items: [],
-      user_name: "",
-      user_email: "",
-      user_password: "",
-      user_types: [],
-      user_types_checked: [],
+      name: "",
+      user_permissions: [],
+      permissions: [{
+        name: "View Users",
+        value: "user_view"
+      }, {
+        name: "Add Users",
+        value: "user_add"
+      }, {
+        name: "Delete Users",
+        value: "user_delete"
+      }],
       base_path: "/api/",
       errors: [],
       modal_mode: "add",
@@ -3101,9 +3085,7 @@ __webpack_require__.r(__webpack_exports__);
     add: function add() {
       this.modal_mode = "add";
       this.user_name = "";
-      this.user_email = "";
-      this.user_password = "";
-      this.user_types_checked = [];
+      this.user_permissions = [];
     },
     closeModal: function closeModal(id) {
       $("#" + id).modal("hide");
@@ -3114,16 +3096,14 @@ __webpack_require__.r(__webpack_exports__);
       var me = this;
       me.errors = [];
       var formData = new FormData();
-      formData.set("name", me.user_name);
-      formData.set("email", me.user_email);
-      formData.set("password", me.user_password);
-      formData.set("user_types", me.user_types_checked);
-      axios.post(me.base_path + "users", formData, {}).then(function (response) {
+      formData.set("name", me.name);
+      formData.set("permissions", JSON.stringify(me.user_permissions));
+      axios.post(me.base_path + "roles", formData, {}).then(function (response) {
         if (response.status == 200) {
           me.closeModal("addModal");
           me.list();
           me.toastTitle = "Add";
-          me.toastMessage = "User added successfully";
+          me.toastMessage = "User role added successfully";
           me.toastClass = "d-block";
           $(".toast").toast("show");
         }
@@ -3189,7 +3169,7 @@ __webpack_require__.r(__webpack_exports__);
     perform_delete: function perform_delete() {
       var me = this;
       me.errors = [];
-      axios.post(me.base_path + "users/" + me.id, {
+      axios.post(me.base_path + "roles/" + me.id, {
         _method: "DELETE"
       }).then(function (response) {
         if (response.status == 200) {
@@ -28211,28 +28191,11 @@ var render = function() {
                     _vm._v(" "),
                     _c("td", [_vm._v(_vm._s(item.name))]),
                     _vm._v(" "),
-                    _c("td", [_vm._v(_vm._s(item.permissions))]),
-                    _vm._v(" "),
-                    _c(
-                      "td",
-                      _vm._l(item.types, function(type) {
-                        return _c(
-                          "span",
-                          {
-                            key: type.id,
-                            staticClass: "badge badge-primary mr-1"
-                          },
-                          [
-                            _vm._v(
-                              "\n                  " +
-                                _vm._s(type.name) +
-                                "\n                "
-                            )
-                          ]
-                        )
-                      }),
-                      0
-                    ),
+                    _c("td", [
+                      _c("span", { staticClass: "badge badge-secondary" }, [
+                        _vm._v(" " + _vm._s(item.permissions.length))
+                      ])
+                    ]),
                     _vm._v(" "),
                     _c("td", [
                       _c(
@@ -28328,148 +28291,86 @@ var render = function() {
                         {
                           name: "model",
                           rawName: "v-model",
-                          value: _vm.user_name,
-                          expression: "user_name"
+                          value: _vm.name,
+                          expression: "name"
                         }
                       ],
                       staticClass: "form-control",
                       attrs: { type: "text" },
-                      domProps: { value: _vm.user_name },
+                      domProps: { value: _vm.name },
                       on: {
                         input: function($event) {
                           if ($event.target.composing) {
                             return
                           }
-                          _vm.user_name = $event.target.value
+                          _vm.name = $event.target.value
                         }
                       }
                     })
                   ]),
                   _vm._v(" "),
-                  _c("div", { staticClass: "input-group mb-3" }, [
-                    _vm._m(3),
-                    _vm._v(" "),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.user_email,
-                          expression: "user_email"
-                        }
-                      ],
-                      staticClass: "form-control",
-                      attrs: { type: "email" },
-                      domProps: { value: _vm.user_email },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.user_email = $event.target.value
-                        }
-                      }
-                    })
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "input-group mb-3" }, [
-                    _vm._m(4),
-                    _vm._v(" "),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.user_password,
-                          expression: "user_password"
-                        }
-                      ],
-                      staticClass: "form-control",
-                      attrs: { type: "text" },
-                      domProps: { value: _vm.user_password },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.user_password = $event.target.value
-                        }
-                      }
-                    })
-                  ]),
-                  _vm._v(" "),
-                  _vm.modal_mode === "edit"
-                    ? _c("small", [
-                        _vm._v(
-                          "Leave field empty if you don't want to change password"
-                        )
-                      ])
-                    : _vm._e(),
+                  _c("h4", [_vm._v("Permissions")]),
                   _vm._v(" "),
                   _c("hr"),
                   _vm._v(" "),
                   _c(
                     "div",
-                    [
-                      _c(
-                        "label",
-                        { staticClass: "input-group-text px-3 mb-1" },
-                        [_vm._v("User Type")]
-                      ),
-                      _vm._v(" "),
-                      _vm._l(_vm.user_types, function(type) {
-                        return _c(
-                          "div",
-                          { key: type.id, staticClass: "form-control mb-1" },
-                          [
-                            _c("input", {
-                              directives: [
-                                {
-                                  name: "model",
-                                  rawName: "v-model",
-                                  value: _vm.user_types_checked,
-                                  expression: "user_types_checked"
-                                }
-                              ],
-                              attrs: { type: "checkbox" },
-                              domProps: {
-                                value: type.id,
-                                checked: Array.isArray(_vm.user_types_checked)
-                                  ? _vm._i(_vm.user_types_checked, type.id) > -1
-                                  : _vm.user_types_checked
-                              },
-                              on: {
-                                change: function($event) {
-                                  var $$a = _vm.user_types_checked,
-                                    $$el = $event.target,
-                                    $$c = $$el.checked ? true : false
-                                  if (Array.isArray($$a)) {
-                                    var $$v = type.id,
-                                      $$i = _vm._i($$a, $$v)
-                                    if ($$el.checked) {
-                                      $$i < 0 &&
-                                        (_vm.user_types_checked = $$a.concat([
-                                          $$v
-                                        ]))
-                                    } else {
-                                      $$i > -1 &&
-                                        (_vm.user_types_checked = $$a
-                                          .slice(0, $$i)
-                                          .concat($$a.slice($$i + 1)))
-                                    }
+                    _vm._l(_vm.permissions, function(permission) {
+                      return _c(
+                        "div",
+                        {
+                          key: permission.name,
+                          staticClass: "form-control mb-1"
+                        },
+                        [
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.user_permissions,
+                                expression: "user_permissions"
+                              }
+                            ],
+                            attrs: { type: "checkbox" },
+                            domProps: {
+                              value: permission.value,
+                              checked: Array.isArray(_vm.user_permissions)
+                                ? _vm._i(
+                                    _vm.user_permissions,
+                                    permission.value
+                                  ) > -1
+                                : _vm.user_permissions
+                            },
+                            on: {
+                              change: function($event) {
+                                var $$a = _vm.user_permissions,
+                                  $$el = $event.target,
+                                  $$c = $$el.checked ? true : false
+                                if (Array.isArray($$a)) {
+                                  var $$v = permission.value,
+                                    $$i = _vm._i($$a, $$v)
+                                  if ($$el.checked) {
+                                    $$i < 0 &&
+                                      (_vm.user_permissions = $$a.concat([$$v]))
                                   } else {
-                                    _vm.user_types_checked = $$c
+                                    $$i > -1 &&
+                                      (_vm.user_permissions = $$a
+                                        .slice(0, $$i)
+                                        .concat($$a.slice($$i + 1)))
                                   }
+                                } else {
+                                  _vm.user_permissions = $$c
                                 }
                               }
-                            }),
-                            _vm._v(" "),
-                            _c("label", [_vm._v(_vm._s(type.name))])
-                          ]
-                        )
-                      })
-                    ],
-                    2
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("label", [_vm._v(_vm._s(permission.name))])
+                        ]
+                      )
+                    }),
+                    0
                   )
                 ],
                 2
@@ -28522,7 +28423,7 @@ var render = function() {
           { staticClass: "modal-dialog", attrs: { role: "document" } },
           [
             _c("div", { staticClass: "modal-content" }, [
-              _vm._m(5),
+              _vm._m(3),
               _vm._v(" "),
               _c("div", { staticClass: "modal-body" }, [
                 _vm._v("Are you sure you want to delete this user?")
@@ -28585,7 +28486,7 @@ var render = function() {
                 _vm._v("just now")
               ]),
               _vm._v(" "),
-              _vm._m(6)
+              _vm._m(4)
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "toast-body" }, [
@@ -28637,25 +28538,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "input-group-prepend" }, [
       _c("span", { staticClass: "input-group-text", attrs: { id: "" } }, [
-        _vm._v("Name")
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "input-group-prepend" }, [
-      _c("label", { staticClass: "input-group-text px-3" }, [_vm._v("Email")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "input-group-prepend" }, [
-      _c("label", { staticClass: "input-group-text px-3" }, [
-        _vm._v("Password")
+        _vm._v("Role name")
       ])
     ])
   },
