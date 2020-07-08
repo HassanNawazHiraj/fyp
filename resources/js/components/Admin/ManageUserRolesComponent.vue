@@ -29,7 +29,11 @@
               <tr v-for="item in items" :key="item.id">
                 <td>{{ item.id }}</td>
                 <td>{{ item.name }}</td>
-                <td><span class="badge badge-secondary" > {{item.permissions.length}}</span></td>
+                <td>
+                  <span
+                    class="badge badge-secondary"
+                  >{{(item.permissions === null)? "0":item.permissions.length}}</span>
+                </td>
                 <td>
                   <button
                     class="btn btn-primary btn-sm"
@@ -79,7 +83,11 @@
             <h4>Permissions</h4>
             <hr />
             <div>
-              <div class="form-control mb-1" v-for="permission in permissions" :key="permission.name">
+              <div
+                class="form-control mb-1"
+                v-for="permission in permissions"
+                :key="permission.name"
+              >
                 <input type="checkbox" v-model="user_permissions" :value="permission.value" />
                 <label>{{ permission.name }}</label>
               </div>
@@ -139,20 +147,20 @@ export default {
     return {
       items: [],
       name: "",
-      user_permissions : [],
+      user_permissions: [],
       permissions: [
-          {
-              name: "View Users",
-              value: "user_view"
-          },
-          {
-              name: "Add Users",
-              value: "user_add"
-          },
-          {
-              name: "Delete Users",
-              value: "user_delete"
-          },
+        {
+          name: "View Users",
+          value: "user_view"
+        },
+        {
+          name: "Add Users",
+          value: "user_add"
+        },
+        {
+          name: "Delete Users",
+          value: "user_delete"
+        }
       ],
       base_path: "/api/",
       errors: [],

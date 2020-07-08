@@ -3030,6 +3030,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -8174,7 +8182,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 exports.push([module.i, "@import url(/css/sb-admin-2.min.css);", ""]);
 
 // module
-exports.push([module.i, "\n", ""]);
+exports.push([module.i, "\r\n", ""]);
 
 // exports
 
@@ -8193,7 +8201,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 exports.push([module.i, "@import url(https://fonts.googleapis.com/css?family=Nunito:400,600|Open+Sans:400,600,700);", ""]);
 
 // module
-exports.push([module.i, "\n\n", ""]);
+exports.push([module.i, "\r\n\r\n", ""]);
 
 // exports
 
@@ -28193,7 +28201,13 @@ var render = function() {
                     _vm._v(" "),
                     _c("td", [
                       _c("span", { staticClass: "badge badge-secondary" }, [
-                        _vm._v(" " + _vm._s(item.permissions.length))
+                        _vm._v(
+                          _vm._s(
+                            item.permissions === null
+                              ? "0"
+                              : item.permissions.length
+                          )
+                        )
                       ])
                     ]),
                     _vm._v(" "),
