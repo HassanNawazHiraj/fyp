@@ -3070,9 +3070,11 @@ __webpack_require__.r(__webpack_exports__);
     list: function list() {
       var me = this;
       axios.get(me.base_path + "roles").then(function (response) {
-        me.items = response.data.items; //me.getUserTypes();
+        me.items = response.data.items;
+        me.items.forEach(function (item) {
+          item.permissions = JSON.parse(item.permissions);
+        }); // console.log(me.items);
 
-        console.log(me.items);
         me.loading = false;
       })["catch"](function (error) {
         me.loading = false;
@@ -3131,15 +3133,8 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     edit: function edit(item) {
-      var _this = this;
-
-      this.user_types_checked = [];
-      this.user_name = item.name;
-      this.user_email = item.email;
-      this.user_password = "";
-      item.types.forEach(function (type) {
-        _this.user_types_checked.push(type.id);
-      });
+      this.name = item.name;
+      this.user_permissions = item.permissions === null ? [] : item.permissions;
       this.id = item.id;
       this.modal_mode = "edit";
       $("#addModal").modal("show");
@@ -3148,17 +3143,15 @@ __webpack_require__.r(__webpack_exports__);
       var me = this;
       me.errors = [];
       var formData = new FormData();
-      formData.set("name", me.user_name);
-      formData.set("email", me.user_email);
-      formData.set("password", me.user_password);
-      formData.set("user_types", me.user_types_checked);
+      formData.set("name", me.name);
+      formData.set("permissions", JSON.stringify(me.user_permissions));
       formData.set("_method", "PUT");
-      axios.post(me.base_path + "users/" + me.id, formData, {}).then(function (response) {
+      axios.post(me.base_path + "roles/" + me.id, formData, {}).then(function (response) {
         if (response.status == 200) {
           me.closeModal("addModal");
           me.list();
           me.toastTitle = "Update";
-          me.toastMessage = "User updated successfully";
+          me.toastMessage = "Role updated successfully";
           me.toastClass = "d-block";
           $(".toast").toast("show");
         }
@@ -3184,7 +3177,7 @@ __webpack_require__.r(__webpack_exports__);
           me.closeModal("deleteModal");
           me.list();
           me.toastTitle = "Delete";
-          me.toastMessage = "Field deleted successfully";
+          me.toastMessage = "Role deleted successfully";
           me.toastClass = "d-block";
           $(".toast").toast("show");
         }
@@ -3511,7 +3504,7 @@ __webpack_require__.r(__webpack_exports__);
           me.closeModal("deleteModal");
           me.list();
           me.toastTitle = "Delete";
-          me.toastMessage = "Field deleted successfully";
+          me.toastMessage = "User deleted successfully";
           me.toastClass = "d-block";
           $(".toast").toast("show");
         }
@@ -28440,7 +28433,7 @@ var render = function() {
               _vm._m(3),
               _vm._v(" "),
               _c("div", { staticClass: "modal-body" }, [
-                _vm._v("Are you sure you want to delete this user?")
+                _vm._v("Are you sure you want to delete this role?")
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "modal-footer" }, [

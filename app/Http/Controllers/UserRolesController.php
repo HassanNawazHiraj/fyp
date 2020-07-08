@@ -79,7 +79,16 @@ class UserRolesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $formData = $request->validate([
+            "name" => "required"
+        ]);
+
+        $userType = UserType::find($id);
+        $userType->name = $request->name;
+        $userType->permissions = $request->permissions;
+        $userType->save();
+
+        return response()->json($request, 200);
     }
 
     /**

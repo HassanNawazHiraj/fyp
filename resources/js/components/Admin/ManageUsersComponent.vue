@@ -316,7 +316,7 @@ export default {
             me.closeModal("deleteModal");
             me.list();
             me.toastTitle = "Delete";
-            me.toastMessage = "Field deleted successfully";
+            me.toastMessage = "User deleted successfully";
             me.toastClass = "d-block";
             $(".toast").toast("show");
           }

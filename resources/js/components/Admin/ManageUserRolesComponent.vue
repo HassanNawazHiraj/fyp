@@ -111,7 +111,7 @@
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <div class="modal-body">Are you sure you want to delete this user?</div>
+          <div class="modal-body">Are you sure you want to delete this role?</div>
           <div class="modal-footer">
             <button
               type="button"
@@ -181,8 +181,10 @@ export default {
         .get(me.base_path + "roles")
         .then(response => {
           me.items = response.data.items;
-          //me.getUserTypes();
-          console.log(me.items);
+          me.items.forEach(item => {
+            item.permissions = JSON.parse(item.permissions);
+          });
+          // console.log(me.items);
           me.loading = false;
         })
         .catch(function(error) {
@@ -249,14 +251,8 @@ export default {
       }
     },
     edit(item) {
-      this.user_types_checked = [];
-
-      this.user_name = item.name;
-      this.user_email = item.email;
-      this.user_password = "";
-      item.types.forEach(type => {
-        this.user_types_checked.push(type.id);
-      });
+      this.name = item.name;
+      this.user_permissions = item.permissions === null ? [] : item.permissions;
       this.id = item.id;
       this.modal_mode = "edit";
       $("#addModal").modal("show");
@@ -265,20 +261,18 @@ export default {
       let me = this;
       me.errors = [];
       let formData = new FormData();
-      formData.set("name", me.user_name);
-      formData.set("email", me.user_email);
-      formData.set("password", me.user_password);
-      formData.set("user_types", me.user_types_checked);
+      formData.set("name", me.name);
+      formData.set("permissions", JSON.stringify(me.user_permissions));
       formData.set("_method", "PUT");
 
       axios
-        .post(me.base_path + "users/" + me.id, formData, {})
+        .post(me.base_path + "roles/" + me.id, formData, {})
         .then(function(response) {
           if (response.status == 200) {
             me.closeModal("addModal");
             me.list();
             me.toastTitle = "Update";
-            me.toastMessage = "User updated successfully";
+            me.toastMessage = "Role updated successfully";
             me.toastClass = "d-block";
             $(".toast").toast("show");
           }
@@ -307,7 +301,7 @@ export default {
             me.closeModal("deleteModal");
             me.list();
             me.toastTitle = "Delete";
-            me.toastMessage = "Field deleted successfully";
+            me.toastMessage = "Role deleted successfully";
             me.toastClass = "d-block";
             $(".toast").toast("show");
           }
