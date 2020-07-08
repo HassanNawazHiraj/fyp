@@ -2440,122 +2440,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   methods: {
     logout: function logout() {
@@ -26659,7 +26543,7 @@ var render = function() {
                   attrs: { to: "/portal/manage-users" }
                 },
                 [
-                  _c("i", { staticClass: "fas fa-fw fa-table" }),
+                  _c("i", { staticClass: "fa fa-user-edit" }),
                   _vm._v(" "),
                   _c("span", [_vm._v("Manage Users")])
                 ]
@@ -26679,7 +26563,7 @@ var render = function() {
                   attrs: { to: "/portal/manage-roles" }
                 },
                 [
-                  _c("i", { staticClass: "fas fa-fw fa-table" }),
+                  _c("i", { staticClass: "fa fa-user-tag" }),
                   _vm._v(" "),
                   _c("span", [_vm._v("Manage User Roles")])
                 ]
@@ -26734,7 +26618,7 @@ var render = function() {
               _vm._v(" "),
               _c("div", { staticClass: "modal-body" }, [
                 _vm._v(
-                  '\n                    Select "Logout" below if you are ready to end your\n                    current session.\n                '
+                  '\n          Select "Logout" below if you are ready to end your\n          current session.\n        '
                 )
               ]),
               _vm._v(" "),
@@ -26745,11 +26629,7 @@ var render = function() {
                     staticClass: "btn btn-secondary",
                     attrs: { type: "button", "data-dismiss": "modal" }
                   },
-                  [
-                    _vm._v(
-                      "\n                        Cancel\n                    "
-                    )
-                  ]
+                  [_vm._v("Cancel")]
                 ),
                 _vm._v(" "),
                 _c(
@@ -26762,11 +26642,7 @@ var render = function() {
                       }
                     }
                   },
-                  [
-                    _vm._v(
-                      "\n                        Logout\n                    "
-                    )
-                  ]
+                  [_vm._v("Logout")]
                 )
               ])
             ])
@@ -26951,9 +26827,7 @@ var staticRenderFns = [
               },
               [
                 _c("h6", { staticClass: "dropdown-header" }, [
-                  _vm._v(
-                    "\n                                    Alerts Center\n                                "
-                  )
+                  _vm._v("Alerts Center")
                 ]),
                 _vm._v(" "),
                 _c(
@@ -26971,14 +26845,12 @@ var staticRenderFns = [
                     _vm._v(" "),
                     _c("div", [
                       _c("div", { staticClass: "small text-gray-500" }, [
-                        _vm._v(
-                          "\n                                            December 12, 2019\n                                        "
-                        )
+                        _vm._v("December 12, 2019")
                       ]),
                       _vm._v(" "),
                       _c("span", { staticClass: "font-weight-bold" }, [
                         _vm._v(
-                          "A new monthly report is ready\n                                            to download!"
+                          "\n                      A new monthly report is ready\n                      to download!\n                    "
                         )
                       ])
                     ])
@@ -27000,12 +26872,10 @@ var staticRenderFns = [
                     _vm._v(" "),
                     _c("div", [
                       _c("div", { staticClass: "small text-gray-500" }, [
-                        _vm._v(
-                          "\n                                            December 7, 2019\n                                        "
-                        )
+                        _vm._v("December 7, 2019")
                       ]),
                       _vm._v(
-                        "\n                                        $290.29 has been deposited into your\n                                        account!\n                                    "
+                        "$290.29 has been deposited into your\n                    account!\n                  "
                       )
                     ])
                   ]
@@ -27028,12 +26898,10 @@ var staticRenderFns = [
                     _vm._v(" "),
                     _c("div", [
                       _c("div", { staticClass: "small text-gray-500" }, [
-                        _vm._v(
-                          "\n                                            December 2, 2019\n                                        "
-                        )
+                        _vm._v("December 2, 2019")
                       ]),
                       _vm._v(
-                        "\n                                        Spending Alert: We've noticed\n                                        unusually high spending for your\n                                        account.\n                                    "
+                        "Spending Alert: We've noticed\n                    unusually high spending for your\n                    account.\n                  "
                       )
                     ])
                   ]
@@ -27086,9 +26954,7 @@ var staticRenderFns = [
               },
               [
                 _c("h6", { staticClass: "dropdown-header" }, [
-                  _vm._v(
-                    "\n                                    Message Center\n                                "
-                  )
+                  _vm._v("Message Center")
                 ]),
                 _vm._v(" "),
                 _c(
@@ -27113,14 +26979,12 @@ var staticRenderFns = [
                     _c("div", { staticClass: "font-weight-bold" }, [
                       _c("div", { staticClass: "text-truncate" }, [
                         _vm._v(
-                          "\n                                            Hi there! I am wondering if you\n                                            can help me with a problem I've\n                                            been having.\n                                        "
+                          "\n                      Hi there! I am wondering if you\n                      can help me with a problem I've\n                      been having.\n                    "
                         )
                       ]),
                       _vm._v(" "),
                       _c("div", { staticClass: "small text-gray-500" }, [
-                        _vm._v(
-                          "\n                                            Emily Fowler · 58m\n                                        "
-                        )
+                        _vm._v("Emily Fowler · 58m")
                       ])
                     ])
                   ]
@@ -27148,14 +27012,12 @@ var staticRenderFns = [
                     _c("div", [
                       _c("div", { staticClass: "text-truncate" }, [
                         _vm._v(
-                          "\n                                            I have the photos that you\n                                            ordered last month, how would\n                                            you like them sent to you?\n                                        "
+                          "\n                      I have the photos that you\n                      ordered last month, how would\n                      you like them sent to you?\n                    "
                         )
                       ]),
                       _vm._v(" "),
                       _c("div", { staticClass: "small text-gray-500" }, [
-                        _vm._v(
-                          "\n                                            Jae Chun · 1d\n                                        "
-                        )
+                        _vm._v("Jae Chun · 1d")
                       ])
                     ])
                   ]
@@ -27183,14 +27045,12 @@ var staticRenderFns = [
                     _c("div", [
                       _c("div", { staticClass: "text-truncate" }, [
                         _vm._v(
-                          "\n                                            Last month's report looks great,\n                                            I am very happy with the\n                                            progress so far, keep up the\n                                            good work!\n                                        "
+                          "\n                      Last month's report looks great,\n                      I am very happy with the\n                      progress so far, keep up the\n                      good work!\n                    "
                         )
                       ]),
                       _vm._v(" "),
                       _c("div", { staticClass: "small text-gray-500" }, [
-                        _vm._v(
-                          "\n                                            Morgan Alvarez · 2d\n                                        "
-                        )
+                        _vm._v("Morgan Alvarez · 2d")
                       ])
                     ])
                   ]
@@ -27218,14 +27078,12 @@ var staticRenderFns = [
                     _c("div", [
                       _c("div", { staticClass: "text-truncate" }, [
                         _vm._v(
-                          "\n                                            Am I a good boy? The reason I\n                                            ask is because someone told me\n                                            that people say this to all\n                                            dogs, even if they aren't\n                                            good...\n                                        "
+                          "\n                      Am I a good boy? The reason I\n                      ask is because someone told me\n                      that people say this to all\n                      dogs, even if they aren't\n                      good...\n                    "
                         )
                       ]),
                       _vm._v(" "),
                       _c("div", { staticClass: "small text-gray-500" }, [
-                        _vm._v(
-                          "\n                                            Chicken the Dog · 2w\n                                        "
-                        )
+                        _vm._v("Chicken the Dog · 2w")
                       ])
                     ])
                   ]
@@ -27294,9 +27152,7 @@ var staticRenderFns = [
                     _c("i", {
                       staticClass: "fas fa-user fa-sm fa-fw mr-2 text-gray-400"
                     }),
-                    _vm._v(
-                      "\n                                    Profile\n                                "
-                    )
+                    _vm._v("\n                  Profile\n                ")
                   ]
                 ),
                 _vm._v(" "),
@@ -27307,9 +27163,7 @@ var staticRenderFns = [
                     _c("i", {
                       staticClass: "fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"
                     }),
-                    _vm._v(
-                      "\n                                    Settings\n                                "
-                    )
+                    _vm._v("\n                  Settings\n                ")
                   ]
                 ),
                 _vm._v(" "),
@@ -27320,9 +27174,7 @@ var staticRenderFns = [
                     _c("i", {
                       staticClass: "fas fa-list fa-sm fa-fw mr-2 text-gray-400"
                     }),
-                    _vm._v(
-                      "\n                                    Activity Log\n                                "
-                    )
+                    _vm._v("\n                  Activity Log\n                ")
                   ]
                 ),
                 _vm._v(" "),
@@ -27343,9 +27195,7 @@ var staticRenderFns = [
                       staticClass:
                         "fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"
                     }),
-                    _vm._v(
-                      "\n                                    Logout\n                                "
-                    )
+                    _vm._v("\n                  Logout\n                ")
                   ]
                 )
               ]
@@ -27385,11 +27235,7 @@ var staticRenderFns = [
       _c(
         "h5",
         { staticClass: "modal-title", attrs: { id: "exampleModalLabel" } },
-        [
-          _vm._v(
-            "\n                        Ready to Leave?\n                    "
-          )
-        ]
+        [_vm._v("Ready to Leave?")]
       ),
       _vm._v(" "),
       _c(
