@@ -2978,6 +2978,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     add: function add() {
       this.modal_mode = "add";
+      this.name = "";
       this.user_name = "";
       this.user_permissions = [];
     },
@@ -8078,7 +8079,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 exports.push([module.i, "@import url(https://fonts.googleapis.com/css?family=Nunito:400,600|Open+Sans:400,600,700);", ""]);
 
 // module
-exports.push([module.i, "\r\n\r\n", ""]);
+exports.push([module.i, "\n\n", ""]);
 
 // exports
 

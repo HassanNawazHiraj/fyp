@@ -208,6 +208,7 @@ export default {
     },
     add() {
       this.modal_mode = "add";
+      this.name = "";
       this.user_name = "";
       this.user_permissions = [];
     },
