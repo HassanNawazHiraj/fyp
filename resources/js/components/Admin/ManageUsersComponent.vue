@@ -95,7 +95,7 @@
               <div class="input-group-prepend">
                 <label class="input-group-text px-3">Password</label>
               </div>
-              <input type="text" class="form-control" v-model="user_password" />
+              <input type="password" class="form-control" v-model="user_password" />
             </div>
             <small
               v-if="modal_mode === 'edit'"

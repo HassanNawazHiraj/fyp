@@ -28674,7 +28674,7 @@ var render = function() {
                         }
                       ],
                       staticClass: "form-control",
-                      attrs: { type: "text" },
+                      attrs: { type: "password" },
                       domProps: { value: _vm.user_password },
                       on: {
                         input: function($event) {
