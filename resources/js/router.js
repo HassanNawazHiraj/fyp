@@ -8,6 +8,7 @@ import DashboardComponent from "./components/Admin/DashboardComponent.vue";
 import CoursePerformaFormComponent from "./components/Admin/CoursePerformaFormComponent.vue";
 import ManageUsersComponent from "./components/Admin/ManageUsersComponent.vue";
 import ManageUserRolesComponent from "./components/Admin/ManageUserRolesComponent.vue";
+import ManageBatchComponent from "./components/Admin/ManageBatchComponent.vue";
 
 Vue.use(VueRouter);
 
@@ -46,6 +47,10 @@ const routes = [{
             {
                 path: "manage-roles",
                 component: ManageUserRolesComponent
+            },
+            {
+                path: "manage-batch",
+                component: ManageBatchComponent
             }
         ]
     }
