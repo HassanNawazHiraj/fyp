@@ -37,7 +37,18 @@ class BatchController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $formData = $request->validate([
+            "season" => "required",
+            "year" => "required"
+        ]);
+
+
+        $item = new Batch();
+        $item->season = $request->season;
+        $item->year = $request->year;
+        $item->save();
+
+        return response()->json($request, 200);
     }
 
     /**
@@ -71,7 +82,17 @@ class BatchController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $formData = $request->validate([
+            "season" => "required",
+            "year" => "required"
+        ]);
+
+        $item = Batch::find($id);
+        $item->season = $request->season;
+        $item->year = $request->year;
+        $item->save();
+
+        return response()->json($request, 200);
     }
 
     /**
@@ -82,6 +103,8 @@ class BatchController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Batch::where('id', $id)->delete();
+
+        return response()->json([], 200);
     }
 }

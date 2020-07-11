@@ -71,20 +71,15 @@
             >{{ error }}</div>
             <div class="input-group mb-3">
               <div class="input-group-prepend">
-                <span class="input-group-text" id>Role name</span>
+                <span class="input-group-text">Season</span>
               </div>
-              <input type="text" class="form-control" v-model="name" />
+              <input type="text" class="form-control" v-model="season" />
             </div>
-            <div class="mt-4">
-              <button class="btn btn-light btn-sm float-right" v-on:click="select_all()">Select all</button>
-              <h4>Permissions</h4>
-            </div>
-            <hr />
-            <div class="row">
-              <div v-for="permission in permissions" :key="permission.name" class="col-4">
-                <input type="checkbox" v-model="user_permissions" :value="permission.value" />
-                <label>{{ permission.name }}</label>
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text">Year</span>
               </div>
+              <input type="text" class="form-control" v-model="year" />
             </div>
           </div>
           <div class="modal-footer">
@@ -140,7 +135,8 @@ export default {
   data() {
     return {
       items: [],
-      name: "",
+      season: "",
+      year: "",
       base_path: "/api/",
       errors: [],
       modal_mode: "add",
@@ -167,26 +163,10 @@ export default {
           me.loading = false;
         });
     },
-    getUserTypes() {
-      let me = this;
-      axios
-        .get(me.base_path + "user/types")
-        .then(response => {
-          me.user_types = response.data.items;
-        })
-        .catch(error => {
-          for (let key in error.response.data.errors) {
-            if (error.response.data.errors.hasOwnProperty(key)) {
-              me.errors.push(error.response.data.errors[key][0]);
-            }
-          }
-        });
-    },
     add() {
       this.modal_mode = "add";
-      this.name = "";
-      this.user_name = "";
-      this.user_permissions = [];
+      this.season = "";
+      this.year = "";
     },
     closeModal(id) {
       $("#" + id).modal("hide");
@@ -197,16 +177,16 @@ export default {
       let me = this;
       me.errors = [];
       let formData = new FormData();
-      formData.set("name", me.name);
-      formData.set("permissions", JSON.stringify(me.user_permissions));
+      formData.set("season", me.season);
+      formData.set("year", me.year);
       axios
-        .post(me.base_path + "roles", formData, {})
+        .post(me.base_path + "batch", formData, {})
         .then(function(response) {
           if (response.status == 200) {
             me.closeModal("addModal");
             me.list();
             me.toastTitle = "Add";
-            me.toastMessage = "User role added successfully";
+            me.toastMessage = "Batch added successfully";
             me.toastClass = "d-block";
             $(".toast").toast("show");
           }
@@ -228,8 +208,8 @@ export default {
       }
     },
     edit(item) {
-      this.name = item.name;
-      this.user_permissions = item.permissions === null ? [] : item.permissions;
+      this.season = item.season;
+      this.year = item.year;
       this.id = item.id;
       this.modal_mode = "edit";
       $("#addModal").modal("show");
@@ -238,18 +218,18 @@ export default {
       let me = this;
       me.errors = [];
       let formData = new FormData();
-      formData.set("name", me.name);
-      formData.set("permissions", JSON.stringify(me.user_permissions));
+      formData.set("season", me.season);
+      formData.set("year", me.year);
       formData.set("_method", "PUT");
 
       axios
-        .post(me.base_path + "roles/" + me.id, formData, {})
+        .post(me.base_path + "batch/" + me.id, formData, {})
         .then(function(response) {
           if (response.status == 200) {
             me.closeModal("addModal");
             me.list();
             me.toastTitle = "Update";
-            me.toastMessage = "Role updated successfully";
+            me.toastMessage = "Batch updated successfully";
             me.toastClass = "d-block";
             $(".toast").toast("show");
           }
@@ -270,7 +250,7 @@ export default {
       let me = this;
       me.errors = [];
       axios
-        .post(me.base_path + "roles/" + me.id, {
+        .post(me.base_path + "batch/" + me.id, {
           _method: "DELETE"
         })
         .then(response => {
@@ -278,7 +258,7 @@ export default {
             me.closeModal("deleteModal");
             me.list();
             me.toastTitle = "Delete";
-            me.toastMessage = "Role deleted successfully";
+            me.toastMessage = "Batch deleted successfully";
             me.toastClass = "d-block";
             $(".toast").toast("show");
           }

@@ -2942,16 +2942,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       items: [],
-      name: "",
+      season: "",
+      year: "",
       base_path: "/api/",
       errors: [],
       modal_mode: "add",
@@ -2975,23 +2971,10 @@ __webpack_require__.r(__webpack_exports__);
         me.loading = false;
       });
     },
-    getUserTypes: function getUserTypes() {
-      var me = this;
-      axios.get(me.base_path + "user/types").then(function (response) {
-        me.user_types = response.data.items;
-      })["catch"](function (error) {
-        for (var key in error.response.data.errors) {
-          if (error.response.data.errors.hasOwnProperty(key)) {
-            me.errors.push(error.response.data.errors[key][0]);
-          }
-        }
-      });
-    },
     add: function add() {
       this.modal_mode = "add";
-      this.name = "";
-      this.user_name = "";
-      this.user_permissions = [];
+      this.season = "";
+      this.year = "";
     },
     closeModal: function closeModal(id) {
       $("#" + id).modal("hide");
@@ -3002,14 +2985,14 @@ __webpack_require__.r(__webpack_exports__);
       var me = this;
       me.errors = [];
       var formData = new FormData();
-      formData.set("name", me.name);
-      formData.set("permissions", JSON.stringify(me.user_permissions));
-      axios.post(me.base_path + "roles", formData, {}).then(function (response) {
+      formData.set("season", me.season);
+      formData.set("year", me.year);
+      axios.post(me.base_path + "batch", formData, {}).then(function (response) {
         if (response.status == 200) {
           me.closeModal("addModal");
           me.list();
           me.toastTitle = "Add";
-          me.toastMessage = "User role added successfully";
+          me.toastMessage = "Batch added successfully";
           me.toastClass = "d-block";
           $(".toast").toast("show");
         }
@@ -3029,8 +3012,8 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     edit: function edit(item) {
-      this.name = item.name;
-      this.user_permissions = item.permissions === null ? [] : item.permissions;
+      this.season = item.season;
+      this.year = item.year;
       this.id = item.id;
       this.modal_mode = "edit";
       $("#addModal").modal("show");
@@ -3039,15 +3022,15 @@ __webpack_require__.r(__webpack_exports__);
       var me = this;
       me.errors = [];
       var formData = new FormData();
-      formData.set("name", me.name);
-      formData.set("permissions", JSON.stringify(me.user_permissions));
+      formData.set("season", me.season);
+      formData.set("year", me.year);
       formData.set("_method", "PUT");
-      axios.post(me.base_path + "roles/" + me.id, formData, {}).then(function (response) {
+      axios.post(me.base_path + "batch/" + me.id, formData, {}).then(function (response) {
         if (response.status == 200) {
           me.closeModal("addModal");
           me.list();
           me.toastTitle = "Update";
-          me.toastMessage = "Role updated successfully";
+          me.toastMessage = "Batch updated successfully";
           me.toastClass = "d-block";
           $(".toast").toast("show");
         }
@@ -3066,14 +3049,14 @@ __webpack_require__.r(__webpack_exports__);
     perform_delete: function perform_delete() {
       var me = this;
       me.errors = [];
-      axios.post(me.base_path + "roles/" + me.id, {
+      axios.post(me.base_path + "batch/" + me.id, {
         _method: "DELETE"
       }).then(function (response) {
         if (response.status == 200) {
           me.closeModal("deleteModal");
           me.list();
           me.toastTitle = "Delete";
-          me.toastMessage = "Role deleted successfully";
+          me.toastMessage = "Batch deleted successfully";
           me.toastClass = "d-block";
           $(".toast").toast("show");
         }
@@ -8419,7 +8402,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 exports.push([module.i, "@import url(/css/sb-admin-2.min.css);", ""]);
 
 // module
-exports.push([module.i, "\n", ""]);
+exports.push([module.i, "\r\n", ""]);
 
 // exports
 
@@ -8438,7 +8421,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 exports.push([module.i, "@import url(https://fonts.googleapis.com/css?family=Nunito:400,600|Open+Sans:400,600,700);", ""]);
 
 // module
-exports.push([module.i, "\n\n", ""]);
+exports.push([module.i, "\r\n\r\n", ""]);
 
 // exports
 
@@ -28522,100 +28505,49 @@ var render = function() {
                         {
                           name: "model",
                           rawName: "v-model",
-                          value: _vm.name,
-                          expression: "name"
+                          value: _vm.season,
+                          expression: "season"
                         }
                       ],
                       staticClass: "form-control",
                       attrs: { type: "text" },
-                      domProps: { value: _vm.name },
+                      domProps: { value: _vm.season },
                       on: {
                         input: function($event) {
                           if ($event.target.composing) {
                             return
                           }
-                          _vm.name = $event.target.value
+                          _vm.season = $event.target.value
                         }
                       }
                     })
                   ]),
                   _vm._v(" "),
-                  _c("div", { staticClass: "mt-4" }, [
-                    _c(
-                      "button",
-                      {
-                        staticClass: "btn btn-light btn-sm float-right",
-                        on: {
-                          click: function($event) {
-                            return _vm.select_all()
-                          }
-                        }
-                      },
-                      [_vm._v("Select all")]
-                    ),
+                  _c("div", { staticClass: "input-group mb-3" }, [
+                    _vm._m(3),
                     _vm._v(" "),
-                    _c("h4", [_vm._v("Permissions")])
-                  ]),
-                  _vm._v(" "),
-                  _c("hr"),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    { staticClass: "row" },
-                    _vm._l(_vm.permissions, function(permission) {
-                      return _c(
-                        "div",
-                        { key: permission.name, staticClass: "col-4" },
-                        [
-                          _c("input", {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.user_permissions,
-                                expression: "user_permissions"
-                              }
-                            ],
-                            attrs: { type: "checkbox" },
-                            domProps: {
-                              value: permission.value,
-                              checked: Array.isArray(_vm.user_permissions)
-                                ? _vm._i(
-                                    _vm.user_permissions,
-                                    permission.value
-                                  ) > -1
-                                : _vm.user_permissions
-                            },
-                            on: {
-                              change: function($event) {
-                                var $$a = _vm.user_permissions,
-                                  $$el = $event.target,
-                                  $$c = $$el.checked ? true : false
-                                if (Array.isArray($$a)) {
-                                  var $$v = permission.value,
-                                    $$i = _vm._i($$a, $$v)
-                                  if ($$el.checked) {
-                                    $$i < 0 &&
-                                      (_vm.user_permissions = $$a.concat([$$v]))
-                                  } else {
-                                    $$i > -1 &&
-                                      (_vm.user_permissions = $$a
-                                        .slice(0, $$i)
-                                        .concat($$a.slice($$i + 1)))
-                                  }
-                                } else {
-                                  _vm.user_permissions = $$c
-                                }
-                              }
-                            }
-                          }),
-                          _vm._v(" "),
-                          _c("label", [_vm._v(_vm._s(permission.name))])
-                        ]
-                      )
-                    }),
-                    0
-                  )
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.year,
+                          expression: "year"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: { type: "text" },
+                      domProps: { value: _vm.year },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.year = $event.target.value
+                        }
+                      }
+                    })
+                  ])
                 ],
                 2
               ),
@@ -28667,7 +28599,7 @@ var render = function() {
           { staticClass: "modal-dialog", attrs: { role: "document" } },
           [
             _c("div", { staticClass: "modal-content" }, [
-              _vm._m(3),
+              _vm._m(4),
               _vm._v(" "),
               _c("div", { staticClass: "modal-body" }, [
                 _vm._v("Are you sure you want to delete this role?")
@@ -28730,7 +28662,7 @@ var render = function() {
                 _vm._v("just now")
               ]),
               _vm._v(" "),
-              _vm._m(4)
+              _vm._m(5)
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "toast-body" }, [
@@ -28781,9 +28713,15 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "input-group-prepend" }, [
-      _c("span", { staticClass: "input-group-text", attrs: { id: "" } }, [
-        _vm._v("Role name")
-      ])
+      _c("span", { staticClass: "input-group-text" }, [_vm._v("Season")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "input-group-prepend" }, [
+      _c("span", { staticClass: "input-group-text" }, [_vm._v("Year")])
     ])
   },
   function() {
