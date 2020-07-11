@@ -7,6 +7,8 @@ use App\UserType;
 use App\UserTypeRelation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
+
 
 class UsersController extends Controller
 {
@@ -15,10 +17,14 @@ class UsersController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        if(!in_array("user_view",Auth::user()->types[0]["permissions"])) {
+            return response('Unauthenticated.', 401);
+        }
         return response()->json([
-            "items" => User::with(['types'])->get()
+            "items" => User::with(['types'])->get(),
+            //"user" => Auth::user()->types[0]["permissions"]
             ]);
     }
 

@@ -177,9 +177,13 @@ export default {
     };
   },
   mounted: function() {
+    //console.log(this.$auth);
     this.list();
   },
   methods: {
+      checkPermission() {
+
+      },
     list() {
       let me = this;
       axios

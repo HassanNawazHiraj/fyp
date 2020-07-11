@@ -15,13 +15,17 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+    return $request->user()->types[0];
+});
+Route::group(['middleware' => 'auth:api'], function () {
+    Route::resource("formFields", "FormFieldController");
+    Route::post("formFields/order", "FormFieldController@order");
+
+    Route::resource("users", "UsersController");
+    Route::get("user/types", "UsersController@getUserTypes");
+
+    Route::resource("roles", "UserRolesController");
+    Route::resource("/role/check/permission", "UserRolesController@checkPermission");
 });
 
-Route::resource("formFields", "FormFieldController");
-Route::post("formFields/order", "FormFieldController@order");
 
-Route::resource("users", "UsersController");
-Route::get("user/types", "UsersController@getUserTypes");
-
-Route::resource("roles", "UserRolesController");

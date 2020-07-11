@@ -2440,12 +2440,28 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      permissions: []
+    };
+  },
   methods: {
     logout: function logout() {
       this.$auth.destoryToken();
       window.location = "/"; //this.$router.push("/");
     }
+  },
+  mounted: function mounted() {
+    this.$auth.setUserCookie();
+    var localPermission = localStorage.getItem("permissions");
+    if (localPermission != null) this.permissions = localPermission.split(",");
   }
 });
 
@@ -2643,12 +2659,10 @@ __webpack_require__.r(__webpack_exports__);
       axios.post(me.base_path + "formFields/order", {
         items: this.items
       }).then(function (response) {
-        if (response.status == 200) {}
+        if (response.status == 200) {} //console.log(response.data);
 
-        console.log(response.data);
       })["catch"](function (error) {
-        console.log(error);
-
+        //console.log(error);
         for (var key in error.response.data.errors) {
           if (error.response.data.errors.hasOwnProperty(key)) {
             me.errors.push(error.response.data.errors[key][0]);
@@ -2937,6 +2951,24 @@ __webpack_require__.r(__webpack_exports__);
       }, {
         name: "Delete Users",
         value: "user_delete"
+      }, {
+        name: "View User roles",
+        value: "user_role_view"
+      }, {
+        name: "Add User roles",
+        value: "user_role_add"
+      }, {
+        name: "Delete User roles",
+        value: "user_role_delete"
+      }, {
+        name: "View Course performa form",
+        value: "course_performa_form_view"
+      }, {
+        name: "Add Course performa form",
+        value: "course_performa_form_add"
+      }, {
+        name: "Delete Course performa form",
+        value: "course_performa_form_delete"
       }],
       base_path: "/api/",
       errors: [],
@@ -3266,9 +3298,11 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   mounted: function mounted() {
+    //console.log(this.$auth);
     this.list();
   },
   methods: {
+    checkPermission: function checkPermission() {},
     list: function list() {
       var me = this;
       axios.get(me.base_path + "users").then(function (response) {
@@ -3537,13 +3571,9 @@ __webpack_require__.r(__webpack_exports__);
         password: this.password
       };
       axios.post("/oauth/token", access_data).then(function (response) {
-        console.log(response);
+        //console.log(response);
         me.$auth.setToken(response.data.access_token, Date.now() + response.data.expires_in);
-        axios.get("/api/user").then(function (response) {
-          console.log(response);
-          localStorage.setItem("name", response.data.name);
-          me.$router.push("/portal"); //console.log("success");
-        });
+        me.$auth.setUserCookie(true);
       })["catch"](function (error) {
         me.loading = false;
 
@@ -8060,7 +8090,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 exports.push([module.i, "@import url(/css/sb-admin-2.min.css);", ""]);
 
 // module
-exports.push([module.i, "\r\n", ""]);
+exports.push([module.i, "\n", ""]);
 
 // exports
 
@@ -26517,18 +26547,20 @@ var render = function() {
             "li",
             { staticClass: "nav-item" },
             [
-              _c(
-                "router-link",
-                {
-                  staticClass: "nav-link",
-                  attrs: { to: "/portal/course-performa-form" }
-                },
-                [
-                  _c("i", { staticClass: "fas fa-fw fa-table" }),
-                  _vm._v(" "),
-                  _c("span", [_vm._v("Course Performa Form")])
-                ]
-              )
+              _vm.permissions.includes("course_performa_form_view")
+                ? _c(
+                    "router-link",
+                    {
+                      staticClass: "nav-link",
+                      attrs: { to: "/portal/course-performa-form" }
+                    },
+                    [
+                      _c("i", { staticClass: "fas fa-fw fa-table" }),
+                      _vm._v(" "),
+                      _c("span", [_vm._v("Course Performa Form")])
+                    ]
+                  )
+                : _vm._e()
             ],
             1
           ),
@@ -26537,18 +26569,20 @@ var render = function() {
             "li",
             { staticClass: "nav-item" },
             [
-              _c(
-                "router-link",
-                {
-                  staticClass: "nav-link",
-                  attrs: { to: "/portal/manage-users" }
-                },
-                [
-                  _c("i", { staticClass: "fa fa-user-edit" }),
-                  _vm._v(" "),
-                  _c("span", [_vm._v("Manage Users")])
-                ]
-              )
+              _vm.permissions.includes("user_view")
+                ? _c(
+                    "router-link",
+                    {
+                      staticClass: "nav-link",
+                      attrs: { to: "/portal/manage-users" }
+                    },
+                    [
+                      _c("i", { staticClass: "fa fa-user-edit" }),
+                      _vm._v(" "),
+                      _c("span", [_vm._v("Manage Users")])
+                    ]
+                  )
+                : _vm._e()
             ],
             1
           ),
@@ -26557,18 +26591,20 @@ var render = function() {
             "li",
             { staticClass: "nav-item" },
             [
-              _c(
-                "router-link",
-                {
-                  staticClass: "nav-link",
-                  attrs: { to: "/portal/manage-roles" }
-                },
-                [
-                  _c("i", { staticClass: "fa fa-user-tag" }),
-                  _vm._v(" "),
-                  _c("span", [_vm._v("Manage User Roles")])
-                ]
-              )
+              _vm.permissions.includes("user_role_view")
+                ? _c(
+                    "router-link",
+                    {
+                      staticClass: "nav-link",
+                      attrs: { to: "/portal/manage-roles" }
+                    },
+                    [
+                      _c("i", { staticClass: "fa fa-user-tag" }),
+                      _vm._v(" "),
+                      _c("span", [_vm._v("Manage User Roles")])
+                    ]
+                  )
+                : _vm._e()
             ],
             1
           ),
@@ -48363,6 +48399,21 @@ __webpack_require__.r(__webpack_exports__);
 
       axios.defaults.headers.common["Authorization"] = "Bearer " + token;
     },
+    checkPermission: function checkPermission(permission) {},
+    setUserCookie: function setUserCookie() {
+      var redirect = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
+      axios.get("/api/user").then(function (response) {
+        //console.log(response.data);
+        //console.log(redirect);
+        localStorage.setItem("name", response.data.name);
+        localStorage.setItem("permissions", response.data.permissions); // ret = "asd";
+        //console.log("success");
+
+        if (redirect) {
+          window.location = "/portal";
+        }
+      });
+    },
     getToken: function getToken() {
       var token;
       var expiration;
@@ -48459,6 +48510,9 @@ var routes = [{
     component: _components_Admin_DashboardComponent_vue__WEBPACK_IMPORTED_MODULE_6__["default"]
   }, {
     path: "course-performa-form",
+    permission: {
+      name: "course_performa_form_view"
+    },
     component: _components_Admin_CoursePerformaFormComponent_vue__WEBPACK_IMPORTED_MODULE_7__["default"]
   }, {
     path: "manage-users",

@@ -35,20 +35,26 @@
         <!-- Nav Item - Pages Collapse Menu -->
 
         <li class="nav-item">
-          <router-link class="nav-link" to="/portal/course-performa-form">
+          <router-link
+            class="nav-link"
+            to="/portal/course-performa-form"
+            v-if="permissions.includes('course_performa_form_view')"
+          >
             <i class="fas fa-fw fa-table"></i>
             <span>Course Performa Form</span>
           </router-link>
         </li>
         <li class="nav-item">
-          <router-link class="nav-link" to="/portal/manage-users">
+          <router-link class="nav-link" to="/portal/manage-users"
+          v-if="permissions.includes('user_view')">
             <i class="fa fa-user-edit"></i>
             <span>Manage Users</span>
           </router-link>
         </li>
 
         <li class="nav-item">
-          <router-link class="nav-link" to="/portal/manage-roles">
+          <router-link class="nav-link" to="/portal/manage-roles"
+          v-if="permissions.includes('user_role_view')">
             <i class="fa fa-user-tag"></i>
             <span>Manage User Roles</span>
           </router-link>
@@ -510,12 +516,22 @@
 
 <script>
 export default {
+  data() {
+    return {
+      permissions: []
+    };
+  },
   methods: {
     logout() {
       this.$auth.destoryToken();
       window.location = "/";
       //this.$router.push("/");
     }
+  },
+  mounted: function() {
+    this.$auth.setUserCookie();
+    var localPermission = localStorage.getItem("permissions");
+    if (localPermission != null) this.permissions = localPermission.split(",");
   }
 };
 </script>

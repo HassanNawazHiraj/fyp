@@ -184,10 +184,10 @@ export default {
         .then(response => {
           if (response.status == 200) {
           }
-          console.log(response.data);
+          //console.log(response.data);
         })
         .catch(function(error) {
-          console.log(error);
+          //console.log(error);
           for (let key in error.response.data.errors) {
             if (error.response.data.errors.hasOwnProperty(key)) {
               me.errors.push(error.response.data.errors[key][0]);

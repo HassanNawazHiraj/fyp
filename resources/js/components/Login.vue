@@ -89,18 +89,14 @@ export default {
       axios
         .post("/oauth/token", access_data)
         .then(response => {
-          console.log(response);
+          //console.log(response);
           me.$auth.setToken(
             response.data.access_token,
             Date.now() + response.data.expires_in
           );
 
-          axios.get("/api/user").then(function(response) {
-            console.log(response);
-            localStorage.setItem("name", response.data.name);
-            me.$router.push("/portal");
-            //console.log("success");
-          });
+          me.$auth.setUserCookie(true);
+
         })
         .catch(function(error) {
           me.loading = false;

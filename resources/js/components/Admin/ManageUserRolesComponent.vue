@@ -160,6 +160,30 @@ export default {
         {
           name: "Delete Users",
           value: "user_delete"
+        },
+        {
+          name: "View User roles",
+          value: "user_role_view"
+        },
+        {
+          name: "Add User roles",
+          value: "user_role_add"
+        },
+        {
+          name: "Delete User roles",
+          value: "user_role_delete"
+        },
+        {
+          name: "View Course performa form",
+          value: "course_performa_form_view"
+        },
+        {
+          name: "Add Course performa form",
+          value: "course_performa_form_add"
+        },
+        {
+          name: "Delete Course performa form",
+          value: "course_performa_form_delete"
         }
       ],
       base_path: "/api/",

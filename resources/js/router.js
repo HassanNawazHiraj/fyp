@@ -34,6 +34,9 @@ const routes = [{
             },
             {
                 path: "course-performa-form",
+                permission: {
+                    name: "course_performa_form_view"
+                },
                 component: CoursePerformaFormComponent
             },
             {

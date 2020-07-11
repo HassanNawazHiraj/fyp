@@ -13,6 +13,23 @@ export default function(Vue) {
             }
             axios.defaults.headers.common["Authorization"] = "Bearer " + token;
         },
+        checkPermission(permission) {
+
+        },
+        setUserCookie(redirect = false) {
+            axios.get("/api/user").then(function(response) {
+                //console.log(response.data);
+                //console.log(redirect);
+                localStorage.setItem("name", response.data.name);
+
+                localStorage.setItem("permissions", response.data.permissions);
+                // ret = "asd";
+                //console.log("success");
+                if (redirect) {
+                    window.location = "/portal";
+                }
+            });
+        },
         getToken() {
             let token;
             let expiration;

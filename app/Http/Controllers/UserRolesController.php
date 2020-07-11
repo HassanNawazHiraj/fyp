@@ -28,6 +28,19 @@ class UserRolesController extends Controller
         //
     }
 
+    public function checkPermission(Request $request) {
+        if(isset($request->id) && isset($request->permission)) {
+            $userType = UserType::get($request->id);
+            if(in_array($request->permission, $request->permissions)) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -85,7 +98,7 @@ class UserRolesController extends Controller
 
         $userType = UserType::find($id);
         $userType->name = $request->name;
-        $userType->permissions = $request->permissions;
+        $userType->permissions = json_decode($request->permissions);
         $userType->save();
 
         return response()->json($request, 200);
