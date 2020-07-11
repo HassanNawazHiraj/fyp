@@ -45,18 +45,35 @@
           </router-link>
         </li>
         <li class="nav-item">
-          <router-link class="nav-link" to="/portal/manage-users"
-          v-if="permissions.includes('user_view')">
+          <router-link
+            class="nav-link"
+            to="/portal/manage-users"
+            v-if="permissions.includes('user_view')"
+          >
             <i class="fa fa-user-edit"></i>
             <span>Manage Users</span>
           </router-link>
         </li>
 
         <li class="nav-item">
-          <router-link class="nav-link" to="/portal/manage-roles"
-          v-if="permissions.includes('user_role_view')">
+          <router-link
+            class="nav-link"
+            to="/portal/manage-roles"
+            v-if="permissions.includes('user_role_view')"
+          >
             <i class="fa fa-user-tag"></i>
             <span>Manage User Roles</span>
+          </router-link>
+        </li>
+
+        <li class="nav-item">
+          <router-link
+            class="nav-link"
+            to="/portal/manage-batch"
+            v-if="permissions.includes('batch_view')"
+          >
+            <i class="fa fa-users"></i>
+            <span>Manage Batch</span>
           </router-link>
         </li>
 

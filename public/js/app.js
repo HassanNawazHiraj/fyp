@@ -2446,6 +2446,23 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2934,15 +2951,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       items: [],
       name: "",
       user_permissions: [],
-      permissions: [{
+      permissions: [//users
+      {
         name: "View Users",
         value: "user_view"
       }, {
@@ -2951,7 +2967,8 @@ __webpack_require__.r(__webpack_exports__);
       }, {
         name: "Delete Users",
         value: "user_delete"
-      }, {
+      }, //user roles
+      {
         name: "View User roles",
         value: "user_role_view"
       }, {
@@ -2960,7 +2977,8 @@ __webpack_require__.r(__webpack_exports__);
       }, {
         name: "Delete User roles",
         value: "user_role_delete"
-      }, {
+      }, //course performa form
+      {
         name: "View Course performa form",
         value: "course_performa_form_view"
       }, {
@@ -2969,6 +2987,16 @@ __webpack_require__.r(__webpack_exports__);
       }, {
         name: "Delete Course performa form",
         value: "course_performa_form_delete"
+      }, //batch
+      {
+        name: "View Batch",
+        value: "batch_view"
+      }, {
+        name: "Add Batch",
+        value: "batch_add"
+      }, {
+        name: "Delete Batch",
+        value: "batch_delete"
       }],
       base_path: "/api/",
       errors: [],
@@ -2983,6 +3011,18 @@ __webpack_require__.r(__webpack_exports__);
     this.list();
   },
   methods: {
+    select_all: function select_all() {
+      var _this = this;
+
+      if (this.user_permissions.length == this.permissions.length) {
+        this.user_permissions = [];
+      } else {
+        this.user_permissions = [];
+        this.permissions.forEach(function (element) {
+          _this.user_permissions.push(element.value);
+        });
+      }
+    },
     list: function list() {
       var me = this;
       axios.get(me.base_path + "roles").then(function (response) {
@@ -26609,6 +26649,28 @@ var render = function() {
             1
           ),
           _vm._v(" "),
+          _c(
+            "li",
+            { staticClass: "nav-item" },
+            [
+              _vm.permissions.includes("batch_view")
+                ? _c(
+                    "router-link",
+                    {
+                      staticClass: "nav-link",
+                      attrs: { to: "/portal/manage-batch" }
+                    },
+                    [
+                      _c("i", { staticClass: "fa fa-users" }),
+                      _vm._v(" "),
+                      _c("span", [_vm._v("Manage Batch")])
+                    ]
+                  )
+                : _vm._e()
+            ],
+            1
+          ),
+          _vm._v(" "),
           _c("hr", { staticClass: "sidebar-divider d-none d-md-block" }),
           _vm._v(" "),
           _vm._m(1)
@@ -28146,7 +28208,7 @@ var render = function() {
       [
         _c(
           "div",
-          { staticClass: "modal-dialog", attrs: { role: "document" } },
+          { staticClass: "modal-dialog modal-lg", attrs: { role: "document" } },
           [
             _c("div", { staticClass: "modal-content" }, [
               _c("div", { staticClass: "modal-header" }, [
@@ -28199,19 +28261,32 @@ var render = function() {
                     })
                   ]),
                   _vm._v(" "),
-                  _c("h4", [_vm._v("Permissions")]),
+                  _c("div", { staticClass: "mt-4" }, [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-light btn-sm float-right",
+                        on: {
+                          click: function($event) {
+                            return _vm.select_all()
+                          }
+                        }
+                      },
+                      [_vm._v("Select all")]
+                    ),
+                    _vm._v(" "),
+                    _c("h4", [_vm._v("Permissions")])
+                  ]),
                   _vm._v(" "),
                   _c("hr"),
                   _vm._v(" "),
                   _c(
                     "div",
+                    { staticClass: "row" },
                     _vm._l(_vm.permissions, function(permission) {
                       return _c(
                         "div",
-                        {
-                          key: permission.name,
-                          staticClass: "form-control mb-1"
-                        },
+                        { key: permission.name, staticClass: "col-4" },
                         [
                           _c("input", {
                             directives: [

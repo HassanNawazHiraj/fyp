@@ -58,7 +58,7 @@
 
     <!-- Add Form -->
     <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-hidden="true">
-      <div class="modal-dialog" role="document">
+      <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title">{{this.modal_mode}} user</h5>
@@ -79,15 +79,13 @@
               </div>
               <input type="text" class="form-control" v-model="name" />
             </div>
-
-            <h4>Permissions</h4>
+            <div class="mt-4">
+              <button class="btn btn-light btn-sm float-right" v-on:click="select_all()">Select all</button>
+              <h4>Permissions</h4>
+            </div>
             <hr />
-            <div>
-              <div
-                class="form-control mb-1"
-                v-for="permission in permissions"
-                :key="permission.name"
-              >
+            <div class="row">
+              <div v-for="permission in permissions" :key="permission.name" class="col-4">
                 <input type="checkbox" v-model="user_permissions" :value="permission.value" />
                 <label>{{ permission.name }}</label>
               </div>
@@ -149,6 +147,7 @@ export default {
       name: "",
       user_permissions: [],
       permissions: [
+        //users
         {
           name: "View Users",
           value: "user_view"
@@ -161,6 +160,7 @@ export default {
           name: "Delete Users",
           value: "user_delete"
         },
+        //user roles
         {
           name: "View User roles",
           value: "user_role_view"
@@ -173,6 +173,7 @@ export default {
           name: "Delete User roles",
           value: "user_role_delete"
         },
+        //course performa form
         {
           name: "View Course performa form",
           value: "course_performa_form_view"
@@ -184,6 +185,19 @@ export default {
         {
           name: "Delete Course performa form",
           value: "course_performa_form_delete"
+        },
+        //batch
+        {
+          name: "View Batch",
+          value: "batch_view"
+        },
+        {
+          name: "Add Batch",
+          value: "batch_add"
+        },
+        {
+          name: "Delete Batch",
+          value: "batch_delete"
         }
       ],
       base_path: "/api/",
@@ -199,6 +213,16 @@ export default {
     this.list();
   },
   methods: {
+    select_all() {
+      if (this.user_permissions.length == this.permissions.length) {
+        this.user_permissions = [];
+      } else {
+        this.user_permissions = [];
+        this.permissions.forEach(element => {
+            this.user_permissions.push(element.value);
+        });
+      }
+    },
     list() {
       let me = this;
       axios
