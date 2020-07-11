@@ -15,7 +15,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user()->types[0];
+    return [
+        "type" => $request->user()->types[0],
+        "user" => $request->user()
+];
 });
 Route::group(['middleware' => 'auth:api'], function () {
     Route::resource("formFields", "FormFieldController");
@@ -28,7 +31,7 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::resource("/role/check/permission", "UserRolesController@checkPermission");
 
     Route::resource("batch", "BatchController");
-    
+
     Route::resource("program", "ProgramController");
 });
 

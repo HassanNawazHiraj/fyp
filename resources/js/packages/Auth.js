@@ -20,9 +20,10 @@ export default function(Vue) {
             axios.get("/api/user").then(function(response) {
                 //console.log(response.data);
                 //console.log(redirect);
-                localStorage.setItem("name", response.data.name);
+                console.log(response.data);
+                localStorage.setItem("name", response.data.user.name);
 
-                localStorage.setItem("permissions", response.data.permissions);
+                localStorage.setItem("permissions", response.data.type.permissions);
                 // ret = "asd";
                 //console.log("success");
                 if (redirect) {
