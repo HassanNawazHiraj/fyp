@@ -28,6 +28,8 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::resource("/role/check/permission", "UserRolesController@checkPermission");
 
     Route::resource("batch", "BatchController");
+    
+    Route::resource("program", "ProgramController");
 });
 
 

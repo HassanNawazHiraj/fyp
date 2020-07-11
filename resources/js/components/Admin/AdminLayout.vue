@@ -77,6 +77,17 @@
           </router-link>
         </li>
 
+        <li class="nav-item">
+          <router-link
+            class="nav-link"
+            to="/portal/manage-program"
+            v-if="permissions.includes('program_view')"
+          >
+            <i class="fa fa-users"></i>
+            <span>Manage Program</span>
+          </router-link>
+        </li>
+
         <!-- Nav Item - Utilities Collapse Menu -->
         <!-- <li class="nav-item">
                     <a

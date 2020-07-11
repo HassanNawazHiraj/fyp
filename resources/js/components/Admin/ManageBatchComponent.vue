@@ -100,7 +100,7 @@
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <div class="modal-body">Are you sure you want to delete this role?</div>
+          <div class="modal-body">Are you sure you want to delete this batch?</div>
           <div class="modal-footer">
             <button
               type="button"
