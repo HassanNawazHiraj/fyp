@@ -65,7 +65,7 @@
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">{{this.modal_mode}} user</h5>
+            <h5 class="modal-title text-capitalize">{{this.modal_mode}} user</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
@@ -265,12 +265,12 @@ export default {
       this.user_name = item.name;
       this.user_email = item.email;
       this.user_password = "";
-      if (item.types != null){
-          item.types.forEach(type => {
+      if (item.types != null) {
+        item.types.forEach(type => {
           this.user_types_checked.push(type.id);
         });
       } else {
-          this.user_types_checked = [];
+        this.user_types_checked = [];
       }
       this.id = item.id;
       this.modal_mode = "edit";

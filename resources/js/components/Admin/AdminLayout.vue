@@ -83,8 +83,19 @@
             to="/portal/manage-program"
             v-if="permissions.includes('program_view')"
           >
-            <i class="fa fa-users"></i>
+            <i class="fa fa-graduation-cap"></i>
             <span>Manage Program</span>
+          </router-link>
+        </li>
+
+        <li class="nav-item">
+          <router-link
+            class="nav-link"
+            to="/portal/manage-course"
+            v-if="permissions.includes('course_view')"
+          >
+            <i class="fa fa-book"></i>
+            <span>Manage Course</span>
           </router-link>
         </li>
 

@@ -34,6 +34,8 @@ Route::group(['middleware' => 'auth:api'], function () {
 
     Route::resource("program", "ProgramController");
 
+    Route::resource("course", "CourseController");
+
     Route::resource("class", "ClassController");
 });
 

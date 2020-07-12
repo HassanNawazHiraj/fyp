@@ -59,7 +59,7 @@
       <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">{{this.modal_mode}} user</h5>
+            <h5 class="modal-title text-capitalize">{{this.modal_mode}} class</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
@@ -93,7 +93,7 @@
                   v-for="item in programs"
                   :key="item.id"
                   :value="item.id"
-                >{{item.short_name + " (" + item.full_name  + ")"}}</option>
+                >{{item.short_name + " (" + item.full_name + ")"}}</option>
               </select>
             </div>
 
