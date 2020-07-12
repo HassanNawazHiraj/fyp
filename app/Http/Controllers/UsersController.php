@@ -22,8 +22,11 @@ class UsersController extends Controller
         if(!in_array("user_view",Auth::user()->types[0]["permissions"])) {
             return response('Unauthenticated.', 401);
         }
+        $users = User::whereHas('types', function($q) {
+            return $q->where("name", "<>", "Super admin");
+        })->get();
         return response()->json([
-            "items" => User::with(['types'])->get(),
+            "items" => $users,
             //"user" => Auth::user()->types[0]["permissions"]
             ]);
     }
