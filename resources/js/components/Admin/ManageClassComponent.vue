@@ -289,7 +289,7 @@ export default {
             me.closeModal("deleteModal");
             me.list();
             me.toastTitle = "Delete";
-            me.toastMessage = "Batch deleted successfully";
+            me.toastMessage = "Class deleted successfully";
             me.toastClass = "d-block";
             $(".toast").toast("show");
           }
