@@ -30,9 +30,13 @@
                 <td>{{ item.id }}</td>
                 <td>{{ item.name }}</td>
                 <td>
-                  <span
-                    class="badge badge-secondary"
-                  >{{(item.permissions === null)? "0":item.permissions.length}}</span>
+                  <span class="badge badge-secondary">
+                    {{
+                    item.permissions === null
+                    ? "0"
+                    : item.permissions.length
+                    }}
+                  </span>
                 </td>
                 <td>
                   <button
@@ -61,7 +65,7 @@
       <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">{{this.modal_mode}} user</h5>
+            <h5 class="modal-title">{{ this.modal_mode }} user</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
@@ -211,6 +215,19 @@ export default {
         {
           name: "Delete Program",
           value: "program_delete"
+        },
+        //class
+        {
+          name: "View Class",
+          value: "class_view"
+        },
+        {
+          name: "Add Class",
+          value: "class_add"
+        },
+        {
+          name: "Delete Class",
+          value: "class_delete"
         }
       ],
       base_path: "/api/",

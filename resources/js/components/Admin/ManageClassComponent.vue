@@ -3,7 +3,7 @@
     <div class="card shadow mb-4">
       <div class="card-header py-3">
         <h6 class="m-0 font-weight-bold text-primary">
-          Batch
+          Class
           <a
             href="#"
             class="btn btn-primary float-right btn-sm"
@@ -19,8 +19,9 @@
             <thead>
               <tr>
                 <th>#</th>
-                <th>Season</th>
-                <th>Year</th>
+                <th>Batch</th>
+                <th>Program</th>
+                <th>Section</th>
                 <th>Actions</th>
               </tr>
             </thead>
@@ -28,8 +29,9 @@
             <tbody>
               <tr v-for="item in items" :key="item.id">
                 <td>{{ item.id }}</td>
-                <td>{{ item.season }}</td>
-                <td>{{item.year}}</td>
+                <td>{{ item.batch.season + item.batch.year }}</td>
+                <td>{{ item.program.short_name + " (" + item.program.full_name + ")"}}</td>
+                <td>{{ item.section }}</td>
                 <td>
                   <button
                     class="btn btn-primary btn-sm"
@@ -71,15 +73,35 @@
             >{{ error }}</div>
             <div class="input-group mb-3">
               <div class="input-group-prepend">
-                <span class="input-group-text">Season</span>
+                <span class="input-group-text">Batch</span>
               </div>
-              <input type="text" class="form-control" v-model="season" />
+              <select class="form-control" v-model="selected_batch">
+                <option
+                  v-for="batch in batches"
+                  :key="batch.id"
+                  :value="batch.id"
+                >{{batch.season + batch.year}}</option>
+              </select>
             </div>
+
             <div class="input-group mb-3">
               <div class="input-group-prepend">
-                <span class="input-group-text">Year</span>
+                <span class="input-group-text">Program</span>
               </div>
-              <input type="text" class="form-control" v-model="year" />
+              <select class="form-control" v-model="selected_program">
+                <option
+                  v-for="item in programs"
+                  :key="item.id"
+                  :value="item.id"
+                >{{item.short_name + " (" + item.full_name  + ")"}}</option>
+              </select>
+            </div>
+
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text">Section</span>
+              </div>
+              <input type="text" class="form-control" v-model="section" />
             </div>
           </div>
           <div class="modal-footer">
@@ -135,15 +157,18 @@ export default {
   data() {
     return {
       items: [],
-      season: "",
-      year: "",
       base_path: "/api/",
       errors: [],
       modal_mode: "add",
       id: "",
       toastTitle: "",
       toastMessage: "",
-      toastClass: "d-none"
+      toastClass: "d-none",
+      batches: [],
+      programs: [],
+      selected_batch: "",
+      selected_program: "",
+      section: ""
     };
   },
   mounted: function() {
@@ -153,9 +178,11 @@ export default {
     list() {
       let me = this;
       axios
-        .get(me.base_path + "batch")
+        .get(me.base_path + "class")
         .then(response => {
           me.items = response.data.items;
+          me.batches = response.data.batches;
+          me.programs = response.data.programs;
           // console.log(me.items);
           me.loading = false;
         })
@@ -165,8 +192,9 @@ export default {
     },
     add() {
       this.modal_mode = "add";
-      this.season = "";
-      this.year = "";
+      this.selected_batch = "";
+      this.selected_program = "";
+      this.section = "";
     },
     closeModal(id) {
       $("#" + id).modal("hide");
@@ -177,16 +205,17 @@ export default {
       let me = this;
       me.errors = [];
       let formData = new FormData();
-      formData.set("season", me.season);
-      formData.set("year", me.year);
+      formData.set("batch_id", me.selected_batch);
+      formData.set("program_id", me.selected_program);
+      formData.set("section", me.section);
       axios
-        .post(me.base_path + "batch", formData, {})
+        .post(me.base_path + "class", formData, {})
         .then(function(response) {
           if (response.status == 200) {
             me.closeModal("addModal");
             me.list();
             me.toastTitle = "Add";
-            me.toastMessage = "Batch added successfully";
+            me.toastMessage = "Class added successfully";
             me.toastClass = "d-block";
             $(".toast").toast("show");
           }
@@ -208,8 +237,9 @@ export default {
       }
     },
     edit(item) {
-      this.season = item.season;
-      this.year = item.year;
+      this.selected_batch = item.batch.id;
+      this.selected_program = item.program.id;
+      this.section = item.section;
       this.id = item.id;
       this.modal_mode = "edit";
       $("#addModal").modal("show");
@@ -218,18 +248,19 @@ export default {
       let me = this;
       me.errors = [];
       let formData = new FormData();
-      formData.set("season", me.season);
-      formData.set("year", me.year);
+      formData.set("batch_id", me.selected_batch);
+      formData.set("program_id", me.selected_program);
+      formData.set("section", me.section);
       formData.set("_method", "PUT");
 
       axios
-        .post(me.base_path + "batch/" + me.id, formData, {})
+        .post(me.base_path + "class/" + me.id, formData, {})
         .then(function(response) {
           if (response.status == 200) {
             me.closeModal("addModal");
             me.list();
             me.toastTitle = "Update";
-            me.toastMessage = "Batch updated successfully";
+            me.toastMessage = "Class updated successfully";
             me.toastClass = "d-block";
             $(".toast").toast("show");
           }
@@ -250,7 +281,7 @@ export default {
       let me = this;
       me.errors = [];
       axios
-        .post(me.base_path + "batch/" + me.id, {
+        .post(me.base_path + "class/" + me.id, {
           _method: "DELETE"
         })
         .then(response => {

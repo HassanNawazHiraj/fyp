@@ -88,6 +88,16 @@
           </router-link>
         </li>
 
+        <li class="nav-item">
+          <router-link
+            class="nav-link"
+            to="/portal/manage-class"
+            v-if="permissions.includes('class_view')"
+          >
+            <i class="fa fa-users"></i>
+            <span>Manage Class</span>
+          </router-link>
+        </li>
 
         <!-- Divider -->
         <hr class="sidebar-divider d-none d-md-block" />
@@ -171,7 +181,6 @@
 
               <!-- Nav Item - Alerts -->
 
-
               <!-- Nav Item - Messages -->
 
               <div class="topbar-divider d-none d-sm-block"></div>
@@ -191,7 +200,6 @@
                     class="mr-2 d-none d-lg-inline text-gray-600 small"
                     id="user_name"
                   >{{user_login_name}}</span>
-
                 </a>
                 <!-- Dropdown - User Information -->
                 <div
@@ -274,7 +282,7 @@ export default {
   data() {
     return {
       permissions: [],
-      user_login_name: "",
+      user_login_name: ""
     };
   },
   methods: {

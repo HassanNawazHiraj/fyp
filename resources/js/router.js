@@ -10,22 +10,20 @@ import ManageUsersComponent from "./components/Admin/ManageUsersComponent.vue";
 import ManageUserRolesComponent from "./components/Admin/ManageUserRolesComponent.vue";
 import ManageBatchComponent from "./components/Admin/ManageBatchComponent.vue";
 import ManageProgramComponent from "./components/Admin/ManageProgramComponent.vue";
+import ManageClassComponent from "./components/Admin/ManageClassComponent.vue";
 
 Vue.use(VueRouter);
 
-const routes = [
-    {
+const routes = [{
         path: "/",
         component: Layout,
         meta: {
             guest: true
         },
-        children: [
-            {
-                path: "",
-                component: Login
-            }
-        ]
+        children: [{
+            path: "",
+            component: Login
+        }]
     },
     {
         path: "/portal",
@@ -33,8 +31,7 @@ const routes = [
         meta: {
             auth: true
         },
-        children: [
-            {
+        children: [{
                 path: "",
                 component: DashboardComponent
             },
@@ -60,6 +57,10 @@ const routes = [
             {
                 path: "manage-program",
                 component: ManageProgramComponent
+            },
+            {
+                path: "manage-class",
+                component: ManageClassComponent
             }
         ]
     }
