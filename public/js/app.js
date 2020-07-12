@@ -4035,9 +4035,15 @@ __webpack_require__.r(__webpack_exports__);
       this.user_name = item.name;
       this.user_email = item.email;
       this.user_password = "";
-      item.types.forEach(function (type) {
-        _this.user_types_checked.push(type.id);
-      });
+
+      if (item.types != null) {
+        item.types.forEach(function (type) {
+          _this.user_types_checked.push(type.id);
+        });
+      } else {
+        this.user_types_checked = [];
+      }
+
       this.id = item.id;
       this.modal_mode = "edit";
       $("#addModal").modal("show");
@@ -28028,7 +28034,7 @@ var render = function() {
       "div",
       {
         class: _vm.toastClass,
-        staticStyle: { position: "absolute", top: "0", right: "0" }
+        staticStyle: { position: "absolute", bottom: "0", right: "0" }
       },
       [
         _c(
@@ -28712,7 +28718,7 @@ var render = function() {
       "div",
       {
         class: _vm.toastClass,
-        staticStyle: { position: "absolute", top: "0", right: "0" }
+        staticStyle: { position: "absolute", bottom: "0", right: "0" }
       },
       [
         _c(
@@ -29208,7 +29214,7 @@ var render = function() {
       "div",
       {
         class: _vm.toastClass,
-        staticStyle: { position: "absolute", top: "0", right: "0" }
+        staticStyle: { position: "absolute", bottom: "0", right: "0" }
       },
       [
         _c(
@@ -29637,7 +29643,7 @@ var render = function() {
       "div",
       {
         class: _vm.toastClass,
-        staticStyle: { position: "absolute", top: "0", right: "0" }
+        staticStyle: { position: "absolute", bottom: "0", right: "0" }
       },
       [
         _c(
@@ -30119,7 +30125,7 @@ var render = function() {
       "div",
       {
         class: _vm.toastClass,
-        staticStyle: { position: "absolute", top: "0", right: "0" }
+        staticStyle: { position: "absolute", bottom: "0", right: "0" }
       },
       [
         _c(
@@ -30653,7 +30659,7 @@ var render = function() {
       "div",
       {
         class: _vm.toastClass,
-        staticStyle: { position: "absolute", top: "0", right: "0" }
+        staticStyle: { position: "absolute", bottom: "0", right: "0" }
       },
       [
         _c(

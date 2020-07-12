@@ -128,7 +128,7 @@
     </div>
 
     <!-- Toast -->
-    <div style="position: absolute; top: 0; right: 0;" v-bind:class="toastClass">
+    <div style="position: absolute; bottom: 0; right: 0;" v-bind:class="toastClass">
       <div class="toast m-5" role="alert" data-delay="5000" data-autohide="true">
         <div class="toast-header" v-bind:class="toastClass">
           <strong class="mr-auto">{{ toastTitle }}</strong>

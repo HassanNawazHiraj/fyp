@@ -142,7 +142,7 @@
     </div>
 
     <!-- Toast -->
-    <div style="position: absolute; top: 0; right: 0;" v-bind:class="toastClass">
+    <div style="position: absolute; bottom: 0; right: 0;" v-bind:class="toastClass">
       <div class="toast m-5" role="alert" data-delay="5000" data-autohide="true">
         <div class="toast-header" v-bind:class="toastClass">
           <strong class="mr-auto">{{ toastTitle }}</strong>
@@ -181,9 +181,7 @@ export default {
     this.list();
   },
   methods: {
-      checkPermission() {
-
-      },
+    checkPermission() {},
     list() {
       let me = this;
       axios
@@ -267,9 +265,13 @@ export default {
       this.user_name = item.name;
       this.user_email = item.email;
       this.user_password = "";
-      item.types.forEach(type => {
-        this.user_types_checked.push(type.id);
-      });
+      if (item.types != null){
+          item.types.forEach(type => {
+          this.user_types_checked.push(type.id);
+        });
+      } else {
+          this.user_types_checked = [];
+      }
       this.id = item.id;
       this.modal_mode = "edit";
       $("#addModal").modal("show");
