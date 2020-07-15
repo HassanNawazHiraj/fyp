@@ -24,7 +24,7 @@ class ClassController extends Controller
             'programs' => Program::get(),
             'batches' => Batch::get()
             //"user" => Auth::user()->types[0]["permissions"]
-            ]);
+        ]);
     }
 
 

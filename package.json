@@ -25,6 +25,7 @@
     },
     "dependencies": {
         "vue-router": "^3.3.2",
+        "vue-select": "^3.10.7",
         "vuedraggable": "^2.23.2"
     }
 }

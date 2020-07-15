@@ -37,6 +37,8 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::resource("course", "CourseController");
 
     Route::resource("class", "ClassController");
+
+    Route::resource("class_courses", "ClassCoursesController");
 });
 
 
