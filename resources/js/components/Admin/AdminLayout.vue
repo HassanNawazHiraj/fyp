@@ -110,6 +110,17 @@
           </router-link>
         </li>
 
+        <li class="nav-item">
+          <router-link
+            class="nav-link"
+            to="/portal/manage-course-assignment"
+            v-if="permissions.includes('course_assinment_view')"
+          >
+            <i class="fa fa-users"></i>
+            <span>Manage Course Assignment</span>
+          </router-link>
+        </li>
+
         <!-- Divider -->
         <hr class="sidebar-divider d-none d-md-block" />
 

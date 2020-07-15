@@ -3,7 +3,7 @@
     <div class="card shadow mb-4">
       <div class="card-header py-3">
         <h6 class="m-0 font-weight-bold text-primary">
-          User Roles
+          Course
           <a
             href="#"
             class="btn btn-primary float-right btn-sm"
@@ -19,8 +19,9 @@
             <thead>
               <tr>
                 <th>#</th>
-                <th>Name</th>
-                <th>Permission count</th>
+                <th>Code</th>
+                <th>Title</th>
+                <th>Credit Hours</th>
                 <th>Actions</th>
               </tr>
             </thead>
@@ -28,16 +29,9 @@
             <tbody>
               <tr v-for="item in items" :key="item.id">
                 <td>{{ item.id }}</td>
-                <td>{{ item.name }}</td>
-                <td>
-                  <span class="badge badge-secondary">
-                    {{
-                    item.permissions === null
-                    ? "0"
-                    : item.permissions.length
-                    }}
-                  </span>
-                </td>
+                <td>{{ item.code }}</td>
+                <td>{{ item.title }}</td>
+                <td>{{ item.credit_hours }}</td>
                 <td>
                   <button
                     class="btn btn-primary btn-sm"
@@ -65,7 +59,7 @@
       <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title text-capitalize">{{ this.modal_mode }} role</h5>
+            <h5 class="modal-title text-capitalize">{{this.modal_mode}} course</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
@@ -79,20 +73,21 @@
             >{{ error }}</div>
             <div class="input-group mb-3">
               <div class="input-group-prepend">
-                <span class="input-group-text" id>Role name</span>
+                <span class="input-group-text">Code</span>
               </div>
-              <input type="text" class="form-control" v-model="name" />
+              <input type="text" class="form-control" v-model="code" />
             </div>
-            <div class="mt-4">
-              <button class="btn btn-light btn-sm float-right" v-on:click="select_all()">Select all</button>
-              <h4>Permissions</h4>
-            </div>
-            <hr />
-            <div class="row">
-              <div v-for="permission in permissions" :key="permission.name" class="col-4">
-                <input type="checkbox" v-model="user_permissions" :value="permission.value" />
-                <label>{{ permission.name }}</label>
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text">Title</span>
               </div>
+              <input type="text" class="form-control" v-model="title" />
+            </div>
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text">Credit Hours</span>
+              </div>
+              <input type="number" class="form-control" v-model="credit_hours" />
             </div>
           </div>
           <div class="modal-footer">
@@ -113,7 +108,7 @@
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <div class="modal-body">Are you sure you want to delete this role?</div>
+          <div class="modal-body">Are you sure you want to delete this Course?</div>
           <div class="modal-footer">
             <button
               type="button"
@@ -148,114 +143,9 @@ export default {
   data() {
     return {
       items: [],
-      name: "",
-      user_permissions: [],
-      permissions: [
-        //users
-        {
-          name: "View Users",
-          value: "user_view"
-        },
-        {
-          name: "Add Users",
-          value: "user_add"
-        },
-        {
-          name: "Delete Users",
-          value: "user_delete"
-        },
-        //user roles
-        {
-          name: "View User roles",
-          value: "user_role_view"
-        },
-        {
-          name: "Add User roles",
-          value: "user_role_add"
-        },
-        {
-          name: "Delete User roles",
-          value: "user_role_delete"
-        },
-        //course performa form
-        {
-          name: "View Course performa form",
-          value: "course_performa_form_view"
-        },
-        {
-          name: "Add Course performa form",
-          value: "course_performa_form_add"
-        },
-        {
-          name: "Delete Course performa form",
-          value: "course_performa_form_delete"
-        },
-        //batch
-        {
-          name: "View Batch",
-          value: "batch_view"
-        },
-        {
-          name: "Add Batch",
-          value: "batch_add"
-        },
-        {
-          name: "Delete Batch",
-          value: "batch_delete"
-        },
-        //program
-        {
-          name: "View Program",
-          value: "program_view"
-        },
-        {
-          name: "Add Program",
-          value: "program_add"
-        },
-        {
-          name: "Delete Program",
-          value: "program_delete"
-        },
-        //course
-        {
-          name: "View Course",
-          value: "course_view"
-        },
-        {
-          name: "Add Course",
-          value: "course_add"
-        },
-        {
-          name: "Delete Course",
-          value: "course_delete"
-        },
-        //class
-        {
-          name: "View Class",
-          value: "class_view"
-        },
-        {
-          name: "Add Class",
-          value: "class_add"
-        },
-        {
-          name: "Delete Class",
-          value: "class_delete"
-        },
-        //class
-        {
-          name: "View Course Assignment",
-          value: "course_assignment_view"
-        },
-        {
-          name: "Add Course Assignment",
-          value: "course_assignment_add"
-        },
-        {
-          name: "Delete Course Assignment",
-          value: "course_assignment_delete"
-        }
-      ],
+      code: "",
+      title: "",
+      credit_hours: "",
       base_path: "/api/",
       errors: [],
       modal_mode: "add",
@@ -269,25 +159,12 @@ export default {
     this.list();
   },
   methods: {
-    select_all() {
-      if (this.user_permissions.length == this.permissions.length) {
-        this.user_permissions = [];
-      } else {
-        this.user_permissions = [];
-        this.permissions.forEach(element => {
-          this.user_permissions.push(element.value);
-        });
-      }
-    },
     list() {
       let me = this;
       axios
-        .get(me.base_path + "roles")
+        .get(me.base_path + "course")
         .then(response => {
           me.items = response.data.items;
-          me.items.forEach(item => {
-            item.permissions = JSON.parse(item.permissions);
-          });
           // console.log(me.items);
           me.loading = false;
         })
@@ -295,26 +172,11 @@ export default {
           me.loading = false;
         });
     },
-    getUserTypes() {
-      let me = this;
-      axios
-        .get(me.base_path + "user/types")
-        .then(response => {
-          me.user_types = response.data.items;
-        })
-        .catch(error => {
-          for (let key in error.response.data.errors) {
-            if (error.response.data.errors.hasOwnProperty(key)) {
-              me.errors.push(error.response.data.errors[key][0]);
-            }
-          }
-        });
-    },
     add() {
       this.modal_mode = "add";
-      this.name = "";
-      this.user_name = "";
-      this.user_permissions = [];
+      this.code = "";
+      this.title = "";
+      this.credit_hours = "";
     },
     closeModal(id) {
       $("#" + id).modal("hide");
@@ -325,16 +187,17 @@ export default {
       let me = this;
       me.errors = [];
       let formData = new FormData();
-      formData.set("name", me.name);
-      formData.set("permissions", JSON.stringify(me.user_permissions));
+      formData.set("code", me.code);
+      formData.set("title", me.title);
+      formData.set("credit_hours", me.credit_hours);
       axios
-        .post(me.base_path + "roles", formData, {})
+        .post(me.base_path + "course", formData, {})
         .then(function(response) {
           if (response.status == 200) {
             me.closeModal("addModal");
             me.list();
             me.toastTitle = "Add";
-            me.toastMessage = "User role added successfully";
+            me.toastMessage = "Course added successfully";
             me.toastClass = "d-block";
             $(".toast").toast("show");
           }
@@ -356,8 +219,9 @@ export default {
       }
     },
     edit(item) {
-      this.name = item.name;
-      this.user_permissions = item.permissions === null ? [] : item.permissions;
+      this.code = item.code;
+      this.title = item.title;
+      this.credit_hours = item.credit_hours;
       this.id = item.id;
       this.modal_mode = "edit";
       $("#addModal").modal("show");
@@ -366,18 +230,19 @@ export default {
       let me = this;
       me.errors = [];
       let formData = new FormData();
-      formData.set("name", me.name);
-      formData.set("permissions", JSON.stringify(me.user_permissions));
+      formData.set("code", me.code);
+      formData.set("title", me.title);
+      formData.set("credit_hours", me.credit_hours);
       formData.set("_method", "PUT");
 
       axios
-        .post(me.base_path + "roles/" + me.id, formData, {})
+        .post(me.base_path + "course/" + me.id, formData, {})
         .then(function(response) {
           if (response.status == 200) {
             me.closeModal("addModal");
             me.list();
             me.toastTitle = "Update";
-            me.toastMessage = "Role updated successfully";
+            me.toastMessage = "Course updated successfully";
             me.toastClass = "d-block";
             $(".toast").toast("show");
           }
@@ -398,7 +263,7 @@ export default {
       let me = this;
       me.errors = [];
       axios
-        .post(me.base_path + "roles/" + me.id, {
+        .post(me.base_path + "course/" + me.id, {
           _method: "DELETE"
         })
         .then(response => {
@@ -406,7 +271,7 @@ export default {
             me.closeModal("deleteModal");
             me.list();
             me.toastTitle = "Delete";
-            me.toastMessage = "Role deleted successfully";
+            me.toastMessage = "Program deleted successfully";
             me.toastClass = "d-block";
             $(".toast").toast("show");
           }

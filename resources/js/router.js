@@ -12,6 +12,7 @@ import ManageBatchComponent from "./components/Admin/ManageBatchComponent.vue";
 import ManageProgramComponent from "./components/Admin/ManageProgramComponent.vue";
 import ManageCourseComponent from "./components/Admin/ManageCourseComponent.vue";
 import ManageClassComponent from "./components/Admin/ManageClassComponent.vue";
+import ManageCourseAssignmentComponent from "./components/Admin/ManageCourseAssignmentComponent.vue";
 
 Vue.use(VueRouter);
 
@@ -70,6 +71,10 @@ const routes = [
             {
                 path: "manage-class",
                 component: ManageClassComponent
+            },
+            {
+                path: "manage-course-assignment",
+                component: ManageCourseAssignmentComponent
             }
         ]
     }
