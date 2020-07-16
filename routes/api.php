@@ -26,6 +26,7 @@ Route::group(['middleware' => 'auth:api'], function () {
 
     Route::resource("users", "UsersController");
     Route::get("user/types", "UsersController@getUserTypes");
+    Route::get("user/teachers", "UsersController@getTeachers");
 
     Route::resource("roles", "UserRolesController");
     Route::resource("/role/check/permission", "UserRolesController@checkPermission");

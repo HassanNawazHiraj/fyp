@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\User;
 use App\UserType;
 use App\UserTypeRelation;
+use App\ClassCourses;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
@@ -19,29 +20,31 @@ class UsersController extends Controller
      */
     public function index(Request $request)
     {
-        if(!in_array("user_view",Auth::user()->types[0]["permissions"])) {
+        if (!in_array("user_view", Auth::user()->types[0]["permissions"])) {
             return response('Unauthenticated.', 401);
         }
 
 
-        $users = User::whereHas('types', function($q) {
+        $users = User::whereHas('types', function ($q) {
             $q->where('name', 'not like', 'Super admin');
         })->with(['types'])->get();
 
         return response()->json([
             "items" => $users,
             //"user" => Auth::user()->types[0]["permissions"]
-            ]);
+        ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function getTeachers()
     {
-        //
+        $users = User::whereHas('types', function ($q) {
+            $q->where('name', 'like', 'teacher');
+        })->with(['types', 'class_courses.course', 'class_courses.class.batch', 'class_courses.class.program'])->get();
+
+        return response()->json([
+            "items" => $users,
+            "courses" => ClassCourses::with(['class', 'class.batch', 'class.program', 'course'])->get()
+        ]);
     }
 
     /**
@@ -65,7 +68,7 @@ class UsersController extends Controller
         $user->password = Hash::make($request->password);
         $user->save();
 
-        $types = explode(",",$request->user_types);
+        $types = explode(",", $request->user_types);
         foreach ($types as $type) {
             // you will get id in $type now
             $userTypeRelation = new UserTypeRelation();
@@ -76,27 +79,7 @@ class UsersController extends Controller
         return response()->json($request, 200);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
@@ -116,12 +99,12 @@ class UsersController extends Controller
         $user = User::find($id);
         $user->name = $request->name;
         $user->email = $request->email;
-        if($request->password != null || $request->password != ""){
+        if ($request->password != null || $request->password != "") {
             $user->password = Hash::make($request->password);
         }
         $user->save();
 
-        $types = explode(",",$request->user_types);
+        $types = explode(",", $request->user_types);
         UserTypeRelation::where('user_id', $id)->delete();
         foreach ($types as $type) {
             $userTypeRelation = new UserTypeRelation();

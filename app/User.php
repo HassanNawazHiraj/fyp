@@ -41,4 +41,8 @@ class User extends Authenticatable
     public function types() {
         return $this->belongsToMany('App\UserType', 'user_type_relations', 'user_id', 'user_type_id');
     }
+
+    public function class_courses() {
+        return $this->belongsToMany('App\ClassCourses', 'teacher_courses', 'teacher_id', 'class_course_id');
+    }
 }

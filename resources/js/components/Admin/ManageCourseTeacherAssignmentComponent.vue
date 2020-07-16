@@ -3,15 +3,7 @@
         <div class="card shadow mb-4">
             <div class="card-header py-3">
                 <h6 class="m-0 font-weight-bold text-primary">
-                    Class Courses
-                    <a
-                        href="#"
-                        class="btn btn-primary float-right btn-sm"
-                        data-toggle="modal"
-                        data-target="#addModal"
-                        v-on:click="add()"
-                        >Add</a
-                    >
+                    Choose a teacher to assign courses to :
                 </h6>
             </div>
             <div class="card-body">
@@ -25,9 +17,8 @@
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Class</th>
-                                <th>Course</th>
-                                <th>Has Lab</th>
+                                <th>Name</th>
+                                <th>Courses</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
@@ -35,56 +26,23 @@
                         <tbody>
                             <tr v-for="item in items" :key="item.id">
                                 <td>{{ item.id }}</td>
-                                <td class="text-uppercase">
+                                <td class="">
                                     {{
-                                        (item.class.batch.season.length > 2
-                                            ? item.class.batch.season.substring(
-                                                  0,
-                                                  2
-                                              )
-                                            : item.class.batch.season) +
-                                            (item.class.batch.year.length > 2
-                                                ? item.class.batch.year.substring(
-                                                      2,
-                                                      4
-                                                  )
-                                                : item.class.batch.year) +
-                                            "-" +
-                                            item.class.program.short_name +
-                                            "-" +
-                                            item.class.section
+                                        item.name
                                     }}
                                 </td>
                                 <td class="text-capitalize">
-                                    {{ item.course.title }}
-                                </td>
-                                <td class="text-center">
-                                    <span
-                                        class="badge"
-                                        v-bind:class="{
-                                            'badge-success': item.has_lab,
-                                            'badge-danger': !item.has_lab
-                                        }"
-                                        >{{ item.has_lab ? "Yes" : "No" }}</span
-                                    >
+
                                 </td>
                                 <td>
                                     <button
                                         class="btn btn-primary btn-sm"
                                         data-toggle="modal"
                                         data-target="#add_update_modal"
+                                        data-backdrop="static"
                                         @click="edit(item)"
                                     >
-                                        Edit
-                                    </button>
-                                    &nbsp;
-                                    <button
-                                        class="btn btn-danger btn-sm"
-                                        data-toggle="modal"
-                                        data-target="#delete_modal"
-                                        @click="remove(item.id)"
-                                    >
-                                        Delete
+                                        Assign
                                     </button>
                                 </td>
                             </tr>
@@ -126,42 +84,11 @@
                         >
                             {{ error }}
                         </div>
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text">Class</span>
-                            </div>
-                            <div class="form-control cselect">
-                                <vSelect
-                                    label="name"
-                                    :options="classes"
-                                    :reduce="c => c.id"
-                                    v-model="class_id"
-                                    class="mt-n1"
-                                ></vSelect>
-                            </div>
-                        </div>
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text">Course</span>
-                            </div>
-                            <div class="form-control cselect">
-                                <vSelect
-                                    label="title"
-                                    :options="courses"
-                                    :reduce="c => c.id"
-                                    v-model="course_id"
-                                    class="mt-n1"
-                                ></vSelect>
-                            </div>
-                        </div>
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text">Has Lab</span>
-                            </div>
-                            <div class="form-control">
-                                <input type="checkbox" v-model="has_lab" />
-                                <label>{{ this.has_lab ? "Yes" : "No" }}</label>
-                            </div>
+
+                          <div class="form-group">
+                            <label for="exampleInputEmail1">Select Course : </label>
+                            <v-select multiple v-model="selected" :options="courses" label="name" class="mt-n1"
+                            :closeOnSelect="false"/>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -269,11 +196,8 @@ export default {
     data() {
         return {
             items: [],
-            classes: [],
             courses: [],
-            class_id: "",
-            course_id: "",
-            has_lab: false,
+            selected: [],
             base_path: "/api/",
             errors: [],
             modal_mode: "add",
@@ -290,24 +214,22 @@ export default {
         list() {
             let me = this;
             axios
-                .get(me.base_path + "class_courses")
+                .get(me.base_path + "user/teachers")
                 .then(response => {
-                    me.items = response.data.items;
-                    me.courses = response.data.courses;
-                    me.classes = [];
-                    response.data.classes.forEach(c => {
-                        me.classes.push({
-                            id: c.id,
-                            name:
-                                c.batch.season +
-                                c.batch.year +
-                                "-" +
-                                c.program.short_name +
-                                "-" +
-                                c.section
-                        });
-                    });
 
+                    me.items = response.data.items;
+                    response.data.courses.forEach(element => {
+                        me.courses.push({
+                            id: element.id,
+                            name: element.course.title + " [" + element.class.batch.season +
+                                element.class.batch.year +
+                                "-" +
+                                element.class.program.short_name +
+                                "-" +
+                                element.class.section + "]"
+                        });
+
+                    });
                     // console.log(me.items);
                     me.loading = false;
                 })
@@ -368,7 +290,7 @@ export default {
             this.has_lab = item.has_lab;
             this.id = item.id;
             this.modal_mode = "edit";
-            $("#addModal").modal("show");
+            $("#addModal").modal({backdrop: 'static', keyboard: false});
         },
         update() {
             let me = this;
@@ -432,8 +354,6 @@ export default {
 };
 </script>
 
-<style>
-.cselect > .v-select .vs__dropdown-toggle {
-    border: none;
-}
-</style>
+
+
+
