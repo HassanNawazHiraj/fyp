@@ -17,7 +17,7 @@ class ClassCoursesController extends Controller
     public function index()
     {
         return response()->json([
-            "items" => ClassCourses::with(['class', 'course'])->get(),
+            "items" => ClassCourses::with(['class', 'class.batch', 'class.program', 'course'])->get(),
             'classes' => ClassModel::with(['batch', 'program'])->get(),
             'courses' => Course::get()
         ]);

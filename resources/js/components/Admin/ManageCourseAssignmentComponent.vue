@@ -35,11 +35,32 @@
                         <tbody>
                             <tr v-for="item in items" :key="item.id">
                                 <td>{{ item.id }}</td>
-                                <td>{{ item.class.section }}</td>
-                                <td>{{ item.course.title }}</td>
+                                <td class="text-uppercase">
+                                    {{
+                                        (item.class.batch.season.length > 2
+                                            ? item.class.batch.season.substring(
+                                                  0,
+                                                  2
+                                              )
+                                            : item.class.batch.season) +
+                                            (item.class.batch.year.length > 2
+                                                ? item.class.batch.year.substring(
+                                                      2,
+                                                      4
+                                                  )
+                                                : item.class.batch.year) +
+                                            "-" +
+                                            item.class.program.short_name +
+                                            "-" +
+                                            item.class.section
+                                    }}
+                                </td>
+                                <td class="text-capitalize">
+                                    {{ item.course.title }}
+                                </td>
                                 <td class="text-center">
                                     <span
-                                        class="badge "
+                                        class="badge"
                                         v-bind:class="{
                                             'badge-success': item.has_lab,
                                             'badge-danger': !item.has_lab
@@ -109,25 +130,29 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text">Class</span>
                             </div>
-                            <vSelect
-                                label="name"
-                                :options="classes"
-                                :reduce="c => c.id"
-                                v-model="class_id"
-                                class="form-control p-0 border-0"
-                            ></vSelect>
+                            <div class="form-control">
+                                <vSelect
+                                    label="name"
+                                    :options="classes"
+                                    :reduce="c => c.id"
+                                    v-model="class_id"
+                                    class="mt-n1"
+                                ></vSelect>
+                            </div>
                         </div>
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
                                 <span class="input-group-text">Course</span>
                             </div>
-                            <vSelect
-                                label="title"
-                                :options="courses"
-                                :reduce="c => c.id"
-                                v-model="course_id"
-                                class="form-control p-0 border-0"
-                            ></vSelect>
+                            <div class="form-control">
+                                <vSelect
+                                    label="title"
+                                    :options="courses"
+                                    :reduce="c => c.id"
+                                    v-model="course_id"
+                                    class="mt-n1"
+                                ></vSelect>
+                            </div>
                         </div>
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
@@ -406,3 +431,9 @@ export default {
     }
 };
 </script>
+
+<style>
+.v-select .vs__dropdown-toggle {
+    border: none;
+}
+</style>
