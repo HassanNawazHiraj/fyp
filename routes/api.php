@@ -29,6 +29,7 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::get("user/teachers", "UsersController@getTeachers");
 
     Route::resource("roles", "UserRolesController");
+
     Route::resource("/role/check/permission", "UserRolesController@checkPermission");
 
     Route::resource("batch", "BatchController");
@@ -40,6 +41,8 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::resource("class", "ClassController");
 
     Route::resource("class_courses", "ClassCoursesController");
+
+    Route::resource("teacher_courses", "TeacherCourseController");
 });
 
 

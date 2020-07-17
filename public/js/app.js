@@ -4031,55 +4031,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -4108,6 +4059,7 @@ __webpack_require__.r(__webpack_exports__);
       var me = this;
       axios.get(me.base_path + "user/teachers").then(function (response) {
         me.items = response.data.items;
+        me.courses = [];
         response.data.courses.forEach(function (element) {
           me.courses.push({
             id: element.id,
@@ -4163,13 +4115,20 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     edit: function edit(item) {
-      this.class_id = item.class_id;
-      this.course_id = item.course_id;
-      this.has_lab = item.has_lab;
+      var _this = this;
+
+      console.log(item);
       this.id = item.id;
+      this.selected = [];
+      item.class_courses.forEach(function (element) {
+        _this.selected.push({
+          id: element.id,
+          name: element.course.title + " [" + element["class"].batch.season + element["class"].batch.year + "-" + element["class"].program.short_name + "-" + element["class"].section + "]"
+        });
+      });
       this.modal_mode = "edit";
       $("#addModal").modal({
-        backdrop: 'static',
+        backdrop: "static",
         keyboard: false
       });
     },
@@ -4177,11 +4136,9 @@ __webpack_require__.r(__webpack_exports__);
       var me = this;
       me.errors = [];
       var formData = new FormData();
-      formData.set("class_id", me.class_id);
-      formData.set("course_id", me.course_id);
-      formData.set("has_lab", me.has_lab ? 1 : 0);
+      formData.set("selected_courses", JSON.stringify(me.selected));
       formData.set("_method", "PUT");
-      axios.post(me.base_path + "class_courses/" + me.id, formData, {}).then(function (response) {
+      axios.post(me.base_path + "teacher_courses/" + me.id, formData, {}).then(function (response) {
         if (response.status == 200) {
           me.closeModal("addModal");
           me.list();
@@ -31782,13 +31739,43 @@ var render = function() {
                     _vm._v(" "),
                     _c("td", {}, [
                       _vm._v(
-                        "\n                                " +
+                        "\n                " +
                           _vm._s(item.name) +
-                          "\n                            "
+                          "\n              "
                       )
                     ]),
                     _vm._v(" "),
-                    _c("td", { staticClass: "text-capitalize" }),
+                    _c(
+                      "td",
+                      { staticClass: "text-capitalize" },
+                      _vm._l(item.class_courses, function(element) {
+                        return _c(
+                          "span",
+                          {
+                            key: element.id,
+                            staticClass: "badge badge-secondary"
+                          },
+                          [
+                            _vm._v(
+                              "\n                  " +
+                                _vm._s(
+                                  element.course.title +
+                                    " [" +
+                                    element.class.batch.season +
+                                    element.class.batch.year +
+                                    "-" +
+                                    element.class.program.short_name +
+                                    "-" +
+                                    element.class.section +
+                                    "]"
+                                ) +
+                                "\n                "
+                            )
+                          ]
+                        )
+                      }),
+                      0
+                    ),
                     _vm._v(" "),
                     _c("td", [
                       _c(
@@ -31806,11 +31793,7 @@ var render = function() {
                             }
                           }
                         },
-                        [
-                          _vm._v(
-                            "\n                                    Assign\n                                "
-                          )
-                        ]
+                        [_vm._v("Assign")]
                       )
                     ])
                   ])
@@ -31842,11 +31825,7 @@ var render = function() {
             _c("div", { staticClass: "modal-content" }, [
               _c("div", { staticClass: "modal-header" }, [
                 _c("h5", { staticClass: "modal-title text-capitalize" }, [
-                  _vm._v(
-                    "\n                        " +
-                      _vm._s(this.modal_mode) +
-                      " Class courses\n                    "
-                  )
+                  _vm._v(_vm._s(this.modal_mode) + " Class courses")
                 ]),
                 _vm._v(" "),
                 _vm._m(2)
@@ -31864,13 +31843,7 @@ var render = function() {
                         staticClass: "alert alert-danger",
                         attrs: { role: "alert" }
                       },
-                      [
-                        _vm._v(
-                          "\n                        " +
-                            _vm._s(error) +
-                            "\n                    "
-                        )
-                      ]
+                      [_vm._v(_vm._s(error))]
                     )
                   }),
                   _vm._v(" "),
@@ -31879,7 +31852,7 @@ var render = function() {
                     { staticClass: "form-group" },
                     [
                       _c("label", { attrs: { for: "exampleInputEmail1" } }, [
-                        _vm._v("Select Course : ")
+                        _vm._v("Select Course :")
                       ]),
                       _vm._v(" "),
                       _c("v-select", {
@@ -31912,11 +31885,7 @@ var render = function() {
                     staticClass: "btn btn-secondary",
                     attrs: { type: "button", "data-dismiss": "modal" }
                   },
-                  [
-                    _vm._v(
-                      "\n                        Cancel\n                    "
-                    )
-                  ]
+                  [_vm._v("Cancel")]
                 ),
                 _vm._v(" "),
                 _c(
@@ -31930,11 +31899,7 @@ var render = function() {
                       }
                     }
                   },
-                  [
-                    _vm._v(
-                      "\n                        Save\n                    "
-                    )
-                  ]
+                  [_vm._v("Save")]
                 )
               ])
             ])
@@ -31964,7 +31929,7 @@ var render = function() {
               _vm._v(" "),
               _c("div", { staticClass: "modal-body" }, [
                 _vm._v(
-                  "\n                    Are you sure you want to delete this Class Course\n                    Relation?\n                "
+                  "\n          Are you sure you want to delete this Class Course\n          Relation?\n        "
                 )
               ]),
               _vm._v(" "),
@@ -31980,11 +31945,7 @@ var render = function() {
                       }
                     }
                   },
-                  [
-                    _vm._v(
-                      "\n                        Delete\n                    "
-                    )
-                  ]
+                  [_vm._v("Delete")]
                 ),
                 _vm._v(" "),
                 _c(
@@ -31993,11 +31954,7 @@ var render = function() {
                     staticClass: "btn btn-secondary",
                     attrs: { type: "button", "data-dismiss": "modal" }
                   },
-                  [
-                    _vm._v(
-                      "\n                        Close\n                    "
-                    )
-                  ]
+                  [_vm._v("Close")]
                 )
               ])
             ])
@@ -32052,9 +32009,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "card-header py-3" }, [
       _c("h6", { staticClass: "m-0 font-weight-bold text-primary" }, [
-        _vm._v(
-          "\n                Choose a teacher to assign courses to :\n            "
-        )
+        _vm._v("Choose a teacher to assign courses to :")
       ])
     ])
   },
@@ -32064,13 +32019,13 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("thead", [
       _c("tr", [
-        _c("th", [_vm._v("#")]),
+        _c("th", { staticStyle: { width: "6%" } }, [_vm._v("#")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Name")]),
+        _c("th", { staticStyle: { width: "28%" } }, [_vm._v("Name")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Courses")]),
+        _c("th", { staticStyle: { width: "60%" } }, [_vm._v("Courses")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Actions")])
+        _c("th", { staticStyle: { width: "6%" } }, [_vm._v("Actions")])
       ])
     ])
   },
