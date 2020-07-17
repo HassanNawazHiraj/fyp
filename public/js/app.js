@@ -28650,28 +28650,6 @@ var render = function() {
             1
           ),
           _vm._v(" "),
-          _c(
-            "li",
-            { staticClass: "nav-item" },
-            [
-              _vm.permissions.includes("class_courses_view")
-                ? _c(
-                    "router-link",
-                    {
-                      staticClass: "nav-link",
-                      attrs: { to: "/portal/manage-course-assignment" }
-                    },
-                    [
-                      _c("i", { staticClass: "fa fa-users" }),
-                      _vm._v(" "),
-                      _c("span", [_vm._v("Assign TAI to teacher")])
-                    ]
-                  )
-                : _vm._e()
-            ],
-            1
-          ),
-          _vm._v(" "),
           _c("hr", { staticClass: "sidebar-divider d-none d-md-block" }),
           _vm._v(" "),
           _vm._m(1)

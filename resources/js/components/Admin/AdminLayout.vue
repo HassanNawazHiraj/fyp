@@ -133,7 +133,7 @@
           </router-link>
         </li>
 
-        <li class="nav-item">
+        <!-- <li class="nav-item">
           <router-link
             class="nav-link"
             to="/portal/manage-course-assignment"
@@ -142,7 +142,7 @@
             <i class="fa fa-users"></i>
             <span>Assign TAI to teacher</span>
           </router-link>
-        </li>
+        </li> -->
 
         <!-- Divider -->
         <hr class="sidebar-divider d-none d-md-block" />
