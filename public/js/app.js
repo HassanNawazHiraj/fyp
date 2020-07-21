@@ -4061,10 +4061,24 @@ __webpack_require__.r(__webpack_exports__);
         me.items = response.data.items;
         me.courses = [];
         response.data.courses.forEach(function (element) {
-          me.courses.push({
-            id: element.id,
-            name: element.course.title + " [" + element["class"].batch.season + element["class"].batch.year + "-" + element["class"].program.short_name + "-" + element["class"].section + "]"
-          });
+          if (element.has_lab) {
+            me.courses.push({
+              id: element.id,
+              name: element.course.title + " [" + element["class"].batch.season + element["class"].batch.year + "-" + element["class"].program.short_name + "-" + element["class"].section + "]",
+              type: "theory"
+            });
+            me.courses.push({
+              id: element.id,
+              name: element.course.title + " [" + element["class"].batch.season + element["class"].batch.year + "-" + element["class"].program.short_name + "-" + element["class"].section + "] Lab",
+              type: "lab"
+            });
+          } else {
+            me.courses.push({
+              id: element.id,
+              name: element.course.title + " [" + element["class"].batch.season + element["class"].batch.year + "-" + element["class"].program.short_name + "-" + element["class"].section + "]",
+              type: "theory"
+            });
+          }
         }); // console.log(me.items);
 
         me.loading = false;
