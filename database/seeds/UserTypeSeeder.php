@@ -15,13 +15,16 @@ class UserTypeSeeder extends Seeder
     {
         $user = User::where('email', 'test@email.com')->first();
         $userType = UserType::create([
-            'name' => 'Admin'
+            'name' => 'Admin',
+            'permissions' => '[]'
         ]);
         UserType::create([
-            'name' => 'Teacher'
+            'name' => 'Teacher',
+            'permissions' => '[]'
         ]);
         UserType::create([
-            'name' => 'Teaching area in-charge'
+            'name' => 'Teaching area in-charge',
+            'permissions' => '[]'
         ]);
         $userTypeRelation = UserTypeRelation::create([
             'user_id' => $user->id,
