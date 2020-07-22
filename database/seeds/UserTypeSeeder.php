@@ -15,8 +15,8 @@ class UserTypeSeeder extends Seeder
     {
         $user = User::where('email', 'test@email.com')->first();
         $userType = UserType::create([
-            'name' => 'Admin',
-            'permissions' => '[]'
+            'name' => 'Super admin',
+            'permissions' => '["user_view","user_add","user_delete","user_role_view","user_role_add","user_role_delete","course_performa_form_view","course_performa_form_add","course_performa_form_delete","batch_view","batch_add","batch_delete","program_view","program_add","program_delete","class_view","class_add","class_delete","course_add","course_view","course_delete","class_courses_view","class_courses_add","class_courses_delete"]'
         ]);
         UserType::create([
             'name' => 'Teacher',
