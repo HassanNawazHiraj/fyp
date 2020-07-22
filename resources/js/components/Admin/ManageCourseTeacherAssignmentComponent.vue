@@ -26,9 +26,13 @@
                 </td>
                 <td class="text-capitalize">
                   <span
-                    class="badge badge-secondary"
+                    class="badge"
+                    v-bind:class="{
+                        'badge-primary':element.pivot.course_type != 'lab',
+                        'badge-info':element.pivot.course_type == 'lab'
+                        }"
                     v-for="element in item.class_courses"
-                    :key="element.id"
+                    :key="element.id + element.pivot.course_type"
                   >
                     {{
                     element.course.title + " [" + element.class.batch.season +
@@ -38,6 +42,7 @@
                     "-" +
                     element.class.section + "]"
                     }}
+                    <nobr v-if="element.pivot.course_type == 'lab'"> Lab</nobr>
                   </span>
                 </td>
                 <td>
@@ -186,7 +191,7 @@ export default {
                 type: "theory"
               });
               me.courses.push({
-                id: element.id,
+                id: element.id + "l", //to make id unique. or else you cannot select theory and lab because of same id
                 name:
                   element.course.title +
                   " [" +
@@ -270,24 +275,46 @@ export default {
       }
     },
     edit(item) {
-      console.log(item);
+      //console.log(item);
+      let me = this;
       this.id = item.id;
       this.selected = [];
+
+
       item.class_courses.forEach(element => {
-        this.selected.push({
-          id: element.id,
-          name:
-            element.course.title +
-            " [" +
-            element.class.batch.season +
-            element.class.batch.year +
-            "-" +
-            element.class.program.short_name +
-            "-" +
-            element.class.section +
-            "]"
-        });
-      });
+          console.log(element.pivot.course_type);
+            if (element.pivot.course_type == 'lab') {
+              me.selected.push({
+                id: element.id + "l", //to make id unique. or else you cannot select theory and lab because of same id
+                name:
+                  element.course.title +
+                  " [" +
+                  element.class.batch.season +
+                  element.class.batch.year +
+                  "-" +
+                  element.class.program.short_name +
+                  "-" +
+                  element.class.section +
+                  "] Lab",
+                type: "lab"
+              });
+            } else {
+              me.selected.push({
+                id: element.id,
+                name:
+                  element.course.title +
+                  " [" +
+                  element.class.batch.season +
+                  element.class.batch.year +
+                  "-" +
+                  element.class.program.short_name +
+                  "-" +
+                  element.class.section +
+                  "]",
+                type: "theory"
+              });
+            }
+          });
       this.modal_mode = "edit";
       $("#addModal").modal({ backdrop: "static", keyboard: false });
     },

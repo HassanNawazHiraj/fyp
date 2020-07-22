@@ -4031,6 +4031,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -4068,7 +4073,8 @@ __webpack_require__.r(__webpack_exports__);
               type: "theory"
             });
             me.courses.push({
-              id: element.id,
+              id: element.id + "l",
+              //to make id unique. or else you cannot select theory and lab because of same id
               name: element.course.title + " [" + element["class"].batch.season + element["class"].batch.year + "-" + element["class"].program.short_name + "-" + element["class"].section + "] Lab",
               type: "lab"
             });
@@ -4129,16 +4135,27 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     edit: function edit(item) {
-      var _this = this;
-
-      console.log(item);
+      //console.log(item);
+      var me = this;
       this.id = item.id;
       this.selected = [];
       item.class_courses.forEach(function (element) {
-        _this.selected.push({
-          id: element.id,
-          name: element.course.title + " [" + element["class"].batch.season + element["class"].batch.year + "-" + element["class"].program.short_name + "-" + element["class"].section + "]"
-        });
+        console.log(element.pivot.course_type);
+
+        if (element.pivot.course_type == 'lab') {
+          me.selected.push({
+            id: element.id + "l",
+            //to make id unique. or else you cannot select theory and lab because of same id
+            name: element.course.title + " [" + element["class"].batch.season + element["class"].batch.year + "-" + element["class"].program.short_name + "-" + element["class"].section + "] Lab",
+            type: "lab"
+          });
+        } else {
+          me.selected.push({
+            id: element.id,
+            name: element.course.title + " [" + element["class"].batch.season + element["class"].batch.year + "-" + element["class"].program.short_name + "-" + element["class"].section + "]",
+            type: "theory"
+          });
+        }
       });
       this.modal_mode = "edit";
       $("#addModal").modal({
@@ -31744,8 +31761,13 @@ var render = function() {
                         return _c(
                           "span",
                           {
-                            key: element.id,
-                            staticClass: "badge badge-secondary"
+                            key: element.id + element.pivot.course_type,
+                            staticClass: "badge",
+                            class: {
+                              "badge-primary":
+                                element.pivot.course_type != "lab",
+                              "badge-info": element.pivot.course_type == "lab"
+                            }
                           },
                           [
                             _vm._v(
@@ -31761,9 +31783,13 @@ var render = function() {
                                     element.class.section +
                                     "]"
                                 ) +
-                                "\n                "
-                            )
-                          ]
+                                "\n                  "
+                            ),
+                            element.pivot.course_type == "lab"
+                              ? _c("nobr", [_vm._v(" Lab")])
+                              : _vm._e()
+                          ],
+                          1
                         )
                       }),
                       0

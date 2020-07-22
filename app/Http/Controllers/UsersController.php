@@ -39,7 +39,7 @@ class UsersController extends Controller
     {
         $users = User::whereHas('types', function ($q) {
             $q->where('name', 'like', 'teacher');
-        })->with(['types', 'class_courses.course', 'class_courses.class.batch', 'class_courses.class.program'])->get();
+        })->with(['types', 'class_courses.course', 'class_courses.class.batch', 'class_courses.class.program', "course_type"])->get();
 
         return response()->json([
             "items" => $users,

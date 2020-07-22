@@ -79,9 +79,14 @@ class TeacherCourseController extends Controller
         //add new items
         $insert_array = [];
         foreach($courses as $course) {
+            if($course->type == 'lab') {
+                //remove "l" from end
+                $course->id = substr($course->id, 0, strlen($course->id)-1);
+            }
             array_push($insert_array,[
                 "teacher_id" => $id,
-                "class_course_id" => $course->id
+                "class_course_id" => $course->id,
+                "course_type" => $course->type
             ]);
         }
         TeacherCourse::insert($insert_array);
