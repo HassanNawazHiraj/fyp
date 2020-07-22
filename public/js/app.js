@@ -4036,6 +4036,92 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -4142,7 +4228,7 @@ __webpack_require__.r(__webpack_exports__);
       item.class_courses.forEach(function (element) {
         console.log(element.pivot.course_type);
 
-        if (element.pivot.course_type == 'lab') {
+        if (element.pivot.course_type == "lab") {
           me.selected.push({
             id: element.id + "l",
             //to make id unique. or else you cannot select theory and lab because of same id
@@ -9977,7 +10063,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 exports.push([module.i, "@import url(/css/sb-admin-2.min.css);", ""]);
 
 // module
-exports.push([module.i, "\n", ""]);
+exports.push([module.i, "\r\n", ""]);
 
 // exports
 
@@ -9996,7 +10082,26 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.cselect > .v-select .vs__dropdown-toggle {\n    border: none;\n}\n", ""]);
+exports.push([module.i, "\n.cselect > .v-select .vs__dropdown-toggle {\r\n    border: none;\n}\r\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Admin/ManageCourseTeacherAssignmentComponent.vue?vue&type=style&index=0&lang=css&":
+/*!**************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Admin/ManageCourseTeacherAssignmentComponent.vue?vue&type=style&index=0&lang=css& ***!
+  \**************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.vs__dropdown-option--selected {\r\n    display: none;\n}\r\n", ""]);
 
 // exports
 
@@ -10015,7 +10120,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 exports.push([module.i, "@import url(https://fonts.googleapis.com/css?family=Nunito:400,600|Open+Sans:400,600,700);", ""]);
 
 // module
-exports.push([module.i, "\n\n", ""]);
+exports.push([module.i, "\r\n\r\n", ""]);
 
 // exports
 
@@ -27791,6 +27896,36 @@ if(false) {}
 
 /***/ }),
 
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Admin/ManageCourseTeacherAssignmentComponent.vue?vue&type=style&index=0&lang=css&":
+/*!******************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader!./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Admin/ManageCourseTeacherAssignmentComponent.vue?vue&type=style&index=0&lang=css& ***!
+  \******************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../../../node_modules/css-loader??ref--6-1!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??ref--6-2!../../../../node_modules/vue-loader/lib??vue-loader-options!./ManageCourseTeacherAssignmentComponent.vue?vue&type=style&index=0&lang=css& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Admin/ManageCourseTeacherAssignmentComponent.vue?vue&type=style&index=0&lang=css&");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
 /***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Login.vue?vue&type=style&index=0&id=6bdc8b8e&scoped=true&lang=css&":
 /*!***************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/style-loader!./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Login.vue?vue&type=style&index=0&id=6bdc8b8e&scoped=true&lang=css& ***!
@@ -31748,9 +31883,9 @@ var render = function() {
                     _vm._v(" "),
                     _c("td", {}, [
                       _vm._v(
-                        "\n                " +
+                        "\n                                " +
                           _vm._s(item.name) +
-                          "\n              "
+                          "\n                            "
                       )
                     ]),
                     _vm._v(" "),
@@ -31771,7 +31906,7 @@ var render = function() {
                           },
                           [
                             _vm._v(
-                              "\n                  " +
+                              "\n                                    " +
                                 _vm._s(
                                   element.course.title +
                                     " [" +
@@ -31783,10 +31918,14 @@ var render = function() {
                                     element.class.section +
                                     "]"
                                 ) +
-                                "\n                  "
+                                "\n                                    "
                             ),
                             element.pivot.course_type == "lab"
-                              ? _c("nobr", [_vm._v(" Lab")])
+                              ? _c("nobr", [
+                                  _vm._v(
+                                    "\n                                        Lab"
+                                  )
+                                ])
                               : _vm._e()
                           ],
                           1
@@ -31811,7 +31950,11 @@ var render = function() {
                             }
                           }
                         },
-                        [_vm._v("Assign")]
+                        [
+                          _vm._v(
+                            "\n                                    Assign\n                                "
+                          )
+                        ]
                       )
                     ])
                   ])
@@ -31843,7 +31986,11 @@ var render = function() {
             _c("div", { staticClass: "modal-content" }, [
               _c("div", { staticClass: "modal-header" }, [
                 _c("h5", { staticClass: "modal-title text-capitalize" }, [
-                  _vm._v(_vm._s(this.modal_mode) + " Class courses")
+                  _vm._v(
+                    "\n                        " +
+                      _vm._s(this.modal_mode) +
+                      " Class courses\n                    "
+                  )
                 ]),
                 _vm._v(" "),
                 _vm._m(2)
@@ -31861,7 +32008,13 @@ var render = function() {
                         staticClass: "alert alert-danger",
                         attrs: { role: "alert" }
                       },
-                      [_vm._v(_vm._s(error))]
+                      [
+                        _vm._v(
+                          "\n                        " +
+                            _vm._s(error) +
+                            "\n                    "
+                        )
+                      ]
                     )
                   }),
                   _vm._v(" "),
@@ -31903,7 +32056,11 @@ var render = function() {
                     staticClass: "btn btn-secondary",
                     attrs: { type: "button", "data-dismiss": "modal" }
                   },
-                  [_vm._v("Cancel")]
+                  [
+                    _vm._v(
+                      "\n                        Cancel\n                    "
+                    )
+                  ]
                 ),
                 _vm._v(" "),
                 _c(
@@ -31917,7 +32074,11 @@ var render = function() {
                       }
                     }
                   },
-                  [_vm._v("Save")]
+                  [
+                    _vm._v(
+                      "\n                        Save\n                    "
+                    )
+                  ]
                 )
               ])
             ])
@@ -31947,7 +32108,7 @@ var render = function() {
               _vm._v(" "),
               _c("div", { staticClass: "modal-body" }, [
                 _vm._v(
-                  "\n          Are you sure you want to delete this Class Course\n          Relation?\n        "
+                  "\n                    Are you sure you want to delete this Class Course\n                    Relation?\n                "
                 )
               ]),
               _vm._v(" "),
@@ -31963,7 +32124,11 @@ var render = function() {
                       }
                     }
                   },
-                  [_vm._v("Delete")]
+                  [
+                    _vm._v(
+                      "\n                        Delete\n                    "
+                    )
+                  ]
                 ),
                 _vm._v(" "),
                 _c(
@@ -31972,7 +32137,11 @@ var render = function() {
                     staticClass: "btn btn-secondary",
                     attrs: { type: "button", "data-dismiss": "modal" }
                   },
-                  [_vm._v("Close")]
+                  [
+                    _vm._v(
+                      "\n                        Close\n                    "
+                    )
+                  ]
                 )
               ])
             ])
@@ -32027,7 +32196,9 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "card-header py-3" }, [
       _c("h6", { staticClass: "m-0 font-weight-bold text-primary" }, [
-        _vm._v("Choose a teacher to assign courses to :")
+        _vm._v(
+          "\n                Choose a teacher to assign courses to :\n            "
+        )
       ])
     ])
   },
@@ -52944,7 +53115,9 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ManageCourseTeacherAssignmentComponent_vue_vue_type_template_id_12d0698e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ManageCourseTeacherAssignmentComponent.vue?vue&type=template&id=12d0698e& */ "./resources/js/components/Admin/ManageCourseTeacherAssignmentComponent.vue?vue&type=template&id=12d0698e&");
 /* harmony import */ var _ManageCourseTeacherAssignmentComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ManageCourseTeacherAssignmentComponent.vue?vue&type=script&lang=js& */ "./resources/js/components/Admin/ManageCourseTeacherAssignmentComponent.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* empty/unused harmony star reexport *//* harmony import */ var _ManageCourseTeacherAssignmentComponent_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ManageCourseTeacherAssignmentComponent.vue?vue&type=style&index=0&lang=css& */ "./resources/js/components/Admin/ManageCourseTeacherAssignmentComponent.vue?vue&type=style&index=0&lang=css&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
 
 
 
@@ -52952,7 +53125,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /* normalize component */
 
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
   _ManageCourseTeacherAssignmentComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
   _ManageCourseTeacherAssignmentComponent_vue_vue_type_template_id_12d0698e___WEBPACK_IMPORTED_MODULE_0__["render"],
   _ManageCourseTeacherAssignmentComponent_vue_vue_type_template_id_12d0698e___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
@@ -52981,6 +53154,22 @@ component.options.__file = "resources/js/components/Admin/ManageCourseTeacherAss
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ManageCourseTeacherAssignmentComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./ManageCourseTeacherAssignmentComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Admin/ManageCourseTeacherAssignmentComponent.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ManageCourseTeacherAssignmentComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/Admin/ManageCourseTeacherAssignmentComponent.vue?vue&type=style&index=0&lang=css&":
+/*!*******************************************************************************************************************!*\
+  !*** ./resources/js/components/Admin/ManageCourseTeacherAssignmentComponent.vue?vue&type=style&index=0&lang=css& ***!
+  \*******************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_ManageCourseTeacherAssignmentComponent_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/style-loader!../../../../node_modules/css-loader??ref--6-1!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??ref--6-2!../../../../node_modules/vue-loader/lib??vue-loader-options!./ManageCourseTeacherAssignmentComponent.vue?vue&type=style&index=0&lang=css& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Admin/ManageCourseTeacherAssignmentComponent.vue?vue&type=style&index=0&lang=css&");
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_ManageCourseTeacherAssignmentComponent_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_ManageCourseTeacherAssignmentComponent_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_ManageCourseTeacherAssignmentComponent_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_ManageCourseTeacherAssignmentComponent_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_ManageCourseTeacherAssignmentComponent_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
 
 /***/ }),
 
