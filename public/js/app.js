@@ -10101,7 +10101,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.vs__dropdown-option--selected {\r\n    display: none;\n}\r\n", ""]);
+exports.push([module.i, "\n.course-select > #vs1__listbox > .vs__dropdown-option--selected {\r\n    display: none;\n}\r\n", ""]);
 
 // exports
 
@@ -31897,7 +31897,7 @@ var render = function() {
                           "span",
                           {
                             key: element.id + element.pivot.course_type,
-                            staticClass: "badge",
+                            staticClass: "badge mr-1",
                             class: {
                               "badge-primary":
                                 element.pivot.course_type != "lab",
@@ -32027,7 +32027,7 @@ var render = function() {
                       ]),
                       _vm._v(" "),
                       _c("v-select", {
-                        staticClass: "mt-n1",
+                        staticClass: "mt-n1 course-select",
                         attrs: {
                           multiple: "",
                           options: _vm.courses,

@@ -31,7 +31,7 @@
                                 </td>
                                 <td class="text-capitalize">
                                     <span
-                                        class="badge"
+                                        class="badge mr-1"
                                         v-bind:class="{
                                             'badge-primary':
                                                 element.pivot.course_type !=
@@ -128,7 +128,7 @@
                                 v-model="selected"
                                 :options="courses"
                                 label="name"
-                                class="mt-n1"
+                                class="mt-n1 course-select"
                                 :closeOnSelect="false"
                             />
                         </div>
@@ -465,7 +465,7 @@ export default {
 </script>
 
 <style>
-.vs__dropdown-option--selected {
+.course-select > #vs1__listbox > .vs__dropdown-option--selected {
     display: none;
 }
 </style>
