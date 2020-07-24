@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CourseController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -28,6 +29,7 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::get("user/types", "UsersController@getUserTypes");
     Route::get("user/teachers", "UsersController@getTeachers");
 
+
     Route::resource("roles", "UserRolesController");
 
     Route::resource("/role/check/permission", "UserRolesController@checkPermission");
@@ -37,6 +39,7 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::resource("program", "ProgramController");
 
     Route::resource("course", "CourseController");
+    Route::get("tai/course", "CourseController@getTai");
 
     Route::resource("class", "ClassController");
 

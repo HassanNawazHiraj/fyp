@@ -19,6 +19,12 @@ class CourseController extends Controller
         ]);
     }
 
+    public function getTai() {
+        return response()->json([
+            "items" => Course::with(['tai'])->get()
+        ]);
+    }
+
     /**
      * Show the form for creating a new resource.
      *

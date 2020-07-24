@@ -3,15 +3,7 @@
         <div class="card shadow mb-4">
             <div class="card-header py-3">
                 <h6 class="m-0 font-weight-bold text-primary">
-                    User Roles
-                    <a
-                        href="#"
-                        class="btn btn-primary float-right btn-sm"
-                        data-toggle="modal"
-                        data-target="#addModal"
-                        v-on:click="add()"
-                        >Add</a
-                    >
+                    Choose a teacher to assign TAI to :
                 </h6>
             </div>
             <div class="card-body">
@@ -24,43 +16,32 @@
                     >
                         <thead>
                             <tr>
-                                <th>#</th>
-                                <th>Name</th>
-                                <th>Permission count</th>
-                                <th>Actions</th>
+                                <th style="">#</th>
+                                <th style="">Course</th>
+                                <th style="">Teaching area in-charge</th>
+                                <th style="">Actions</th>
                             </tr>
                         </thead>
 
                         <tbody>
                             <tr v-for="item in items" :key="item.id">
                                 <td>{{ item.id }}</td>
-                                <td>{{ item.name }}</td>
-                                <td>
-                                    <span class="badge badge-secondary">
-                                        {{
-                                            item.permissions === null
-                                                ? "0"
-                                                : item.permissions.length
-                                        }}
-                                    </span>
+                                <td class>
+                                    {{ item.title }}
+                                </td>
+                                <td class="text-capitalize">
+                                    <span class="" v-if="item.tai.length > 0">{{item.tai[0].name}}</span>
+                                    <span class="badge badge-danger" v-else> Not assigned </span>
                                 </td>
                                 <td>
                                     <button
                                         class="btn btn-primary btn-sm"
                                         data-toggle="modal"
                                         data-target="#add_update_modal"
+                                        data-backdrop="static"
                                         @click="edit(item)"
                                     >
-                                        Edit
-                                    </button>
-                                    &nbsp;
-                                    <button
-                                        class="btn btn-danger btn-sm"
-                                        data-toggle="modal"
-                                        data-target="#delete_modal"
-                                        @click="remove(item.id)"
-                                    >
-                                        Delete
+                                        Assign
                                     </button>
                                 </td>
                             </tr>
@@ -82,7 +63,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title text-capitalize">
-                            {{ this.modal_mode }} role
+                            {{ this.modal_mode }} Class courses
                         </h5>
                         <button
                             type="button"
@@ -102,41 +83,19 @@
                         >
                             {{ error }}
                         </div>
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text" id
-                                    >Role name</span
-                                >
-                            </div>
-                            <input
-                                type="text"
-                                class="form-control"
-                                v-model="name"
+
+                        <div class="form-group">
+                            <label for="exampleInputEmail1"
+                                >Select Course :</label
+                            >
+                            <v-select
+                                multiple
+                                v-model="selected"
+                                :options="courses"
+                                label="name"
+                                class="mt-n1 course-select"
+                                :closeOnSelect="false"
                             />
-                        </div>
-                        <div class="mt-4">
-                            <button
-                                class="btn btn-light btn-sm float-right"
-                                v-on:click="select_all()"
-                            >
-                                Select all
-                            </button>
-                            <h4>Permissions</h4>
-                        </div>
-                        <hr />
-                        <div class="row">
-                            <div
-                                v-for="permission in permissions"
-                                :key="permission.name"
-                                class="col-4"
-                            >
-                                <input
-                                    type="checkbox"
-                                    v-model="user_permissions"
-                                    :value="permission.value"
-                                />
-                                <label>{{ permission.name }}</label>
-                            </div>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -181,7 +140,8 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        Are you sure you want to delete this role?
+                        Are you sure you want to delete this Class Course
+                        Relation?
                     </div>
                     <div class="modal-footer">
                         <button
@@ -234,144 +194,17 @@
 </template>
 
 <script>
+import vSelect from "vue-select";
+import "vue-select/dist/vue-select.css";
 export default {
+    components: {
+        vSelect
+    },
     data() {
         return {
             items: [],
-            name: "",
-            user_permissions: [],
-            permissions: [
-                //users
-                {
-                    name: "View Users",
-                    value: "user_view"
-                },
-                {
-                    name: "Add Users",
-                    value: "user_add"
-                },
-                {
-                    name: "Delete Users",
-                    value: "user_delete"
-                },
-                //user roles
-                {
-                    name: "View User roles",
-                    value: "user_role_view"
-                },
-                {
-                    name: "Add User roles",
-                    value: "user_role_add"
-                },
-                {
-                    name: "Delete User roles",
-                    value: "user_role_delete"
-                },
-                //course performa form
-                {
-                    name: "View Course performa form",
-                    value: "course_performa_form_view"
-                },
-                {
-                    name: "Add Course performa form",
-                    value: "course_performa_form_add"
-                },
-                {
-                    name: "Delete Course performa form",
-                    value: "course_performa_form_delete"
-                },
-                //batch
-                {
-                    name: "View Batch",
-                    value: "batch_view"
-                },
-                {
-                    name: "Add Batch",
-                    value: "batch_add"
-                },
-                {
-                    name: "Delete Batch",
-                    value: "batch_delete"
-                },
-                //program
-                {
-                    name: "View Program",
-                    value: "program_view"
-                },
-                {
-                    name: "Add Program",
-                    value: "program_add"
-                },
-                {
-                    name: "Delete Program",
-                    value: "program_delete"
-                },
-                //course
-                {
-                    name: "View Course",
-                    value: "course_view"
-                },
-                {
-                    name: "Add Course",
-                    value: "course_add"
-                },
-                {
-                    name: "Delete Course",
-                    value: "course_delete"
-                },
-                //class
-                {
-                    name: "View Class",
-                    value: "class_view"
-                },
-                {
-                    name: "Add Class",
-                    value: "class_add"
-                },
-                {
-                    name: "Delete Class",
-                    value: "class_delete"
-                },
-                //class
-                {
-                    name: "View Course Assignment",
-                    value: "class_courses_view"
-                },
-                {
-                    name: "Add Course Assignment",
-                    value: "class_courses_add"
-                },
-                {
-                    name: "Delete Course Assignment",
-                    value: "class_courses_delete"
-                },
-                //assign course to teacher
-                {
-                    name: "View TAI teacher Assignment",
-                    value: "course_teacher_view"
-                },
-                {
-                    name: "Add TAI teacher Assignment",
-                    value: "course_teacher_add"
-                },
-                {
-                    name: "Delete TAI teacher Assignment",
-                    value: "course_teacher_delete"
-                },
-                //assign tai to teacher
-                {
-                    name: "View TAI course Assignment",
-                    value: "tai_course_view"
-                },
-                {
-                    name: "Add TAI course Assignment",
-                    value: "tai_course_add"
-                },
-                {
-                    name: "Delete TAI course Assignment",
-                    value: "tai_course_delete"
-                }
-            ],
+            courses: [],
+            selected: [],
             base_path: "/api/",
             errors: [],
             modal_mode: "add",
@@ -385,52 +218,23 @@ export default {
         this.list();
     },
     methods: {
-        select_all() {
-            if (this.user_permissions.length == this.permissions.length) {
-                this.user_permissions = [];
-            } else {
-                this.user_permissions = [];
-                this.permissions.forEach(element => {
-                    this.user_permissions.push(element.value);
-                });
-            }
-        },
         list() {
             let me = this;
             axios
-                .get(me.base_path + "roles")
+                .get(me.base_path + "tai/course")
                 .then(response => {
                     me.items = response.data.items;
-                    me.items.forEach(item => {
-                        item.permissions = JSON.parse(item.permissions);
-                    });
-                    // console.log(me.items);
-                    me.loading = false;
+
                 })
                 .catch(function(error) {
                     me.loading = false;
                 });
         },
-        getUserTypes() {
-            let me = this;
-            axios
-                .get(me.base_path + "user/types")
-                .then(response => {
-                    me.user_types = response.data.items;
-                })
-                .catch(error => {
-                    for (let key in error.response.data.errors) {
-                        if (error.response.data.errors.hasOwnProperty(key)) {
-                            me.errors.push(error.response.data.errors[key][0]);
-                        }
-                    }
-                });
-        },
         add() {
             this.modal_mode = "add";
-            this.name = "";
-            this.user_name = "";
-            this.user_permissions = [];
+            this.class_id = "";
+            this.course_id = "";
+            this.has_lab = false;
         },
         closeModal(id) {
             $("#" + id).modal("hide");
@@ -441,16 +245,18 @@ export default {
             let me = this;
             me.errors = [];
             let formData = new FormData();
-            formData.set("name", me.name);
-            formData.set("permissions", JSON.stringify(me.user_permissions));
+            formData.set("class_id", me.class_id);
+            formData.set("course_id", me.course_id);
+            formData.set("has_lab", me.has_lab ? 1 : 0);
             axios
-                .post(me.base_path + "roles", formData, {})
+                .post(me.base_path + "class_courses", formData, {})
                 .then(function(response) {
                     if (response.status == 200) {
                         me.closeModal("addModal");
                         me.list();
                         me.toastTitle = "Add";
-                        me.toastMessage = "User role added successfully";
+                        me.toastMessage =
+                            "Class Course relation created successfully";
                         me.toastClass = "d-block";
                         $(".toast").toast("show");
                     }
@@ -472,29 +278,63 @@ export default {
             }
         },
         edit(item) {
-            this.name = item.name;
-            this.user_permissions =
-                item.permissions === null ? [] : item.permissions;
+            //console.log(item);
+            let me = this;
             this.id = item.id;
+            this.selected = [];
+
+            item.class_courses.forEach(element => {
+                console.log(element.pivot.course_type);
+                if (element.pivot.course_type == "lab") {
+                    me.selected.push({
+                        id: element.id + "l", //to make id unique. or else you cannot select theory and lab because of same id
+                        name:
+                            element.course.title +
+                            " [" +
+                            element.class.batch.season +
+                            element.class.batch.year +
+                            "-" +
+                            element.class.program.short_name +
+                            "-" +
+                            element.class.section +
+                            "] Lab",
+                        type: "lab"
+                    });
+                } else {
+                    me.selected.push({
+                        id: element.id,
+                        name:
+                            element.course.title +
+                            " [" +
+                            element.class.batch.season +
+                            element.class.batch.year +
+                            "-" +
+                            element.class.program.short_name +
+                            "-" +
+                            element.class.section +
+                            "]",
+                        type: "theory"
+                    });
+                }
+            });
             this.modal_mode = "edit";
-            $("#addModal").modal("show");
+            $("#addModal").modal({ backdrop: "static", keyboard: false });
         },
         update() {
             let me = this;
             me.errors = [];
             let formData = new FormData();
-            formData.set("name", me.name);
-            formData.set("permissions", JSON.stringify(me.user_permissions));
+            formData.set("selected_courses", JSON.stringify(me.selected));
             formData.set("_method", "PUT");
 
             axios
-                .post(me.base_path + "roles/" + me.id, formData, {})
+                .post(me.base_path + "teacher_courses/" + me.id, formData, {})
                 .then(function(response) {
                     if (response.status == 200) {
                         me.closeModal("addModal");
                         me.list();
                         me.toastTitle = "Update";
-                        me.toastMessage = "Role updated successfully";
+                        me.toastMessage = "Course updated successfully";
                         me.toastClass = "d-block";
                         $(".toast").toast("show");
                     }
@@ -515,7 +355,7 @@ export default {
             let me = this;
             me.errors = [];
             axios
-                .post(me.base_path + "roles/" + me.id, {
+                .post(me.base_path + "class_courses/" + me.id, {
                     _method: "DELETE"
                 })
                 .then(response => {
@@ -523,7 +363,7 @@ export default {
                         me.closeModal("deleteModal");
                         me.list();
                         me.toastTitle = "Delete";
-                        me.toastMessage = "Role deleted successfully";
+                        me.toastMessage = "Program deleted successfully";
                         me.toastClass = "d-block";
                         $(".toast").toast("show");
                     }
@@ -539,3 +379,9 @@ export default {
     }
 };
 </script>
+
+<style>
+.course-select > #vs1__listbox > .vs__dropdown-option--selected {
+    display: none;
+}
+</style>

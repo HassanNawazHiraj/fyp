@@ -126,10 +126,21 @@
           <router-link
             class="nav-link"
             to="/portal/manage-teacher-assignment"
-            v-if="permissions.includes('class_courses_view')"
+            v-if="permissions.includes('course_teacher_view')"
           >
             <i class="fa fa-users"></i>
             <span>Assign course to teacher</span>
+          </router-link>
+        </li>
+
+        <li class="nav-item">
+          <router-link
+            class="nav-link"
+            to="/portal/manage-tai-assignment"
+            v-if="permissions.includes('tai_course_view')"
+          >
+            <i class="fa fa-users"></i>
+            <span>Assign TAI to teacher</span>
           </router-link>
         </li>
 

@@ -14,6 +14,7 @@ import ManageCourseComponent from "./components/Admin/ManageCourseComponent.vue"
 import ManageClassComponent from "./components/Admin/ManageClassComponent.vue";
 import ManageCourseAssignmentComponent from "./components/Admin/ManageCourseAssignmentComponent.vue";
 import ManageCourseTeacherAssignmentComponent from "./components/Admin/ManageCourseTeacherAssignmentComponent.vue";
+import ManageTaiCourseAssignmentComponent from "./components/Admin/ManageTaiCourseAssignmentComponent.vue";
 Vue.use(VueRouter);
 
 const routes = [{
@@ -75,6 +76,10 @@ const routes = [{
             {
                 path: "manage-teacher-assignment",
                 component: ManageCourseTeacherAssignmentComponent
+            },
+            {
+                path: "manage-tai-assignment",
+                component: ManageTaiCourseAssignmentComponent
             }
         ]
     }
