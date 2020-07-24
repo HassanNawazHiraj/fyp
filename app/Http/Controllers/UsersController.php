@@ -47,6 +47,17 @@ class UsersController extends Controller
         ]);
     }
 
+    public function getTAIs()
+    {
+        $users = User::whereHas('types', function ($q) {
+            $q->where('name', 'like', 'Teaching area in-charge');
+        })->get();
+
+        return response()->json([
+            "items" => $users,
+        ]);
+    }
+
 
     /**
      * Store a newly created resource in storage.

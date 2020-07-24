@@ -362,7 +362,6 @@ export default {
             }
         },
         edit(item) {
-            //console.log(item);
             let me = this;
             this.id = item.id;
             this.selected = [];

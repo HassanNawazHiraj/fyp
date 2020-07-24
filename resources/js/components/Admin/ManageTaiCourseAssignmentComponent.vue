@@ -3,7 +3,7 @@
         <div class="card shadow mb-4">
             <div class="card-header py-3">
                 <h6 class="m-0 font-weight-bold text-primary">
-                    Choose a teacher to assign TAI to :
+                    Choose a course to assign Teaching area in-charge
                 </h6>
             </div>
             <div class="card-body">
@@ -30,8 +30,12 @@
                                     {{ item.title }}
                                 </td>
                                 <td class="text-capitalize">
-                                    <span class="" v-if="item.tai.length > 0">{{item.tai[0].name}}</span>
-                                    <span class="badge badge-danger" v-else> Not assigned </span>
+                                    <span class="" v-if="item.tai.length > 0">{{
+                                        item.tai[0].name
+                                    }}</span>
+                                    <span class="badge badge-danger" v-else>
+                                        Not assigned
+                                    </span>
                                 </td>
                                 <td>
                                     <button
@@ -39,7 +43,7 @@
                                         data-toggle="modal"
                                         data-target="#add_update_modal"
                                         data-backdrop="static"
-                                        @click="edit(item)"
+                                        @click="assign(item)"
                                     >
                                         Assign
                                     </button>
@@ -51,7 +55,7 @@
             </div>
         </div>
 
-        <!-- Add Form -->
+        <!-- Assignment Form -->
         <div
             class="modal fade"
             id="addModal"
@@ -63,7 +67,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title text-capitalize">
-                            {{ this.modal_mode }} Class courses
+                            Assign Course Teaching area in-charge
                         </h5>
                         <button
                             type="button"
@@ -85,16 +89,13 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="exampleInputEmail1"
-                                >Select Course :</label
-                            >
+                            <label>Select Teaching area in-charge</label>
                             <v-select
-                                multiple
-                                v-model="selected"
-                                :options="courses"
+                                :options="tais"
+                                :reduce="t => t.id"
+                                v-model="tai_id"
                                 label="name"
-                                class="mt-n1 course-select"
-                                :closeOnSelect="false"
+                                class="mt-n1 tai-select"
                             />
                         </div>
                     </div>
@@ -112,52 +113,6 @@
                             v-on:click="save()"
                         >
                             Save
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Delete modal -->
-        <div
-            class="modal fade"
-            id="deleteModal"
-            tabindex="-1"
-            role="dialog"
-            aria-hidden="true"
-        >
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Confirm</h5>
-                        <button
-                            type="button"
-                            class="close"
-                            data-dismiss="modal"
-                            aria-label="Close"
-                        >
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        Are you sure you want to delete this Class Course
-                        Relation?
-                    </div>
-                    <div class="modal-footer">
-                        <button
-                            type="button"
-                            class="btn btn-danger"
-                            id="deleteModalButton"
-                            @click="perform_delete()"
-                        >
-                            Delete
-                        </button>
-                        <button
-                            type="button"
-                            class="btn btn-secondary"
-                            data-dismiss="modal"
-                        >
-                            Close
                         </button>
                     </div>
                 </div>
@@ -203,8 +158,9 @@ export default {
     data() {
         return {
             items: [],
-            courses: [],
-            selected: [],
+            tais: [],
+            tai_id: "",
+            course_id: "",
             base_path: "/api/",
             errors: [],
             modal_mode: "add",
@@ -221,47 +177,68 @@ export default {
         list() {
             let me = this;
             axios
-                .get(me.base_path + "tai/course")
+                .get(me.base_path + "tai_courses")
                 .then(response => {
                     me.items = response.data.items;
-
+                    axios
+                        .get(me.base_path + "user/tais")
+                        .then(response => {
+                            me.tais = response.data.items;
+                        })
+                        .catch(error => {
+                            console.log(error);
+                        });
                 })
                 .catch(function(error) {
                     me.loading = false;
                 });
-        },
-        add() {
-            this.modal_mode = "add";
-            this.class_id = "";
-            this.course_id = "";
-            this.has_lab = false;
         },
         closeModal(id) {
             $("#" + id).modal("hide");
             $("body").removeClass("modal-open");
             $(".modal-backdrop").remove();
         },
+        assign(item) {
+            this.course_id = item.id;
+            if (item.tai.length > 0) {
+                this.tai_id = item.tai[0].id;
+                this.modal_mode = "edit";
+            } else {
+                this.modal_mode = "add";
+            }
+            $("#addModal").modal({ backdrop: "static", keyboard: false });
+        },
+        save() {
+            this.errors = [];
+            if (this.modal_mode === "add") {
+                this.create();
+            } else {
+                if (this.tai_id !== null) {
+                    this.update();
+                } else {
+                    this.errors.push("Please select a value");
+                }
+            }
+        },
         create() {
-            let me = this;
-            me.errors = [];
             let formData = new FormData();
-            formData.set("class_id", me.class_id);
-            formData.set("course_id", me.course_id);
-            formData.set("has_lab", me.has_lab ? 1 : 0);
+            formData.set("course_id", this.course_id);
+            formData.set("tai_id", this.tai_id);
+
             axios
-                .post(me.base_path + "class_courses", formData, {})
-                .then(function(response) {
-                    if (response.status == 200) {
-                        me.closeModal("addModal");
-                        me.list();
-                        me.toastTitle = "Add";
-                        me.toastMessage =
-                            "Class Course relation created successfully";
-                        me.toastClass = "d-block";
+                .post(this.base_path + "tai_courses", formData, {})
+                .then(response => {
+                    if (response.status === 200) {
+                        this.closeModal("addModal");
+                        this.list();
+                        this.toastTitle = "Add";
+                        this.toastMessage =
+                            "Teaching area in-charge assigned successfully";
+                        this.toastClass = "d-block";
                         $(".toast").toast("show");
                     }
                 })
-                .catch(function(error) {
+                .catch(error => {
                     for (let key in error.response.data.errors) {
                         if (error.response.data.errors.hasOwnProperty(key)) {
                             me.errors.push(error.response.data.errors[key][0]);
@@ -269,106 +246,30 @@ export default {
                     }
                 });
         },
-
-        save() {
-            if (this.modal_mode == "add") {
-                this.create();
-            } else {
-                this.update();
-            }
-        },
-        edit(item) {
-            //console.log(item);
-            let me = this;
-            this.id = item.id;
-            this.selected = [];
-
-            item.class_courses.forEach(element => {
-                console.log(element.pivot.course_type);
-                if (element.pivot.course_type == "lab") {
-                    me.selected.push({
-                        id: element.id + "l", //to make id unique. or else you cannot select theory and lab because of same id
-                        name:
-                            element.course.title +
-                            " [" +
-                            element.class.batch.season +
-                            element.class.batch.year +
-                            "-" +
-                            element.class.program.short_name +
-                            "-" +
-                            element.class.section +
-                            "] Lab",
-                        type: "lab"
-                    });
-                } else {
-                    me.selected.push({
-                        id: element.id,
-                        name:
-                            element.course.title +
-                            " [" +
-                            element.class.batch.season +
-                            element.class.batch.year +
-                            "-" +
-                            element.class.program.short_name +
-                            "-" +
-                            element.class.section +
-                            "]",
-                        type: "theory"
-                    });
-                }
-            });
-            this.modal_mode = "edit";
-            $("#addModal").modal({ backdrop: "static", keyboard: false });
-        },
         update() {
-            let me = this;
-            me.errors = [];
             let formData = new FormData();
-            formData.set("selected_courses", JSON.stringify(me.selected));
+            formData.set("course_id", this.course_id);
+            formData.set("tai_id", this.tai_id);
             formData.set("_method", "PUT");
 
             axios
-                .post(me.base_path + "teacher_courses/" + me.id, formData, {})
-                .then(function(response) {
-                    if (response.status == 200) {
-                        me.closeModal("addModal");
-                        me.list();
-                        me.toastTitle = "Update";
-                        me.toastMessage = "Course updated successfully";
-                        me.toastClass = "d-block";
-                        $(".toast").toast("show");
-                    }
-                })
-                .catch(function(error) {
-                    for (let key in error.response.data.errors) {
-                        if (error.response.data.errors.hasOwnProperty(key)) {
-                            me.errors.push(error.response.data.errors[key][0]);
-                        }
-                    }
-                });
-        },
-        remove(id) {
-            this.id = id;
-            $("#deleteModal").modal("show");
-        },
-        perform_delete() {
-            let me = this;
-            me.errors = [];
-            axios
-                .post(me.base_path + "class_courses/" + me.id, {
-                    _method: "DELETE"
-                })
+                .post(
+                    this.base_path + "tai_courses/" + this.course_id,
+                    formData,
+                    {}
+                )
                 .then(response => {
-                    if (response.status == 200) {
-                        me.closeModal("deleteModal");
-                        me.list();
-                        me.toastTitle = "Delete";
-                        me.toastMessage = "Program deleted successfully";
-                        me.toastClass = "d-block";
+                    if (response.status === 200) {
+                        this.closeModal("addModal");
+                        this.list();
+                        this.toastTitle = "Update";
+                        this.toastMessage =
+                            "Teaching area in-charge assigned successfully";
+                        this.toastClass = "d-block";
                         $(".toast").toast("show");
                     }
                 })
-                .catch(function(error) {
+                .catch(error => {
                     for (let key in error.response.data.errors) {
                         if (error.response.data.errors.hasOwnProperty(key)) {
                             me.errors.push(error.response.data.errors[key][0]);
@@ -379,9 +280,3 @@ export default {
     }
 };
 </script>
-
-<style>
-.course-select > #vs1__listbox > .vs__dropdown-option--selected {
-    display: none;
-}
-</style>

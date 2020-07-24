@@ -2265,6 +2265,52 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -4232,7 +4278,6 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     edit: function edit(item) {
-      //console.log(item);
       var me = this;
       this.id = item.id;
       this.selected = [];
@@ -4749,51 +4794,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -4803,8 +4803,9 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       items: [],
-      courses: [],
-      selected: [],
+      tais: [],
+      tai_id: "",
+      course_id: "",
       base_path: "/api/",
       errors: [],
       modal_mode: "add",
@@ -4820,96 +4821,65 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     list: function list() {
       var me = this;
-      axios.get(me.base_path + "tai/course").then(function (response) {
+      axios.get(me.base_path + "tai_courses").then(function (response) {
         me.items = response.data.items;
+        axios.get(me.base_path + "user/tais").then(function (response) {
+          me.tais = response.data.items;
+        })["catch"](function (error) {
+          console.log(error);
+        });
       })["catch"](function (error) {
         me.loading = false;
       });
-    },
-    add: function add() {
-      this.modal_mode = "add";
-      this.class_id = "";
-      this.course_id = "";
-      this.has_lab = false;
     },
     closeModal: function closeModal(id) {
       $("#" + id).modal("hide");
       $("body").removeClass("modal-open");
       $(".modal-backdrop").remove();
     },
-    create: function create() {
-      var me = this;
-      me.errors = [];
-      var formData = new FormData();
-      formData.set("class_id", me.class_id);
-      formData.set("course_id", me.course_id);
-      formData.set("has_lab", me.has_lab ? 1 : 0);
-      axios.post(me.base_path + "class_courses", formData, {}).then(function (response) {
-        if (response.status == 200) {
-          me.closeModal("addModal");
-          me.list();
-          me.toastTitle = "Add";
-          me.toastMessage = "Class Course relation created successfully";
-          me.toastClass = "d-block";
-          $(".toast").toast("show");
-        }
-      })["catch"](function (error) {
-        for (var key in error.response.data.errors) {
-          if (error.response.data.errors.hasOwnProperty(key)) {
-            me.errors.push(error.response.data.errors[key][0]);
-          }
-        }
-      });
-    },
-    save: function save() {
-      if (this.modal_mode == "add") {
-        this.create();
-      } else {
-        this.update();
-      }
-    },
-    edit: function edit(item) {
-      //console.log(item);
-      var me = this;
-      this.id = item.id;
-      this.selected = [];
-      item.class_courses.forEach(function (element) {
-        console.log(element.pivot.course_type);
+    assign: function assign(item) {
+      this.course_id = item.id;
 
-        if (element.pivot.course_type == "lab") {
-          me.selected.push({
-            id: element.id + "l",
-            //to make id unique. or else you cannot select theory and lab because of same id
-            name: element.course.title + " [" + element["class"].batch.season + element["class"].batch.year + "-" + element["class"].program.short_name + "-" + element["class"].section + "] Lab",
-            type: "lab"
-          });
-        } else {
-          me.selected.push({
-            id: element.id,
-            name: element.course.title + " [" + element["class"].batch.season + element["class"].batch.year + "-" + element["class"].program.short_name + "-" + element["class"].section + "]",
-            type: "theory"
-          });
-        }
-      });
-      this.modal_mode = "edit";
+      if (item.tai.length > 0) {
+        this.tai_id = item.tai[0].id;
+        this.modal_mode = "edit";
+      } else {
+        this.modal_mode = "add";
+      }
+
       $("#addModal").modal({
         backdrop: "static",
         keyboard: false
       });
     },
-    update: function update() {
-      var me = this;
-      me.errors = [];
+    save: function save() {
+      this.errors = [];
+
+      if (this.modal_mode === "add") {
+        this.create();
+      } else {
+        if (this.tai_id !== null) {
+          this.update();
+        } else {
+          this.errors.push("Please select a value");
+        }
+      }
+    },
+    create: function create() {
+      var _this = this;
+
       var formData = new FormData();
-      formData.set("selected_courses", JSON.stringify(me.selected));
-      formData.set("_method", "PUT");
-      axios.post(me.base_path + "teacher_courses/" + me.id, formData, {}).then(function (response) {
-        if (response.status == 200) {
-          me.closeModal("addModal");
-          me.list();
-          me.toastTitle = "Update";
-          me.toastMessage = "Course updated successfully";
-          me.toastClass = "d-block";
+      formData.set("course_id", this.course_id);
+      formData.set("tai_id", this.tai_id);
+      axios.post(this.base_path + "tai_courses", formData, {}).then(function (response) {
+        if (response.status === 200) {
+          _this.closeModal("addModal");
+
+          _this.list();
+
+          _this.toastTitle = "Add";
+          _this.toastMessage = "Teaching area in-charge assigned successfully";
+          _this.toastClass = "d-block";
           $(".toast").toast("show");
         }
       })["catch"](function (error) {
@@ -4920,22 +4890,22 @@ __webpack_require__.r(__webpack_exports__);
         }
       });
     },
-    remove: function remove(id) {
-      this.id = id;
-      $("#deleteModal").modal("show");
-    },
-    perform_delete: function perform_delete() {
-      var me = this;
-      me.errors = [];
-      axios.post(me.base_path + "class_courses/" + me.id, {
-        _method: "DELETE"
-      }).then(function (response) {
-        if (response.status == 200) {
-          me.closeModal("deleteModal");
-          me.list();
-          me.toastTitle = "Delete";
-          me.toastMessage = "Program deleted successfully";
-          me.toastClass = "d-block";
+    update: function update() {
+      var _this2 = this;
+
+      var formData = new FormData();
+      formData.set("course_id", this.course_id);
+      formData.set("tai_id", this.tai_id);
+      formData.set("_method", "PUT");
+      axios.post(this.base_path + "tai_courses/" + this.course_id, formData, {}).then(function (response) {
+        if (response.status === 200) {
+          _this2.closeModal("addModal");
+
+          _this2.list();
+
+          _this2.toastTitle = "Update";
+          _this2.toastMessage = "Teaching area in-charge assigned successfully";
+          _this2.toastClass = "d-block";
           $(".toast").toast("show");
         }
       })["catch"](function (error) {
@@ -4960,6 +4930,11 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
 //
 //
 //
@@ -5283,23 +5258,23 @@ __webpack_require__.r(__webpack_exports__);
         value: "class_courses_delete"
       }, //assign course to teacher
       {
-        name: "View TAI teacher Assignment",
+        name: "View Course Teacher Assignment",
         value: "course_teacher_view"
       }, {
-        name: "Add TAI teacher Assignment",
+        name: "Add Course Teacher Assignment",
         value: "course_teacher_add"
       }, {
-        name: "Delete TAI teacher Assignment",
+        name: "Delete Course Teacher Assignment",
         value: "course_teacher_delete"
       }, //assign tai to teacher
       {
-        name: "View TAI course Assignment",
+        name: "View TAI Course Assignment",
         value: "tai_course_view"
       }, {
-        name: "Add TAI course Assignment",
+        name: "Add TAI Course Assignment",
         value: "tai_course_add"
       }, {
-        name: "Delete TAI course Assignment",
+        name: "Delete TAI Course Assignment",
         value: "tai_course_delete"
       }],
       base_path: "/api/",
@@ -10459,7 +10434,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 exports.push([module.i, "@import url(/css/sb-admin-2.min.css);", ""]);
 
 // module
-exports.push([module.i, "\n", ""]);
+exports.push([module.i, "\r\n", ""]);
 
 // exports
 
@@ -10478,7 +10453,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.cselect > .v-select .vs__dropdown-toggle {\n    border: none;\n}\n", ""]);
+exports.push([module.i, "\n.cselect > .v-select .vs__dropdown-toggle {\r\n    border: none;\n}\r\n", ""]);
 
 // exports
 
@@ -10504,25 +10479,6 @@ exports.push([module.i, "\n.course-select > #vs1__listbox > .vs__dropdown-option
 
 /***/ }),
 
-/***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Admin/ManageTaiCourseAssignmentComponent.vue?vue&type=style&index=0&lang=css&":
-/*!**********************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Admin/ManageTaiCourseAssignmentComponent.vue?vue&type=style&index=0&lang=css& ***!
-  \**********************************************************************************************************************************************************************************************************************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
-// imports
-
-
-// module
-exports.push([module.i, "\n.course-select > #vs1__listbox > .vs__dropdown-option--selected {\n    display: none;\n}\n", ""]);
-
-// exports
-
-
-/***/ }),
-
 /***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Login.vue?vue&type=style&index=0&id=6bdc8b8e&scoped=true&lang=css&":
 /*!***********************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Login.vue?vue&type=style&index=0&id=6bdc8b8e&scoped=true&lang=css& ***!
@@ -10535,7 +10491,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 exports.push([module.i, "@import url(https://fonts.googleapis.com/css?family=Nunito:400,600|Open+Sans:400,600,700);", ""]);
 
 // module
-exports.push([module.i, "\n\n", ""]);
+exports.push([module.i, "\r\n\r\n", ""]);
 
 // exports
 
@@ -28341,36 +28297,6 @@ if(false) {}
 
 /***/ }),
 
-/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Admin/ManageTaiCourseAssignmentComponent.vue?vue&type=style&index=0&lang=css&":
-/*!**************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/style-loader!./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Admin/ManageTaiCourseAssignmentComponent.vue?vue&type=style&index=0&lang=css& ***!
-  \**************************************************************************************************************************************************************************************************************************************************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-
-var content = __webpack_require__(/*! !../../../../node_modules/css-loader??ref--6-1!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??ref--6-2!../../../../node_modules/vue-loader/lib??vue-loader-options!./ManageTaiCourseAssignmentComponent.vue?vue&type=style&index=0&lang=css& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Admin/ManageTaiCourseAssignmentComponent.vue?vue&type=style&index=0&lang=css&");
-
-if(typeof content === 'string') content = [[module.i, content, '']];
-
-var transform;
-var insertInto;
-
-
-
-var options = {"hmr":true}
-
-options.transform = transform
-options.insertInto = undefined;
-
-var update = __webpack_require__(/*! ../../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
-
-if(content.locals) module.exports = content.locals;
-
-if(false) {}
-
-/***/ }),
-
 /***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Login.vue?vue&type=style&index=0&id=6bdc8b8e&scoped=true&lang=css&":
 /*!***************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/style-loader!./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Login.vue?vue&type=style&index=0&id=6bdc8b8e&scoped=true&lang=css& ***!
@@ -29275,7 +29201,7 @@ var render = function() {
                     [
                       _c("i", { staticClass: "fa fa-users" }),
                       _vm._v(" "),
-                      _c("span", [_vm._v("Assign TAI to teacher")])
+                      _c("span", [_vm._v("Assign TAI to Course")])
                     ]
                   )
                 : _vm._e()
@@ -29382,7 +29308,7 @@ var render = function() {
               _vm._v(" "),
               _c("div", { staticClass: "modal-body" }, [
                 _vm._v(
-                  '\n          Select "Logout" below if you are ready to end your\n          current session.\n        '
+                  '\n                    Select "Logout" below if you are ready to end your\n                    current session.\n                '
                 )
               ]),
               _vm._v(" "),
@@ -29393,7 +29319,11 @@ var render = function() {
                     staticClass: "btn btn-secondary",
                     attrs: { type: "button", "data-dismiss": "modal" }
                   },
-                  [_vm._v("Cancel")]
+                  [
+                    _vm._v(
+                      "\n                        Cancel\n                    "
+                    )
+                  ]
                 ),
                 _vm._v(" "),
                 _c(
@@ -29406,7 +29336,11 @@ var render = function() {
                       }
                     }
                   },
-                  [_vm._v("Logout")]
+                  [
+                    _vm._v(
+                      "\n                        Logout\n                    "
+                    )
+                  ]
                 )
               ])
             ])
@@ -29573,7 +29507,9 @@ var staticRenderFns = [
           _c("i", {
             staticClass: "fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"
           }),
-          _vm._v("\n                  Settings\n                ")
+          _vm._v(
+            "\n                                    Settings\n                                "
+          )
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "dropdown-divider" }),
@@ -29592,7 +29528,9 @@ var staticRenderFns = [
             _c("i", {
               staticClass: "fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"
             }),
-            _vm._v("\n                  Logout\n                ")
+            _vm._v(
+              "\n                                    Logout\n                                "
+            )
           ]
         )
       ]
@@ -29628,7 +29566,11 @@ var staticRenderFns = [
       _c(
         "h5",
         { staticClass: "modal-title", attrs: { id: "exampleModalLabel" } },
-        [_vm._v("Ready to Leave?")]
+        [
+          _vm._v(
+            "\n                        Ready to Leave?\n                    "
+          )
+        ]
       ),
       _vm._v(" "),
       _c(
@@ -33214,7 +33156,9 @@ var render = function() {
                       item.tai.length > 0
                         ? _c("span", {}, [_vm._v(_vm._s(item.tai[0].name))])
                         : _c("span", { staticClass: "badge badge-danger" }, [
-                            _vm._v(" Not assigned ")
+                            _vm._v(
+                              "\n                                    Not assigned\n                                "
+                            )
                           ])
                     ]),
                     _vm._v(" "),
@@ -33230,7 +33174,7 @@ var render = function() {
                           },
                           on: {
                             click: function($event) {
-                              return _vm.edit(item)
+                              return _vm.assign(item)
                             }
                           }
                         },
@@ -33268,17 +33212,7 @@ var render = function() {
           { staticClass: "modal-dialog modal-lg", attrs: { role: "document" } },
           [
             _c("div", { staticClass: "modal-content" }, [
-              _c("div", { staticClass: "modal-header" }, [
-                _c("h5", { staticClass: "modal-title text-capitalize" }, [
-                  _vm._v(
-                    "\n                        " +
-                      _vm._s(this.modal_mode) +
-                      " Class courses\n                    "
-                  )
-                ]),
-                _vm._v(" "),
-                _vm._m(2)
-              ]),
+              _vm._m(2),
               _vm._v(" "),
               _c(
                 "div",
@@ -33306,24 +33240,23 @@ var render = function() {
                     "div",
                     { staticClass: "form-group" },
                     [
-                      _c("label", { attrs: { for: "exampleInputEmail1" } }, [
-                        _vm._v("Select Course :")
-                      ]),
+                      _c("label", [_vm._v("Select Teaching area in-charge")]),
                       _vm._v(" "),
                       _c("v-select", {
-                        staticClass: "mt-n1 course-select",
+                        staticClass: "mt-n1 tai-select",
                         attrs: {
-                          multiple: "",
-                          options: _vm.courses,
-                          label: "name",
-                          closeOnSelect: false
+                          options: _vm.tais,
+                          reduce: function(t) {
+                            return t.id
+                          },
+                          label: "name"
                         },
                         model: {
-                          value: _vm.selected,
+                          value: _vm.tai_id,
                           callback: function($$v) {
-                            _vm.selected = $$v
+                            _vm.tai_id = $$v
                           },
-                          expression: "selected"
+                          expression: "tai_id"
                         }
                       })
                     ],
@@ -33374,69 +33307,6 @@ var render = function() {
     _c(
       "div",
       {
-        staticClass: "modal fade",
-        attrs: {
-          id: "deleteModal",
-          tabindex: "-1",
-          role: "dialog",
-          "aria-hidden": "true"
-        }
-      },
-      [
-        _c(
-          "div",
-          { staticClass: "modal-dialog", attrs: { role: "document" } },
-          [
-            _c("div", { staticClass: "modal-content" }, [
-              _vm._m(3),
-              _vm._v(" "),
-              _c("div", { staticClass: "modal-body" }, [
-                _vm._v(
-                  "\n                    Are you sure you want to delete this Class Course\n                    Relation?\n                "
-                )
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "modal-footer" }, [
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-danger",
-                    attrs: { type: "button", id: "deleteModalButton" },
-                    on: {
-                      click: function($event) {
-                        return _vm.perform_delete()
-                      }
-                    }
-                  },
-                  [
-                    _vm._v(
-                      "\n                        Delete\n                    "
-                    )
-                  ]
-                ),
-                _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-secondary",
-                    attrs: { type: "button", "data-dismiss": "modal" }
-                  },
-                  [
-                    _vm._v(
-                      "\n                        Close\n                    "
-                    )
-                  ]
-                )
-              ])
-            ])
-          ]
-        )
-      ]
-    ),
-    _vm._v(" "),
-    _c(
-      "div",
-      {
         class: _vm.toastClass,
         staticStyle: { position: "absolute", bottom: "0", right: "0" }
       },
@@ -33461,7 +33331,7 @@ var render = function() {
                 _vm._v("just now")
               ]),
               _vm._v(" "),
-              _vm._m(4)
+              _vm._m(3)
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "toast-body" }, [
@@ -33481,7 +33351,7 @@ var staticRenderFns = [
     return _c("div", { staticClass: "card-header py-3" }, [
       _c("h6", { staticClass: "m-0 font-weight-bold text-primary" }, [
         _vm._v(
-          "\n                Choose a teacher to assign TAI to :\n            "
+          "\n                Choose a course to assign Teaching area in-charge\n            "
         )
       ])
     ])
@@ -33506,25 +33376,12 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c(
-      "button",
-      {
-        staticClass: "close",
-        attrs: {
-          type: "button",
-          "data-dismiss": "modal",
-          "aria-label": "Close"
-        }
-      },
-      [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
-    )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
     return _c("div", { staticClass: "modal-header" }, [
-      _c("h5", { staticClass: "modal-title" }, [_vm._v("Confirm")]),
+      _c("h5", { staticClass: "modal-title text-capitalize" }, [
+        _vm._v(
+          "\n                        Assign Course Teaching area in-charge\n                    "
+        )
+      ]),
       _vm._v(" "),
       _c(
         "button",
@@ -33706,7 +33563,7 @@ var render = function() {
       [
         _c(
           "div",
-          { staticClass: "modal-dialog modal-lg", attrs: { role: "document" } },
+          { staticClass: "modal-dialog modal-xl", attrs: { role: "document" } },
           [
             _c("div", { staticClass: "modal-content" }, [
               _c("div", { staticClass: "modal-header" }, [
@@ -33782,7 +33639,14 @@ var render = function() {
                       },
                       [
                         _vm._v(
-                          "\n                            Select all\n                        "
+                          "\n                            " +
+                            _vm._s(
+                              this.user_permissions.length ==
+                                this.permissions.length
+                                ? "Unselect all"
+                                : "Select all"
+                            ) +
+                            "\n                        "
                         )
                       ]
                     ),
@@ -54136,9 +54000,7 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ManageTaiCourseAssignmentComponent_vue_vue_type_template_id_57d904ae___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ManageTaiCourseAssignmentComponent.vue?vue&type=template&id=57d904ae& */ "./resources/js/components/Admin/ManageTaiCourseAssignmentComponent.vue?vue&type=template&id=57d904ae&");
 /* harmony import */ var _ManageTaiCourseAssignmentComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ManageTaiCourseAssignmentComponent.vue?vue&type=script&lang=js& */ "./resources/js/components/Admin/ManageTaiCourseAssignmentComponent.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _ManageTaiCourseAssignmentComponent_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ManageTaiCourseAssignmentComponent.vue?vue&type=style&index=0&lang=css& */ "./resources/js/components/Admin/ManageTaiCourseAssignmentComponent.vue?vue&type=style&index=0&lang=css&");
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
-
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
@@ -54146,7 +54008,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /* normalize component */
 
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
   _ManageTaiCourseAssignmentComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
   _ManageTaiCourseAssignmentComponent_vue_vue_type_template_id_57d904ae___WEBPACK_IMPORTED_MODULE_0__["render"],
   _ManageTaiCourseAssignmentComponent_vue_vue_type_template_id_57d904ae___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
@@ -54175,22 +54037,6 @@ component.options.__file = "resources/js/components/Admin/ManageTaiCourseAssignm
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ManageTaiCourseAssignmentComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./ManageTaiCourseAssignmentComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Admin/ManageTaiCourseAssignmentComponent.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ManageTaiCourseAssignmentComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
-
-/***/ }),
-
-/***/ "./resources/js/components/Admin/ManageTaiCourseAssignmentComponent.vue?vue&type=style&index=0&lang=css&":
-/*!***************************************************************************************************************!*\
-  !*** ./resources/js/components/Admin/ManageTaiCourseAssignmentComponent.vue?vue&type=style&index=0&lang=css& ***!
-  \***************************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_ManageTaiCourseAssignmentComponent_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/style-loader!../../../../node_modules/css-loader??ref--6-1!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??ref--6-2!../../../../node_modules/vue-loader/lib??vue-loader-options!./ManageTaiCourseAssignmentComponent.vue?vue&type=style&index=0&lang=css& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Admin/ManageTaiCourseAssignmentComponent.vue?vue&type=style&index=0&lang=css&");
-/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_ManageTaiCourseAssignmentComponent_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_ManageTaiCourseAssignmentComponent_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_ManageTaiCourseAssignmentComponent_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_ManageTaiCourseAssignmentComponent_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
- /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_ManageTaiCourseAssignmentComponent_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
 
 /***/ }),
 

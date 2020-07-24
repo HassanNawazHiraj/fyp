@@ -28,6 +28,7 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::resource("users", "UsersController");
     Route::get("user/types", "UsersController@getUserTypes");
     Route::get("user/teachers", "UsersController@getTeachers");
+    Route::get("user/tais", "UsersController@getTAIs");
 
 
     Route::resource("roles", "UserRolesController");
@@ -39,13 +40,15 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::resource("program", "ProgramController");
 
     Route::resource("course", "CourseController");
-    Route::get("tai/course", "CourseController@getTai");
+    // Route::get("tai/course", "CourseController@getTai");
 
     Route::resource("class", "ClassController");
 
     Route::resource("class_courses", "ClassCoursesController");
 
     Route::resource("teacher_courses", "TeacherCourseController");
+
+    Route::resource("tai_courses", "TAICourseController");
 });
 
 

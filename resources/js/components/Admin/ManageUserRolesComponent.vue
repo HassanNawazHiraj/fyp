@@ -78,7 +78,7 @@
             role="dialog"
             aria-hidden="true"
         >
-            <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-dialog modal-xl" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title text-capitalize">
@@ -119,7 +119,12 @@
                                 class="btn btn-light btn-sm float-right"
                                 v-on:click="select_all()"
                             >
-                                Select all
+                                {{
+                                    this.user_permissions.length ==
+                                    this.permissions.length
+                                        ? "Unselect all"
+                                        : "Select all"
+                                }}
                             </button>
                             <h4>Permissions</h4>
                         </div>
@@ -347,28 +352,28 @@ export default {
                 },
                 //assign course to teacher
                 {
-                    name: "View TAI teacher Assignment",
+                    name: "View Course Teacher Assignment",
                     value: "course_teacher_view"
                 },
                 {
-                    name: "Add TAI teacher Assignment",
+                    name: "Add Course Teacher Assignment",
                     value: "course_teacher_add"
                 },
                 {
-                    name: "Delete TAI teacher Assignment",
+                    name: "Delete Course Teacher Assignment",
                     value: "course_teacher_delete"
                 },
                 //assign tai to teacher
                 {
-                    name: "View TAI course Assignment",
+                    name: "View TAI Course Assignment",
                     value: "tai_course_view"
                 },
                 {
-                    name: "Add TAI course Assignment",
+                    name: "Add TAI Course Assignment",
                     value: "tai_course_add"
                 },
                 {
-                    name: "Delete TAI course Assignment",
+                    name: "Delete TAI Course Assignment",
                     value: "tai_course_delete"
                 }
             ],

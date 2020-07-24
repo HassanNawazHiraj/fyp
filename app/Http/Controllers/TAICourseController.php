@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Course;
+use App\User;
+use App\TaiCourse;
 use Illuminate\Http\Request;
 
-class CourseController extends Controller
+class TAICourseController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +17,7 @@ class CourseController extends Controller
     public function index()
     {
         return response()->json([
-            "items" => Course::get()
+            "items" => Course::with(['tai'])->get()
         ]);
     }
 
@@ -37,18 +39,15 @@ class CourseController extends Controller
      */
     public function store(Request $request)
     {
-        $formData = $request->validate([
-            "code" => "required",
-            "title" => "required",
-            "credit_hours" => "required|numeric"
+        $request->validate([
+            "course_id" => "required",
+            "tai_id" => "required"
         ]);
-
-        $item = new Course();
-        $item->code = $request->code;
-        $item->title = $request->title;
-        $item->credit_hours = $request->credit_hours;
-        $item->save();
-
+        
+        $taiCourse = new TaiCourse();
+        $taiCourse->course_id = $request->course_id;
+        $taiCourse->tai_id = $request->tai_id;
+        $taiCourse->save();
         return response()->json($request, 200);
     }
 
@@ -83,19 +82,15 @@ class CourseController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $formData = $request->validate([
-            "code" => "required",
-            "title" => "required",
-            "credit_hours" => "required|numeric"
+        $request->validate([
+            "course_id" => "required",
+            "tai_id" => "required"
         ]);
-
-
-        $item = Course::find($id);
-        $item->code = $request->code;
-        $item->title = $request->title;
-        $item->credit_hours = $request->credit_hours;
-        $item->save();
-
+        
+        $taiCourse = TaiCourse::where('course_id', $id)->first();
+        $taiCourse->course_id = $request->course_id;
+        $taiCourse->tai_id = $request->tai_id;
+        $taiCourse->save();
         return response()->json($request, 200);
     }
 
@@ -107,8 +102,6 @@ class CourseController extends Controller
      */
     public function destroy($id)
     {
-        Course::where('id', $id)->delete();
-
-        return response()->json([], 200);
+        //
     }
 }
