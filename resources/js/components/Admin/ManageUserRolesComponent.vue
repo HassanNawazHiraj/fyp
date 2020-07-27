@@ -375,7 +375,13 @@ export default {
                 {
                     name: "Delete TAI Course Assignment",
                     value: "tai_course_delete"
+                },
+                //view assigned teachers
+                {
+                    name: "View Assigned Teachers",
+                    value: "assigned_teachers_view"
                 }
+
             ],
             base_path: "/api/",
             errors: [],

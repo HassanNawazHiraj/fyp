@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Course;
 use App\User;
 use App\TaiCourse;
+use Auth;
 use Illuminate\Http\Request;
 
 class TAICourseController extends Controller
@@ -31,6 +32,13 @@ class TAICourseController extends Controller
         //
     }
 
+    public function assigned() {
+        $tai_id = Auth::user()->id;
+        $tai = TaiCourse::where("tai_id",$tai_id)->with(['teachers'])->get();
+        return response()->json([
+            "items" => $tai
+        ]);
+    }
     /**
      * Store a newly created resource in storage.
      *
@@ -43,7 +51,7 @@ class TAICourseController extends Controller
             "course_id" => "required",
             "tai_id" => "required"
         ]);
-        
+
         $taiCourse = new TaiCourse();
         $taiCourse->course_id = $request->course_id;
         $taiCourse->tai_id = $request->tai_id;
@@ -86,7 +94,7 @@ class TAICourseController extends Controller
             "course_id" => "required",
             "tai_id" => "required"
         ]);
-        
+
         $taiCourse = TaiCourse::where('course_id', $id)->first();
         $taiCourse->course_id = $request->course_id;
         $taiCourse->tai_id = $request->tai_id;
