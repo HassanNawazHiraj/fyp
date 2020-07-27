@@ -34,9 +34,9 @@ class TAICourseController extends Controller
 
     public function assigned() {
         $tai_id = Auth::user()->id;
-        $tai = TaiCourse::where("tai_id",$tai_id)->with(['teachers'])->get();
+        $items = TaiCourse::where("tai_id",$tai_id)->with(['teachers'])->get();
         return response()->json([
-            "items" => $tai
+            "items" => $items
         ]);
     }
     /**
