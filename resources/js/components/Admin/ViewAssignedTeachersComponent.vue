@@ -29,12 +29,7 @@
                                     {{ item.title }}
                                 </td>
                                 <td class="text-capitalize">
-                                    <span class="" v-if="item.tai.length > 0">{{
-                                        item.tai[0].name
-                                    }}</span>
-                                    <span class="badge badge-danger" v-else>
-                                        Not assigned
-                                    </span>
+
                                 </td>
 
                             </tr>

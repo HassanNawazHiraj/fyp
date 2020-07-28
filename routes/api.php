@@ -15,12 +15,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return [
-        "type" => $request->user()->types[0],
-        "user" => $request->user()
-];
-});
+Route::middleware('auth:api')->get('/user', "UsersController@getUser");
+
 Route::group(['middleware' => 'auth:api'], function () {
     Route::resource("formFields", "FormFieldController");
     Route::post("formFields/order", "FormFieldController@order");

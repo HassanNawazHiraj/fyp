@@ -352,6 +352,7 @@ export default {
   data() {
     return {
       permissions: [],
+      types: [],
       user_login_name: "",
     };
   },
@@ -361,12 +362,23 @@ export default {
       window.location = "/";
       //this.$router.push("/");
     },
+    isTai() {
+        this.types.forEach(user => {
+            if(user.name == "Teaching area in-charge") {
+                return true;
+            }
+        });
+        return false;
+    }
   },
   mounted: function () {
     this.user_login_name = localStorage.getItem("name");
     this.$auth.setUserCookie();
     var localPermission = localStorage.getItem("permissions");
     if (localPermission != null) this.permissions = localPermission.split(",");
+    this.types = JSON.parse(localStorage.getItem("types"));
+    //console.log(this.types);
+
   },
 };
 </script>

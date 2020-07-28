@@ -35,6 +35,23 @@ class UsersController extends Controller
         ]);
     }
 
+    public function getUser(Request $request) {
+        $types = $request->user()->types;
+        $permissions = [];
+        foreach($types as $type) {
+            foreach($type->permissions as $permission) {
+                if(!in_array($permission, $permissions))
+                array_push($permissions, $permission);
+            }
+
+        }
+        return [
+            "types" => json_encode($request->user()->types),
+            "permissions" => $permissions,
+            "user" => $request->user()
+    ];
+    }
+
     public function getTeachers()
     {
         $users = User::whereHas('types', function ($q) {

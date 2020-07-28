@@ -2283,6 +2283,7 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       permissions: [],
+      types: [],
       user_login_name: ""
     };
   },
@@ -2290,6 +2291,14 @@ __webpack_require__.r(__webpack_exports__);
     logout: function logout() {
       this.$auth.destoryToken();
       window.location = "/"; //this.$router.push("/");
+    },
+    isTai: function isTai() {
+      this.types.forEach(function (user) {
+        if (user.name == "Teaching area in-charge") {
+          return true;
+        }
+      });
+      return false;
     }
   },
   mounted: function mounted() {
@@ -2297,6 +2306,7 @@ __webpack_require__.r(__webpack_exports__);
     this.$auth.setUserCookie();
     var localPermission = localStorage.getItem("permissions");
     if (localPermission != null) this.permissions = localPermission.split(",");
+    this.types = JSON.parse(localStorage.getItem("types")); //console.log(this.types);
   }
 });
 
@@ -5750,11 +5760,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue_select__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue_select__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var vue_select_dist_vue_select_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-select/dist/vue-select.css */ "./node_modules/vue-select/dist/vue-select.css");
 /* harmony import */ var vue_select_dist_vue_select_css__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue_select_dist_vue_select_css__WEBPACK_IMPORTED_MODULE_1__);
-//
-//
-//
-//
-//
 //
 //
 //
@@ -34802,15 +34807,7 @@ var render = function() {
                       )
                     ]),
                     _vm._v(" "),
-                    _c("td", { staticClass: "text-capitalize" }, [
-                      item.tai.length > 0
-                        ? _c("span", {}, [_vm._v(_vm._s(item.tai[0].name))])
-                        : _c("span", { staticClass: "badge badge-danger" }, [
-                            _vm._v(
-                              "\n                                    Not assigned\n                                "
-                            )
-                          ])
-                    ])
+                    _c("td", { staticClass: "text-capitalize" })
                   ])
                 }),
                 0
@@ -55049,9 +55046,10 @@ __webpack_require__.r(__webpack_exports__);
       axios.get("/api/user").then(function (response) {
         //console.log(response.data);
         //console.log(redirect);
-        console.log(response.data);
+        //console.log(response.data);
         localStorage.setItem("name", response.data.user.name);
-        localStorage.setItem("permissions", response.data.type.permissions); // ret = "asd";
+        localStorage.setItem("types", response.data.types);
+        localStorage.setItem("permissions", response.data.permissions); // ret = "asd";
         //console.log("success");
 
         if (redirect) {
