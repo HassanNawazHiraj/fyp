@@ -151,7 +151,8 @@ export default {
             id: "",
             toastTitle: "",
             toastMessage: "",
-            toastClass: "d-none"
+            toastClass: "d-none",
+
         };
     },
     mounted: function() {
@@ -163,7 +164,31 @@ export default {
             axios
                 .get(me.base_path + "assigned_courses")
                 .then(response => {
-                    me.items = response.data.items;
+                    me.items = [];
+                    response.data.items.forEach(element => {
+
+
+                        element.classes.forEach(c => {
+                            let course = element.course.title;
+                            course += " [";
+                            course += c.class.batch.season;
+                            course += c.class.batch.year;
+                            course += "-";
+                            course += c.class.program.short_name;
+                            course += "-";
+                            course += c.class.section;
+                            course += "]";
+
+                            c.teacher_course.forEach(t => {
+                                //console.log("adeas");
+                                let course_name = course+ " " + t.course_type;
+                                me.items.push({
+                                    name: t.teacher.name,
+                                    course : course_name
+                                });
+                            });
+                        });
+                    });
                 })
                 .catch(function(error) {
                     me.loading = false;

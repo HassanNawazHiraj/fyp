@@ -5922,7 +5922,28 @@ __webpack_require__.r(__webpack_exports__);
     list: function list() {
       var me = this;
       axios.get(me.base_path + "assigned_courses").then(function (response) {
-        me.items = response.data.items;
+        me.items = [];
+        response.data.items.forEach(function (element) {
+          element.classes.forEach(function (c) {
+            var course = element.course.title;
+            course += " [";
+            course += c["class"].batch.season;
+            course += c["class"].batch.year;
+            course += "-";
+            course += c["class"].program.short_name;
+            course += "-";
+            course += c["class"].section;
+            course += "]";
+            c.teacher_course.forEach(function (t) {
+              //console.log("adeas");
+              var course_name = course + " " + t.course_type;
+              me.items.push({
+                name: t.teacher.name,
+                course: course_name
+              });
+            });
+          });
+        });
       })["catch"](function (error) {
         me.loading = false;
       });
@@ -10685,7 +10706,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 exports.push([module.i, "@import url(/css/sb-admin-2.min.css);", ""]);
 
 // module
-exports.push([module.i, "\r\n", ""]);
+exports.push([module.i, "\n", ""]);
 
 // exports
 
@@ -10704,7 +10725,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.cselect > .v-select .vs__dropdown-toggle {\r\n    border: none;\n}\r\n", ""]);
+exports.push([module.i, "\n.cselect > .v-select .vs__dropdown-toggle {\n    border: none;\n}\n", ""]);
 
 // exports
 
@@ -10742,7 +10763,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 exports.push([module.i, "@import url(https://fonts.googleapis.com/css?family=Nunito:400,600|Open+Sans:400,600,700);", ""]);
 
 // module
-exports.push([module.i, "\r\n\r\n", ""]);
+exports.push([module.i, "\n\n", ""]);
 
 // exports
 

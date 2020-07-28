@@ -3,7 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-
+use App\ClassCourses;
 class TaiCourse extends Model
 {
 
@@ -15,9 +15,8 @@ class TaiCourse extends Model
         return $this->hasOne("App\Course", "id", "course_id");
     }
 
-    public function teachers() {
-        //return $this->hasOne("App\ClassCourses", "course_id", "course_id");
-        return $this->belongsToMany("App\User", "tai_courses", "course_id", "tai_id");
-        //dd($classes);
+    public function classes() {
+        //$class = ClassCourses::where("course_id", $this->course_id)->get();
+        return $this->hasMany("App\ClassCourses", "course_id", "course_id");
     }
 }
