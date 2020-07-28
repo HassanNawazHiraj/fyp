@@ -467,4 +467,10 @@ export default {
 .course-select > #vs1__listbox > .vs__dropdown-option--selected {
     display: none;
 }
+.course-select > #vs2__listbox > .vs__dropdown-option--selected {
+    display: none;
+}
+.course-select > #vs3__listbox > .vs__dropdown-option--selected {
+    display: none;
+}
 </style>
