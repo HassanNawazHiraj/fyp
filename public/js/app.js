@@ -5892,8 +5892,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -34818,17 +34816,21 @@ var render = function() {
                 "tbody",
                 _vm._l(_vm.items, function(item) {
                   return _c("tr", { key: item.id }, [
-                    _c("td", [_vm._v(_vm._s(item.id))]),
-                    _vm._v(" "),
                     _c("td", {}, [
                       _vm._v(
                         "\n                                " +
-                          _vm._s(item.title) +
+                          _vm._s(item.name) +
                           "\n                            "
                       )
                     ]),
                     _vm._v(" "),
-                    _c("td", { staticClass: "text-capitalize" })
+                    _c("td", { staticClass: "text-capitalize" }, [
+                      _vm._v(
+                        "\n                                " +
+                          _vm._s(item.course) +
+                          "\n                            "
+                      )
+                    ])
                   ])
                 }),
                 0
@@ -35006,8 +35008,6 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("thead", [
       _c("tr", [
-        _c("th", {}, [_vm._v("#")]),
-        _vm._v(" "),
         _c("th", {}, [_vm._v("Teacher")]),
         _vm._v(" "),
         _c("th", {}, [_vm._v("Course")])

@@ -16,6 +16,6 @@ class ClassCourses extends Model
     }
 
     public function teacherCourse() {
-        return $this->hasMany("App\TeacherCourse", "class_course_id", "course_id");
+        return $this->hasMany("App\TeacherCourse", "class_course_id", "id");
     }
 }

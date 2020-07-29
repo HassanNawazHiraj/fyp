@@ -16,7 +16,6 @@
                     >
                         <thead>
                             <tr>
-                                <th style="">#</th>
                                 <th style="">Teacher</th>
                                 <th style="">Course</th>
                             </tr>
@@ -24,12 +23,11 @@
 
                         <tbody>
                             <tr v-for="item in items" :key="item.id">
-                                <td>{{ item.id }}</td>
                                 <td class>
-                                    {{ item.title }}
+                                    {{ item.name }}
                                 </td>
                                 <td class="text-capitalize">
-
+                                    {{ item.course }}
                                 </td>
 
                             </tr>
