@@ -5201,6 +5201,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _permissions_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../permissions.js */ "./resources/js/permissions.js");
 //
 //
 //
@@ -5441,127 +5442,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       items: [],
       name: "",
       user_permissions: [],
-      permissions: [//users
-      {
-        name: "View Users",
-        value: "user_view"
-      }, {
-        name: "Add Users",
-        value: "user_add"
-      }, {
-        name: "Delete Users",
-        value: "user_delete"
-      }, //user roles
-      {
-        name: "View User roles",
-        value: "user_role_view"
-      }, {
-        name: "Add User roles",
-        value: "user_role_add"
-      }, {
-        name: "Delete User roles",
-        value: "user_role_delete"
-      }, //course performa form
-      {
-        name: "View Course performa form",
-        value: "course_performa_form_view"
-      }, {
-        name: "Add Course performa form",
-        value: "course_performa_form_add"
-      }, {
-        name: "Delete Course performa form",
-        value: "course_performa_form_delete"
-      }, //batch
-      {
-        name: "View Batch",
-        value: "batch_view"
-      }, {
-        name: "Add Batch",
-        value: "batch_add"
-      }, {
-        name: "Delete Batch",
-        value: "batch_delete"
-      }, //program
-      {
-        name: "View Program",
-        value: "program_view"
-      }, {
-        name: "Add Program",
-        value: "program_add"
-      }, {
-        name: "Delete Program",
-        value: "program_delete"
-      }, //course
-      {
-        name: "View Course",
-        value: "course_view"
-      }, {
-        name: "Add Course",
-        value: "course_add"
-      }, {
-        name: "Delete Course",
-        value: "course_delete"
-      }, //class
-      {
-        name: "View Class",
-        value: "class_view"
-      }, {
-        name: "Add Class",
-        value: "class_add"
-      }, {
-        name: "Delete Class",
-        value: "class_delete"
-      }, //class
-      {
-        name: "View Course Assignment",
-        value: "class_courses_view"
-      }, {
-        name: "Add Course Assignment",
-        value: "class_courses_add"
-      }, {
-        name: "Delete Course Assignment",
-        value: "class_courses_delete"
-      }, //assign course to teacher
-      {
-        name: "View Course Teacher Assignment",
-        value: "course_teacher_view"
-      }, {
-        name: "Add Course Teacher Assignment",
-        value: "course_teacher_add"
-      }, {
-        name: "Delete Course Teacher Assignment",
-        value: "course_teacher_delete"
-      }, //assign tai to teacher
-      {
-        name: "View TAI Course Assignment",
-        value: "tai_course_view"
-      }, {
-        name: "Add TAI Course Assignment",
-        value: "tai_course_add"
-      }, {
-        name: "Delete TAI Course Assignment",
-        value: "tai_course_delete"
-      }, //view assigned teachers
-      {
-        name: "View Assigned Teachers",
-        value: "assigned_teachers_view"
-      }, //manage session
-      {
-        name: "View Session",
-        value: "session_view"
-      }, {
-        name: "Add Session",
-        value: "session_add"
-      }, {
-        name: "Delete Session",
-        value: "session_delete"
-      }],
+      permissions: _permissions_js__WEBPACK_IMPORTED_MODULE_0__["permissions"],
       base_path: "/api/",
       errors: [],
       modal_mode: "add",
@@ -11007,7 +10895,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 exports.push([module.i, "@import url(/css/sb-admin-2.min.css);", ""]);
 
 // module
-exports.push([module.i, "\n", ""]);
+exports.push([module.i, "\r\n", ""]);
 
 // exports
 
@@ -11026,7 +10914,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.cselect > .v-select .vs__dropdown-toggle {\n    border: none;\n}\n", ""]);
+exports.push([module.i, "\n.cselect > .v-select .vs__dropdown-toggle {\r\n    border: none;\n}\r\n", ""]);
 
 // exports
 
@@ -11064,7 +10952,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 exports.push([module.i, "@import url(https://fonts.googleapis.com/css?family=Nunito:400,600|Open+Sans:400,600,700);", ""]);
 
 // module
-exports.push([module.i, "\n\n", ""]);
+exports.push([module.i, "\r\n\r\n", ""]);
 
 // exports
 
@@ -55913,6 +55801,134 @@ __webpack_require__.r(__webpack_exports__);
     }
   });
 });
+
+/***/ }),
+
+/***/ "./resources/js/permissions.js":
+/*!*************************************!*\
+  !*** ./resources/js/permissions.js ***!
+  \*************************************/
+/*! exports provided: permissions */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "permissions", function() { return permissions; });
+var permissions = [//users
+{
+  name: "View Users",
+  value: "user_view"
+}, {
+  name: "Add Users",
+  value: "user_add"
+}, {
+  name: "Delete Users",
+  value: "user_delete"
+}, //user roles
+{
+  name: "View User roles",
+  value: "user_role_view"
+}, {
+  name: "Add User roles",
+  value: "user_role_add"
+}, {
+  name: "Delete User roles",
+  value: "user_role_delete"
+}, //course performa form
+{
+  name: "View Course performa form",
+  value: "course_performa_form_view"
+}, {
+  name: "Add Course performa form",
+  value: "course_performa_form_add"
+}, {
+  name: "Delete Course performa form",
+  value: "course_performa_form_delete"
+}, //batch
+{
+  name: "View Batch",
+  value: "batch_view"
+}, {
+  name: "Add Batch",
+  value: "batch_add"
+}, {
+  name: "Delete Batch",
+  value: "batch_delete"
+}, //program
+{
+  name: "View Program",
+  value: "program_view"
+}, {
+  name: "Add Program",
+  value: "program_add"
+}, {
+  name: "Delete Program",
+  value: "program_delete"
+}, //course
+{
+  name: "View Course",
+  value: "course_view"
+}, {
+  name: "Add Course",
+  value: "course_add"
+}, {
+  name: "Delete Course",
+  value: "course_delete"
+}, //class
+{
+  name: "View Class",
+  value: "class_view"
+}, {
+  name: "Add Class",
+  value: "class_add"
+}, {
+  name: "Delete Class",
+  value: "class_delete"
+}, //class
+{
+  name: "View Course Assignment",
+  value: "class_courses_view"
+}, {
+  name: "Add Course Assignment",
+  value: "class_courses_add"
+}, {
+  name: "Delete Course Assignment",
+  value: "class_courses_delete"
+}, //assign course to teacher
+{
+  name: "View Course Teacher Assignment",
+  value: "course_teacher_view"
+}, {
+  name: "Add Course Teacher Assignment",
+  value: "course_teacher_add"
+}, {
+  name: "Delete Course Teacher Assignment",
+  value: "course_teacher_delete"
+}, //assign tai to teacher
+{
+  name: "View TAI Course Assignment",
+  value: "tai_course_view"
+}, {
+  name: "Add TAI Course Assignment",
+  value: "tai_course_add"
+}, {
+  name: "Delete TAI Course Assignment",
+  value: "tai_course_delete"
+}, //view assigned teachers
+{
+  name: "View Assigned Teachers",
+  value: "assigned_teachers_view"
+}, //manage session
+{
+  name: "View Session",
+  value: "session_view"
+}, {
+  name: "Add Session",
+  value: "session_add"
+}, {
+  name: "Delete Session",
+  value: "session_delete"
+}];
 
 /***/ }),
 
