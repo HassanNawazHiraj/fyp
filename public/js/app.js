@@ -33915,7 +33915,9 @@ var render = function() {
                         }
                       }),
                       _vm._v(" "),
-                      _c("label", [_vm._v(_vm._s(this.status ? "Yes" : "No"))])
+                      _c("label", [
+                        _vm._v(_vm._s(this.status ? "Enable" : "Disable"))
+                      ])
                     ])
                   ])
                 ],

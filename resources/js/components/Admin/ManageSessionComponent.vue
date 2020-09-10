@@ -106,7 +106,7 @@
               </div>
               <div class="form-control">
                 <input type="checkbox" v-model="status" />
-                <label>{{ this.status ? "Yes" : "No" }}</label>
+                <label>{{ this.status ? "Enable" : "Disable" }}</label>
               </div>
             </div>
           </div>
