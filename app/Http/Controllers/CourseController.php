@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Course;
+use App\Session;
 use Illuminate\Http\Request;
 
 class CourseController extends Controller
@@ -14,8 +15,9 @@ class CourseController extends Controller
      */
     public function index()
     {
+        $current_session = Session::where("active", 1)->first();
         return response()->json([
-            "items" => Course::get()
+            "items" => Course::where('session_id', $current_session->id)->get()
         ]);
     }
 
