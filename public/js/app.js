@@ -4764,12 +4764,19 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       items: [],
       season: "",
       year: "",
+      active: false,
+      status: true,
       base_path: "/api/",
       errors: [],
       modal_mode: "add",
@@ -4785,7 +4792,7 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     list: function list() {
       var me = this;
-      axios.get(me.base_path + "batch").then(function (response) {
+      axios.get(me.base_path + "session").then(function (response) {
         me.items = response.data.items; // console.log(me.items);
 
         me.loading = false;
@@ -33735,6 +33742,20 @@ var render = function() {
                     _c("td", [_vm._v(_vm._s(item.year))]),
                     _vm._v(" "),
                     _c("td", [
+                      item.active == 1
+                        ? _c("span", { staticClass: "badge badge-success" }, [
+                            _vm._v("Yes")
+                          ])
+                        : _vm._e(),
+                      _vm._v(" "),
+                      item.active == 0
+                        ? _c("span", { staticClass: "badge badge-danger" }, [
+                            _vm._v("No")
+                          ])
+                        : _vm._e()
+                    ]),
+                    _vm._v(" "),
+                    _c("td", [
                       _c(
                         "button",
                         {
@@ -34009,6 +34030,8 @@ var staticRenderFns = [
         _c("th", [_vm._v("Season")]),
         _vm._v(" "),
         _c("th", [_vm._v("Year")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Active")]),
         _vm._v(" "),
         _c("th", [_vm._v("Actions")])
       ])

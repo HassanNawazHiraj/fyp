@@ -21,6 +21,7 @@
                 <th>#</th>
                 <th>Season</th>
                 <th>Year</th>
+                <th>Active</th>
                 <th>Actions</th>
               </tr>
             </thead>
@@ -30,6 +31,10 @@
                 <td>{{ item.id }}</td>
                 <td>{{ item.season }}</td>
                 <td>{{item.year}}</td>
+                <td>
+                    <span class="badge badge-success" v-if="item.active == 1">Yes</span>
+                    <span class="badge badge-danger" v-if="item.active == 0">No</span>
+                </td>
                 <td>
                   <button
                     class="btn btn-primary btn-sm"
@@ -137,6 +142,8 @@ export default {
       items: [],
       season: "",
       year: "",
+      active: false,
+      status: true,
       base_path: "/api/",
       errors: [],
       modal_mode: "add",
@@ -153,7 +160,7 @@ export default {
     list() {
       let me = this;
       axios
-        .get(me.base_path + "batch")
+        .get(me.base_path + "session")
         .then(response => {
           me.items = response.data.items;
           // console.log(me.items);
