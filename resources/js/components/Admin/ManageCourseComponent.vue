@@ -5,6 +5,7 @@
         <h6 class="m-0 font-weight-bold text-primary">
           Course
           <a
+          v-if="selectedSession.active"
             href="#"
             class="btn btn-primary float-right btn-sm"
             data-toggle="modal"
@@ -22,7 +23,7 @@
                 <th>Code</th>
                 <th>Title</th>
                 <th>Credit Hours</th>
-                <th>Actions</th>
+                <th v-if="selectedSession.active">Actions</th>
               </tr>
             </thead>
 
@@ -32,7 +33,7 @@
                 <td>{{ item.code }}</td>
                 <td>{{ item.title }}</td>
                 <td>{{ item.credit_hours }}</td>
-                <td>
+                <td v-if="selectedSession.active">
                   <button
                     class="btn btn-primary btn-sm"
                     data-toggle="modal"
@@ -205,8 +206,9 @@ export default {
         .post(me.base_path + "course", formData, {})
         .then(function (response) {
           if (response.status == 200) {
+
             me.closeModal("addModal");
-            me.list();
+            me.list(me.selectedSession.id);
             me.toastTitle = "Add";
             me.toastMessage = "Course added successfully";
             me.toastClass = "d-block";
@@ -214,6 +216,7 @@ export default {
           }
         })
         .catch(function (error) {
+            console.log(error);
           for (let key in error.response.data.errors) {
             if (error.response.data.errors.hasOwnProperty(key)) {
               me.errors.push(error.response.data.errors[key][0]);
@@ -251,7 +254,7 @@ export default {
         .then(function (response) {
           if (response.status == 200) {
             me.closeModal("addModal");
-            me.list();
+            me.list(me.selectedSession.id);
             me.toastTitle = "Update";
             me.toastMessage = "Course updated successfully";
             me.toastClass = "d-block";
@@ -280,7 +283,7 @@ export default {
         .then((response) => {
           if (response.status == 200) {
             me.closeModal("deleteModal");
-            me.list();
+            me.list(me.selectedSession.id);
             me.toastTitle = "Delete";
             me.toastMessage = "Program deleted successfully";
             me.toastClass = "d-block";

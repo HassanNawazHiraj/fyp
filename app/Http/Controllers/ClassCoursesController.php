@@ -51,11 +51,13 @@ class ClassCoursesController extends Controller
             "course_id" => "required",
             "has_lab" => "required"
         ]);
+        $current_session = Session::where("active", 1)->first()->id;
 
         $c = new ClassCourses();
         $c->class_id = $request->class_id;
         $c->course_id = $request->course_id;
         $c->has_lab = $request->has_lab;
+        $c->session_id = $current_session;
         $c->save();
         return response()->json($request, 200);
     }

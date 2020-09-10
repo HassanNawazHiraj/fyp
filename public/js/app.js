@@ -3469,6 +3469,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -3549,7 +3550,7 @@ __webpack_require__.r(__webpack_exports__);
       axios.post(me.base_path + "class_courses", formData, {}).then(function (response) {
         if (response.status == 200) {
           me.closeModal("addModal");
-          me.list();
+          me.list(me.selectedSession.id);
           me.toastTitle = "Add";
           me.toastMessage = "Class Course relation created successfully";
           me.toastClass = "d-block";
@@ -3589,7 +3590,7 @@ __webpack_require__.r(__webpack_exports__);
       axios.post(me.base_path + "class_courses/" + me.id, formData, {}).then(function (response) {
         if (response.status == 200) {
           me.closeModal("addModal");
-          me.list();
+          me.list(me.selectedSession.id);
           me.toastTitle = "Update";
           me.toastMessage = "Course updated successfully";
           me.toastClass = "d-block";
@@ -3615,7 +3616,7 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (response) {
         if (response.status == 200) {
           me.closeModal("deleteModal");
-          me.list();
+          me.list(me.selectedSession.id);
           me.toastTitle = "Delete";
           me.toastMessage = "Program deleted successfully";
           me.toastClass = "d-block";
@@ -3643,6 +3644,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
 //
 //
 //
@@ -3848,13 +3850,15 @@ __webpack_require__.r(__webpack_exports__);
       axios.post(me.base_path + "course", formData, {}).then(function (response) {
         if (response.status == 200) {
           me.closeModal("addModal");
-          me.list();
+          me.list(me.selectedSession.id);
           me.toastTitle = "Add";
           me.toastMessage = "Course added successfully";
           me.toastClass = "d-block";
           $(".toast").toast("show");
         }
       })["catch"](function (error) {
+        console.log(error);
+
         for (var key in error.response.data.errors) {
           if (error.response.data.errors.hasOwnProperty(key)) {
             me.errors.push(error.response.data.errors[key][0]);
@@ -3888,7 +3892,7 @@ __webpack_require__.r(__webpack_exports__);
       axios.post(me.base_path + "course/" + me.id, formData, {}).then(function (response) {
         if (response.status == 200) {
           me.closeModal("addModal");
-          me.list();
+          me.list(me.selectedSession.id);
           me.toastTitle = "Update";
           me.toastMessage = "Course updated successfully";
           me.toastClass = "d-block";
@@ -3914,7 +3918,7 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (response) {
         if (response.status == 200) {
           me.closeModal("deleteModal");
-          me.list();
+          me.list(me.selectedSession.id);
           me.toastTitle = "Delete";
           me.toastMessage = "Program deleted successfully";
           me.toastClass = "d-block";
@@ -31798,23 +31802,25 @@ var render = function() {
       _c("div", { staticClass: "card-header py-3" }, [
         _c("h6", { staticClass: "m-0 font-weight-bold text-primary" }, [
           _vm._v("\n        Class Courses\n        "),
-          _c(
-            "a",
-            {
-              staticClass: "btn btn-primary float-right btn-sm",
-              attrs: {
-                href: "#",
-                "data-toggle": "modal",
-                "data-target": "#addModal"
-              },
-              on: {
-                click: function($event) {
-                  return _vm.add()
-                }
-              }
-            },
-            [_vm._v("Add")]
-          )
+          _vm.selectedSession.active
+            ? _c(
+                "a",
+                {
+                  staticClass: "btn btn-primary float-right btn-sm",
+                  attrs: {
+                    href: "#",
+                    "data-toggle": "modal",
+                    "data-target": "#addModal"
+                  },
+                  on: {
+                    click: function($event) {
+                      return _vm.add()
+                    }
+                  }
+                },
+                [_vm._v("Add")]
+              )
+            : _vm._e()
         ])
       ]),
       _vm._v(" "),
@@ -31827,7 +31833,21 @@ var render = function() {
               attrs: { id: "dataTable", width: "100%", cellspacing: "0" }
             },
             [
-              _vm._m(0),
+              _c("thead", [
+                _c("tr", [
+                  _c("th", [_vm._v("#")]),
+                  _vm._v(" "),
+                  _c("th", [_vm._v("Class")]),
+                  _vm._v(" "),
+                  _c("th", [_vm._v("Course")]),
+                  _vm._v(" "),
+                  _c("th", [_vm._v("Has Lab")]),
+                  _vm._v(" "),
+                  _vm.selectedSession.active
+                    ? _c("th", [_vm._v("Actions")])
+                    : _vm._e()
+                ])
+              ]),
               _vm._v(" "),
               _c(
                 "tbody",
@@ -31872,41 +31892,43 @@ var render = function() {
                       )
                     ]),
                     _vm._v(" "),
-                    _c("td", [
-                      _c(
-                        "button",
-                        {
-                          staticClass: "btn btn-primary btn-sm",
-                          attrs: {
-                            "data-toggle": "modal",
-                            "data-target": "#add_update_modal"
-                          },
-                          on: {
-                            click: function($event) {
-                              return _vm.edit(item)
-                            }
-                          }
-                        },
-                        [_vm._v("Edit")]
-                      ),
-                      _vm._v("\n                 \n                "),
-                      _c(
-                        "button",
-                        {
-                          staticClass: "btn btn-danger btn-sm",
-                          attrs: {
-                            "data-toggle": "modal",
-                            "data-target": "#delete_modal"
-                          },
-                          on: {
-                            click: function($event) {
-                              return _vm.remove(item.id)
-                            }
-                          }
-                        },
-                        [_vm._v("Delete")]
-                      )
-                    ])
+                    _vm.selectedSession.active
+                      ? _c("td", [
+                          _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-primary btn-sm",
+                              attrs: {
+                                "data-toggle": "modal",
+                                "data-target": "#add_update_modal"
+                              },
+                              on: {
+                                click: function($event) {
+                                  return _vm.edit(item)
+                                }
+                              }
+                            },
+                            [_vm._v("Edit")]
+                          ),
+                          _vm._v("\n                 \n                "),
+                          _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-danger btn-sm",
+                              attrs: {
+                                "data-toggle": "modal",
+                                "data-target": "#delete_modal"
+                              },
+                              on: {
+                                click: function($event) {
+                                  return _vm.remove(item.id)
+                                }
+                              }
+                            },
+                            [_vm._v("Delete")]
+                          )
+                        ])
+                      : _vm._e()
                   ])
                 }),
                 0
@@ -31939,7 +31961,7 @@ var render = function() {
                   _vm._v(_vm._s(this.modal_mode) + " Class courses")
                 ]),
                 _vm._v(" "),
-                _vm._m(1)
+                _vm._m(0)
               ]),
               _vm._v(" "),
               _c(
@@ -31959,7 +31981,7 @@ var render = function() {
                   }),
                   _vm._v(" "),
                   _c("div", { staticClass: "input-group mb-3" }, [
-                    _vm._m(2),
+                    _vm._m(1),
                     _vm._v(" "),
                     _c(
                       "div",
@@ -31988,7 +32010,7 @@ var render = function() {
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "input-group mb-3" }, [
-                    _vm._m(3),
+                    _vm._m(2),
                     _vm._v(" "),
                     _c(
                       "div",
@@ -32017,7 +32039,7 @@ var render = function() {
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "input-group mb-3" }, [
-                    _vm._m(4),
+                    _vm._m(3),
                     _vm._v(" "),
                     _c("div", { staticClass: "form-control" }, [
                       _c("input", {
@@ -32112,7 +32134,7 @@ var render = function() {
           { staticClass: "modal-dialog", attrs: { role: "document" } },
           [
             _c("div", { staticClass: "modal-content" }, [
-              _vm._m(5),
+              _vm._m(4),
               _vm._v(" "),
               _c("div", { staticClass: "modal-body" }, [
                 _vm._v(
@@ -32177,7 +32199,7 @@ var render = function() {
                 _vm._v("just now")
               ]),
               _vm._v(" "),
-              _vm._m(6)
+              _vm._m(5)
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "toast-body" }, [
@@ -32190,24 +32212,6 @@ var render = function() {
   ])
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("thead", [
-      _c("tr", [
-        _c("th", [_vm._v("#")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Class")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Course")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Has Lab")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Actions")])
-      ])
-    ])
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -32314,23 +32318,25 @@ var render = function() {
       _c("div", { staticClass: "card-header py-3" }, [
         _c("h6", { staticClass: "m-0 font-weight-bold text-primary" }, [
           _vm._v("\n        Course\n        "),
-          _c(
-            "a",
-            {
-              staticClass: "btn btn-primary float-right btn-sm",
-              attrs: {
-                href: "#",
-                "data-toggle": "modal",
-                "data-target": "#addModal"
-              },
-              on: {
-                click: function($event) {
-                  return _vm.add()
-                }
-              }
-            },
-            [_vm._v("Add")]
-          )
+          _vm.selectedSession.active
+            ? _c(
+                "a",
+                {
+                  staticClass: "btn btn-primary float-right btn-sm",
+                  attrs: {
+                    href: "#",
+                    "data-toggle": "modal",
+                    "data-target": "#addModal"
+                  },
+                  on: {
+                    click: function($event) {
+                      return _vm.add()
+                    }
+                  }
+                },
+                [_vm._v("Add")]
+              )
+            : _vm._e()
         ])
       ]),
       _vm._v(" "),
@@ -32343,7 +32349,21 @@ var render = function() {
               attrs: { id: "dataTable", width: "100%", cellspacing: "0" }
             },
             [
-              _vm._m(0),
+              _c("thead", [
+                _c("tr", [
+                  _c("th", [_vm._v("#")]),
+                  _vm._v(" "),
+                  _c("th", [_vm._v("Code")]),
+                  _vm._v(" "),
+                  _c("th", [_vm._v("Title")]),
+                  _vm._v(" "),
+                  _c("th", [_vm._v("Credit Hours")]),
+                  _vm._v(" "),
+                  _vm.selectedSession.active
+                    ? _c("th", [_vm._v("Actions")])
+                    : _vm._e()
+                ])
+              ]),
               _vm._v(" "),
               _c(
                 "tbody",
@@ -32357,41 +32377,43 @@ var render = function() {
                     _vm._v(" "),
                     _c("td", [_vm._v(_vm._s(item.credit_hours))]),
                     _vm._v(" "),
-                    _c("td", [
-                      _c(
-                        "button",
-                        {
-                          staticClass: "btn btn-primary btn-sm",
-                          attrs: {
-                            "data-toggle": "modal",
-                            "data-target": "#add_update_modal"
-                          },
-                          on: {
-                            click: function($event) {
-                              return _vm.edit(item)
-                            }
-                          }
-                        },
-                        [_vm._v("Edit")]
-                      ),
-                      _vm._v("\n                 \n                "),
-                      _c(
-                        "button",
-                        {
-                          staticClass: "btn btn-danger btn-sm",
-                          attrs: {
-                            "data-toggle": "modal",
-                            "data-target": "#delete_modal"
-                          },
-                          on: {
-                            click: function($event) {
-                              return _vm.remove(item.id)
-                            }
-                          }
-                        },
-                        [_vm._v("Delete")]
-                      )
-                    ])
+                    _vm.selectedSession.active
+                      ? _c("td", [
+                          _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-primary btn-sm",
+                              attrs: {
+                                "data-toggle": "modal",
+                                "data-target": "#add_update_modal"
+                              },
+                              on: {
+                                click: function($event) {
+                                  return _vm.edit(item)
+                                }
+                              }
+                            },
+                            [_vm._v("Edit")]
+                          ),
+                          _vm._v("\n                 \n                "),
+                          _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-danger btn-sm",
+                              attrs: {
+                                "data-toggle": "modal",
+                                "data-target": "#delete_modal"
+                              },
+                              on: {
+                                click: function($event) {
+                                  return _vm.remove(item.id)
+                                }
+                              }
+                            },
+                            [_vm._v("Delete")]
+                          )
+                        ])
+                      : _vm._e()
                   ])
                 }),
                 0
@@ -32424,7 +32446,7 @@ var render = function() {
                   _vm._v(_vm._s(this.modal_mode) + " course")
                 ]),
                 _vm._v(" "),
-                _vm._m(1)
+                _vm._m(0)
               ]),
               _vm._v(" "),
               _c(
@@ -32444,7 +32466,7 @@ var render = function() {
                   }),
                   _vm._v(" "),
                   _c("div", { staticClass: "input-group mb-3" }, [
-                    _vm._m(2),
+                    _vm._m(1),
                     _vm._v(" "),
                     _c("input", {
                       directives: [
@@ -32470,7 +32492,7 @@ var render = function() {
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "input-group mb-3" }, [
-                    _vm._m(3),
+                    _vm._m(2),
                     _vm._v(" "),
                     _c("input", {
                       directives: [
@@ -32496,7 +32518,7 @@ var render = function() {
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "input-group mb-3" }, [
-                    _vm._m(4),
+                    _vm._m(3),
                     _vm._v(" "),
                     _c("input", {
                       directives: [
@@ -32571,7 +32593,7 @@ var render = function() {
           { staticClass: "modal-dialog", attrs: { role: "document" } },
           [
             _c("div", { staticClass: "modal-content" }, [
-              _vm._m(5),
+              _vm._m(4),
               _vm._v(" "),
               _c("div", { staticClass: "modal-body" }, [
                 _vm._v("Are you sure you want to delete this Course?")
@@ -32634,7 +32656,7 @@ var render = function() {
                 _vm._v("just now")
               ]),
               _vm._v(" "),
-              _vm._m(6)
+              _vm._m(5)
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "toast-body" }, [
@@ -32647,24 +32669,6 @@ var render = function() {
   ])
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("thead", [
-      _c("tr", [
-        _c("th", [_vm._v("#")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Code")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Title")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Credit Hours")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Actions")])
-      ])
-    ])
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement

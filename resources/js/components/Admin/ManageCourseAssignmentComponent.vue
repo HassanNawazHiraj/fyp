@@ -6,6 +6,7 @@
           Class Courses
           <a
             href="#"
+            v-if="selectedSession.active"
             class="btn btn-primary float-right btn-sm"
             data-toggle="modal"
             data-target="#addModal"
@@ -22,7 +23,7 @@
                 <th>Class</th>
                 <th>Course</th>
                 <th>Has Lab</th>
-                <th>Actions</th>
+                <th v-if="selectedSession.active">Actions</th>
               </tr>
             </thead>
 
@@ -59,7 +60,7 @@
                                         }"
                   >{{ item.has_lab ? "Yes" : "No" }}</span>
                 </td>
-                <td>
+                <td v-if="selectedSession.active">
                   <button
                     class="btn btn-primary btn-sm"
                     data-toggle="modal"
@@ -277,7 +278,7 @@ export default {
         .then(function (response) {
           if (response.status == 200) {
             me.closeModal("addModal");
-            me.list();
+            me.list(me.selectedSession.id);
             me.toastTitle = "Add";
             me.toastMessage = "Class Course relation created successfully";
             me.toastClass = "d-block";
@@ -322,7 +323,7 @@ export default {
         .then(function (response) {
           if (response.status == 200) {
             me.closeModal("addModal");
-            me.list();
+            me.list(me.selectedSession.id);
             me.toastTitle = "Update";
             me.toastMessage = "Course updated successfully";
             me.toastClass = "d-block";
@@ -351,7 +352,7 @@ export default {
         .then((response) => {
           if (response.status == 200) {
             me.closeModal("deleteModal");
-            me.list();
+            me.list(me.selectedSession.id);
             me.toastTitle = "Delete";
             me.toastMessage = "Program deleted successfully";
             me.toastClass = "d-block";

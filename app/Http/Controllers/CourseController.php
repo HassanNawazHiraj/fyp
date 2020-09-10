@@ -20,7 +20,6 @@ class CourseController extends Controller
         } else {
             $current_session = Session::where("active", 1)->first()->id;
         }
-
         return response()->json([
             "items" => Course::where('session_id', $current_session)->get()
         ]);
@@ -49,11 +48,12 @@ class CourseController extends Controller
             "title" => "required",
             "credit_hours" => "required|numeric"
         ]);
-
+        $current_session = Session::where("active", 1)->first()->id;
         $item = new Course();
         $item->code = $request->code;
         $item->title = $request->title;
         $item->credit_hours = $request->credit_hours;
+        $item->session_id = $current_session;
         $item->save();
 
         return response()->json($request, 200);
