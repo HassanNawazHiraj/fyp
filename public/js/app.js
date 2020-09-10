@@ -3469,81 +3469,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+  props: ["selectedSession"],
+  watch: {
+    selectedSession: function selectedSession(val, oldVal) {
+      //console.log("new :" , val.id , " | old : " , oldVal.id);
+      this.list(val.id);
+    }
+  },
   components: {
     vSelect: vue_select__WEBPACK_IMPORTED_MODULE_0___default.a
   },
@@ -3565,12 +3500,19 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   mounted: function mounted() {
-    this.list();
+    this.list(this.selectedSession.id);
   },
   methods: {
     list: function list() {
+      var s = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
+      var path = this.base_path + "class_courses";
+
+      if (s !== 0) {
+        path += "?session=" + s;
+      }
+
       var me = this;
-      axios.get(me.base_path + "class_courses").then(function (response) {
+      axios.get(path).then(function (response) {
         me.items = response.data.items;
         me.courses = response.data.courses;
         me.classes = [];
@@ -10928,7 +10870,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.cselect > .v-select .vs__dropdown-toggle {\r\n    border: none;\n}\r\n", ""]);
+exports.push([module.i, "\n.cselect > .v-select .vs__dropdown-toggle {\r\n  border: none;\n}\r\n", ""]);
 
 // exports
 
@@ -31760,7 +31702,7 @@ var render = function() {
     _c("div", { staticClass: "card shadow mb-4" }, [
       _c("div", { staticClass: "card-header py-3" }, [
         _c("h6", { staticClass: "m-0 font-weight-bold text-primary" }, [
-          _vm._v("\n                Class Courses\n                "),
+          _vm._v("\n        Class Courses\n        "),
           _c(
             "a",
             {
@@ -31800,7 +31742,7 @@ var render = function() {
                     _vm._v(" "),
                     _c("td", { staticClass: "text-uppercase" }, [
                       _vm._v(
-                        "\n                                " +
+                        "\n                " +
                           _vm._s(
                             (item.class.batch.season.length > 2
                               ? item.class.batch.season.substring(0, 2)
@@ -31813,16 +31755,12 @@ var render = function() {
                               "-" +
                               item.class.section
                           ) +
-                          "\n                            "
+                          "\n              "
                       )
                     ]),
                     _vm._v(" "),
                     _c("td", { staticClass: "text-capitalize" }, [
-                      _vm._v(
-                        "\n                                " +
-                          _vm._s(item.course.title) +
-                          "\n                            "
-                      )
+                      _vm._v(_vm._s(item.course.title))
                     ]),
                     _vm._v(" "),
                     _c("td", { staticClass: "text-center" }, [
@@ -31854,15 +31792,9 @@ var render = function() {
                             }
                           }
                         },
-                        [
-                          _vm._v(
-                            "\n                                    Edit\n                                "
-                          )
-                        ]
+                        [_vm._v("Edit")]
                       ),
-                      _vm._v(
-                        "\n                                 \n                                "
-                      ),
+                      _vm._v("\n                 \n                "),
                       _c(
                         "button",
                         {
@@ -31877,11 +31809,7 @@ var render = function() {
                             }
                           }
                         },
-                        [
-                          _vm._v(
-                            "\n                                    Delete\n                                "
-                          )
-                        ]
+                        [_vm._v("Delete")]
                       )
                     ])
                   ])
@@ -31913,11 +31841,7 @@ var render = function() {
             _c("div", { staticClass: "modal-content" }, [
               _c("div", { staticClass: "modal-header" }, [
                 _c("h5", { staticClass: "modal-title text-capitalize" }, [
-                  _vm._v(
-                    "\n                        " +
-                      _vm._s(this.modal_mode) +
-                      " Class courses\n                    "
-                  )
+                  _vm._v(_vm._s(this.modal_mode) + " Class courses")
                 ]),
                 _vm._v(" "),
                 _vm._m(1)
@@ -31935,13 +31859,7 @@ var render = function() {
                         staticClass: "alert alert-danger",
                         attrs: { role: "alert" }
                       },
-                      [
-                        _vm._v(
-                          "\n                        " +
-                            _vm._s(error) +
-                            "\n                    "
-                        )
-                      ]
+                      [_vm._v(_vm._s(error))]
                     )
                   }),
                   _vm._v(" "),
@@ -32059,11 +31977,7 @@ var render = function() {
                     staticClass: "btn btn-secondary",
                     attrs: { type: "button", "data-dismiss": "modal" }
                   },
-                  [
-                    _vm._v(
-                      "\n                        Cancel\n                    "
-                    )
-                  ]
+                  [_vm._v("Cancel")]
                 ),
                 _vm._v(" "),
                 _c(
@@ -32077,11 +31991,7 @@ var render = function() {
                       }
                     }
                   },
-                  [
-                    _vm._v(
-                      "\n                        Save\n                    "
-                    )
-                  ]
+                  [_vm._v("Save")]
                 )
               ])
             ])
@@ -32111,7 +32021,7 @@ var render = function() {
               _vm._v(" "),
               _c("div", { staticClass: "modal-body" }, [
                 _vm._v(
-                  "\n                    Are you sure you want to delete this Class Course\n                    Relation?\n                "
+                  "\n          Are you sure you want to delete this Class Course\n          Relation?\n        "
                 )
               ]),
               _vm._v(" "),
@@ -32127,11 +32037,7 @@ var render = function() {
                       }
                     }
                   },
-                  [
-                    _vm._v(
-                      "\n                        Delete\n                    "
-                    )
-                  ]
+                  [_vm._v("Delete")]
                 ),
                 _vm._v(" "),
                 _c(
@@ -32140,11 +32046,7 @@ var render = function() {
                     staticClass: "btn btn-secondary",
                     attrs: { type: "button", "data-dismiss": "modal" }
                   },
-                  [
-                    _vm._v(
-                      "\n                        Close\n                    "
-                    )
-                  ]
+                  [_vm._v("Close")]
                 )
               ])
             ])
