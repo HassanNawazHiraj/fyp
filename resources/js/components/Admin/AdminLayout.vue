@@ -110,7 +110,21 @@
           </router-link>
         </li>
 
-        <div class="sidebar-heading" v-if="permissions.includes('assigned_teachers_view')">Information</div>
+        <li class="nav-item">
+          <router-link
+            class="nav-link"
+            to="/portal/manage-session"
+            v-if="permissions.includes('session_view')"
+          >
+            <i class="fa fa-users"></i>
+            <span>Manage Session</span>
+          </router-link>
+        </li>
+
+        <div
+          class="sidebar-heading"
+          v-if="permissions.includes('assigned_teachers_view')"
+        >Information</div>
 
         <li class="nav-item">
           <router-link
@@ -191,7 +205,7 @@
             </button>
 
             <!-- Topbar Search -->
-            <form
+            <!-- <form
               class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search"
             >
               <div class="input-group">
@@ -208,7 +222,7 @@
                   </button>
                 </div>
               </div>
-            </form>
+            </form> -->
 
             <!-- Topbar Navbar -->
             <ul class="navbar-nav ml-auto">
@@ -363,13 +377,13 @@ export default {
       //this.$router.push("/");
     },
     isTai() {
-        this.types.forEach(user => {
-            if(user.name == "Teaching area in-charge") {
-                return true;
-            }
-        });
-        return false;
-    }
+      this.types.forEach((user) => {
+        if (user.name == "Teaching area in-charge") {
+          return true;
+        }
+      });
+      return false;
+    },
   },
   mounted: function () {
     this.user_login_name = localStorage.getItem("name");
@@ -378,7 +392,6 @@ export default {
     if (localPermission != null) this.permissions = localPermission.split(",");
     this.types = JSON.parse(localStorage.getItem("types"));
     //console.log(this.types);
-
   },
 };
 </script>

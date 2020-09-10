@@ -380,8 +380,20 @@ export default {
                 {
                     name: "View Assigned Teachers",
                     value: "assigned_teachers_view"
-                }
-
+                },
+                //manage session
+                {
+                    name: "View Session",
+                    value: "session_view"
+                },
+                {
+                    name: "Add Session",
+                    value: "session_add"
+                },
+                {
+                    name: "Delete Session",
+                    value: "session_delete"
+                },
             ],
             base_path: "/api/",
             errors: [],
