@@ -1930,6 +1930,10 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vue_select__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-select */ "./node_modules/vue-select/dist/vue-select.js");
+/* harmony import */ var vue_select__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue_select__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var vue_select_dist_vue_select_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-select/dist/vue-select.css */ "./node_modules/vue-select/dist/vue-select.css");
+/* harmony import */ var vue_select_dist_vue_select_css__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue_select_dist_vue_select_css__WEBPACK_IMPORTED_MODULE_1__);
 //
 //
 //
@@ -2293,12 +2297,32 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
 /* harmony default export */ __webpack_exports__["default"] = ({
+  components: {
+    vSelect: vue_select__WEBPACK_IMPORTED_MODULE_0___default.a
+  },
   data: function data() {
     return {
+      base_path: "/api/",
       permissions: [],
       types: [],
-      user_login_name: ""
+      user_login_name: "",
+      selectedSession: {},
+      sessions: []
     };
   },
   methods: {
@@ -2316,11 +2340,27 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   mounted: function mounted() {
+    var _this = this;
+
     this.user_login_name = localStorage.getItem("name");
     this.$auth.setUserCookie();
     var localPermission = localStorage.getItem("permissions");
     if (localPermission != null) this.permissions = localPermission.split(",");
-    this.types = JSON.parse(localStorage.getItem("types")); //console.log(this.types);
+    this.types = JSON.parse(localStorage.getItem("types"));
+    axios.get(this.base_path + "session").then(function (res) {
+      // console.log("data: ", res.data.items);
+      var sessions = [];
+      res.data.items.forEach(function (item) {
+        item.name = item.season + " " + item.year;
+
+        if (item.active) {
+          _this.selectedSession = item;
+        }
+
+        sessions.push(item);
+      });
+      _this.sessions = sessions; // console.log("sessions: ", sessions);
+    }); //console.log(this.types);
   }
 });
 
@@ -10924,7 +10964,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 exports.push([module.i, "@import url(/css/sb-admin-2.min.css);", ""]);
 
 // module
-exports.push([module.i, "\n", ""]);
+exports.push([module.i, "\n.session-select .vs__dropdown-option--selected {\r\n  display: none;\n}\r\n", ""]);
 
 // exports
 
@@ -10943,7 +10983,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.cselect > .v-select .vs__dropdown-toggle {\n    border: none;\n}\n", ""]);
+exports.push([module.i, "\n.cselect > .v-select .vs__dropdown-toggle {\r\n    border: none;\n}\r\n", ""]);
 
 // exports
 
@@ -10981,7 +11021,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 exports.push([module.i, "@import url(https://fonts.googleapis.com/css?family=Nunito:400,600|Open+Sans:400,600,700);", ""]);
 
 // module
-exports.push([module.i, "\n\n", ""]);
+exports.push([module.i, "\r\n\r\n", ""]);
 
 // exports
 
@@ -29771,6 +29811,30 @@ var render = function() {
                 },
                 [
                   _vm._m(2),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    { staticClass: "col-md-6" },
+                    [
+                      _c("v-select", {
+                        staticClass: "session-select w-100",
+                        attrs: {
+                          options: _vm.sessions,
+                          label: "name",
+                          clearable: false,
+                          placeholder: "Select a session"
+                        },
+                        model: {
+                          value: _vm.selectedSession,
+                          callback: function($$v) {
+                            _vm.selectedSession = $$v
+                          },
+                          expression: "selectedSession"
+                        }
+                      })
+                    ],
+                    1
+                  ),
                   _vm._v(" "),
                   _c("ul", { staticClass: "navbar-nav ml-auto" }, [
                     _vm._m(3),

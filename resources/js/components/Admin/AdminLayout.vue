@@ -222,7 +222,19 @@
                   </button>
                 </div>
               </div>
-            </form> -->
+            </form>-->
+
+            <!-- Session selection dropdown -->
+            <div class="col-md-6">
+              <v-select
+                v-model="selectedSession"
+                :options="sessions"
+                label="name"
+                class="session-select w-100"
+                :clearable="false"
+                placeholder="Select a session"
+              />
+            </div>
 
             <!-- Topbar Navbar -->
             <ul class="navbar-nav ml-auto">
@@ -362,12 +374,20 @@
 </template>
 
 <script>
+import vSelect from "vue-select";
+import "vue-select/dist/vue-select.css";
 export default {
+  components: {
+    vSelect,
+  },
   data() {
     return {
+      base_path: "/api/",
       permissions: [],
       types: [],
       user_login_name: "",
+      selectedSession: {},
+      sessions: [],
     };
   },
   methods: {
@@ -391,6 +411,21 @@ export default {
     var localPermission = localStorage.getItem("permissions");
     if (localPermission != null) this.permissions = localPermission.split(",");
     this.types = JSON.parse(localStorage.getItem("types"));
+
+    axios.get(this.base_path + "session").then((res) => {
+      // console.log("data: ", res.data.items);
+      let sessions = [];
+      res.data.items.forEach((item) => {
+        item.name = item.season + " " + item.year;
+        if (item.active) {
+          this.selectedSession = item;
+        }
+        sessions.push(item);
+      });
+      this.sessions = sessions;
+      // console.log("sessions: ", sessions);
+    });
+
     //console.log(this.types);
   },
 };
@@ -398,4 +433,7 @@ export default {
 
 <style>
 @import url("/css/sb-admin-2.min.css");
+.session-select .vs__dropdown-option--selected {
+  display: none;
+}
 </style>
