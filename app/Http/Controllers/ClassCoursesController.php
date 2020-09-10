@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\ClassCourses;
 use App\ClassModel;
 use App\Course;
-
+use App\Session;
 class ClassCoursesController extends Controller
 {
     /**
@@ -14,10 +14,15 @@ class ClassCoursesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        if($request->session) {
+            $current_session = $request->session;
+        } else {
+            $current_session = Session::where("active", 1)->first()->id;
+        }
         return response()->json([
-            "items" => ClassCourses::with(['class', 'class.batch', 'class.program', 'course'])->get(),
+            "items" => ClassCourses::with(['class', 'class.batch', 'class.program', 'course'])->where('session_id', $current_session)->get(),
             'classes' => ClassModel::with(['batch', 'program'])->get(),
             'courses' => Course::get()
         ]);
