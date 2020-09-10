@@ -7,6 +7,7 @@ use App\UserType;
 use App\UserTypeRelation;
 use App\ClassCourses;
 use App\Session;
+use App\TeacherCourse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
@@ -66,12 +67,16 @@ class UsersController extends Controller
         // die();
         $users = User::whereHas('types', function ($q) {
             $q->where('name', 'like', 'teacher');
-        })
-        ->whereHas('class_courses', function (Builder $query) use($current_session) {
-            $query->where('class_courses.session_id', $current_session);
-        })
-        ->with(['types', 'class_courses.course', 'class_courses.class.batch', 'class_courses.class.program', "course_type"])
-        ->get();
+        })->with(['types', 'course_type'])->get();
+        foreach($users as $user) {
+            $courses = TeacherCourse::where("session_id", $current_session)->where("teacher_id", $user->id)
+            ->with(['class_courses', 'class_courses.course', 'class_courses.class.batch', 'class_courses.class.program'])
+            ->get();
+            $user->class_courses = $courses;
+        }
+
+        // ->with(['types', 'class_courses.course', 'class_courses.class.batch', 'class_courses.class.program', "course_type"])
+        // ->get();
 
         return response()->json([
             "items" => $users,
