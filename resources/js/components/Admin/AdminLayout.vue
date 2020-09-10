@@ -318,7 +318,7 @@
           <!-- End of Topbar -->
 
           <!-- Begin Page Content -->
-          <router-view></router-view>
+          <router-view v-bind:selectedSession="selectedSession"></router-view>
           <!-- /.container-fluid -->
         </div>
         <!-- End of Main Content -->
@@ -404,6 +404,22 @@ export default {
       });
       return false;
     },
+    getSessions() {
+      axios.get(this.base_path + "session").then((res) => {
+        // console.log("data: ", res.data.items);
+        let sessions = [];
+        res.data.items.forEach((s) => {
+          s.name = s.season + " " + s.year;
+          if (s.active) {
+            s.name += " (active)";
+            this.selectedSession = s;
+          }
+          sessions.push(s);
+        });
+        this.sessions = sessions;
+        // console.log("sessions: ", sessions);
+      });
+    }
   },
   mounted: function () {
     this.user_login_name = localStorage.getItem("name");
@@ -412,18 +428,10 @@ export default {
     if (localPermission != null) this.permissions = localPermission.split(",");
     this.types = JSON.parse(localStorage.getItem("types"));
 
-    axios.get(this.base_path + "session").then((res) => {
-      // console.log("data: ", res.data.items);
-      let sessions = [];
-      res.data.items.forEach((item) => {
-        item.name = item.season + " " + item.year;
-        if (item.active) {
-          this.selectedSession = item;
-        }
-        sessions.push(item);
-      });
-      this.sessions = sessions;
-      // console.log("sessions: ", sessions);
+    this.getSessions();
+
+    this.$root.$on("refreshSession", () => {
+      this.getSessions();
     });
 
     //console.log(this.types);

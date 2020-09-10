@@ -140,6 +140,13 @@
 
 <script>
 export default {
+  props: ["selectedSession"],
+  watch: {
+    selectedSession: function (val, oldVal) {
+      //console.log("new :" , val.id , " | old : " , oldVal.id);
+      this.list(val.id);
+    },
+  },
   data() {
     return {
       items: [],
@@ -155,20 +162,24 @@ export default {
       toastClass: "d-none"
     };
   },
-  mounted: function() {
-    this.list();
+  mounted: function () {
+    this.list(this.selectedSession.id);
   },
   methods: {
-    list() {
+    list(s = 0) {
+      let path = this.base_path + "course";
+      if (s !== 0) {
+        path += "?session=" + s;
+      }
       let me = this;
       axios
-        .get(me.base_path + "course")
-        .then(response => {
+        .get(path)
+        .then((response) => {
           me.items = response.data.items;
           // console.log(me.items);
           me.loading = false;
         })
-        .catch(function(error) {
+        .catch(function (error) {
           me.loading = false;
         });
     },
@@ -192,7 +203,7 @@ export default {
       formData.set("credit_hours", me.credit_hours);
       axios
         .post(me.base_path + "course", formData, {})
-        .then(function(response) {
+        .then(function (response) {
           if (response.status == 200) {
             me.closeModal("addModal");
             me.list();
@@ -202,7 +213,7 @@ export default {
             $(".toast").toast("show");
           }
         })
-        .catch(function(error) {
+        .catch(function (error) {
           for (let key in error.response.data.errors) {
             if (error.response.data.errors.hasOwnProperty(key)) {
               me.errors.push(error.response.data.errors[key][0]);
@@ -237,7 +248,7 @@ export default {
 
       axios
         .post(me.base_path + "course/" + me.id, formData, {})
-        .then(function(response) {
+        .then(function (response) {
           if (response.status == 200) {
             me.closeModal("addModal");
             me.list();
@@ -247,7 +258,7 @@ export default {
             $(".toast").toast("show");
           }
         })
-        .catch(function(error) {
+        .catch(function (error) {
           for (let key in error.response.data.errors) {
             if (error.response.data.errors.hasOwnProperty(key)) {
               me.errors.push(error.response.data.errors[key][0]);
@@ -264,9 +275,9 @@ export default {
       me.errors = [];
       axios
         .post(me.base_path + "course/" + me.id, {
-          _method: "DELETE"
+          _method: "DELETE",
         })
-        .then(response => {
+        .then((response) => {
           if (response.status == 200) {
             me.closeModal("deleteModal");
             me.list();
@@ -276,14 +287,14 @@ export default {
             $(".toast").toast("show");
           }
         })
-        .catch(function(error) {
+        .catch(function (error) {
           for (let key in error.response.data.errors) {
             if (error.response.data.errors.hasOwnProperty(key)) {
               me.errors.push(error.response.data.errors[key][0]);
             }
           }
         });
-    }
-  }
+    },
+  },
 };
 </script>

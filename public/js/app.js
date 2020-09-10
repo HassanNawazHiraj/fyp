@@ -2337,29 +2337,38 @@ __webpack_require__.r(__webpack_exports__);
         }
       });
       return false;
+    },
+    getSessions: function getSessions() {
+      var _this = this;
+
+      axios.get(this.base_path + "session").then(function (res) {
+        // console.log("data: ", res.data.items);
+        var sessions = [];
+        res.data.items.forEach(function (s) {
+          s.name = s.season + " " + s.year;
+
+          if (s.active) {
+            s.name += " (active)";
+            _this.selectedSession = s;
+          }
+
+          sessions.push(s);
+        });
+        _this.sessions = sessions; // console.log("sessions: ", sessions);
+      });
     }
   },
   mounted: function mounted() {
-    var _this = this;
+    var _this2 = this;
 
     this.user_login_name = localStorage.getItem("name");
     this.$auth.setUserCookie();
     var localPermission = localStorage.getItem("permissions");
     if (localPermission != null) this.permissions = localPermission.split(",");
     this.types = JSON.parse(localStorage.getItem("types"));
-    axios.get(this.base_path + "session").then(function (res) {
-      // console.log("data: ", res.data.items);
-      var sessions = [];
-      res.data.items.forEach(function (item) {
-        item.name = item.season + " " + item.year;
-
-        if (item.active) {
-          _this.selectedSession = item;
-        }
-
-        sessions.push(item);
-      });
-      _this.sessions = sessions; // console.log("sessions: ", sessions);
+    this.getSessions();
+    this.$root.$on("refreshSession", function () {
+      _this2.getSessions();
     }); //console.log(this.types);
   }
 });
@@ -3833,6 +3842,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
+  props: ["selectedSession"],
+  watch: {
+    selectedSession: function selectedSession(val, oldVal) {
+      //console.log("new :" , val.id , " | old : " , oldVal.id);
+      this.list(val.id);
+    }
+  },
   data: function data() {
     return {
       items: [],
@@ -3849,12 +3865,19 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   mounted: function mounted() {
-    this.list();
+    this.list(this.selectedSession.id);
   },
   methods: {
     list: function list() {
+      var s = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
+      var path = this.base_path + "course";
+
+      if (s !== 0) {
+        path += "?session=" + s;
+      }
+
       var me = this;
-      axios.get(me.base_path + "course").then(function (response) {
+      axios.get(path).then(function (response) {
         me.items = response.data.items; // console.log(me.items);
 
         me.loading = false;
@@ -4833,6 +4856,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
+  props: ["selectedSession"],
   data: function data() {
     return {
       items: [],
@@ -4852,10 +4876,22 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
     this.list();
   },
+  watch: {
+    selectedSession: function selectedSession(val, oldVal) {//console.log("new :" , val.id , " | old : " , oldVal.id);
+      //this.list(val.id);
+    }
+  },
   methods: {
     list: function list() {
+      var s = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
       var me = this;
-      axios.get(me.base_path + "session").then(function (response) {
+      var path = me.base_path + "session";
+
+      if (!s) {
+        path += "?session=" + s;
+      }
+
+      axios.get(path).then(function (response) {
         me.items = response.data.items; // console.log(me.items);
 
         me.loading = false;
@@ -4885,6 +4921,7 @@ __webpack_require__.r(__webpack_exports__);
       formData.set("status", +me.status);
       axios.post(me.base_path + "session", formData, {}).then(function (response) {
         if (response.status == 200) {
+          me.$root.$emit("refreshSession");
           me.closeModal("addModal");
           me.list();
           me.toastTitle = "Add";
@@ -4911,6 +4948,8 @@ __webpack_require__.r(__webpack_exports__);
       this.season = item.season;
       this.year = item.year;
       this.id = item.id;
+      this.active = item.active;
+      this.status = item.status;
       this.modal_mode = "edit";
       $("#addModal").modal("show");
     },
@@ -4925,6 +4964,7 @@ __webpack_require__.r(__webpack_exports__);
       formData.set("_method", "PUT");
       axios.post(me.base_path + "session/" + me.id, formData, {}).then(function (response) {
         if (response.status == 200) {
+          me.$root.$emit("refreshSession");
           me.closeModal("addModal");
           me.list();
           me.toastTitle = "Update";
@@ -10964,7 +11004,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 exports.push([module.i, "@import url(/css/sb-admin-2.min.css);", ""]);
 
 // module
-exports.push([module.i, "\n.session-select .vs__dropdown-option--selected {\r\n  display: none;\n}\r\n", ""]);
+exports.push([module.i, "\n.session-select .vs__dropdown-option--selected {\n  display: none;\n}\n", ""]);
 
 // exports
 
@@ -10983,7 +11023,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.cselect > .v-select .vs__dropdown-toggle {\r\n    border: none;\n}\r\n", ""]);
+exports.push([module.i, "\n.cselect > .v-select .vs__dropdown-toggle {\n    border: none;\n}\n", ""]);
 
 // exports
 
@@ -11021,7 +11061,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 exports.push([module.i, "@import url(https://fonts.googleapis.com/css?family=Nunito:400,600|Open+Sans:400,600,700);", ""]);
 
 // module
-exports.push([module.i, "\r\n\r\n", ""]);
+exports.push([module.i, "\n\n", ""]);
 
 // exports
 
@@ -29876,7 +29916,9 @@ var render = function() {
                 ]
               ),
               _vm._v(" "),
-              _c("router-view")
+              _c("router-view", {
+                attrs: { selectedSession: _vm.selectedSession }
+              })
             ],
             1
           ),

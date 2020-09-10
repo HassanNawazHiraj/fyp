@@ -13,11 +13,16 @@ class CourseController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $current_session = Session::where("active", 1)->first();
+        if($request->session) {
+            $current_session = $request->session;
+        } else {
+            $current_session = Session::where("active", 1)->first()->id;
+        }
+
         return response()->json([
-            "items" => Course::where('session_id', $current_session->id)->get()
+            "items" => Course::where('session_id', $current_session)->get()
         ]);
     }
 

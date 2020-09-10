@@ -160,6 +160,7 @@
 
 <script>
 export default {
+  props: ["selectedSession"],
   data() {
     return {
       items: [],
@@ -179,11 +180,21 @@ export default {
   mounted: function () {
     this.list();
   },
+  watch: {
+    selectedSession: function (val, oldVal) {
+      //console.log("new :" , val.id , " | old : " , oldVal.id);
+      //this.list(val.id);
+    },
+  },
   methods: {
-    list() {
+    list(s = 0) {
       let me = this;
+      let path = me.base_path + "session";
+      if(!s) {
+          path += "?session=" + s;
+      }
       axios
-        .get(me.base_path + "session")
+        .get(path)
         .then((response) => {
           me.items = response.data.items;
           // console.log(me.items);
@@ -217,6 +228,7 @@ export default {
         .post(me.base_path + "session", formData, {})
         .then(function (response) {
           if (response.status == 200) {
+            me.$root.$emit("refreshSession");
             me.closeModal("addModal");
             me.list();
             me.toastTitle = "Add";
@@ -245,6 +257,8 @@ export default {
       this.season = item.season;
       this.year = item.year;
       this.id = item.id;
+      this.active = item.active;
+      this.status = item.status;
       this.modal_mode = "edit";
       $("#addModal").modal("show");
     },
@@ -262,6 +276,7 @@ export default {
         .post(me.base_path + "session/" + me.id, formData, {})
         .then(function (response) {
           if (response.status == 200) {
+            me.$root.$emit("refreshSession");
             me.closeModal("addModal");
             me.list();
             me.toastTitle = "Update";

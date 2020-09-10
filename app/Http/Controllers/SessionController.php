@@ -12,8 +12,12 @@ class SessionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        // $session = Session::orderBy('active', 'DESC');
+        // if($request->session) {
+        //     $session->where
+        // }
         return response()->json([
             "items" => Session::orderBy('active', 'DESC')->get()
         ]);
