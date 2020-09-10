@@ -4106,85 +4106,18 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
     vSelect: vue_select__WEBPACK_IMPORTED_MODULE_0___default.a
+  },
+  props: ["selectedSession"],
+  watch: {
+    selectedSession: function selectedSession(val, oldVal) {
+      //console.log("new :" , val.id , " | old : " , oldVal.id);
+      this.list(val.id);
+    }
   },
   data: function data() {
     return {
@@ -4201,10 +4134,17 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   mounted: function mounted() {
-    this.list();
+    this.list(this.selectedSession.id);
   },
   methods: {
     list: function list() {
+      var s = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
+      var path = this.base_path + "user/teachers";
+
+      if (s !== 0) {
+        path += "?session=" + s;
+      }
+
       var me = this;
       axios.get(me.base_path + "user/teachers").then(function (response) {
         me.items = response.data.items;
@@ -5071,60 +5011,18 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
     vSelect: vue_select__WEBPACK_IMPORTED_MODULE_0___default.a
+  },
+  props: ["selectedSession"],
+  watch: {
+    selectedSession: function selectedSession(val, oldVal) {
+      //console.log("new :" , val.id , " | old : " , oldVal.id);
+      this.list(val.id);
+    }
   },
   data: function data() {
     return {
@@ -5142,12 +5040,19 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   mounted: function mounted() {
-    this.list();
+    this.list(this.selectedSession.id);
   },
   methods: {
     list: function list() {
+      var s = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
+      var path = this.base_path + "tai_courses";
+
+      if (s !== 0) {
+        path += "?session=" + s;
+      }
+
       var me = this;
-      axios.get(me.base_path + "tai_courses").then(function (response) {
+      axios.get(path).then(function (response) {
         me.items = response.data.items;
         axios.get(me.base_path + "user/tais").then(function (response) {
           me.tais = response.data.items;
@@ -5201,7 +5106,7 @@ __webpack_require__.r(__webpack_exports__);
         if (response.status === 200) {
           _this.closeModal("addModal");
 
-          _this.list();
+          _this.list(_this.selectedSession.id);
 
           _this.toastTitle = "Add";
           _this.toastMessage = "Teaching area in-charge assigned successfully";
@@ -5227,7 +5132,7 @@ __webpack_require__.r(__webpack_exports__);
         if (response.status === 200) {
           _this2.closeModal("addModal");
 
-          _this2.list();
+          _this2.list(_this2.selectedSession.id);
 
           _this2.toastTitle = "Update";
           _this2.toastMessage = "Teaching area in-charge assigned successfully";
@@ -10950,7 +10855,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 exports.push([module.i, "@import url(/css/sb-admin-2.min.css);", ""]);
 
 // module
-exports.push([module.i, "\n.session-select .vs__dropdown-option--selected {\n  display: none;\n}\n", ""]);
+exports.push([module.i, "\n.session-select .vs__dropdown-option--selected {\r\n  display: none;\n}\r\n", ""]);
 
 // exports
 
@@ -10969,7 +10874,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.cselect > .v-select .vs__dropdown-toggle {\n  border: none;\n}\n", ""]);
+exports.push([module.i, "\n.cselect > .v-select .vs__dropdown-toggle {\r\n  border: none;\n}\r\n", ""]);
 
 // exports
 
@@ -10988,7 +10893,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.course-select > #vs1__listbox > .vs__dropdown-option--selected {\r\n    display: none;\n}\n.course-select > #vs2__listbox > .vs__dropdown-option--selected {\r\n    display: none;\n}\n.course-select > #vs3__listbox > .vs__dropdown-option--selected {\r\n    display: none;\n}\r\n", ""]);
+exports.push([module.i, "\n.course-select > #vs1__listbox > .vs__dropdown-option--selected {\r\n  display: none;\n}\n.course-select > #vs2__listbox > .vs__dropdown-option--selected {\r\n  display: none;\n}\n.course-select > #vs3__listbox > .vs__dropdown-option--selected {\r\n  display: none;\n}\r\n", ""]);
 
 // exports
 
@@ -11007,7 +10912,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 exports.push([module.i, "@import url(https://fonts.googleapis.com/css?family=Nunito:400,600|Open+Sans:400,600,700);", ""]);
 
 // module
-exports.push([module.i, "\n\n", ""]);
+exports.push([module.i, "\r\n\r\n", ""]);
 
 // exports
 
@@ -32791,13 +32696,7 @@ var render = function() {
                   return _c("tr", { key: item.id }, [
                     _c("td", [_vm._v(_vm._s(item.id))]),
                     _vm._v(" "),
-                    _c("td", {}, [
-                      _vm._v(
-                        "\n                                " +
-                          _vm._s(item.name) +
-                          "\n                            "
-                      )
-                    ]),
+                    _c("td", {}, [_vm._v(_vm._s(item.name))]),
                     _vm._v(" "),
                     _c(
                       "td",
@@ -32816,7 +32715,7 @@ var render = function() {
                           },
                           [
                             _vm._v(
-                              "\n                                    " +
+                              "\n                  " +
                                 _vm._s(
                                   element.course.title +
                                     " [" +
@@ -32828,14 +32727,10 @@ var render = function() {
                                     element.class.section +
                                     "]"
                                 ) +
-                                "\n                                    "
+                                "\n                  "
                             ),
                             element.pivot.course_type == "lab"
-                              ? _c("nobr", [
-                                  _vm._v(
-                                    "\n                                        Lab"
-                                  )
-                                ])
+                              ? _c("nobr", [_vm._v("Lab")])
                               : _vm._e()
                           ],
                           1
@@ -32860,11 +32755,7 @@ var render = function() {
                             }
                           }
                         },
-                        [
-                          _vm._v(
-                            "\n                                    Assign\n                                "
-                          )
-                        ]
+                        [_vm._v("Assign")]
                       )
                     ])
                   ])
@@ -32896,11 +32787,7 @@ var render = function() {
             _c("div", { staticClass: "modal-content" }, [
               _c("div", { staticClass: "modal-header" }, [
                 _c("h5", { staticClass: "modal-title text-capitalize" }, [
-                  _vm._v(
-                    "\n                        " +
-                      _vm._s(this.modal_mode) +
-                      " Class courses\n                    "
-                  )
+                  _vm._v(_vm._s(this.modal_mode) + " Class courses")
                 ]),
                 _vm._v(" "),
                 _vm._m(2)
@@ -32918,13 +32805,7 @@ var render = function() {
                         staticClass: "alert alert-danger",
                         attrs: { role: "alert" }
                       },
-                      [
-                        _vm._v(
-                          "\n                        " +
-                            _vm._s(error) +
-                            "\n                    "
-                        )
-                      ]
+                      [_vm._v(_vm._s(error))]
                     )
                   }),
                   _vm._v(" "),
@@ -32966,11 +32847,7 @@ var render = function() {
                     staticClass: "btn btn-secondary",
                     attrs: { type: "button", "data-dismiss": "modal" }
                   },
-                  [
-                    _vm._v(
-                      "\n                        Cancel\n                    "
-                    )
-                  ]
+                  [_vm._v("Cancel")]
                 ),
                 _vm._v(" "),
                 _c(
@@ -32984,11 +32861,7 @@ var render = function() {
                       }
                     }
                   },
-                  [
-                    _vm._v(
-                      "\n                        Save\n                    "
-                    )
-                  ]
+                  [_vm._v("Save")]
                 )
               ])
             ])
@@ -33018,7 +32891,7 @@ var render = function() {
               _vm._v(" "),
               _c("div", { staticClass: "modal-body" }, [
                 _vm._v(
-                  "\n                    Are you sure you want to delete this Class Course\n                    Relation?\n                "
+                  "\n          Are you sure you want to delete this Class Course\n          Relation?\n        "
                 )
               ]),
               _vm._v(" "),
@@ -33034,11 +32907,7 @@ var render = function() {
                       }
                     }
                   },
-                  [
-                    _vm._v(
-                      "\n                        Delete\n                    "
-                    )
-                  ]
+                  [_vm._v("Delete")]
                 ),
                 _vm._v(" "),
                 _c(
@@ -33047,11 +32916,7 @@ var render = function() {
                     staticClass: "btn btn-secondary",
                     attrs: { type: "button", "data-dismiss": "modal" }
                   },
-                  [
-                    _vm._v(
-                      "\n                        Close\n                    "
-                    )
-                  ]
+                  [_vm._v("Close")]
                 )
               ])
             ])
@@ -33106,9 +32971,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "card-header py-3" }, [
       _c("h6", { staticClass: "m-0 font-weight-bold text-primary" }, [
-        _vm._v(
-          "\n                Choose a teacher to assign courses to :\n            "
-        )
+        _vm._v("Choose a teacher to assign courses to :")
       ])
     ])
   },
@@ -34207,21 +34070,19 @@ var render = function() {
                   return _c("tr", { key: item.id }, [
                     _c("td", [_vm._v(_vm._s(item.id))]),
                     _vm._v(" "),
-                    _c("td", {}, [
-                      _vm._v(
-                        "\n                                " +
-                          _vm._s(item.title) +
-                          "\n                            "
-                      )
-                    ]),
+                    _c("td", {}, [_vm._v(_vm._s(item.title))]),
                     _vm._v(" "),
                     _c("td", { staticClass: "text-capitalize" }, [
                       item.tai.length > 0
-                        ? _c("span", {}, [_vm._v(_vm._s(item.tai[0].name))])
-                        : _c("span", { staticClass: "badge badge-danger" }, [
+                        ? _c("span", {}, [
                             _vm._v(
-                              "\n                                    Not assigned\n                                "
+                              "\n                  " +
+                                _vm._s(item.tai[0].name) +
+                                "\n                "
                             )
+                          ])
+                        : _c("span", { staticClass: "badge badge-danger" }, [
+                            _vm._v("Not assigned")
                           ])
                     ]),
                     _vm._v(" "),
@@ -34241,11 +34102,7 @@ var render = function() {
                             }
                           }
                         },
-                        [
-                          _vm._v(
-                            "\n                                    Assign\n                                "
-                          )
-                        ]
+                        [_vm._v("Assign")]
                       )
                     ])
                   ])
@@ -34289,13 +34146,7 @@ var render = function() {
                         staticClass: "alert alert-danger",
                         attrs: { role: "alert" }
                       },
-                      [
-                        _vm._v(
-                          "\n                        " +
-                            _vm._s(error) +
-                            "\n                    "
-                        )
-                      ]
+                      [_vm._v(_vm._s(error))]
                     )
                   }),
                   _vm._v(" "),
@@ -34336,11 +34187,7 @@ var render = function() {
                     staticClass: "btn btn-secondary",
                     attrs: { type: "button", "data-dismiss": "modal" }
                   },
-                  [
-                    _vm._v(
-                      "\n                        Cancel\n                    "
-                    )
-                  ]
+                  [_vm._v("Cancel")]
                 ),
                 _vm._v(" "),
                 _c(
@@ -34354,11 +34201,7 @@ var render = function() {
                       }
                     }
                   },
-                  [
-                    _vm._v(
-                      "\n                        Save\n                    "
-                    )
-                  ]
+                  [_vm._v("Save")]
                 )
               ])
             ])
@@ -34413,9 +34256,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "card-header py-3" }, [
       _c("h6", { staticClass: "m-0 font-weight-bold text-primary" }, [
-        _vm._v(
-          "\n                Choose a course to assign Teaching area in-charge\n            "
-        )
+        _vm._v("Choose a course to assign Teaching area in-charge")
       ])
     ])
   },
@@ -34441,9 +34282,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "modal-header" }, [
       _c("h5", { staticClass: "modal-title text-capitalize" }, [
-        _vm._v(
-          "\n                        Assign Course Teaching area in-charge\n                    "
-        )
+        _vm._v("Assign Course Teaching area in-charge")
       ]),
       _vm._v(" "),
       _c(

@@ -52,15 +52,21 @@ class UsersController extends Controller
     ];
     }
 
-    public function getTeachers()
+    public function getTeachers(Request $request)
     {
+        if($request->session) {
+            $current_session = $request->session;
+        } else {
+            $current_session = Session::where("active", 1)->first()->id;
+        }
+
         $users = User::whereHas('types', function ($q) {
             $q->where('name', 'like', 'teacher');
         })->with(['types', 'class_courses.course', 'class_courses.class.batch', 'class_courses.class.program', "course_type"])->get();
 
         return response()->json([
             "items" => $users,
-            "courses" => ClassCourses::with(['class', 'class.batch', 'class.program', 'course'])->get()
+            "courses" => ClassCourses::with(['class', 'class.batch', 'class.program', 'course'])->where('session_id', $current_session)->get()
         ]);
     }
 
