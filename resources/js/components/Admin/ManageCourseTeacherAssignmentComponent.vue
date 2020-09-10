@@ -193,7 +193,7 @@ export default {
       }
       let me = this;
       axios
-        .get(me.base_path + "user/teachers")
+        .get(path)
         .then((response) => {
           me.items = response.data.items;
           me.courses = [];
