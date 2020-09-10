@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Course;
 use App\User;
 use App\TaiCourse;
+use App\Session;
 use Auth;
 use Illuminate\Http\Request;
 
@@ -15,10 +16,15 @@ class TAICourseController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        if($request->session) {
+            $current_session = $request->session;
+        } else {
+            $current_session = Session::where("active", 1)->first()->id;
+        }
         return response()->json([
-            "items" => Course::with(['tai'])->get()
+            "items" => Course::with(['tai'])->where('session_id', $current_session)->get()
         ]);
     }
 
