@@ -35,6 +35,9 @@ class SessionController extends Controller
             "status" => "required"
         ]);
 
+        if($request->active) {
+            Session::where("active", 1)->update(['active' => 0]);
+        }
 
         $item = new Session();
         $item->season = $request->season;
@@ -62,6 +65,11 @@ class SessionController extends Controller
             "active" => "required",
             "status" => "required"
         ]);
+
+        if($request->active) {
+            Session::where("active", 1)->update(['active' => 0]);
+        }
+
 
         $item = Session::find($id);
         $item->season = $request->season;
