@@ -32,8 +32,8 @@
                 <td>{{ item.season }}</td>
                 <td>{{item.year}}</td>
                 <td>
-                    <span class="badge badge-success" v-if="item.active == 1">Yes</span>
-                    <span class="badge badge-danger" v-if="item.active == 0">No</span>
+                  <span class="badge badge-success" v-if="item.active == 1">Yes</span>
+                  <span class="badge badge-danger" v-if="item.active == 0">No</span>
                 </td>
                 <td>
                   <button
@@ -62,7 +62,7 @@
       <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title text-capitalize">{{this.modal_mode}} batch</h5>
+            <h5 class="modal-title text-capitalize">{{this.modal_mode}} Session</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
@@ -78,13 +78,36 @@
               <div class="input-group-prepend">
                 <span class="input-group-text">Season</span>
               </div>
-              <input type="text" class="form-control" v-model="season" />
+              <select class="form-control" v-model="season">
+                <option value="Spring">Spring</option>
+                <option value="Fall">Fall</option>
+              </select>
             </div>
             <div class="input-group mb-3">
               <div class="input-group-prepend">
                 <span class="input-group-text">Year</span>
               </div>
               <input type="text" class="form-control" v-model="year" />
+            </div>
+
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text">Active</span>
+              </div>
+              <div class="form-control">
+                <input type="checkbox" v-model="active" />
+                <label>{{ this.active ? "Yes" : "No" }}</label>
+              </div>
+            </div>
+
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text">Status</span>
+              </div>
+              <div class="form-control">
+                <input type="checkbox" v-model="status" />
+                <label>{{ this.status ? "Yes" : "No" }}</label>
+              </div>
             </div>
           </div>
           <div class="modal-footer">
@@ -105,7 +128,7 @@
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <div class="modal-body">Are you sure you want to delete this batch?</div>
+          <div class="modal-body">Are you sure you want to delete this Session?</div>
           <div class="modal-footer">
             <button
               type="button"
@@ -142,18 +165,18 @@ export default {
       items: [],
       season: "",
       year: "",
-      active: false,
-      status: true,
+      active: 0,
+      status: 1,
       base_path: "/api/",
       errors: [],
       modal_mode: "add",
       id: "",
       toastTitle: "",
       toastMessage: "",
-      toastClass: "d-none"
+      toastClass: "d-none",
     };
   },
-  mounted: function() {
+  mounted: function () {
     this.list();
   },
   methods: {
@@ -161,12 +184,12 @@ export default {
       let me = this;
       axios
         .get(me.base_path + "session")
-        .then(response => {
+        .then((response) => {
           me.items = response.data.items;
           // console.log(me.items);
           me.loading = false;
         })
-        .catch(function(error) {
+        .catch(function (error) {
           me.loading = false;
         });
     },
@@ -174,6 +197,8 @@ export default {
       this.modal_mode = "add";
       this.season = "";
       this.year = "";
+      this.active = 0;
+      this.status = 1;
     },
     closeModal(id) {
       $("#" + id).modal("hide");
@@ -186,19 +211,21 @@ export default {
       let formData = new FormData();
       formData.set("season", me.season);
       formData.set("year", me.year);
+      formData.set("active", +me.active);
+      formData.set("status", +me.status);
       axios
-        .post(me.base_path + "batch", formData, {})
-        .then(function(response) {
+        .post(me.base_path + "session", formData, {})
+        .then(function (response) {
           if (response.status == 200) {
             me.closeModal("addModal");
             me.list();
             me.toastTitle = "Add";
-            me.toastMessage = "Batch added successfully";
+            me.toastMessage = "Session added successfully";
             me.toastClass = "d-block";
             $(".toast").toast("show");
           }
         })
-        .catch(function(error) {
+        .catch(function (error) {
           for (let key in error.response.data.errors) {
             if (error.response.data.errors.hasOwnProperty(key)) {
               me.errors.push(error.response.data.errors[key][0]);
@@ -227,21 +254,23 @@ export default {
       let formData = new FormData();
       formData.set("season", me.season);
       formData.set("year", me.year);
+      formData.set("active", +me.active);
+      formData.set("status", +me.status);
       formData.set("_method", "PUT");
 
       axios
-        .post(me.base_path + "batch/" + me.id, formData, {})
-        .then(function(response) {
+        .post(me.base_path + "session/" + me.id, formData, {})
+        .then(function (response) {
           if (response.status == 200) {
             me.closeModal("addModal");
             me.list();
             me.toastTitle = "Update";
-            me.toastMessage = "Batch updated successfully";
+            me.toastMessage = "Session updated successfully";
             me.toastClass = "d-block";
             $(".toast").toast("show");
           }
         })
-        .catch(function(error) {
+        .catch(function (error) {
           for (let key in error.response.data.errors) {
             if (error.response.data.errors.hasOwnProperty(key)) {
               me.errors.push(error.response.data.errors[key][0]);
@@ -257,27 +286,27 @@ export default {
       let me = this;
       me.errors = [];
       axios
-        .post(me.base_path + "batch/" + me.id, {
-          _method: "DELETE"
+        .post(me.base_path + "session/" + me.id, {
+          _method: "DELETE",
         })
-        .then(response => {
+        .then((response) => {
           if (response.status == 200) {
             me.closeModal("deleteModal");
             me.list();
             me.toastTitle = "Delete";
-            me.toastMessage = "Batch deleted successfully";
+            me.toastMessage = "Session deleted successfully";
             me.toastClass = "d-block";
             $(".toast").toast("show");
           }
         })
-        .catch(function(error) {
+        .catch(function (error) {
           for (let key in error.response.data.errors) {
             if (error.response.data.errors.hasOwnProperty(key)) {
               me.errors.push(error.response.data.errors[key][0]);
             }
           }
         });
-    }
-  }
+    },
+  },
 };
 </script>

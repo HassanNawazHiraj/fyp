@@ -30,7 +30,7 @@ class SessionController extends Controller
     {
         $request->validate([
             "season" => "required",
-            "year" => "required",
+            "year" => "required|integer",
             "active" => "required",
             "status" => "required"
         ]);

@@ -4769,14 +4769,37 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       items: [],
       season: "",
       year: "",
-      active: false,
-      status: true,
+      active: 0,
+      status: 1,
       base_path: "/api/",
       errors: [],
       modal_mode: "add",
@@ -4804,6 +4827,8 @@ __webpack_require__.r(__webpack_exports__);
       this.modal_mode = "add";
       this.season = "";
       this.year = "";
+      this.active = 0;
+      this.status = 1;
     },
     closeModal: function closeModal(id) {
       $("#" + id).modal("hide");
@@ -4816,12 +4841,14 @@ __webpack_require__.r(__webpack_exports__);
       var formData = new FormData();
       formData.set("season", me.season);
       formData.set("year", me.year);
-      axios.post(me.base_path + "batch", formData, {}).then(function (response) {
+      formData.set("active", +me.active);
+      formData.set("status", +me.status);
+      axios.post(me.base_path + "session", formData, {}).then(function (response) {
         if (response.status == 200) {
           me.closeModal("addModal");
           me.list();
           me.toastTitle = "Add";
-          me.toastMessage = "Batch added successfully";
+          me.toastMessage = "Session added successfully";
           me.toastClass = "d-block";
           $(".toast").toast("show");
         }
@@ -4853,13 +4880,15 @@ __webpack_require__.r(__webpack_exports__);
       var formData = new FormData();
       formData.set("season", me.season);
       formData.set("year", me.year);
+      formData.set("active", +me.active);
+      formData.set("status", +me.status);
       formData.set("_method", "PUT");
-      axios.post(me.base_path + "batch/" + me.id, formData, {}).then(function (response) {
+      axios.post(me.base_path + "session/" + me.id, formData, {}).then(function (response) {
         if (response.status == 200) {
           me.closeModal("addModal");
           me.list();
           me.toastTitle = "Update";
-          me.toastMessage = "Batch updated successfully";
+          me.toastMessage = "Session updated successfully";
           me.toastClass = "d-block";
           $(".toast").toast("show");
         }
@@ -4878,14 +4907,14 @@ __webpack_require__.r(__webpack_exports__);
     perform_delete: function perform_delete() {
       var me = this;
       me.errors = [];
-      axios.post(me.base_path + "batch/" + me.id, {
+      axios.post(me.base_path + "session/" + me.id, {
         _method: "DELETE"
       }).then(function (response) {
         if (response.status == 200) {
           me.closeModal("deleteModal");
           me.list();
           me.toastTitle = "Delete";
-          me.toastMessage = "Batch deleted successfully";
+          me.toastMessage = "Session deleted successfully";
           me.toastClass = "d-block";
           $(".toast").toast("show");
         }
@@ -33707,7 +33736,7 @@ var render = function() {
             _c("div", { staticClass: "modal-content" }, [
               _c("div", { staticClass: "modal-header" }, [
                 _c("h5", { staticClass: "modal-title text-capitalize" }, [
-                  _vm._v(_vm._s(this.modal_mode) + " batch")
+                  _vm._v(_vm._s(this.modal_mode) + " Session")
                 ]),
                 _vm._v(" "),
                 _vm._m(1)
@@ -33732,27 +33761,44 @@ var render = function() {
                   _c("div", { staticClass: "input-group mb-3" }, [
                     _vm._m(2),
                     _vm._v(" "),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.season,
-                          expression: "season"
-                        }
-                      ],
-                      staticClass: "form-control",
-                      attrs: { type: "text" },
-                      domProps: { value: _vm.season },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
+                    _c(
+                      "select",
+                      {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.season,
+                            expression: "season"
                           }
-                          _vm.season = $event.target.value
+                        ],
+                        staticClass: "form-control",
+                        on: {
+                          change: function($event) {
+                            var $$selectedVal = Array.prototype.filter
+                              .call($event.target.options, function(o) {
+                                return o.selected
+                              })
+                              .map(function(o) {
+                                var val = "_value" in o ? o._value : o.value
+                                return val
+                              })
+                            _vm.season = $event.target.multiple
+                              ? $$selectedVal
+                              : $$selectedVal[0]
+                          }
                         }
-                      }
-                    })
+                      },
+                      [
+                        _c("option", { attrs: { value: "Spring" } }, [
+                          _vm._v("Spring")
+                        ]),
+                        _vm._v(" "),
+                        _c("option", { attrs: { value: "Fall" } }, [
+                          _vm._v("Fall")
+                        ])
+                      ]
+                    )
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "input-group mb-3" }, [
@@ -33779,6 +33825,98 @@ var render = function() {
                         }
                       }
                     })
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "input-group mb-3" }, [
+                    _vm._m(4),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-control" }, [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.active,
+                            expression: "active"
+                          }
+                        ],
+                        attrs: { type: "checkbox" },
+                        domProps: {
+                          checked: Array.isArray(_vm.active)
+                            ? _vm._i(_vm.active, null) > -1
+                            : _vm.active
+                        },
+                        on: {
+                          change: function($event) {
+                            var $$a = _vm.active,
+                              $$el = $event.target,
+                              $$c = $$el.checked ? true : false
+                            if (Array.isArray($$a)) {
+                              var $$v = null,
+                                $$i = _vm._i($$a, $$v)
+                              if ($$el.checked) {
+                                $$i < 0 && (_vm.active = $$a.concat([$$v]))
+                              } else {
+                                $$i > -1 &&
+                                  (_vm.active = $$a
+                                    .slice(0, $$i)
+                                    .concat($$a.slice($$i + 1)))
+                              }
+                            } else {
+                              _vm.active = $$c
+                            }
+                          }
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("label", [_vm._v(_vm._s(this.active ? "Yes" : "No"))])
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "input-group mb-3" }, [
+                    _vm._m(5),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-control" }, [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.status,
+                            expression: "status"
+                          }
+                        ],
+                        attrs: { type: "checkbox" },
+                        domProps: {
+                          checked: Array.isArray(_vm.status)
+                            ? _vm._i(_vm.status, null) > -1
+                            : _vm.status
+                        },
+                        on: {
+                          change: function($event) {
+                            var $$a = _vm.status,
+                              $$el = $event.target,
+                              $$c = $$el.checked ? true : false
+                            if (Array.isArray($$a)) {
+                              var $$v = null,
+                                $$i = _vm._i($$a, $$v)
+                              if ($$el.checked) {
+                                $$i < 0 && (_vm.status = $$a.concat([$$v]))
+                              } else {
+                                $$i > -1 &&
+                                  (_vm.status = $$a
+                                    .slice(0, $$i)
+                                    .concat($$a.slice($$i + 1)))
+                              }
+                            } else {
+                              _vm.status = $$c
+                            }
+                          }
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("label", [_vm._v(_vm._s(this.status ? "Yes" : "No"))])
+                    ])
                   ])
                 ],
                 2
@@ -33831,10 +33969,10 @@ var render = function() {
           { staticClass: "modal-dialog", attrs: { role: "document" } },
           [
             _c("div", { staticClass: "modal-content" }, [
-              _vm._m(4),
+              _vm._m(6),
               _vm._v(" "),
               _c("div", { staticClass: "modal-body" }, [
-                _vm._v("Are you sure you want to delete this batch?")
+                _vm._v("Are you sure you want to delete this Session?")
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "modal-footer" }, [
@@ -33894,7 +34032,7 @@ var render = function() {
                 _vm._v("just now")
               ]),
               _vm._v(" "),
-              _vm._m(5)
+              _vm._m(7)
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "toast-body" }, [
@@ -33956,6 +34094,22 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "input-group-prepend" }, [
       _c("span", { staticClass: "input-group-text" }, [_vm._v("Year")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "input-group-prepend" }, [
+      _c("span", { staticClass: "input-group-text" }, [_vm._v("Active")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "input-group-prepend" }, [
+      _c("span", { staticClass: "input-group-text" }, [_vm._v("Status")])
     ])
   },
   function() {
