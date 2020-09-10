@@ -15,7 +15,7 @@ class SessionController extends Controller
     public function index()
     {
         return response()->json([
-            "items" => Session::get()
+            "items" => Session::orderBy('active', 'DESC')->get()
         ]);
     }
 
