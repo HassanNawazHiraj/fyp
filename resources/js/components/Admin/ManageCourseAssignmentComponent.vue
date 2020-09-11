@@ -273,6 +273,7 @@ export default {
       formData.set("class_id", me.class_id);
       formData.set("course_id", me.course_id);
       formData.set("has_lab", me.has_lab ? 1 : 0);
+      formData.set("session_id", me.selectedSession.id);
       axios
         .post(me.base_path + "class_courses", formData, {})
         .then(function (response) {

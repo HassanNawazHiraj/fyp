@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\TeacherCourse;
+use App\Session;
 use Illuminate\Http\Request;
 
 class TeacherCourseController extends Controller
@@ -69,6 +70,11 @@ class TeacherCourseController extends Controller
      */
     public function update(Request $request, $id)
     {
+        if($request->session_id) {
+            $current_session = $request->session_id;
+        } else {
+            $current_session = Session::where("active", 1)->first()->id;
+        }
         //id = teacher_id in users
         $courses = json_decode($request->selected_courses);
 
@@ -86,7 +92,8 @@ class TeacherCourseController extends Controller
             array_push($insert_array,[
                 "teacher_id" => $id,
                 "class_course_id" => $course->id,
-                "course_type" => $course->type
+                "course_type" => $course->type,
+                "session_id" => $current_session
             ]);
         }
         TeacherCourse::insert($insert_array);

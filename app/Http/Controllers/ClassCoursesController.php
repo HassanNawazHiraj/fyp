@@ -51,7 +51,11 @@ class ClassCoursesController extends Controller
             "course_id" => "required",
             "has_lab" => "required"
         ]);
-        $current_session = Session::where("active", 1)->first()->id;
+        if($request->session_id) {
+            $current_session = $request->session_id;
+        } else {
+            $current_session = Session::where("active", 1)->first()->id;
+        }
 
         $c = new ClassCourses();
         $c->class_id = $request->class_id;

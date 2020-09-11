@@ -269,12 +269,13 @@ export default {
       formData.set("class_id", me.class_id);
       formData.set("course_id", me.course_id);
       formData.set("has_lab", me.has_lab ? 1 : 0);
+      formData.set("session_id", me.selectedSession.id);
       axios
         .post(me.base_path + "class_courses", formData, {})
         .then(function (response) {
           if (response.status == 200) {
             me.closeModal("addModal");
-            me.list();
+            me.list(this.selectedSession.id);
             me.toastTitle = "Add";
             me.toastMessage = "Class Course relation created successfully";
             me.toastClass = "d-block";
@@ -351,7 +352,7 @@ export default {
         .then(function (response) {
           if (response.status == 200) {
             me.closeModal("addModal");
-            me.list();
+            me.list(this.selectedSession.id);
             me.toastTitle = "Update";
             me.toastMessage = "Course updated successfully";
             me.toastClass = "d-block";
@@ -380,7 +381,7 @@ export default {
         .then((response) => {
           if (response.status == 200) {
             me.closeModal("deleteModal");
-            me.list();
+            me.list(this.selectedSession.id);
             me.toastTitle = "Delete";
             me.toastMessage = "Program deleted successfully";
             me.toastClass = "d-block";

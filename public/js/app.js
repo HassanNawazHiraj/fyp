@@ -3547,6 +3547,7 @@ __webpack_require__.r(__webpack_exports__);
       formData.set("class_id", me.class_id);
       formData.set("course_id", me.course_id);
       formData.set("has_lab", me.has_lab ? 1 : 0);
+      formData.set("session_id", me.selectedSession.id);
       axios.post(me.base_path + "class_courses", formData, {}).then(function (response) {
         if (response.status == 200) {
           me.closeModal("addModal");
@@ -4194,10 +4195,11 @@ __webpack_require__.r(__webpack_exports__);
       formData.set("class_id", me.class_id);
       formData.set("course_id", me.course_id);
       formData.set("has_lab", me.has_lab ? 1 : 0);
+      formData.set("session_id", me.selectedSession.id);
       axios.post(me.base_path + "class_courses", formData, {}).then(function (response) {
         if (response.status == 200) {
           me.closeModal("addModal");
-          me.list();
+          me.list(this.selectedSession.id);
           me.toastTitle = "Add";
           me.toastMessage = "Class Course relation created successfully";
           me.toastClass = "d-block";
@@ -4254,7 +4256,7 @@ __webpack_require__.r(__webpack_exports__);
       axios.post(me.base_path + "teacher_courses/" + me.id, formData, {}).then(function (response) {
         if (response.status == 200) {
           me.closeModal("addModal");
-          me.list();
+          me.list(this.selectedSession.id);
           me.toastTitle = "Update";
           me.toastMessage = "Course updated successfully";
           me.toastClass = "d-block";
@@ -4273,6 +4275,8 @@ __webpack_require__.r(__webpack_exports__);
       $("#deleteModal").modal("show");
     },
     perform_delete: function perform_delete() {
+      var _this = this;
+
       var me = this;
       me.errors = [];
       axios.post(me.base_path + "class_courses/" + me.id, {
@@ -4280,7 +4284,7 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (response) {
         if (response.status == 200) {
           me.closeModal("deleteModal");
-          me.list();
+          me.list(_this.selectedSession.id);
           me.toastTitle = "Delete";
           me.toastMessage = "Program deleted successfully";
           me.toastClass = "d-block";
@@ -10854,7 +10858,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 exports.push([module.i, "@import url(/css/sb-admin-2.min.css);", ""]);
 
 // module
-exports.push([module.i, "\n.session-select .vs__dropdown-option--selected {\n  display: none;\n}\n", ""]);
+exports.push([module.i, "\n.session-select .vs__dropdown-option--selected {\r\n  display: none;\n}\r\n", ""]);
 
 // exports
 
@@ -10873,7 +10877,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.cselect > .v-select .vs__dropdown-toggle {\n  border: none;\n}\n", ""]);
+exports.push([module.i, "\n.cselect > .v-select .vs__dropdown-toggle {\r\n  border: none;\n}\r\n", ""]);
 
 // exports
 
@@ -10892,7 +10896,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.course-select > #vs1__listbox > .vs__dropdown-option--selected {\n  display: none;\n}\n.course-select > #vs2__listbox > .vs__dropdown-option--selected {\n  display: none;\n}\n.course-select > #vs3__listbox > .vs__dropdown-option--selected {\n  display: none;\n}\n", ""]);
+exports.push([module.i, "\n.course-select > #vs1__listbox > .vs__dropdown-option--selected {\r\n  display: none;\n}\n.course-select > #vs2__listbox > .vs__dropdown-option--selected {\r\n  display: none;\n}\n.course-select > #vs3__listbox > .vs__dropdown-option--selected {\r\n  display: none;\n}\r\n", ""]);
 
 // exports
 
@@ -10911,7 +10915,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 exports.push([module.i, "@import url(https://fonts.googleapis.com/css?family=Nunito:400,600|Open+Sans:400,600,700);", ""]);
 
 // module
-exports.push([module.i, "\n\n", ""]);
+exports.push([module.i, "\r\n\r\n", ""]);
 
 // exports
 
