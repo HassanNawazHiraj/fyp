@@ -39,7 +39,7 @@ class SessionController extends Controller
             "status" => "required"
         ]);
 
-        if($request->active) {
+        if ($request->active) {
             Session::where("active", 1)->update(['active' => 0]);
         }
 
@@ -70,12 +70,24 @@ class SessionController extends Controller
             "status" => "required"
         ]);
 
-        if($request->active) {
+        if ($request->active) {
             Session::where("active", 1)->update(['active' => 0]);
         }
 
 
         $item = Session::find($id);
+
+        if ($item->active && !$request->active) {
+            return response()->json(
+                [
+                    "message" => "The given data was invalid.",
+                    "errors" => [
+                        "Active" => ["Please set any other session active. There needs to be atleast one active session."],
+                    ]
+                ]
+           , 422);
+        }
+
         $item->season = $request->season;
         $item->year = $request->year;
         $item->active = $request->active;
