@@ -324,14 +324,14 @@ export default {
           me.selected.push({
             id: element.id,
             name:
-              element.course.title +
+              element.class_courses.course.title +
               " [" +
-              element.class.batch.season +
-              element.class.batch.year +
+              element.class_courses.class.batch.season +
+              element.class_courses.class.batch.year +
               "-" +
-              element.class.program.short_name +
+              element.class_courses.class.program.short_name +
               "-" +
-              element.class.section +
+              element.class_courses.class.section +
               "]",
             type: "theory",
           });
@@ -352,7 +352,7 @@ export default {
         .then(function (response) {
           if (response.status == 200) {
             me.closeModal("addModal");
-            me.list(this.selectedSession.id);
+            me.list(me.selectedSession.id);
             me.toastTitle = "Update";
             me.toastMessage = "Course updated successfully";
             me.toastClass = "d-block";
