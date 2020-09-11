@@ -4102,11 +4102,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -4148,7 +4143,8 @@ __webpack_require__.r(__webpack_exports__);
 
       var me = this;
       axios.get(path).then(function (response) {
-        me.items = response.data.items;
+        me.items = response.data.items; //console.log(me.items);
+
         me.courses = [];
         response.data.courses.forEach(function (element) {
           if (element.has_lab) {
@@ -4228,14 +4224,14 @@ __webpack_require__.r(__webpack_exports__);
         //console.log(element.course_type);
         if (element.course_type == "lab") {
           me.selected.push({
-            id: element.id + "l",
+            id: element.class_courses.id + "l",
             //to make id unique. or else you cannot select theory and lab because of same id
             name: element.class_courses.course.title + " [" + element.class_courses["class"].batch.season + element.class_courses["class"].batch.year + "-" + element.class_courses["class"].program.short_name + "-" + element.class_courses["class"].section + "] Lab",
             type: "lab"
           });
         } else {
           me.selected.push({
-            id: element.id,
+            id: element.class_courses.id,
             name: element.class_courses.course.title + " [" + element.class_courses["class"].batch.season + element.class_courses["class"].batch.year + "-" + element.class_courses["class"].program.short_name + "-" + element.class_courses["class"].section + "]",
             type: "theory"
           });
@@ -10858,7 +10854,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 exports.push([module.i, "@import url(/css/sb-admin-2.min.css);", ""]);
 
 // module
-exports.push([module.i, "\n.session-select .vs__dropdown-option--selected {\r\n  display: none;\n}\r\n", ""]);
+exports.push([module.i, "\n.session-select .vs__dropdown-option--selected {\n  display: none;\n}\n", ""]);
 
 // exports
 
@@ -10896,7 +10892,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.course-select > #vs1__listbox > .vs__dropdown-option--selected {\r\n  display: none;\n}\n.course-select > #vs2__listbox > .vs__dropdown-option--selected {\r\n  display: none;\n}\n.course-select > #vs3__listbox > .vs__dropdown-option--selected {\r\n  display: none;\n}\r\n", ""]);
+exports.push([module.i, "\n.course-select > #vs1__listbox > .vs__dropdown-option--selected {\n  display: none;\n}\n.course-select > #vs2__listbox > .vs__dropdown-option--selected {\n  display: none;\n}\n.course-select > #vs3__listbox > .vs__dropdown-option--selected {\n  display: none;\n}\n", ""]);
 
 // exports
 
@@ -10915,7 +10911,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 exports.push([module.i, "@import url(https://fonts.googleapis.com/css?family=Nunito:400,600|Open+Sans:400,600,700);", ""]);
 
 // module
-exports.push([module.i, "\r\n\r\n", ""]);
+exports.push([module.i, "\n\n", ""]);
 
 // exports
 

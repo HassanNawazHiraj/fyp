@@ -25,35 +25,30 @@
                     class="badge mr-1"
                     v-bind:class="{
                                             'badge-primary':
-                                                element.course_type !=
-                                                'lab',
+                                                element.course_type != 'lab',
                                             'badge-info':
-                                                element.course_type ==
-                                                'lab'
+                                                element.course_type == 'lab'
                                         }"
                     v-for="element in item.class_courses"
-                    :key="
-                                            element.id +
-                                                element.course_type
-                                        "
+                    :key="element.id + element.course_type"
                   >
                     {{
                     element.class_courses.course.title +
                     " [" +
-                    element.class_courses.class.batch.season +
-                    element.class_courses.class.batch.year +
+                    element.class_courses.class
+                    .batch.season +
+                    element.class_courses.class
+                    .batch.year +
                     "-" +
-                    element.class_courses.class.program
-                    .short_name +
+                    element.class_courses.class
+                    .program.short_name +
                     "-" +
-                    element.class_courses.class.section +
+                    element.class_courses.class
+                    .section +
                     "]"
                     }}
                     <nobr
-                      v-if="
-                                                element.course_type ==
-                                                    'lab'
-                                            "
+                      v-if="element.course_type == 'lab'"
                     >Lab</nobr>
                   </span>
                 </td>
@@ -196,6 +191,7 @@ export default {
         .get(path)
         .then((response) => {
           me.items = response.data.items;
+          //console.log(me.items);
           me.courses = [];
           response.data.courses.forEach((element) => {
             if (element.has_lab) {
@@ -307,7 +303,7 @@ export default {
         //console.log(element.course_type);
         if (element.course_type == "lab") {
           me.selected.push({
-            id: element.id + "l", //to make id unique. or else you cannot select theory and lab because of same id
+            id: element.class_courses.id + "l", //to make id unique. or else you cannot select theory and lab because of same id
             name:
               element.class_courses.course.title +
               " [" +
@@ -322,7 +318,7 @@ export default {
           });
         } else {
           me.selected.push({
-            id: element.id,
+            id: element.class_courses.id,
             name:
               element.class_courses.course.title +
               " [" +
