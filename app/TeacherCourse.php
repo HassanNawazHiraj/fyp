@@ -11,6 +11,6 @@ class TeacherCourse extends Model
     }
 
     public function class_courses() {
-        return $this->hasMany("App\ClassCourses", "id", "class_course_id");
+        return $this->hasOne("App\ClassCourses", "id", "class_course_id");
     }
 }

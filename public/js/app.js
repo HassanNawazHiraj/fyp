@@ -4223,13 +4223,12 @@ __webpack_require__.r(__webpack_exports__);
       this.id = item.id;
       this.selected = [];
       item.class_courses.forEach(function (element) {
-        console.log(element.pivot.course_type);
-
-        if (element.pivot.course_type == "lab") {
+        //console.log(element.course_type);
+        if (element.course_type == "lab") {
           me.selected.push({
             id: element.id + "l",
             //to make id unique. or else you cannot select theory and lab because of same id
-            name: element.course.title + " [" + element["class"].batch.season + element["class"].batch.year + "-" + element["class"].program.short_name + "-" + element["class"].section + "] Lab",
+            name: element.class_courses.course.title + " [" + element.class_courses["class"].batch.season + element.class_courses["class"].batch.year + "-" + element.class_courses["class"].program.short_name + "-" + element.class_courses["class"].section + "] Lab",
             type: "lab"
           });
         } else {
@@ -32705,31 +32704,31 @@ var render = function() {
                         return _c(
                           "span",
                           {
-                            key: element.id + element.pivot.course_type,
+                            key: element.id + element.course_type,
                             staticClass: "badge mr-1",
                             class: {
-                              "badge-primary":
-                                element.pivot.course_type != "lab",
-                              "badge-info": element.pivot.course_type == "lab"
+                              "badge-primary": element.course_type != "lab",
+                              "badge-info": element.course_type == "lab"
                             }
                           },
                           [
                             _vm._v(
                               "\n                  " +
                                 _vm._s(
-                                  element.course.title +
+                                  element.class_courses.course.title +
                                     " [" +
-                                    element.class.batch.season +
-                                    element.class.batch.year +
+                                    element.class_courses.class.batch.season +
+                                    element.class_courses.class.batch.year +
                                     "-" +
-                                    element.class.program.short_name +
+                                    element.class_courses.class.program
+                                      .short_name +
                                     "-" +
-                                    element.class.section +
+                                    element.class_courses.class.section +
                                     "]"
                                 ) +
                                 "\n                  "
                             ),
-                            element.pivot.course_type == "lab"
+                            element.course_type == "lab"
                               ? _c("nobr", [_vm._v("Lab")])
                               : _vm._e()
                           ],

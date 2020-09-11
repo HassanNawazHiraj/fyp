@@ -70,7 +70,7 @@ class UsersController extends Controller
         })->with(['types', 'course_type'])->get();
         foreach($users as $user) {
             $courses = TeacherCourse::where("session_id", $current_session)->where("teacher_id", $user->id)
-            ->with(['class_courses', 'class_courses.course', 'class_courses.class.batch', 'class_courses.class.program'])
+            ->with(['class_courses.course', 'class_courses.class.batch', 'class_courses.class.program'])
             ->get();
             $user->class_courses = $courses;
         }

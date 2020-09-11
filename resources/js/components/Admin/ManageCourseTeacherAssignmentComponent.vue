@@ -25,33 +25,33 @@
                     class="badge mr-1"
                     v-bind:class="{
                                             'badge-primary':
-                                                element.pivot.course_type !=
+                                                element.course_type !=
                                                 'lab',
                                             'badge-info':
-                                                element.pivot.course_type ==
+                                                element.course_type ==
                                                 'lab'
                                         }"
                     v-for="element in item.class_courses"
                     :key="
                                             element.id +
-                                                element.pivot.course_type
+                                                element.course_type
                                         "
                   >
                     {{
-                    element.course.title +
+                    element.class_courses.course.title +
                     " [" +
-                    element.class.batch.season +
-                    element.class.batch.year +
+                    element.class_courses.class.batch.season +
+                    element.class_courses.class.batch.year +
                     "-" +
-                    element.class.program
+                    element.class_courses.class.program
                     .short_name +
                     "-" +
-                    element.class.section +
+                    element.class_courses.class.section +
                     "]"
                     }}
                     <nobr
                       v-if="
-                                                element.pivot.course_type ==
+                                                element.course_type ==
                                                     'lab'
                                             "
                     >Lab</nobr>
@@ -303,19 +303,19 @@ export default {
       this.selected = [];
 
       item.class_courses.forEach((element) => {
-        console.log(element.pivot.course_type);
-        if (element.pivot.course_type == "lab") {
+        //console.log(element.course_type);
+        if (element.course_type == "lab") {
           me.selected.push({
             id: element.id + "l", //to make id unique. or else you cannot select theory and lab because of same id
             name:
-              element.course.title +
+              element.class_courses.course.title +
               " [" +
-              element.class.batch.season +
-              element.class.batch.year +
+              element.class_courses.class.batch.season +
+              element.class_courses.class.batch.year +
               "-" +
-              element.class.program.short_name +
+              element.class_courses.class.program.short_name +
               "-" +
-              element.class.section +
+              element.class_courses.class.section +
               "] Lab",
             type: "lab",
           });
