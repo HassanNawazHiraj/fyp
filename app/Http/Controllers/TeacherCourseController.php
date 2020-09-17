@@ -70,7 +70,7 @@ class TeacherCourseController extends Controller
      */
     public function update(Request $request, $id)
     {
-        if($request->session_id) {
+        if ($request->session_id) {
             $current_session = $request->session_id;
         } else {
             $current_session = Session::where("active", 1)->first()->id;
@@ -80,16 +80,19 @@ class TeacherCourseController extends Controller
 
 
         //get all existing items and delete them
-        TeacherCourse::where("teacher_id", $id)->delete();
+        TeacherCourse::where([
+            "teacher_id" => $id,
+            "session_id" => $current_session
+        ])->delete();
 
         //add new items
         $insert_array = [];
-        foreach($courses as $course) {
-            if($course->type == 'lab') {
+        foreach ($courses as $course) {
+            if ($course->type == 'lab') {
                 //remove "l" from end
-                $course->id = substr($course->id, 0, strlen($course->id)-1);
+                $course->id = substr($course->id, 0, strlen($course->id) - 1);
             }
-            array_push($insert_array,[
+            array_push($insert_array, [
                 "teacher_id" => $id,
                 "class_course_id" => $course->id,
                 "course_type" => $course->type,

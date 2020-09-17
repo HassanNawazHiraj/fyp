@@ -4248,6 +4248,7 @@ __webpack_require__.r(__webpack_exports__);
       me.errors = [];
       var formData = new FormData();
       formData.set("selected_courses", JSON.stringify(me.selected));
+      formData.set("session_id", me.selectedSession.id);
       formData.set("_method", "PUT");
       axios.post(me.base_path + "teacher_courses/" + me.id, formData, {}).then(function (response) {
         if (response.status == 200) {

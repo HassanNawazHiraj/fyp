@@ -341,6 +341,7 @@ export default {
       me.errors = [];
       let formData = new FormData();
       formData.set("selected_courses", JSON.stringify(me.selected));
+      formData.set("session_id", me.selectedSession.id);
       formData.set("_method", "PUT");
 
       axios
