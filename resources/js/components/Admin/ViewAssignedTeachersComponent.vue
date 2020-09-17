@@ -139,6 +139,7 @@ export default {
     },
     data() {
         return {
+            permissions: [],
             items: [],
             tais: [],
             tai_id: "",
@@ -154,6 +155,8 @@ export default {
         };
     },
     mounted: function() {
+        var localPermission = localStorage.getItem("permissions");
+    if (localPermission != null) this.permissions = localPermission.split(",");
         this.list();
     },
     methods: {

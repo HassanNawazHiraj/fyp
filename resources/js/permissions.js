@@ -90,7 +90,7 @@ export const permissions = [
         name: "Delete Class",
         value: "class_delete"
     },
-    //class
+    //assignment
     {
         name: "View Course Assignment",
         value: "class_courses_view"

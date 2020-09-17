@@ -37,6 +37,7 @@
                     data-target="#add_update_modal"
                     data-backdrop="static"
                     @click="assign(item)"
+                    v-if="permissions.includes('tai_course_add')"
                   >Assign</button>
                 </td>
               </tr>
@@ -115,6 +116,7 @@ export default {
   },
   data() {
     return {
+      permissions: [],
       items: [],
       tais: [],
       tai_id: "",
@@ -129,6 +131,8 @@ export default {
     };
   },
   mounted: function () {
+    var localPermission = localStorage.getItem("permissions");
+    if (localPermission != null) this.permissions = localPermission.split(",");
     this.list(this.selectedSession.id);
   },
   methods: {

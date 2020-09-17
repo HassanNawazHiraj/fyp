@@ -10,6 +10,7 @@
                         data-toggle="modal"
                         data-target="#addModal"
                         v-on:click="add()"
+                        v-if="permissions.includes('user_role_add')"
                         >Add</a
                     >
                 </h6>
@@ -50,6 +51,7 @@
                                         data-toggle="modal"
                                         data-target="#add_update_modal"
                                         @click="edit(item)"
+                                        v-if="permissions.includes('user_role_add')"
                                     >
                                         Edit
                                     </button>
@@ -59,6 +61,7 @@
                                         data-toggle="modal"
                                         data-target="#delete_modal"
                                         @click="remove(item.id)"
+                                        v-if="permissions.includes('user_role_delete')"
                                     >
                                         Delete
                                     </button>
@@ -243,6 +246,7 @@ import { permissions as importedPermissions } from "../../permissions.js";
 export default {
     data() {
         return {
+            permissions: [],
             items: [],
             name: "",
             user_permissions: [],
@@ -257,6 +261,8 @@ export default {
         };
     },
     mounted: function() {
+        var localPermission = localStorage.getItem("permissions");
+    if (localPermission != null) this.permissions = localPermission.split(",");
         this.list();
     },
     methods: {

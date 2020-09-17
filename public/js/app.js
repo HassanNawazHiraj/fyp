@@ -2528,6 +2528,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   computed: {
@@ -2545,6 +2548,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
+      permissions: [],
       items: [],
       field_name: "",
       field_type: "text",
@@ -2558,6 +2562,8 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   mounted: function mounted() {
+    var localPermission = localStorage.getItem("permissions");
+    if (localPermission != null) this.permissions = localPermission.split(",");
     this.list();
   },
   methods: {
@@ -2833,9 +2839,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
+      permissions: [],
       items: [],
       season: "",
       year: "",
@@ -2849,6 +2859,8 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   mounted: function mounted() {
+    var localPermission = localStorage.getItem("permissions");
+    if (localPermission != null) this.permissions = localPermission.split(",");
     this.list();
   },
   methods: {
@@ -3127,9 +3139,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
+      permissions: [],
       items: [],
       base_path: "/api/",
       errors: [],
@@ -3146,6 +3162,8 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   mounted: function mounted() {
+    var localPermission = localStorage.getItem("permissions");
+    if (localPermission != null) this.permissions = localPermission.split(",");
     this.list();
   },
   methods: {
@@ -3470,6 +3488,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -3485,6 +3505,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
+      permissions: [],
       items: [],
       classes: [],
       courses: [],
@@ -3501,6 +3522,8 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   mounted: function mounted() {
+    var localPermission = localStorage.getItem("permissions");
+    if (localPermission != null) this.permissions = localPermission.split(",");
     this.list(this.selectedSession.id);
   },
   methods: {
@@ -3786,6 +3809,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["selectedSession"],
   watch: {
@@ -3796,6 +3821,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
+      permissions: [],
       items: [],
       code: "",
       title: "",
@@ -3810,6 +3836,8 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   mounted: function mounted() {
+    var localPermission = localStorage.getItem("permissions");
+    if (localPermission != null) this.permissions = localPermission.split(",");
     this.list(this.selectedSession.id);
   },
   methods: {
@@ -4102,6 +4130,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -4117,6 +4147,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
+      permissions: [],
       items: [],
       courses: [],
       selected: [],
@@ -4130,6 +4161,8 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   mounted: function mounted() {
+    var localPermission = localStorage.getItem("permissions");
+    if (localPermission != null) this.permissions = localPermission.split(",");
     this.list(this.selectedSession.id);
   },
   methods: {
@@ -4441,9 +4474,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
+      permissions: [],
       items: [],
       short_name: "",
       full_name: "",
@@ -4457,6 +4494,8 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   mounted: function mounted() {
+    var localPermission = localStorage.getItem("permissions");
+    if (localPermission != null) this.permissions = localPermission.split(",");
     this.list();
   },
   methods: {
@@ -4741,10 +4780,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["selectedSession"],
   data: function data() {
     return {
+      permissions: [],
       items: [],
       season: "",
       year: "",
@@ -4760,6 +4803,8 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   mounted: function mounted() {
+    var localPermission = localStorage.getItem("permissions");
+    if (localPermission != null) this.permissions = localPermission.split(",");
     this.list();
   },
   watch: {
@@ -5011,6 +5056,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -5026,6 +5072,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
+      permissions: [],
       items: [],
       tais: [],
       tai_id: "",
@@ -5040,6 +5087,8 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   mounted: function mounted() {
+    var localPermission = localStorage.getItem("permissions");
+    if (localPermission != null) this.permissions = localPermission.split(",");
     this.list(this.selectedSession.id);
   },
   methods: {
@@ -5162,6 +5211,11 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _permissions_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../permissions.js */ "./resources/js/permissions.js");
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//
+//
+//
 //
 //
 //
@@ -5405,21 +5459,18 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
-    return {
+    var _ref;
+
+    return _ref = {
+      permissions: [],
       items: [],
       name: "",
-      user_permissions: [],
-      permissions: _permissions_js__WEBPACK_IMPORTED_MODULE_0__["permissions"],
-      base_path: "/api/",
-      errors: [],
-      modal_mode: "add",
-      id: "",
-      toastTitle: "",
-      toastMessage: "",
-      toastClass: "d-none"
-    };
+      user_permissions: []
+    }, _defineProperty(_ref, "permissions", _permissions_js__WEBPACK_IMPORTED_MODULE_0__["permissions"]), _defineProperty(_ref, "base_path", "/api/"), _defineProperty(_ref, "errors", []), _defineProperty(_ref, "modal_mode", "add"), _defineProperty(_ref, "id", ""), _defineProperty(_ref, "toastTitle", ""), _defineProperty(_ref, "toastMessage", ""), _defineProperty(_ref, "toastClass", "d-none"), _ref;
   },
   mounted: function mounted() {
+    var localPermission = localStorage.getItem("permissions");
+    if (localPermission != null) this.permissions = localPermission.split(",");
     this.list();
   },
   methods: {
@@ -5731,9 +5782,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
+      permissions: [],
       items: [],
       user_name: "",
       user_email: "",
@@ -5751,6 +5806,8 @@ __webpack_require__.r(__webpack_exports__);
   },
   mounted: function mounted() {
     //console.log(this.$auth);
+    var localPermission = localStorage.getItem("permissions");
+    if (localPermission != null) this.permissions = localPermission.split(",");
     this.list();
   },
   methods: {
@@ -6051,6 +6108,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
+      permissions: [],
       items: [],
       tais: [],
       tai_id: "",
@@ -6065,6 +6123,8 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   mounted: function mounted() {
+    var localPermission = localStorage.getItem("permissions");
+    if (localPermission != null) this.permissions = localPermission.split(",");
     this.list();
   },
   methods: {
@@ -10855,7 +10915,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 exports.push([module.i, "@import url(/css/sb-admin-2.min.css);", ""]);
 
 // module
-exports.push([module.i, "\n.session-select .vs__dropdown-option--selected {\n  display: none;\n}\n", ""]);
+exports.push([module.i, "\n.session-select .vs__dropdown-option--selected {\r\n  display: none;\n}\r\n", ""]);
 
 // exports
 
@@ -10893,7 +10953,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.course-select > #vs1__listbox > .vs__dropdown-option--selected {\n  display: none;\n}\n.course-select > #vs2__listbox > .vs__dropdown-option--selected {\n  display: none;\n}\n.course-select > #vs3__listbox > .vs__dropdown-option--selected {\n  display: none;\n}\n", ""]);
+exports.push([module.i, "\n.course-select > #vs1__listbox > .vs__dropdown-option--selected {\r\n  display: none;\n}\n.course-select > #vs2__listbox > .vs__dropdown-option--selected {\r\n  display: none;\n}\n.course-select > #vs3__listbox > .vs__dropdown-option--selected {\r\n  display: none;\n}\r\n", ""]);
 
 // exports
 
@@ -10912,7 +10972,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 exports.push([module.i, "@import url(https://fonts.googleapis.com/css?family=Nunito:400,600|Open+Sans:400,600,700);", ""]);
 
 // module
-exports.push([module.i, "\n\n", ""]);
+exports.push([module.i, "\r\n\r\n", ""]);
 
 // exports
 
@@ -30060,23 +30120,25 @@ var render = function() {
       _c("div", { staticClass: "card-header py-3" }, [
         _c("h6", { staticClass: "m-0 font-weight-bold text-primary" }, [
           _vm._v("\n        Course Performa Form Fields\n        "),
-          _c(
-            "a",
-            {
-              staticClass: "btn btn-primary float-right btn-sm",
-              attrs: {
-                href: "#",
-                "data-toggle": "modal",
-                "data-target": "#addModal"
-              },
-              on: {
-                click: function($event) {
-                  return _vm.add()
-                }
-              }
-            },
-            [_vm._v("Add")]
-          )
+          _vm.permissions.includes("course_performa_form_add")
+            ? _c(
+                "a",
+                {
+                  staticClass: "btn btn-primary float-right btn-sm",
+                  attrs: {
+                    href: "#",
+                    "data-toggle": "modal",
+                    "data-target": "#addModal"
+                  },
+                  on: {
+                    click: function($event) {
+                      return _vm.add()
+                    }
+                  }
+                },
+                [_vm._v("Add")]
+              )
+            : _vm._e()
         ])
       ]),
       _vm._v(" "),
@@ -30123,39 +30185,43 @@ var render = function() {
                     _c("td", [_vm._v(_vm._s(item.field_type))]),
                     _vm._v(" "),
                     _c("td", [
-                      _c(
-                        "button",
-                        {
-                          staticClass: "btn btn-primary btn-sm",
-                          attrs: {
-                            "data-toggle": "modal",
-                            "data-target": "#add_update_modal"
-                          },
-                          on: {
-                            click: function($event) {
-                              return _vm.edit(item)
-                            }
-                          }
-                        },
-                        [_vm._v("Edit")]
-                      ),
+                      _vm.permissions.includes("course_performa_form_add")
+                        ? _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-primary btn-sm",
+                              attrs: {
+                                "data-toggle": "modal",
+                                "data-target": "#add_update_modal"
+                              },
+                              on: {
+                                click: function($event) {
+                                  return _vm.edit(item)
+                                }
+                              }
+                            },
+                            [_vm._v("Edit")]
+                          )
+                        : _vm._e(),
                       _vm._v("\n                 \n                "),
-                      _c(
-                        "button",
-                        {
-                          staticClass: "btn btn-danger btn-sm",
-                          attrs: {
-                            "data-toggle": "modal",
-                            "data-target": "#delete_modal"
-                          },
-                          on: {
-                            click: function($event) {
-                              return _vm.remove(item.id)
-                            }
-                          }
-                        },
-                        [_vm._v("Delete")]
-                      )
+                      _vm.permissions.includes("course_performa_form_delete")
+                        ? _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-danger btn-sm",
+                              attrs: {
+                                "data-toggle": "modal",
+                                "data-target": "#delete_modal"
+                              },
+                              on: {
+                                click: function($event) {
+                                  return _vm.remove(item.id)
+                                }
+                              }
+                            },
+                            [_vm._v("Delete")]
+                          )
+                        : _vm._e()
                     ])
                   ])
                 }),
@@ -30782,23 +30848,25 @@ var render = function() {
       _c("div", { staticClass: "card-header py-3" }, [
         _c("h6", { staticClass: "m-0 font-weight-bold text-primary" }, [
           _vm._v("\n        Batch\n        "),
-          _c(
-            "a",
-            {
-              staticClass: "btn btn-primary float-right btn-sm",
-              attrs: {
-                href: "#",
-                "data-toggle": "modal",
-                "data-target": "#addModal"
-              },
-              on: {
-                click: function($event) {
-                  return _vm.add()
-                }
-              }
-            },
-            [_vm._v("Add")]
-          )
+          _vm.permissions.includes("batch_add")
+            ? _c(
+                "a",
+                {
+                  staticClass: "btn btn-primary float-right btn-sm",
+                  attrs: {
+                    href: "#",
+                    "data-toggle": "modal",
+                    "data-target": "#addModal"
+                  },
+                  on: {
+                    click: function($event) {
+                      return _vm.add()
+                    }
+                  }
+                },
+                [_vm._v("Add")]
+              )
+            : _vm._e()
         ])
       ]),
       _vm._v(" "),
@@ -30824,39 +30892,43 @@ var render = function() {
                     _c("td", [_vm._v(_vm._s(item.year))]),
                     _vm._v(" "),
                     _c("td", [
-                      _c(
-                        "button",
-                        {
-                          staticClass: "btn btn-primary btn-sm",
-                          attrs: {
-                            "data-toggle": "modal",
-                            "data-target": "#add_update_modal"
-                          },
-                          on: {
-                            click: function($event) {
-                              return _vm.edit(item)
-                            }
-                          }
-                        },
-                        [_vm._v("Edit")]
-                      ),
+                      _vm.permissions.includes("batch_add")
+                        ? _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-primary btn-sm",
+                              attrs: {
+                                "data-toggle": "modal",
+                                "data-target": "#add_update_modal"
+                              },
+                              on: {
+                                click: function($event) {
+                                  return _vm.edit(item)
+                                }
+                              }
+                            },
+                            [_vm._v("Edit")]
+                          )
+                        : _vm._e(),
                       _vm._v("\n                 \n                "),
-                      _c(
-                        "button",
-                        {
-                          staticClass: "btn btn-danger btn-sm",
-                          attrs: {
-                            "data-toggle": "modal",
-                            "data-target": "#delete_modal"
-                          },
-                          on: {
-                            click: function($event) {
-                              return _vm.remove(item.id)
-                            }
-                          }
-                        },
-                        [_vm._v("Delete")]
-                      )
+                      _vm.permissions.includes("batch_delete")
+                        ? _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-danger btn-sm",
+                              attrs: {
+                                "data-toggle": "modal",
+                                "data-target": "#delete_modal"
+                              },
+                              on: {
+                                click: function($event) {
+                                  return _vm.remove(item.id)
+                                }
+                              }
+                            },
+                            [_vm._v("Delete")]
+                          )
+                        : _vm._e()
                     ])
                   ])
                 }),
@@ -31201,23 +31273,25 @@ var render = function() {
       _c("div", { staticClass: "card-header py-3" }, [
         _c("h6", { staticClass: "m-0 font-weight-bold text-primary" }, [
           _vm._v("\n        Class\n        "),
-          _c(
-            "a",
-            {
-              staticClass: "btn btn-primary float-right btn-sm",
-              attrs: {
-                href: "#",
-                "data-toggle": "modal",
-                "data-target": "#addModal"
-              },
-              on: {
-                click: function($event) {
-                  return _vm.add()
-                }
-              }
-            },
-            [_vm._v("Add")]
-          )
+          _vm.permissions.includes("class_add")
+            ? _c(
+                "a",
+                {
+                  staticClass: "btn btn-primary float-right btn-sm",
+                  attrs: {
+                    href: "#",
+                    "data-toggle": "modal",
+                    "data-target": "#addModal"
+                  },
+                  on: {
+                    click: function($event) {
+                      return _vm.add()
+                    }
+                  }
+                },
+                [_vm._v("Add")]
+              )
+            : _vm._e()
         ])
       ]),
       _vm._v(" "),
@@ -31256,39 +31330,43 @@ var render = function() {
                     _c("td", [_vm._v(_vm._s(item.section))]),
                     _vm._v(" "),
                     _c("td", [
-                      _c(
-                        "button",
-                        {
-                          staticClass: "btn btn-primary btn-sm",
-                          attrs: {
-                            "data-toggle": "modal",
-                            "data-target": "#add_update_modal"
-                          },
-                          on: {
-                            click: function($event) {
-                              return _vm.edit(item)
-                            }
-                          }
-                        },
-                        [_vm._v("Edit")]
-                      ),
+                      _vm.permissions.includes("class_add")
+                        ? _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-primary btn-sm",
+                              attrs: {
+                                "data-toggle": "modal",
+                                "data-target": "#add_update_modal"
+                              },
+                              on: {
+                                click: function($event) {
+                                  return _vm.edit(item)
+                                }
+                              }
+                            },
+                            [_vm._v("Edit")]
+                          )
+                        : _vm._e(),
                       _vm._v("\n                 \n                "),
-                      _c(
-                        "button",
-                        {
-                          staticClass: "btn btn-danger btn-sm",
-                          attrs: {
-                            "data-toggle": "modal",
-                            "data-target": "#delete_modal"
-                          },
-                          on: {
-                            click: function($event) {
-                              return _vm.remove(item.id)
-                            }
-                          }
-                        },
-                        [_vm._v("Delete")]
-                      )
+                      _vm.permissions.includes("class_delete")
+                        ? _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-danger btn-sm",
+                              attrs: {
+                                "data-toggle": "modal",
+                                "data-target": "#delete_modal"
+                              },
+                              on: {
+                                click: function($event) {
+                                  return _vm.remove(item.id)
+                                }
+                              }
+                            },
+                            [_vm._v("Delete")]
+                          )
+                        : _vm._e()
                     ])
                   ])
                 }),
@@ -31707,7 +31785,8 @@ var render = function() {
       _c("div", { staticClass: "card-header py-3" }, [
         _c("h6", { staticClass: "m-0 font-weight-bold text-primary" }, [
           _vm._v("\n        Class Courses\n        "),
-          _vm.selectedSession.active
+          _vm.selectedSession.active &&
+          _vm.permissions.includes("class_courses_add")
             ? _c(
                 "a",
                 {
@@ -31799,39 +31878,43 @@ var render = function() {
                     _vm._v(" "),
                     _vm.selectedSession.active
                       ? _c("td", [
-                          _c(
-                            "button",
-                            {
-                              staticClass: "btn btn-primary btn-sm",
-                              attrs: {
-                                "data-toggle": "modal",
-                                "data-target": "#add_update_modal"
-                              },
-                              on: {
-                                click: function($event) {
-                                  return _vm.edit(item)
-                                }
-                              }
-                            },
-                            [_vm._v("Edit")]
-                          ),
+                          _vm.permissions.includes("class_courses_add")
+                            ? _c(
+                                "button",
+                                {
+                                  staticClass: "btn btn-primary btn-sm",
+                                  attrs: {
+                                    "data-toggle": "modal",
+                                    "data-target": "#add_update_modal"
+                                  },
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.edit(item)
+                                    }
+                                  }
+                                },
+                                [_vm._v("Edit")]
+                              )
+                            : _vm._e(),
                           _vm._v("\n                 \n                "),
-                          _c(
-                            "button",
-                            {
-                              staticClass: "btn btn-danger btn-sm",
-                              attrs: {
-                                "data-toggle": "modal",
-                                "data-target": "#delete_modal"
-                              },
-                              on: {
-                                click: function($event) {
-                                  return _vm.remove(item.id)
-                                }
-                              }
-                            },
-                            [_vm._v("Delete")]
-                          )
+                          _vm.permissions.includes("class_courses_delete")
+                            ? _c(
+                                "button",
+                                {
+                                  staticClass: "btn btn-danger btn-sm",
+                                  attrs: {
+                                    "data-toggle": "modal",
+                                    "data-target": "#delete_modal"
+                                  },
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.remove(item.id)
+                                    }
+                                  }
+                                },
+                                [_vm._v("Delete")]
+                              )
+                            : _vm._e()
                         ])
                       : _vm._e()
                   ])
@@ -32223,7 +32306,7 @@ var render = function() {
       _c("div", { staticClass: "card-header py-3" }, [
         _c("h6", { staticClass: "m-0 font-weight-bold text-primary" }, [
           _vm._v("\n        Course\n        "),
-          _vm.selectedSession.active
+          _vm.selectedSession.active && _vm.permissions.includes("course_add")
             ? _c(
                 "a",
                 {
@@ -32284,39 +32367,43 @@ var render = function() {
                     _vm._v(" "),
                     _vm.selectedSession.active
                       ? _c("td", [
-                          _c(
-                            "button",
-                            {
-                              staticClass: "btn btn-primary btn-sm",
-                              attrs: {
-                                "data-toggle": "modal",
-                                "data-target": "#add_update_modal"
-                              },
-                              on: {
-                                click: function($event) {
-                                  return _vm.edit(item)
-                                }
-                              }
-                            },
-                            [_vm._v("Edit")]
-                          ),
+                          _vm.permissions.includes("course_add")
+                            ? _c(
+                                "button",
+                                {
+                                  staticClass: "btn btn-primary btn-sm",
+                                  attrs: {
+                                    "data-toggle": "modal",
+                                    "data-target": "#add_update_modal"
+                                  },
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.edit(item)
+                                    }
+                                  }
+                                },
+                                [_vm._v("Edit")]
+                              )
+                            : _vm._e(),
                           _vm._v("\n                 \n                "),
-                          _c(
-                            "button",
-                            {
-                              staticClass: "btn btn-danger btn-sm",
-                              attrs: {
-                                "data-toggle": "modal",
-                                "data-target": "#delete_modal"
-                              },
-                              on: {
-                                click: function($event) {
-                                  return _vm.remove(item.id)
-                                }
-                              }
-                            },
-                            [_vm._v("Delete")]
-                          )
+                          _vm.permissions.includes("course_delete")
+                            ? _c(
+                                "button",
+                                {
+                                  staticClass: "btn btn-danger btn-sm",
+                                  attrs: {
+                                    "data-toggle": "modal",
+                                    "data-target": "#delete_modal"
+                                  },
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.remove(item.id)
+                                    }
+                                  }
+                                },
+                                [_vm._v("Delete")]
+                              )
+                            : _vm._e()
                         ])
                       : _vm._e()
                   ])
@@ -32740,23 +32827,25 @@ var render = function() {
                     ),
                     _vm._v(" "),
                     _c("td", [
-                      _c(
-                        "button",
-                        {
-                          staticClass: "btn btn-primary btn-sm",
-                          attrs: {
-                            "data-toggle": "modal",
-                            "data-target": "#add_update_modal",
-                            "data-backdrop": "static"
-                          },
-                          on: {
-                            click: function($event) {
-                              return _vm.edit(item)
-                            }
-                          }
-                        },
-                        [_vm._v("Assign")]
-                      )
+                      _vm.permissions.includes("course_teacher_add")
+                        ? _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-primary btn-sm",
+                              attrs: {
+                                "data-toggle": "modal",
+                                "data-target": "#add_update_modal",
+                                "data-backdrop": "static"
+                              },
+                              on: {
+                                click: function($event) {
+                                  return _vm.edit(item)
+                                }
+                              }
+                            },
+                            [_vm._v("Assign")]
+                          )
+                        : _vm._e()
                     ])
                   ])
                 }),
@@ -32896,19 +32985,21 @@ var render = function() {
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "modal-footer" }, [
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-danger",
-                    attrs: { type: "button", id: "deleteModalButton" },
-                    on: {
-                      click: function($event) {
-                        return _vm.perform_delete()
-                      }
-                    }
-                  },
-                  [_vm._v("Delete")]
-                ),
+                _vm.permissions.includes("course_teacher_delete")
+                  ? _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-danger",
+                        attrs: { type: "button", id: "deleteModalButton" },
+                        on: {
+                          click: function($event) {
+                            return _vm.perform_delete()
+                          }
+                        }
+                      },
+                      [_vm._v("Delete")]
+                    )
+                  : _vm._e(),
                 _vm._v(" "),
                 _c(
                   "button",
@@ -33073,23 +33164,25 @@ var render = function() {
       _c("div", { staticClass: "card-header py-3" }, [
         _c("h6", { staticClass: "m-0 font-weight-bold text-primary" }, [
           _vm._v("\n        Program\n        "),
-          _c(
-            "a",
-            {
-              staticClass: "btn btn-primary float-right btn-sm",
-              attrs: {
-                href: "#",
-                "data-toggle": "modal",
-                "data-target": "#addModal"
-              },
-              on: {
-                click: function($event) {
-                  return _vm.add()
-                }
-              }
-            },
-            [_vm._v("Add")]
-          )
+          _vm.permissions.includes("program_add")
+            ? _c(
+                "a",
+                {
+                  staticClass: "btn btn-primary float-right btn-sm",
+                  attrs: {
+                    href: "#",
+                    "data-toggle": "modal",
+                    "data-target": "#addModal"
+                  },
+                  on: {
+                    click: function($event) {
+                      return _vm.add()
+                    }
+                  }
+                },
+                [_vm._v("Add")]
+              )
+            : _vm._e()
         ])
       ]),
       _vm._v(" "),
@@ -33115,39 +33208,43 @@ var render = function() {
                     _c("td", [_vm._v(_vm._s(item.full_name))]),
                     _vm._v(" "),
                     _c("td", [
-                      _c(
-                        "button",
-                        {
-                          staticClass: "btn btn-primary btn-sm",
-                          attrs: {
-                            "data-toggle": "modal",
-                            "data-target": "#add_update_modal"
-                          },
-                          on: {
-                            click: function($event) {
-                              return _vm.edit(item)
-                            }
-                          }
-                        },
-                        [_vm._v("Edit")]
-                      ),
+                      _vm.permissions.includes("program_add")
+                        ? _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-primary btn-sm",
+                              attrs: {
+                                "data-toggle": "modal",
+                                "data-target": "#add_update_modal"
+                              },
+                              on: {
+                                click: function($event) {
+                                  return _vm.edit(item)
+                                }
+                              }
+                            },
+                            [_vm._v("Edit")]
+                          )
+                        : _vm._e(),
                       _vm._v("\n                 \n                "),
-                      _c(
-                        "button",
-                        {
-                          staticClass: "btn btn-danger btn-sm",
-                          attrs: {
-                            "data-toggle": "modal",
-                            "data-target": "#delete_modal"
-                          },
-                          on: {
-                            click: function($event) {
-                              return _vm.remove(item.id)
-                            }
-                          }
-                        },
-                        [_vm._v("Delete")]
-                      )
+                      _vm.permissions.includes("program_delete")
+                        ? _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-danger btn-sm",
+                              attrs: {
+                                "data-toggle": "modal",
+                                "data-target": "#delete_modal"
+                              },
+                              on: {
+                                click: function($event) {
+                                  return _vm.remove(item.id)
+                                }
+                              }
+                            },
+                            [_vm._v("Delete")]
+                          )
+                        : _vm._e()
                     ])
                   ])
                 }),
@@ -33492,23 +33589,25 @@ var render = function() {
       _c("div", { staticClass: "card-header py-3" }, [
         _c("h6", { staticClass: "m-0 font-weight-bold text-primary" }, [
           _vm._v("\n        Session\n        "),
-          _c(
-            "a",
-            {
-              staticClass: "btn btn-primary float-right btn-sm",
-              attrs: {
-                href: "#",
-                "data-toggle": "modal",
-                "data-target": "#addModal"
-              },
-              on: {
-                click: function($event) {
-                  return _vm.add()
-                }
-              }
-            },
-            [_vm._v("Add")]
-          )
+          _vm.permissions.includes("session_add")
+            ? _c(
+                "a",
+                {
+                  staticClass: "btn btn-primary float-right btn-sm",
+                  attrs: {
+                    href: "#",
+                    "data-toggle": "modal",
+                    "data-target": "#addModal"
+                  },
+                  on: {
+                    click: function($event) {
+                      return _vm.add()
+                    }
+                  }
+                },
+                [_vm._v("Add")]
+              )
+            : _vm._e()
         ])
       ]),
       _vm._v(" "),
@@ -33548,39 +33647,43 @@ var render = function() {
                     ]),
                     _vm._v(" "),
                     _c("td", [
-                      _c(
-                        "button",
-                        {
-                          staticClass: "btn btn-primary btn-sm",
-                          attrs: {
-                            "data-toggle": "modal",
-                            "data-target": "#add_update_modal"
-                          },
-                          on: {
-                            click: function($event) {
-                              return _vm.edit(item)
-                            }
-                          }
-                        },
-                        [_vm._v("Edit")]
-                      ),
+                      _vm.permissions.includes("session_add")
+                        ? _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-primary btn-sm",
+                              attrs: {
+                                "data-toggle": "modal",
+                                "data-target": "#add_update_modal"
+                              },
+                              on: {
+                                click: function($event) {
+                                  return _vm.edit(item)
+                                }
+                              }
+                            },
+                            [_vm._v("Edit")]
+                          )
+                        : _vm._e(),
                       _vm._v("\n                 \n                "),
-                      _c(
-                        "button",
-                        {
-                          staticClass: "btn btn-danger btn-sm",
-                          attrs: {
-                            "data-toggle": "modal",
-                            "data-target": "#delete_modal"
-                          },
-                          on: {
-                            click: function($event) {
-                              return _vm.remove(item.id)
-                            }
-                          }
-                        },
-                        [_vm._v("Delete")]
-                      )
+                      _vm.permissions.includes("session_delete")
+                        ? _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-danger btn-sm",
+                              attrs: {
+                                "data-toggle": "modal",
+                                "data-target": "#delete_modal"
+                              },
+                              on: {
+                                click: function($event) {
+                                  return _vm.remove(item.id)
+                                }
+                              }
+                            },
+                            [_vm._v("Delete")]
+                          )
+                        : _vm._e()
                     ])
                   ])
                 }),
@@ -34087,23 +34190,25 @@ var render = function() {
                     ]),
                     _vm._v(" "),
                     _c("td", [
-                      _c(
-                        "button",
-                        {
-                          staticClass: "btn btn-primary btn-sm",
-                          attrs: {
-                            "data-toggle": "modal",
-                            "data-target": "#add_update_modal",
-                            "data-backdrop": "static"
-                          },
-                          on: {
-                            click: function($event) {
-                              return _vm.assign(item)
-                            }
-                          }
-                        },
-                        [_vm._v("Assign")]
-                      )
+                      _vm.permissions.includes("tai_course_add")
+                        ? _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-primary btn-sm",
+                              attrs: {
+                                "data-toggle": "modal",
+                                "data-target": "#add_update_modal",
+                                "data-backdrop": "static"
+                              },
+                              on: {
+                                click: function($event) {
+                                  return _vm.assign(item)
+                                }
+                              }
+                            },
+                            [_vm._v("Assign")]
+                          )
+                        : _vm._e()
                     ])
                   ])
                 }),
@@ -34343,23 +34448,25 @@ var render = function() {
       _c("div", { staticClass: "card-header py-3" }, [
         _c("h6", { staticClass: "m-0 font-weight-bold text-primary" }, [
           _vm._v("\n                User Roles\n                "),
-          _c(
-            "a",
-            {
-              staticClass: "btn btn-primary float-right btn-sm",
-              attrs: {
-                href: "#",
-                "data-toggle": "modal",
-                "data-target": "#addModal"
-              },
-              on: {
-                click: function($event) {
-                  return _vm.add()
-                }
-              }
-            },
-            [_vm._v("Add")]
-          )
+          _vm.permissions.includes("user_role_add")
+            ? _c(
+                "a",
+                {
+                  staticClass: "btn btn-primary float-right btn-sm",
+                  attrs: {
+                    href: "#",
+                    "data-toggle": "modal",
+                    "data-target": "#addModal"
+                  },
+                  on: {
+                    click: function($event) {
+                      return _vm.add()
+                    }
+                  }
+                },
+                [_vm._v("Add")]
+              )
+            : _vm._e()
         ])
       ]),
       _vm._v(" "),
@@ -34397,49 +34504,53 @@ var render = function() {
                     ]),
                     _vm._v(" "),
                     _c("td", [
-                      _c(
-                        "button",
-                        {
-                          staticClass: "btn btn-primary btn-sm",
-                          attrs: {
-                            "data-toggle": "modal",
-                            "data-target": "#add_update_modal"
-                          },
-                          on: {
-                            click: function($event) {
-                              return _vm.edit(item)
-                            }
-                          }
-                        },
-                        [
-                          _vm._v(
-                            "\n                                    Edit\n                                "
+                      _vm.permissions.includes("user_role_add")
+                        ? _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-primary btn-sm",
+                              attrs: {
+                                "data-toggle": "modal",
+                                "data-target": "#add_update_modal"
+                              },
+                              on: {
+                                click: function($event) {
+                                  return _vm.edit(item)
+                                }
+                              }
+                            },
+                            [
+                              _vm._v(
+                                "\n                                    Edit\n                                "
+                              )
+                            ]
                           )
-                        ]
-                      ),
+                        : _vm._e(),
                       _vm._v(
                         "\n                                 \n                                "
                       ),
-                      _c(
-                        "button",
-                        {
-                          staticClass: "btn btn-danger btn-sm",
-                          attrs: {
-                            "data-toggle": "modal",
-                            "data-target": "#delete_modal"
-                          },
-                          on: {
-                            click: function($event) {
-                              return _vm.remove(item.id)
-                            }
-                          }
-                        },
-                        [
-                          _vm._v(
-                            "\n                                    Delete\n                                "
+                      _vm.permissions.includes("user_role_delete")
+                        ? _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-danger btn-sm",
+                              attrs: {
+                                "data-toggle": "modal",
+                                "data-target": "#delete_modal"
+                              },
+                              on: {
+                                click: function($event) {
+                                  return _vm.remove(item.id)
+                                }
+                              }
+                            },
+                            [
+                              _vm._v(
+                                "\n                                    Delete\n                                "
+                              )
+                            ]
                           )
-                        ]
-                      )
+                        : _vm._e()
                     ])
                   ])
                 }),
@@ -34868,23 +34979,25 @@ var render = function() {
       _c("div", { staticClass: "card-header py-3" }, [
         _c("h6", { staticClass: "m-0 font-weight-bold text-primary" }, [
           _vm._v("\n        Users\n        "),
-          _c(
-            "a",
-            {
-              staticClass: "btn btn-primary float-right btn-sm",
-              attrs: {
-                href: "#",
-                "data-toggle": "modal",
-                "data-target": "#addModal"
-              },
-              on: {
-                click: function($event) {
-                  return _vm.add()
-                }
-              }
-            },
-            [_vm._v("Add")]
-          )
+          _vm.permissions.includes("user_add")
+            ? _c(
+                "a",
+                {
+                  staticClass: "btn btn-primary float-right btn-sm",
+                  attrs: {
+                    href: "#",
+                    "data-toggle": "modal",
+                    "data-target": "#addModal"
+                  },
+                  on: {
+                    click: function($event) {
+                      return _vm.add()
+                    }
+                  }
+                },
+                [_vm._v("Add")]
+              )
+            : _vm._e()
         ])
       ]),
       _vm._v(" "),
@@ -34931,39 +35044,43 @@ var render = function() {
                     ),
                     _vm._v(" "),
                     _c("td", [
-                      _c(
-                        "button",
-                        {
-                          staticClass: "btn btn-primary btn-sm",
-                          attrs: {
-                            "data-toggle": "modal",
-                            "data-target": "#add_update_modal"
-                          },
-                          on: {
-                            click: function($event) {
-                              return _vm.edit(item)
-                            }
-                          }
-                        },
-                        [_vm._v("Edit")]
-                      ),
+                      _vm.permissions.includes("user_add")
+                        ? _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-primary btn-sm",
+                              attrs: {
+                                "data-toggle": "modal",
+                                "data-target": "#add_update_modal"
+                              },
+                              on: {
+                                click: function($event) {
+                                  return _vm.edit(item)
+                                }
+                              }
+                            },
+                            [_vm._v("Edit")]
+                          )
+                        : _vm._e(),
                       _vm._v("\n                 \n                "),
-                      _c(
-                        "button",
-                        {
-                          staticClass: "btn btn-danger btn-sm",
-                          attrs: {
-                            "data-toggle": "modal",
-                            "data-target": "#delete_modal"
-                          },
-                          on: {
-                            click: function($event) {
-                              return _vm.remove(item.id)
-                            }
-                          }
-                        },
-                        [_vm._v("Delete")]
-                      )
+                      _vm.permissions.includes("user_delete")
+                        ? _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-danger btn-sm",
+                              attrs: {
+                                "data-toggle": "modal",
+                                "data-target": "#delete_modal"
+                              },
+                              on: {
+                                click: function($event) {
+                                  return _vm.remove(item.id)
+                                }
+                              }
+                            },
+                            [_vm._v("Delete")]
+                          )
+                        : _vm._e()
                     ])
                   ])
                 }),
@@ -55891,7 +56008,7 @@ var permissions = [//users
 }, {
   name: "Delete Class",
   value: "class_delete"
-}, //class
+}, //assignment
 {
   name: "View Course Assignment",
   value: "class_courses_view"

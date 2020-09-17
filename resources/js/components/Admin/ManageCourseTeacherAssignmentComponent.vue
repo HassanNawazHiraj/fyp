@@ -59,6 +59,7 @@
                     data-target="#add_update_modal"
                     data-backdrop="static"
                     @click="edit(item)"
+                    v-if="permissions.includes('course_teacher_add')"
                   >Assign</button>
                 </td>
               </tr>
@@ -126,6 +127,7 @@
               class="btn btn-danger"
               id="deleteModalButton"
               @click="perform_delete()"
+              v-if="permissions.includes('course_teacher_delete')"
             >Delete</button>
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
           </div>
@@ -165,6 +167,7 @@ export default {
   },
   data() {
     return {
+      permissions: [],
       items: [],
       courses: [],
       selected: [],
@@ -178,6 +181,8 @@ export default {
     };
   },
   mounted: function () {
+    var localPermission = localStorage.getItem("permissions");
+    if (localPermission != null) this.permissions = localPermission.split(",");
     this.list(this.selectedSession.id);
   },
   methods: {

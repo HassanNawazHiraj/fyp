@@ -5,7 +5,7 @@
         <h6 class="m-0 font-weight-bold text-primary">
           Course
           <a
-          v-if="selectedSession.active"
+          v-if="selectedSession.active && permissions.includes('course_add')"
             href="#"
             class="btn btn-primary float-right btn-sm"
             data-toggle="modal"
@@ -39,6 +39,7 @@
                     data-toggle="modal"
                     data-target="#add_update_modal"
                     @click="edit(item)"
+                    v-if="permissions.includes('course_add')"
                   >Edit</button>
                   &nbsp;
                   <button
@@ -46,6 +47,7 @@
                     data-toggle="modal"
                     data-target="#delete_modal"
                     @click="remove(item.id)"
+                    v-if="permissions.includes('course_delete')"
                   >Delete</button>
                 </td>
               </tr>
@@ -150,6 +152,7 @@ export default {
   },
   data() {
     return {
+      permissions: [],
       items: [],
       code: "",
       title: "",
@@ -164,6 +167,8 @@ export default {
     };
   },
   mounted: function () {
+    var localPermission = localStorage.getItem("permissions");
+    if (localPermission != null) this.permissions = localPermission.split(",");
     this.list(this.selectedSession.id);
   },
   methods: {
