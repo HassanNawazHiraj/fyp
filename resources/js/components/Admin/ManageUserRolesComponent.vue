@@ -10,7 +10,7 @@
                         data-toggle="modal"
                         data-target="#addModal"
                         v-on:click="add()"
-                        v-if="permissions.includes('user_role_add')"
+                        v-if="current_permissions.includes('user_role_add')"
                         >Add</a
                     >
                 </h6>
@@ -51,7 +51,7 @@
                                         data-toggle="modal"
                                         data-target="#add_update_modal"
                                         @click="edit(item)"
-                                        v-if="permissions.includes('user_role_add')"
+                                        v-if="current_permissions.includes('user_role_add')"
                                     >
                                         Edit
                                     </button>
@@ -61,7 +61,7 @@
                                         data-toggle="modal"
                                         data-target="#delete_modal"
                                         @click="remove(item.id)"
-                                        v-if="permissions.includes('user_role_delete')"
+                                        v-if="current_permissions.includes('user_role_delete')"
                                     >
                                         Delete
                                     </button>
@@ -246,7 +246,7 @@ import { permissions as importedPermissions } from "../../permissions.js";
 export default {
     data() {
         return {
-            permissions: [],
+            current_permissions: [],
             items: [],
             name: "",
             user_permissions: [],
@@ -262,7 +262,7 @@ export default {
     },
     mounted: function() {
         var localPermission = localStorage.getItem("permissions");
-    if (localPermission != null) this.permissions = localPermission.split(",");
+    if (localPermission != null) this.current_permissions = localPermission.split(",");
         this.list();
     },
     methods: {
