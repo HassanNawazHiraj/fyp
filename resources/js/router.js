@@ -17,6 +17,7 @@ import ManageCourseTeacherAssignmentComponent from "./components/Admin/ManageCou
 import ManageTaiCourseAssignmentComponent from "./components/Admin/ManageTaiCourseAssignmentComponent.vue";
 import ViewAssignedTeachersComponent from "./components/Admin/ViewAssignedTeachersComponent.vue";
 import ManageSessionComponent from './components/Admin/ManageSessionComponent.vue';
+import ManageFolderComponent from './components/Admin/ManageFolderComponent.vue';
 Vue.use(VueRouter);
 
 const routes = [{
@@ -90,6 +91,10 @@ const routes = [{
             {
                 path: "manage-session",
                 component: ManageSessionComponent
+            },
+            {
+                path: "manage-folder",
+                component: ManageFolderComponent
             }
         ]
     }

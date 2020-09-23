@@ -146,5 +146,18 @@ export const permissions = [
     {
         name: "Delete Session",
         value: "session_delete"
+    },
+    //manage folder
+    {
+        name: "View Folder",
+        value: "folder_view"
+    },
+    {
+        name: "Add Folder",
+        value: "folder_add"
+    },
+    {
+        name: "Delete Folder",
+        value: "folder_delete"
     }
 ];

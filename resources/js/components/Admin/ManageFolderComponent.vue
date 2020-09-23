@@ -10,7 +10,7 @@
             data-toggle="modal"
             data-target="#addModal"
             v-on:click="add()"
-            v-if="permissions.includes('program_add')"
+            v-if="permissions.includes('folder_add')"
           >Add</a>
         </h6>
       </div>

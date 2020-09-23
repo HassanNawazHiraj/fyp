@@ -172,6 +172,18 @@
           </router-link>
         </li>
 
+        <div class="sidebar-heading">Files & Folders</div>
+
+        <li class="nav-item">
+          <router-link
+            class="nav-link"
+            to="/portal/manage-folder"
+            v-if="permissions.includes('folder_view')"
+          >
+            <i class="fa fa-users"></i>
+            <span>Manage Course Folders</span>
+          </router-link>
+        </li>
         <!-- <li class="nav-item">
           <router-link
             class="nav-link"
@@ -419,7 +431,7 @@ export default {
         this.sessions = sessions;
         // console.log("sessions: ", sessions);
       });
-    }
+    },
   },
   mounted: function () {
     this.user_login_name = localStorage.getItem("name");
