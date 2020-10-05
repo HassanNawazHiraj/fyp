@@ -11,7 +11,8 @@
             data-target="#addModal"
             v-on:click="add()"
             v-if="permissions.includes('folder_add')"
-          >Add</a>
+            >Add</a
+          >
         </h6>
       </div>
       <div class="card-body">
@@ -27,11 +28,25 @@
 
             <tbody>
               <tr v-for="item in items" :key="item.id">
-                <td><i class="fas fa-folder"></i> &nbsp;{{ item.class_courses.course.title }}</td>
-                <td>{{item.teacher.name}}</td>
-                <td>{{
-                    item.class_courses.folder?new Date(item.class_courses.folder.created_at).toDateString() :""
-                    }}</td>
+                <td>
+                  <i class="fas fa-folder"></i> &nbsp;{{
+                    item.class_courses.course.title
+                  }}
+                </td>
+                <td>{{ item.teacher.name }}</td>
+                <td>
+                  {{
+                    item.class_courses.folder
+                      ? `${new Date(
+                          item.class_courses.folder.created_at
+                        ).getDate()} ${new Date(
+                          item.class_courses.folder.created_at
+                        ).getMonth()} ${new Date(
+                          item.class_courses.folder.created_at
+                        ).getFullYear()}`
+                      : ""
+                  }}
+                </td>
               </tr>
             </tbody>
           </table>
@@ -40,12 +55,25 @@
     </div>
 
     <!-- Add Form -->
-    <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div
+      class="modal fade"
+      id="addModal"
+      tabindex="-1"
+      role="dialog"
+      aria-hidden="true"
+    >
       <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title text-capitalize">{{this.modal_mode}} program</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <h5 class="modal-title text-capitalize">
+              {{ this.modal_mode }} program
+            </h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
@@ -55,7 +83,9 @@
               :key="e"
               class="alert alert-danger"
               role="alert"
-            >{{ error }}</div>
+            >
+              {{ error }}
+            </div>
             <div class="input-group mb-3">
               <div class="input-group-prepend">
                 <span class="input-group-text">Short Name</span>
@@ -70,44 +100,86 @@
             </div>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-            <button type="button" class="btn btn-primary" v-on:click="save()">Save</button>
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+            >
+              Cancel
+            </button>
+            <button type="button" class="btn btn-primary" v-on:click="save()">
+              Save
+            </button>
           </div>
         </div>
       </div>
     </div>
 
     <!-- Delete modal -->
-    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div
+      class="modal fade"
+      id="deleteModal"
+      tabindex="-1"
+      role="dialog"
+      aria-hidden="true"
+    >
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title">Confirm</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <div class="modal-body">Are you sure you want to delete this program?</div>
+          <div class="modal-body">
+            Are you sure you want to delete this program?
+          </div>
           <div class="modal-footer">
             <button
               type="button"
               class="btn btn-danger"
               id="deleteModalButton"
               @click="perform_delete()"
-            >Delete</button>
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            >
+              Delete
+            </button>
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+            >
+              Close
+            </button>
           </div>
         </div>
       </div>
     </div>
 
     <!-- Toast -->
-    <div style="position: absolute; bottom: 0; right: 0;" v-bind:class="toastClass">
-      <div class="toast m-5" role="alert" data-delay="5000" data-autohide="true">
+    <div
+      style="position: absolute; bottom: 0; right: 0"
+      v-bind:class="toastClass"
+    >
+      <div
+        class="toast m-5"
+        role="alert"
+        data-delay="5000"
+        data-autohide="true"
+      >
         <div class="toast-header" v-bind:class="toastClass">
           <strong class="mr-auto">{{ toastTitle }}</strong>
           <small class="text-muted ml-5">just now</small>
-          <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+          <button
+            type="button"
+            class="ml-2 mb-1 close"
+            data-dismiss="toast"
+            aria-label="Close"
+          >
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
@@ -131,10 +203,10 @@ export default {
       id: "",
       toastTitle: "",
       toastMessage: "",
-      toastClass: "d-none"
+      toastClass: "d-none",
     };
   },
-  mounted: function() {
+  mounted: function () {
     var localPermission = localStorage.getItem("permissions");
     if (localPermission != null) this.permissions = localPermission.split(",");
     this.list();
@@ -144,12 +216,12 @@ export default {
       let me = this;
       axios
         .get(me.base_path + "teacher/courses")
-        .then(response => {
+        .then((response) => {
           me.items = response.data.items;
           // console.log(me.items);
           me.loading = false;
         })
-        .catch(function(error) {
+        .catch(function (error) {
           me.loading = false;
         });
     },
@@ -171,7 +243,7 @@ export default {
       formData.set("full_name", me.full_name);
       axios
         .post(me.base_path + "program", formData, {})
-        .then(function(response) {
+        .then(function (response) {
           if (response.status == 200) {
             me.closeModal("addModal");
             me.list();
@@ -181,7 +253,7 @@ export default {
             $(".toast").toast("show");
           }
         })
-        .catch(function(error) {
+        .catch(function (error) {
           for (let key in error.response.data.errors) {
             if (error.response.data.errors.hasOwnProperty(key)) {
               me.errors.push(error.response.data.errors[key][0]);
@@ -214,7 +286,7 @@ export default {
 
       axios
         .post(me.base_path + "program/" + me.id, formData, {})
-        .then(function(response) {
+        .then(function (response) {
           if (response.status == 200) {
             me.closeModal("addModal");
             me.list();
@@ -224,7 +296,7 @@ export default {
             $(".toast").toast("show");
           }
         })
-        .catch(function(error) {
+        .catch(function (error) {
           for (let key in error.response.data.errors) {
             if (error.response.data.errors.hasOwnProperty(key)) {
               me.errors.push(error.response.data.errors[key][0]);
@@ -241,9 +313,9 @@ export default {
       me.errors = [];
       axios
         .post(me.base_path + "program/" + me.id, {
-          _method: "DELETE"
+          _method: "DELETE",
         })
-        .then(response => {
+        .then((response) => {
           if (response.status == 200) {
             me.closeModal("deleteModal");
             me.list();
@@ -253,14 +325,14 @@ export default {
             $(".toast").toast("show");
           }
         })
-        .catch(function(error) {
+        .catch(function (error) {
           for (let key in error.response.data.errors) {
             if (error.response.data.errors.hasOwnProperty(key)) {
               me.errors.push(error.response.data.errors[key][0]);
             }
           }
         });
-    }
-  }
+    },
+  },
 };
 </script>
