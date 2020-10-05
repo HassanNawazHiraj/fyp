@@ -17,6 +17,7 @@ class CreateFilesTable extends Migration
             $table->id();
             $table->bigInteger('folder_id');
             $table->string('name');
+            $table->string('filename', 255);
             $table->string('extension');
             $table->string('size');
             $table->boolean('status')->default(true);

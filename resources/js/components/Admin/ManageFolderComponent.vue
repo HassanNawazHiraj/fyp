@@ -3,7 +3,7 @@
     <div class="card shadow mb-4">
       <div class="card-header py-3">
         <h6 class="m-0 font-weight-bold text-primary">
-          Folder
+          Manage Course Folders
           <a
             href="#"
             class="btn btn-primary float-right btn-sm"
@@ -16,30 +16,24 @@
       </div>
       <div class="card-body">
         <div class="table-responsive">
-          <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+          <table class="table" id="dataTable" width="100%" cellspacing="0">
             <thead>
               <tr>
-                <th>#</th>
-                <th>Short Name</th>
-                <th>Full Name</th>
+                <th>Name</th>
+                <th>Owner</th>
+                <th>Created at</th>
+                <th>File size</th>
                 <th>Actions</th>
               </tr>
             </thead>
 
             <tbody>
               <tr v-for="item in items" :key="item.id">
-                <td>{{ item.id }}</td>
                 <td>{{ item.short_name }}</td>
                 <td>{{item.full_name}}</td>
+                <td></td>
+                <td></td>
                 <td>
-                  <button
-                    class="btn btn-primary btn-sm"
-                    data-toggle="modal"
-                    data-target="#add_update_modal"
-                    @click="edit(item)"
-                    v-if="permissions.includes('program_add')"
-                  >Edit</button>
-                  &nbsp;
                   <button
                     class="btn btn-danger btn-sm"
                     data-toggle="modal"
