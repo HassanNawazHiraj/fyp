@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\TeacherCourse;
 use App\Session;
 use Illuminate\Http\Request;
+use Auth;
 
 class TeacherCourseController extends Controller
 {
@@ -15,8 +16,15 @@ class TeacherCourseController extends Controller
      */
     public function index()
     {
-        //
+        //show all courses of the teacher
+        $id = Auth::user()->id;
+        $courses = TeacherCourse::with(["teacher","class_courses.course", "class_courses.folder"])
+        ->where("teacher_id", $id)->get();
+        return response(["items" => $courses]);
+
     }
+
+
 
     /**
      * Show the form for creating a new resource.

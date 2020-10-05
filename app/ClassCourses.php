@@ -18,4 +18,8 @@ class ClassCourses extends Model
     public function teacherCourse() {
         return $this->hasMany("App\TeacherCourse", "class_course_id", "id");
     }
+
+    public function folder() {
+        return $this->hasOne("App\Folder", "id", "folder_id");
+    }
 }

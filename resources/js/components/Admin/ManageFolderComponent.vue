@@ -22,26 +22,16 @@
                 <th>Name</th>
                 <th>Owner</th>
                 <th>Created at</th>
-                <th>File size</th>
-                <th>Actions</th>
               </tr>
             </thead>
 
             <tbody>
               <tr v-for="item in items" :key="item.id">
-                <td>{{ item.short_name }}</td>
-                <td>{{item.full_name}}</td>
-                <td></td>
-                <td></td>
-                <td>
-                  <button
-                    class="btn btn-danger btn-sm"
-                    data-toggle="modal"
-                    data-target="#delete_modal"
-                    @click="remove(item.id)"
-                    v-if="permissions.includes('program_delete')"
-                  >Delete</button>
-                </td>
+                <td><i class="fas fa-folder"></i> &nbsp;{{ item.class_courses.course.title }}</td>
+                <td>{{item.teacher.name}}</td>
+                <td>{{
+                    item.class_courses.folder?new Date(item.class_courses.folder.created_at).toDateString() :""
+                    }}</td>
               </tr>
             </tbody>
           </table>
@@ -153,7 +143,7 @@ export default {
     list() {
       let me = this;
       axios
-        .get(me.base_path + "program")
+        .get(me.base_path + "teacher/courses")
         .then(response => {
           me.items = response.data.items;
           // console.log(me.items);
