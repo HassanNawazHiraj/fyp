@@ -4,15 +4,7 @@
       <div class="card-header py-3">
         <h6 class="m-0 font-weight-bold text-primary">
           Manage Course Folders
-          <a
-            href="#"
-            class="btn btn-primary float-right btn-sm"
-            data-toggle="modal"
-            data-target="#addModal"
-            v-on:click="add()"
-            v-if="permissions.includes('folder_add')"
-            >Add</a
-          >
+
         </h6>
       </div>
       <div class="card-body">
@@ -21,6 +13,7 @@
             <thead>
               <tr>
                 <th>Name</th>
+                <th>Type</th>
                 <th>Owner</th>
                 <th>Created at</th>
               </tr>
@@ -33,17 +26,18 @@
                     item.class_courses.course.title
                   }}
                 </td>
+                <td>
+                    <span class="badge badge-primary text-center">
+                    {{ item.course_type }}
+                  </span>
+                </td>
                 <td>{{ item.teacher.name }}</td>
                 <td>
                   {{
                     item.class_courses.folder
-                      ? `${new Date(
+                      ? new Date(
                           item.class_courses.folder.created_at
-                        ).getDate()} ${new Date(
-                          item.class_courses.folder.created_at
-                        ).getMonth()} ${new Date(
-                          item.class_courses.folder.created_at
-                        ).getFullYear()}`
+                        ).toLocaleString()
                       : ""
                   }}
                 </td>
