@@ -19,7 +19,9 @@
             <tbody>
               <tr v-for="item in items" :key="item.id">
                 <td>
-                  <router-link :to="`/portal/view/${item.class_courses.folder_name}`">
+                  <router-link
+                    :to="`/portal/view/${item.class_courses.folder_name}`"
+                  >
                     <i class="fas fa-folder"></i> &nbsp;{{
                       item.class_courses.course.title
                     }}
@@ -36,13 +38,7 @@
                 </td>
                 <td>{{ item.teacher.name }}</td>
                 <td>
-                  {{
-                    item.class_courses.folder
-                      ? new Date(
-                          item.class_courses.folder.created_at
-                        ).toLocaleString()
-                      : ""
-                  }}
+                  {{ new Date(item.class_courses.created_at).toLocaleString() }}
                 </td>
               </tr>
             </tbody>
