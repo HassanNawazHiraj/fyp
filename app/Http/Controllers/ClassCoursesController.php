@@ -7,6 +7,8 @@ use App\ClassCourses;
 use App\ClassModel;
 use App\Course;
 use App\Session;
+use Illuminate\Support\Facades\File;
+
 class ClassCoursesController extends Controller
 {
     /**
@@ -56,12 +58,20 @@ class ClassCoursesController extends Controller
         } else {
             $current_session = Session::where("active", 1)->first()->id;
         }
+        $folder_name = "s" . $current_session . "-class" . $request->class_id . "-course" . $request->course_id . "-" .sha1(time());
+
+        File::copyDirectory("../storage/app/theory", "../storage/app/data/" . $folder_name);
+        if($request->has_lab) {
+            File::copyDirectory("../storage/app/lab", "../storage/app/data/" . $folder_name . "-l");
+        }
+
 
         $c = new ClassCourses();
         $c->class_id = $request->class_id;
         $c->course_id = $request->course_id;
         $c->has_lab = $request->has_lab;
         $c->session_id = $current_session;
+        $c->folder_name = $folder_name;
         $c->save();
         return response()->json($request, 200);
     }

@@ -19,9 +19,15 @@
             <tbody>
               <tr v-for="item in items" :key="item.id">
                 <td>
-                  <i class="fas fa-folder"></i> &nbsp;{{
-                    item.class_courses.course.title
-                  }}
+                  <router-link :to="`/portal/view/${item.class_courses.folder_name}`">
+                    <i class="fas fa-folder"></i> &nbsp;{{
+                      item.class_courses.course.title
+                    }}
+                    &nbsp; [{{ item.class_courses.class.batch.season
+                    }}{{ item.class_courses.class.batch.year }}-{{
+                      item.class_courses.class.program.short_name
+                    }}-{{ item.class_courses.class.section }}]
+                  </router-link>
                 </td>
                 <td>
                   <span class="badge badge-primary text-center">

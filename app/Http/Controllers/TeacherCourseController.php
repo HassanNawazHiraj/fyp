@@ -23,7 +23,7 @@ class TeacherCourseController extends Controller
         }
         //show all courses of the teacher
         $id = Auth::user()->id;
-        $courses = TeacherCourse::with(["teacher","class_courses.course", "class_courses.folder"])
+        $courses = TeacherCourse::with(["teacher","class_courses.course", "class_courses.folder", "class_courses.class.batch", "class_courses.class.program"])
         ->where("teacher_id", $id)->where("session_id", $current_session)->get();
         return response(["items" => $courses]);
 
