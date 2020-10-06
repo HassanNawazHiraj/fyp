@@ -14,7 +14,7 @@ class AddFolderIdToClassCourses extends Migration
     public function up()
     {
         Schema::table('class_courses', function (Blueprint $table) {
-            $table->bigInteger('folder_id')->default(0);
+            $table->string('folder_name')->default(null);
         });
     }
 
