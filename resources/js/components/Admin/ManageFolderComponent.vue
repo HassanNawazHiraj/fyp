@@ -2,10 +2,7 @@
   <div class="container-fluid">
     <div class="card shadow mb-4">
       <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">
-          Manage Course Folders
-
-        </h6>
+        <h6 class="m-0 font-weight-bold text-primary">Manage Course Folders</h6>
       </div>
       <div class="card-body">
         <div class="table-responsive">
@@ -27,7 +24,7 @@
                   }}
                 </td>
                 <td>
-                    <span class="badge badge-primary text-center">
+                  <span class="badge badge-primary text-center">
                     {{ item.course_type }}
                   </span>
                 </td>
@@ -185,6 +182,13 @@
 
 <script>
 export default {
+  props: ["selectedSession"],
+  watch: {
+    selectedSession: function (val, oldVal) {
+      //console.log("new :" , val.id , " | old : " , oldVal.id);
+      this.list(val.id);
+    },
+  },
   data() {
     return {
       permissions: [],
@@ -203,13 +207,17 @@ export default {
   mounted: function () {
     var localPermission = localStorage.getItem("permissions");
     if (localPermission != null) this.permissions = localPermission.split(",");
-    this.list();
+    this.list(this.selectedSession.id);
   },
   methods: {
-    list() {
+    list(s = 0) {
       let me = this;
+      let path = me.base_path + "teacher/courses";
+      if (s !== 0) {
+        path += "?session=" + s;
+      }
       axios
-        .get(me.base_path + "teacher/courses")
+        .get(path)
         .then((response) => {
           me.items = response.data.items;
           // console.log(me.items);

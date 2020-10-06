@@ -14,12 +14,17 @@ class TeacherCourseController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        if($request->session) {
+            $current_session = $request->session;
+        } else {
+            $current_session = Session::where("active", 1)->first()->id;
+        }
         //show all courses of the teacher
         $id = Auth::user()->id;
         $courses = TeacherCourse::with(["teacher","class_courses.course", "class_courses.folder"])
-        ->where("teacher_id", $id)->get();
+        ->where("teacher_id", $id)->where("session_id", $current_session)->get();
         return response(["items" => $courses]);
 
     }
