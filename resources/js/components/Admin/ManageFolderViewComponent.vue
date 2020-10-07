@@ -17,43 +17,32 @@
 
             <tbody>
               <tr v-for="folder in folders" :key="folder">
+                <td><i class="fas fa-folder"></i> &nbsp;{{ folder }}</td>
                 <td>
-                    <i class="fas fa-folder"></i> &nbsp;{{
-                      folder
-                    }}
-
+                  <span class="badge badge-primary text-center"> Folder </span>
                 </td>
                 <td>
-                  <span class="badge badge-primary text-center">
-                    Folder
-                  </span>
-                </td>
-                <td>
-                    <i class="fa fa-pen fa-lg" aria-hidden="true"
+                  <i
+                    class="fa fa-pen fa-lg btn-icon btn-icon-primary"
+                    aria-hidden="true"
                     data-toggle="modal"
                     data-target="#add_update_modal"
                     @click="edit(folder)"
-                    ></i>&nbsp;
-                    <i class="fa fa-trash fa-lg" aria-hidden="true"></i>
+                  ></i
+                  >&nbsp;
+                  <i class="fa fa-trash fa-lg" aria-hidden="true"></i>
                 </td>
               </tr>
 
               <tr v-for="file in files" :key="file">
+                <td><i class="fas fa-file"></i> &nbsp;{{ file }}</td>
                 <td>
-                    <i class="fas fa-file"></i> &nbsp;{{
-                      file
-                    }}
-
+                  <span class="badge badge-primary text-center"> File </span>
                 </td>
                 <td>
-                  <span class="badge badge-primary text-center">
-                    File
-                  </span>
-                </td>
-                <td>
-                    <i class="fa fa-download fa-lg" aria-hidden="true"></i> &nbsp;
-                    <i class="fa fa-pen fa-lg" aria-hidden="true"></i>&nbsp;
-                    <i class="fa fa-trash fa-lg" aria-hidden="true"></i>&nbsp;
+                  <i class="fa fa-download fa-lg" aria-hidden="true"></i> &nbsp;
+                  <i class="fa fa-pen fa-lg" aria-hidden="true"></i>&nbsp;
+                  <i class="fa fa-trash fa-lg" aria-hidden="true"></i>&nbsp;
                 </td>
               </tr>
             </tbody>
@@ -73,9 +62,7 @@
       <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title text-capitalize">
-               Rename
-            </h5>
+            <h5 class="modal-title text-capitalize">Rename</h5>
             <button
               type="button"
               class="close"
@@ -98,7 +85,11 @@
               <div class="input-group-prepend">
                 <span class="input-group-text">Name</span>
               </div>
-              <input type="text" class="form-control" v-model="current_rename" />
+              <input
+                type="text"
+                class="form-control"
+                v-model="current_rename"
+              />
             </div>
           </div>
           <div class="modal-footer">
@@ -353,3 +344,12 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.btn-icon {
+  cursor: pointer;
+}
+.btn-icon-primary:hover {
+  color: #007bff;
+}
+</style>
