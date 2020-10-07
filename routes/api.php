@@ -50,8 +50,11 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::resource("session", "SessionController");
 
 
-    //folder
+    //show links to folders for courses of teacher
     Route::get("teacher/courses", "TeacherCourseController@index");
+
+    //files & folders
+    Route::get("/folder/{name}", "FolderController@index");
 });
 
 
