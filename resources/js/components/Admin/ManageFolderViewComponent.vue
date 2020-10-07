@@ -30,7 +30,10 @@
                     @click="edit(folder)"
                   ></i
                   >&nbsp;
-                  <i class="fa fa-trash fa-lg" aria-hidden="true"></i>
+                  <i
+                    class="fa fa-trash fa-lg btn-icon btn-icon-danger"
+                    aria-hidden="true"
+                  ></i>
                 </td>
               </tr>
 
@@ -40,9 +43,21 @@
                   <span class="badge badge-primary text-center"> File </span>
                 </td>
                 <td>
-                  <i class="fa fa-download fa-lg" aria-hidden="true"></i> &nbsp;
-                  <i class="fa fa-pen fa-lg" aria-hidden="true"></i>&nbsp;
-                  <i class="fa fa-trash fa-lg" aria-hidden="true"></i>&nbsp;
+                  <i
+                    class="fa fa-download fa-lg btn-icon btn-icon-primary"
+                    aria-hidden="true"
+                  ></i>
+                  &nbsp;
+                  <i
+                    class="fa fa-pen fa-lg btn-icon btn-icon-primary"
+                    aria-hidden="true"
+                  ></i
+                  >&nbsp;
+                  <i
+                    class="fa fa-trash fa-lg btn-icon btn-icon-danger"
+                    aria-hidden="true"
+                  ></i
+                  >&nbsp;
                 </td>
               </tr>
             </tbody>
@@ -351,5 +366,8 @@ export default {
 }
 .btn-icon-primary:hover {
   color: #007bff;
+}
+.btn-icon-danger:hover {
+  color: #dc3545;
 }
 </style>
