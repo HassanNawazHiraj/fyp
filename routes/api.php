@@ -55,6 +55,8 @@ Route::group(['middleware' => 'auth:api'], function () {
 
     //files & folders
     Route::get("/folder/{name}", "FolderController@index");
+    Route::post("/folder/{name}/rename", "FolderController@rename");
+    Route::post("/folder/{name}/delete", "FolderController@delete");
+
 });
-
-
+Route::get("/folder/{name}/{path}/{file_name}/download", "FolderController@download");

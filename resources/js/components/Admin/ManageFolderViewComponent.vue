@@ -27,12 +27,15 @@
                     aria-hidden="true"
                     data-toggle="modal"
                     data-target="#add_update_modal"
-                    @click="edit(folder)"
+                    @click="edit(folder, 'folder')"
                   ></i
                   >&nbsp;
                   <i
                     class="fa fa-trash fa-lg btn-icon btn-icon-danger"
                     aria-hidden="true"
+                    data-toggle="modal"
+                    data-target="#delete_modal"
+                    @click="remove(folder)"
                   ></i>
                 </td>
               </tr>
@@ -45,17 +48,24 @@
                 <td>
                   <i
                     class="fa fa-download fa-lg btn-icon btn-icon-primary"
+                    @click="download(file)"
                     aria-hidden="true"
                   ></i>
                   &nbsp;
                   <i
                     class="fa fa-pen fa-lg btn-icon btn-icon-primary"
                     aria-hidden="true"
+                    data-toggle="modal"
+                    data-target="#add_update_modal"
+                    @click="edit(file, 'file')"
                   ></i
                   >&nbsp;
                   <i
                     class="fa fa-trash fa-lg btn-icon btn-icon-danger"
                     aria-hidden="true"
+                    data-toggle="modal"
+                    data-target="#delete_modal"
+                    @click="remove(file)"
                   ></i
                   >&nbsp;
                 </td>
@@ -221,13 +231,18 @@ export default {
       toastTitle: "",
       toastMessage: "",
       toastClass: "d-none",
+      main_folder: "",
       current_folder: "",
+      current_file: "",
+      current_delete: "",
+      current_type: "",
+      //this array stores the current folder level
       current_position: [],
       current_rename: "",
     };
   },
   mounted: function () {
-    this.current_folder = this.$route.params.folder;
+    this.main_folder = this.$route.params.folder;
     var localPermission = localStorage.getItem("permissions");
     if (localPermission != null) this.permissions = localPermission.split(",");
     this.list();
@@ -235,7 +250,7 @@ export default {
   methods: {
     list(s = 0) {
       let me = this;
-      let path = me.base_path + "folder/" + this.current_folder;
+      let path = me.base_path + "folder/" + this.main_folder;
       if (s !== 0) {
         path += "?session=" + s;
       }
@@ -261,60 +276,47 @@ export default {
       $("body").removeClass("modal-open");
       $(".modal-backdrop").remove();
     },
-    create() {
-      let me = this;
-      me.errors = [];
-      let formData = new FormData();
-      formData.set("short_name", me.short_name);
-      formData.set("full_name", me.full_name);
-      axios
-        .post(me.base_path + "program", formData, {})
-        .then(function (response) {
-          if (response.status == 200) {
-            me.closeModal("addModal");
-            me.list();
-            me.toastTitle = "Add";
-            me.toastMessage = "Program added successfully";
-            me.toastClass = "d-block";
-            $(".toast").toast("show");
-          }
-        })
-        .catch(function (error) {
-          for (let key in error.response.data.errors) {
-            if (error.response.data.errors.hasOwnProperty(key)) {
-              me.errors.push(error.response.data.errors[key][0]);
-            }
-          }
-        });
-    },
-
     save() {
-      if (this.modal_mode == "add") {
-        this.create();
-      } else {
-        this.update();
-      }
+      this.update();
     },
-    edit(item) {
+    edit(item, type) {
       this.current_rename = item;
+      this.current_type = type;
+      if (type == "file") {
+        this.current_file = item;
+      } else {
+        this.current_folder = item;
+      }
+
       $("#addModal").modal("show");
     },
     update() {
       let me = this;
       me.errors = [];
       let formData = new FormData();
-      formData.set("short_name", me.short_name);
-      formData.set("full_name", me.full_name);
-      formData.set("_method", "PUT");
+      formData.set("path", me.current_position);
+
+      if (me.current_type == "folder") {
+        formData.set("old_name", me.current_folder);
+      } else {
+        formData.set("old_name", me.current_file);
+      }
+
+      formData.set("new_name", me.current_rename);
+      formData.set("type", me.current_type);
 
       axios
-        .post(me.base_path + "program/" + me.id, formData, {})
+        .post(
+          me.base_path + "folder/" + me.main_folder + "/rename",
+          formData,
+          {}
+        )
         .then(function (response) {
           if (response.status == 200) {
             me.closeModal("addModal");
             me.list();
-            me.toastTitle = "Update";
-            me.toastMessage = "Program updated successfully";
+            me.toastTitle = "Rename";
+            me.toastMessage = "Updated successfully";
             me.toastClass = "d-block";
             $(".toast").toast("show");
           }
@@ -327,23 +329,30 @@ export default {
           }
         });
     },
-    remove(id) {
-      this.id = id;
+    remove(item) {
+      this.current_delete = item;
       $("#deleteModal").modal("show");
     },
     perform_delete() {
       let me = this;
       me.errors = [];
+      let formData = new FormData();
+      formData.set("path", me.current_position);
+
+      formData.set("file_name", me.current_delete);
+
       axios
-        .post(me.base_path + "program/" + me.id, {
-          _method: "DELETE",
-        })
-        .then((response) => {
+        .post(
+          me.base_path + "folder/" + me.main_folder + "/delete",
+          formData,
+          {}
+        )
+        .then(function (response) {
           if (response.status == 200) {
             me.closeModal("deleteModal");
             me.list();
             me.toastTitle = "Delete";
-            me.toastMessage = "Program deleted successfully";
+            me.toastMessage = "Deleted successfully";
             me.toastClass = "d-block";
             $(".toast").toast("show");
           }
@@ -355,6 +364,16 @@ export default {
             }
           }
         });
+    },
+    download(current_download) {
+      let me = this;
+      me.errors = [];
+      let formData = new FormData();
+
+        var path = encodeURI(JSON.stringify(me.current_position));
+        var file_name = encodeURI(current_download);
+
+      window.location = me.base_path + "folder/" + me.main_folder + "/" + path + "/" + file_name +"/download";
     },
   },
 };
