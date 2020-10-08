@@ -14,11 +14,19 @@ class FolderController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($name)
+    public function index($name, $path)
     {
+        $full_path = $name;
+        $path = json_decode($path);
 
-        $files = Storage::disk('local')->files("data/" . $name);
-        $folders = Storage::disk('local')->directories("data/" . $name);
+        if (isset($path) && is_array($path) && count($path) > 0) {
+            foreach ($path as $p) {
+                $full_path .= "/" . $p;
+            }
+        }
+
+        $files = Storage::disk('local')->files("data/" . $full_path);
+        $folders = Storage::disk('local')->directories("data/" . $full_path);
 
         //get rid of other paths in both files and folder
         for ($f = 0; $f < count($folders); $f++) {
@@ -89,13 +97,12 @@ class FolderController extends Controller
     public function download($name, $path, $file_name, Request $r)
     {
         $full_path = $name;
+        $path = json_decode($path);
 
         if (isset($path) && is_array($path) && count($path) > 0) {
-
             foreach ($path as $p) {
-                $full_path .= $p . "/";
+                $full_path .= "/" . $p;
             }
-
         }
 
         return Storage::download("data/" . $full_path . "/" . $file_name);

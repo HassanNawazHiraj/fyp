@@ -17,7 +17,9 @@
 
             <tbody>
               <tr v-for="folder in folders" :key="folder">
-                <td><i class="fas fa-folder"></i> &nbsp;{{ folder }}</td>
+                <td class="link-folder" @click="open_folder(folder)">
+                  <i class="fas fa-folder"></i> &nbsp;{{ folder }}
+                </td>
                 <td>
                   <span class="badge badge-primary text-center"> Folder </span>
                 </td>
@@ -249,6 +251,7 @@ export default {
       //this array stores the current folder level
       current_position: [],
       current_rename: "",
+      clicked_file: "",
     };
   },
   mounted: function () {
@@ -260,7 +263,16 @@ export default {
   methods: {
     list(s = 0) {
       let me = this;
-      let path = me.base_path + "folder/" + this.main_folder;
+
+      let path =
+        me.base_path +
+        "folder/" +
+        encodeURI(me.main_folder) +
+        "/" +
+        encodeURI(JSON.stringify(me.current_position)) +
+        "/" +
+        encodeURI(me.clicked_file);
+
       if (s !== 0) {
         path += "?session=" + s;
       }
@@ -269,7 +281,6 @@ export default {
         .then((response) => {
           me.files = response.data.files;
           me.folders = response.data.folders;
-          // console.log(me.items);
           me.loading = false;
         })
         .catch(function (error) {
@@ -378,8 +389,6 @@ export default {
     },
     download(current_download) {
       let me = this;
-      me.errors = [];
-      let formData = new FormData();
 
       var path = encodeURI(JSON.stringify(me.current_position));
       var file_name = encodeURI(current_download);
@@ -394,6 +403,10 @@ export default {
         file_name +
         "/download";
     },
+    open_folder(folder) {
+      this.current_position.push(folder);
+      this.list();
+    },
   },
 };
 </script>
@@ -407,5 +420,12 @@ export default {
 }
 .btn-icon-danger:hover {
   color: #dc3545;
+}
+.link-folder {
+  cursor: pointer;
+}
+.link-folder:hover {
+  color: #007bff;
+  text-decoration: underline;
 }
 </style>
