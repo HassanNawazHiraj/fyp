@@ -7,6 +7,7 @@ import router from "./router.js";
 import Auth from "./packages/Auth.js";
 import Vuesax from "vuesax";
 import "material-icons/iconfont/material-icons.css";
+import "vuesax/dist/vuesax.css";
 // import BackendService from "./services/backend-service";
 
 // const backendService = new BackendService();

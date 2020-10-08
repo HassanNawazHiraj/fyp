@@ -2,28 +2,30 @@
   <div class="container-fluid">
     <div class="card shadow mb-4">
       <div class="card-header py-3">
-          <div class="row">
-              <div class="col">
-                  <h6 class="m-0 font-weight-bold text-primary">Manage Course Folders</h6>
-              </div>
-              <div class="col">
-                  <button class="btn btn-outline-primary btn-sm float-right"><i class="fa fa-upload" aria-hidden="true"></i> &nbsp; Upload</button>
-              </div>
+        <div class="row">
+          <div class="col">
+            <h6 class="m-0 font-weight-bold text-primary">
+              Manage Course Folders
+            </h6>
           </div>
-
-
+          <div class="col">
+            <button
+              class="btn btn-outline-primary btn-sm float-right"
+              @click="upload()"
+            >
+              <i class="fa fa-upload" aria-hidden="true"></i> &nbsp; Upload
+            </button>
+          </div>
+        </div>
       </div>
       <div class="card-body">
-        <div
-          v-if="this.current_position.length > 0"
-          class="text-dark mb-1"
-        >
+        <div v-if="this.current_position.length > 0" class="text-dark mb-1">
           &nbsp;Current Folder :<b>
-          {{
-            this.current_position.length === 0
-              ? ""
-              : this.current_position[this.current_position.length - 1]
-          }}
+            {{
+              this.current_position.length === 0
+                ? ""
+                : this.current_position[this.current_position.length - 1]
+            }}
           </b>
         </div>
         <div class="table-responsive">
@@ -227,7 +229,7 @@
       role="dialog"
       aria-hidden="true"
     >
-      <div class="modal-dialog" role="document">
+      <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title">Upload</h5>
@@ -241,24 +243,11 @@
             </button>
           </div>
           <div class="modal-body">
-            <vs-upload multiple text="Upload Multiple" />
-          </div>
-          <div class="modal-footer">
-            <button
-              type="button"
-              class="btn btn-danger"
-              id="deleteModalButton"
-              @click="perform_delete()"
-            >
-              Delete
-            </button>
-            <button
-              type="button"
-              class="btn btn-secondary"
-              data-dismiss="modal"
-            >
-              Close
-            </button>
+            <vs-upload
+              multiple
+              text="Upload Multiple"
+              :action="this.base_path + 'folder/upload'"
+            />
           </div>
         </div>
       </div>
@@ -486,6 +475,9 @@ export default {
     move_back() {
       this.current_position.pop();
       this.list();
+    },
+    upload() {
+      $("#uploadModal").modal("show");
     },
   },
 };
