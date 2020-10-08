@@ -2,19 +2,29 @@
   <div class="container-fluid">
     <div class="card shadow mb-4">
       <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">Manage Course Folders</h6>
+          <div class="row">
+              <div class="col">
+                  <h6 class="m-0 font-weight-bold text-primary">Manage Course Folders</h6>
+              </div>
+              <div class="col">
+                  <button class="btn btn-outline-primary btn-sm float-right"><i class="fa fa-upload" aria-hidden="true"></i> &nbsp; Upload</button>
+              </div>
+          </div>
+
+
       </div>
       <div class="card-body">
         <div
           v-if="this.current_position.length > 0"
-          class="my-2 border rounded py-2"
+          class="text-dark mb-1"
         >
-          <i class="fas fa-folder ml-3" />
+          &nbsp;Current Folder :<b>
           {{
             this.current_position.length === 0
               ? ""
               : this.current_position[this.current_position.length - 1]
           }}
+          </b>
         </div>
         <div class="table-responsive">
           <table class="table" id="dataTable" width="100%" cellspacing="0">
