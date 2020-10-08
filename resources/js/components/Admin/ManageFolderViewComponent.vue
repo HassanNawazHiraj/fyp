@@ -35,7 +35,7 @@
                     aria-hidden="true"
                     data-toggle="modal"
                     data-target="#delete_modal"
-                    @click="remove(folder)"
+                    @click="remove(folder, 'folder')"
                   ></i>
                 </td>
               </tr>
@@ -65,7 +65,7 @@
                     aria-hidden="true"
                     data-toggle="modal"
                     data-target="#delete_modal"
-                    @click="remove(file)"
+                    @click="remove(file, 'file')"
                   ></i
                   >&nbsp;
                 </td>
@@ -155,7 +155,16 @@
             </button>
           </div>
           <div class="modal-body">
-            Are you sure you want to delete this program?
+            Are you sure you want to delete this {{ this.current_delete_type }}?
+            <br />
+            <span v-if="current_delete_type === 'file'"
+              ><i class="fas fa-file"></i> &nbsp;{{ this.current_delete }}</span
+            >
+            <sapn v-if="current_delete_type === 'folder'"
+              ><i class="fas fa-folder"></i> &nbsp;{{
+                this.current_delete
+              }}</sapn
+            >
           </div>
           <div class="modal-footer">
             <button
@@ -235,6 +244,7 @@ export default {
       current_folder: "",
       current_file: "",
       current_delete: "",
+      current_delete_type: "",
       current_type: "",
       //this array stores the current folder level
       current_position: [],
@@ -329,8 +339,9 @@ export default {
           }
         });
     },
-    remove(item) {
+    remove(item, type) {
       this.current_delete = item;
+      this.current_delete_type = type;
       $("#deleteModal").modal("show");
     },
     perform_delete() {
@@ -370,10 +381,18 @@ export default {
       me.errors = [];
       let formData = new FormData();
 
-        var path = encodeURI(JSON.stringify(me.current_position));
-        var file_name = encodeURI(current_download);
+      var path = encodeURI(JSON.stringify(me.current_position));
+      var file_name = encodeURI(current_download);
 
-      window.location = me.base_path + "folder/" + me.main_folder + "/" + path + "/" + file_name +"/download";
+      window.location =
+        me.base_path +
+        "folder/" +
+        me.main_folder +
+        "/" +
+        path +
+        "/" +
+        file_name +
+        "/download";
     },
   },
 };
