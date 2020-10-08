@@ -51,12 +51,12 @@ class FolderController extends Controller
         $new = $request->new_name;
 
         $full_path = $name;
+        $path = json_decode($path);
+
         if (isset($path) && is_array($path) && count($path) > 0) {
-            $full_path = "";
             foreach ($path as $p) {
-                $full_path .= $p . "/";
+                $full_path .= "/" . $p;
             }
-            $full_path .= $name;
         }
 
         Storage::disk("local")->rename("data/" . $full_path . "/" . $old, "data/" . $full_path . "/" . $new);
@@ -66,15 +66,14 @@ class FolderController extends Controller
     {
         $path = $request->path;
         $file_name = $request->file_name;
-
+        
         $full_path = $name;
+        $path = json_decode($path);
 
         if (isset($path) && is_array($path) && count($path) > 0) {
-            $full_path = "";
             foreach ($path as $p) {
-                $full_path .= $p . "/";
+                $full_path .= "/" . $p;
             }
-            $full_path .= $name;
         }
 
         $to_delete = storage_path("app\\") . "data\\" . $full_path . "\\" . $file_name;

@@ -5,6 +5,17 @@
         <h6 class="m-0 font-weight-bold text-primary">Manage Course Folders</h6>
       </div>
       <div class="card-body">
+        <div
+          v-if="this.current_position.length > 0"
+          class="my-2 border rounded py-2"
+        >
+          <i class="fas fa-folder ml-3" />
+          {{
+            this.current_position.length === 0
+              ? ""
+              : this.current_position[this.current_position.length - 1]
+          }}
+        </div>
         <div class="table-responsive">
           <table class="table" id="dataTable" width="100%" cellspacing="0">
             <thead>
@@ -16,6 +27,15 @@
             </thead>
 
             <tbody>
+              <tr>
+                <td
+                  v-if="current_position.length > 0"
+                  class="btn-icon btn-icon-primary"
+                  @click="move_back()"
+                >
+                  <i class="fa fa-chevron-left" aria-hidden="true" /> back
+                </td>
+              </tr>
               <tr v-for="folder in folders" :key="folder">
                 <td class="link-folder" @click="open_folder(folder)">
                   <i class="fas fa-folder"></i> &nbsp;{{ folder }}
@@ -315,7 +335,8 @@ export default {
       let me = this;
       me.errors = [];
       let formData = new FormData();
-      formData.set("path", me.current_position);
+      console.log(me.current_position);
+      formData.set("path", JSON.stringify(me.current_position));
 
       if (me.current_type == "folder") {
         formData.set("old_name", me.current_folder);
@@ -359,7 +380,7 @@ export default {
       let me = this;
       me.errors = [];
       let formData = new FormData();
-      formData.set("path", me.current_position);
+      formData.set("path", JSON.stringify(me.current_position));
 
       formData.set("file_name", me.current_delete);
 
@@ -405,6 +426,10 @@ export default {
     },
     open_folder(folder) {
       this.current_position.push(folder);
+      this.list();
+    },
+    move_back() {
+      this.current_position.pop();
       this.list();
     },
   },
