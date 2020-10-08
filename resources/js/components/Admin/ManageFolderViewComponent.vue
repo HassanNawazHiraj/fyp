@@ -2,7 +2,16 @@
   <div class="container-fluid">
     <div class="card shadow mb-4">
       <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">Manage Course Folders</h6>
+          <div class="row">
+              <div class="col">
+                  <h6 class="m-0 font-weight-bold text-primary">Manage Course Folders</h6>
+              </div>
+              <div class="col">
+                  <button class="btn btn-outline-primary btn-sm float-right"><i class="fa fa-upload" aria-hidden="true"></i> &nbsp; Upload</button>
+              </div>
+          </div>
+
+
       </div>
       <div class="card-body">
         <div
