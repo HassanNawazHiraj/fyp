@@ -229,7 +229,7 @@
       role="dialog"
       aria-hidden="true"
     >
-      <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title">Upload</h5>
@@ -247,6 +247,7 @@
               multiple
               text="Upload Multiple"
               :action="this.base_path + 'folder/upload'"
+              :headers="header"
             />
           </div>
         </div>
@@ -316,6 +317,9 @@ export default {
       current_position: [],
       current_rename: "",
       clicked_file: "",
+      header: {
+        Authorization: "Bearer " + localStorage.getItem("token"),
+      },
     };
   },
   mounted: function () {
