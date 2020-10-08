@@ -7,14 +7,15 @@
       <div class="card-body">
         <div
           v-if="this.current_position.length > 0"
-          class="my-2 border rounded py-2"
+          class="text-dark mb-1"
         >
-          <i class="fas fa-folder ml-3" />
+          &nbsp;Current Folder :<b>
           {{
             this.current_position.length === 0
               ? ""
               : this.current_position[this.current_position.length - 1]
           }}
+          </b>
         </div>
         <div class="table-responsive">
           <table class="table" id="dataTable" width="100%" cellspacing="0">
