@@ -81,17 +81,22 @@ class FolderController extends Controller
         if (is_dir($to_delete)) {
 
             //folder
-            $files = array_diff(scandir($to_delete), array('.', '..'));
-
-            foreach ($files as $file) {
-                (is_dir("$to_delete/$file")) ? delTree("$to_delete/$file") : unlink("$to_delete/$file");
-            }
-
-            return rmdir($to_delete);
+            return $this->delTree($to_delete);
         } else {
             //files
             return unlink($to_delete);
         }
+    }
+
+    public function delTree($to_delete)
+    {
+        $files = array_diff(scandir($to_delete), array('.', '..'));
+
+        foreach ($files as $file) {
+            (is_dir("$to_delete/$file")) ? $this->delTree("$to_delete/$file") : unlink("$to_delete/$file");
+        }
+
+        return rmdir($to_delete);
     }
 
     public function download($name, $path, $file_name, Request $r)
@@ -106,7 +111,5 @@ class FolderController extends Controller
         }
 
         return Storage::download("data/" . $full_path . "/" . $file_name);
-
-
     }
 }
