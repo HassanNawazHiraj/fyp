@@ -20,7 +20,7 @@
               <tr v-for="item in items" :key="item.id">
                 <td>
                   <router-link
-                    :to="`/portal/view/${item.class_courses.folder_name}`"
+                    :to="`/portal/view/${item.class_courses.folder_name}${((item.course_type == 'lab'))?'-l':''}`"
                   >
                     <i class="fas fa-folder"></i> &nbsp;{{
                       item.class_courses.course.title
