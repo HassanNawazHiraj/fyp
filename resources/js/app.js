@@ -5,16 +5,14 @@ import Vue from "vue";
 import App from "./App.vue";
 import router from "./router.js";
 import Auth from "./packages/Auth.js";
-import Vuesax from "vuesax";
-import "material-icons/iconfont/material-icons.css";
-import "vuesax/dist/vuesax.css";
+import uploader from "vue-simple-uploader";
 // import BackendService from "./services/backend-service";
 
 // const backendService = new BackendService();
 // Vue.prototype.$backendService = backendService;
 
 Vue.use(Auth);
-Vue.use(Vuesax);
+Vue.use(uploader);
 
 window.axios = require("axios");
 window.axios.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";

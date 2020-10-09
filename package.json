@@ -24,10 +24,9 @@
         "vue-template-compiler": "^2.6.10"
     },
     "dependencies": {
-        "material-icons": "^0.3.1",
         "vue-router": "^3.3.2",
         "vue-select": "^3.10.7",
-        "vuedraggable": "^2.23.2",
-        "vuesax": "^3.12.2"
+        "vue-simple-uploader": "^0.7.5",
+        "vuedraggable": "^2.23.2"
     }
 }

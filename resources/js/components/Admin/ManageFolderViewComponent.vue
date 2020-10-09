@@ -243,12 +243,25 @@
             </button>
           </div>
           <div class="modal-body">
-            <vs-upload
-              multiple
-              text="Upload Multiple"
-              :action="this.base_path + 'folder/upload'"
-              :headers="header"
-            />
+            <uploader
+              :options="{
+                target:
+                  '/api/folder/upload/' +
+                  encodeURI(JSON.stringify(this.current_position)),
+                testChunks: false,
+                headers: this.headers,
+              }"
+              :autoStart="false"
+              class="uploader-example"
+            >
+              <uploader-unsupport></uploader-unsupport>
+              <uploader-drop>
+                <p>Drop files here to upload or</p>
+                <uploader-btn>select files</uploader-btn>
+                <uploader-btn :directory="true">select folder</uploader-btn>
+              </uploader-drop>
+              <uploader-list></uploader-list>
+            </uploader>
           </div>
         </div>
       </div>
@@ -317,7 +330,10 @@ export default {
       current_position: [],
       current_rename: "",
       clicked_file: "",
-      header: {
+      attrs: {
+        accept: "image/*",
+      },
+      headers: {
         Authorization: "Bearer " + localStorage.getItem("token"),
       },
     };
