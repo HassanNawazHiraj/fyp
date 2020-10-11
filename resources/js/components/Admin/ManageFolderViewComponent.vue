@@ -244,6 +244,7 @@
           </div>
           <div class="modal-body">
             <uploader
+             ref="uploader"
               :options="{
                 target: '/api/folder/upload',
                 testChunks: false,
@@ -344,6 +345,8 @@ export default {
       },
       complete: () => {
         this.list();
+        const uploaderInstance = this.$refs.uploader.uploader;
+        uploaderInstance.cancel();
       },
     };
   },
@@ -356,6 +359,7 @@ export default {
   },
   methods: {
     list(s = 0) {
+
       let me = this;
 
       let path =
