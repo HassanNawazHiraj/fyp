@@ -249,9 +249,8 @@
                 testChunks: false,
                 headers: this.headers,
                 processParams: this.processParams,
-                processResponse: this.processResponse,
               }"
-              :complete="this.complete()"
+              v-on:complete="this.complete"
               :autoStart="true"
               class="uploader-example"
             >
@@ -343,11 +342,8 @@ export default {
         params.folder = this.main_folder;
         return params;
       },
-      processResponse: function (response, cb) {
-        me.list();
-      },
       complete: () => {
-        //this.list();
+        this.list();
       },
     };
   },
