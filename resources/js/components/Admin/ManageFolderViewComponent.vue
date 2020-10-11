@@ -245,9 +245,7 @@
           <div class="modal-body">
             <uploader
               :options="{
-                target:
-                  '/api/folder/upload/' +
-                  encodeURI(JSON.stringify(this.current_position)),
+                target: '/api/folder/upload',
                 testChunks: false,
                 headers: this.headers,
                 processParams: this.processParams,
@@ -338,8 +336,8 @@ export default {
         Authorization: "Bearer " + localStorage.getItem("token"),
       },
       processParams: (params, file, chunk, isTest) => {
+        params.path = JSON.stringify(this.current_position);
         console.log("params: ", params);
-        params.path = this.current_position;
         return params;
       },
     };

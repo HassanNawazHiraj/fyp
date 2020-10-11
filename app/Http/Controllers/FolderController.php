@@ -112,8 +112,8 @@ class FolderController extends Controller
         return Storage::download("data/" . $full_path . "/" . $file_name);
     }
 
-    public function upload($path, Request $request)
+    public function upload(Request $request)
     {
-        dd(array($path, $request->all()));
+        dd($request->all());
     }
 }
