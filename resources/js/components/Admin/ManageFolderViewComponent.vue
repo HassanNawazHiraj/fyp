@@ -337,7 +337,6 @@ export default {
       },
       processParams: (params, file, chunk, isTest) => {
         params.path = JSON.stringify(this.current_position);
-        console.log("params: ", params);
         return params;
       },
     };
