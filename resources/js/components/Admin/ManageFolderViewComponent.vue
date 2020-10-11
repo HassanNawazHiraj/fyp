@@ -611,6 +611,7 @@ export default {
     },
 
     show_folder_modal() {
+        this.new_folder = "";
       $("#folderModal").modal("show");
     },
   },
