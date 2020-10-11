@@ -9,7 +9,6 @@
             </h6>
           </div>
           <div class="col">
-
             <button
               class="btn btn-outline-primary btn-sm float-right"
               @click="upload()"
@@ -28,13 +27,18 @@
       </div>
       <div class="card-body">
         <div v-if="this.current_position.length > 0" class="text-dark mb-1">
-          &nbsp;Current Folder :<b>
-            {{
-              this.current_position.length === 0
-                ? ""
-                : this.current_position[this.current_position.length - 1]
-            }}
-          </b>
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb bg-light">
+              <li
+                class="breadcrumb-item"
+                v-for="p in current_position"
+                :key="p"
+                :class="{ active: isActive }"
+              >
+                {{ p }}
+              </li>
+            </ol>
+          </nav>
         </div>
         <div class="table-responsive">
           <table class="table" id="dataTable" width="100%" cellspacing="0">
@@ -411,6 +415,9 @@ export default {
       complete: () => {
         this.list();
       },
+      isActive: (p) => {
+        return this.current_position[current_position.length - 1] === p;
+      },
     };
   },
 
@@ -469,11 +476,7 @@ export default {
       formData.set("name", me.new_folder);
 
       axios
-        .post(
-          me.base_path + "folder/" + me.main_folder + "/new",
-          formData,
-          {}
-        )
+        .post(me.base_path + "folder/" + me.main_folder + "/new", formData, {})
         .then(function (response) {
           if (response.status == 200) {
             me.closeModal("folderModal");
@@ -611,7 +614,7 @@ export default {
     },
 
     show_folder_modal() {
-        this.new_folder = "";
+      this.new_folder = "";
       $("#folderModal").modal("show");
     },
   },
