@@ -62,6 +62,23 @@ class FolderController extends Controller
         Storage::disk("local")->rename("data/" . $full_path . "/" . $old, "data/" . $full_path . "/" . $new);
     }
 
+    public function folder($name, Request $request)
+    {
+        $path = $request->path;
+        $old = $request->name;
+
+        $full_path = $name;
+        $path = json_decode($path);
+
+        if (isset($path) && is_array($path) && count($path) > 0) {
+            foreach ($path as $p) {
+                $full_path .= "/" . $p;
+            }
+        }
+
+        Storage::disk("local")->makeDirectory("data/" . $full_path . "/" . $old);
+    }
+
     public function delete($name, Request $request)
     {
         $path = $request->path;

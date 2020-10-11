@@ -9,11 +9,19 @@
             </h6>
           </div>
           <div class="col">
+
             <button
               class="btn btn-outline-primary btn-sm float-right"
               @click="upload()"
             >
               <i class="fa fa-upload" aria-hidden="true"></i> &nbsp; Upload
+            </button>
+
+            <button
+              class="btn btn-outline-primary btn-sm float-right mr-2"
+              @click="show_folder_modal()"
+            >
+              <i class="fa fa-folder" aria-hidden="true"></i> &nbsp; New folder
             </button>
           </div>
         </div>
@@ -110,7 +118,63 @@
       </div>
     </div>
 
-    <!-- Add Form -->
+    <!-- create folder -->
+    <div
+      class="modal fade"
+      id="folderModal"
+      tabindex="-1"
+      role="dialog"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title text-capitalize">New folder</h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div
+              v-for="(error, e) in errors"
+              :key="e"
+              class="alert alert-danger"
+              role="alert"
+            >
+              {{ error }}
+            </div>
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text">Name</span>
+              </div>
+              <input type="text" class="form-control" v-model="new_folder" />
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+            >
+              Cancel
+            </button>
+            <button
+              type="button"
+              class="btn btn-primary"
+              v-on:click="create_folder()"
+            >
+              Create
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- rename Form -->
     <div
       class="modal fade"
       id="addModal"
@@ -244,7 +308,7 @@
           </div>
           <div class="modal-body">
             <uploader
-             ref="uploader"
+              ref="uploader"
               :options="{
                 target: '/api/folder/upload',
                 testChunks: false,
@@ -307,9 +371,10 @@ export default {
     },
   },
   data() {
-      let me = this;
+    let me = this;
     return {
       permissions: [],
+      new_folder: "",
       items: [],
       files: [],
       folders: [],
@@ -345,7 +410,6 @@ export default {
       },
       complete: () => {
         this.list();
-
       },
     };
   },
@@ -358,7 +422,6 @@ export default {
   },
   methods: {
     list(s = 0) {
-
       let me = this;
 
       let path =
@@ -396,6 +459,38 @@ export default {
     },
     save() {
       this.update();
+    },
+    create_folder() {
+      let me = this;
+      me.errors = [];
+      let formData = new FormData();
+      //console.log(me.current_position);
+      formData.set("path", JSON.stringify(me.current_position));
+      formData.set("name", me.new_folder);
+
+      axios
+        .post(
+          me.base_path + "folder/" + me.main_folder + "/new",
+          formData,
+          {}
+        )
+        .then(function (response) {
+          if (response.status == 200) {
+            me.closeModal("folderModal");
+            me.list();
+            me.toastTitle = "Rename";
+            me.toastMessage = "Folder created successfully";
+            me.toastClass = "d-block";
+            $(".toast").toast("show");
+          }
+        })
+        .catch(function (error) {
+          for (let key in error.response.data.errors) {
+            if (error.response.data.errors.hasOwnProperty(key)) {
+              me.errors.push(error.response.data.errors[key][0]);
+            }
+          }
+        });
     },
     edit(item, type) {
       this.current_rename = item;
@@ -510,9 +605,13 @@ export default {
       this.list();
     },
     upload() {
-        const uploaderInstance = this.$refs.uploader.uploader;
-        uploaderInstance.cancel();
+      const uploaderInstance = this.$refs.uploader.uploader;
+      uploaderInstance.cancel();
       $("#uploadModal").modal("show");
+    },
+
+    show_folder_modal() {
+      $("#folderModal").modal("show");
     },
   },
 };
