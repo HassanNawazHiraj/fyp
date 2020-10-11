@@ -66,7 +66,7 @@ class FolderController extends Controller
     {
         $path = $request->path;
         $file_name = $request->file_name;
-        
+
         $full_path = $name;
         $path = json_decode($path);
 
@@ -114,6 +114,16 @@ class FolderController extends Controller
 
     public function upload(Request $request)
     {
-        dd($request->all());
+        $full_path = "data/".$request->folder;
+        $path = json_decode($request->path);
+        if (isset($path) && is_array($path) && count($path) > 0) {
+            foreach ($path as $p) {
+                $full_path .= "/" . $p;
+            }
+        }
+        //dd($full_path);
+        //store file
+        $request->file->storeAs($full_path, $request->filename);
+        return response("success", 200);
     }
 }

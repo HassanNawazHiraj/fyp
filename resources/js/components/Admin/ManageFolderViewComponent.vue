@@ -249,15 +249,17 @@
                 testChunks: false,
                 headers: this.headers,
                 processParams: this.processParams,
+                processResponse: this.processResponse,
               }"
-              :autoStart="false"
+              :complete="this.complete()"
+              :autoStart="true"
               class="uploader-example"
             >
               <uploader-unsupport></uploader-unsupport>
               <uploader-drop>
                 <p>Drop files here to upload or</p>
                 <uploader-btn>select files</uploader-btn>
-                <uploader-btn :directory="true">select folder</uploader-btn>
+                <!-- <uploader-btn :directory="true">select folder</uploader-btn> -->
               </uploader-drop>
               <uploader-list></uploader-list>
             </uploader>
@@ -305,6 +307,7 @@ export default {
     },
   },
   data() {
+      let me = this;
     return {
       permissions: [],
       items: [],
@@ -337,10 +340,18 @@ export default {
       },
       processParams: (params, file, chunk, isTest) => {
         params.path = JSON.stringify(this.current_position);
+        params.folder = this.main_folder;
         return params;
+      },
+      processResponse: function (response, cb) {
+        me.list();
+      },
+      complete: () => {
+        //this.list();
       },
     };
   },
+
   mounted: function () {
     this.main_folder = this.$route.params.folder;
     var localPermission = localStorage.getItem("permissions");
