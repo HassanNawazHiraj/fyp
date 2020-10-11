@@ -345,8 +345,7 @@ export default {
       },
       complete: () => {
         this.list();
-        const uploaderInstance = this.$refs.uploader.uploader;
-        uploaderInstance.cancel();
+
       },
     };
   },
@@ -511,6 +510,8 @@ export default {
       this.list();
     },
     upload() {
+        const uploaderInstance = this.$refs.uploader.uploader;
+        uploaderInstance.cancel();
       $("#uploadModal").modal("show");
     },
   },
