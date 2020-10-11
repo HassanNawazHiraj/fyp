@@ -250,6 +250,7 @@
                   encodeURI(JSON.stringify(this.current_position)),
                 testChunks: false,
                 headers: this.headers,
+                processParams: this.processParams,
               }"
               :autoStart="false"
               class="uploader-example"
@@ -335,6 +336,11 @@ export default {
       },
       headers: {
         Authorization: "Bearer " + localStorage.getItem("token"),
+      },
+      processParams: (params, file, chunk, isTest) => {
+        console.log("params: ", params);
+        params.path = this.current_position;
+        return params;
       },
     };
   },
