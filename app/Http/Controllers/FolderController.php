@@ -93,7 +93,7 @@ class FolderController extends Controller
             }
         }
 
-        $to_delete = storage_path("app\\") . "data\\" . $full_path . "\\" . $file_name;
+        $to_delete = storage_path("app/") . "data/" . $full_path . "/" . $file_name;
         if (is_dir($to_delete)) {
 
             //folder
