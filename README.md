@@ -18,7 +18,8 @@ Installation instructions :
 
 8.php artisan db:seed
 
-9. php artisan passport:install
+9.php artisan passport:install
+
 
 
 login using
