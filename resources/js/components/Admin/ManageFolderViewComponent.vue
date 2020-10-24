@@ -12,6 +12,9 @@
             <button
               class="btn btn-outline-primary btn-sm float-right"
               @click="upload()"
+              data-toggle="tooltip"
+              data-placement="bottom"
+              title="Upload new file"
             >
               <i class="fa fa-upload" aria-hidden="true"></i> &nbsp; Upload
             </button>
@@ -19,6 +22,9 @@
             <button
               class="btn btn-outline-primary btn-sm float-right mr-2"
               @click="show_folder_modal()"
+              data-toggle="tooltip"
+              data-placement="bottom"
+              title="Create new folder"
             >
               <i class="fa fa-folder" aria-hidden="true"></i> &nbsp; New folder
             </button>
@@ -74,6 +80,7 @@
                     data-toggle="modal"
                     data-target="#add_update_modal"
                     @click="edit(folder, 'folder')"
+                    title="Rename"
                   ></i
                   >&nbsp;
                   <i
@@ -82,7 +89,8 @@
                     data-toggle="modal"
                     data-target="#delete_modal"
                     @click="remove(folder, 'folder')"
-                  ></i>
+                    title="Delete"
+                  />
                 </td>
               </tr>
 
@@ -96,6 +104,7 @@
                     class="fa fa-download fa-lg btn-icon btn-icon-primary"
                     @click="download(file)"
                     aria-hidden="true"
+                    title="Download"
                   ></i>
                   &nbsp;
                   <i
@@ -104,6 +113,7 @@
                     data-toggle="modal"
                     data-target="#add_update_modal"
                     @click="edit(file, 'file')"
+                    title="Rename"
                   ></i
                   >&nbsp;
                   <i
@@ -112,6 +122,7 @@
                     data-toggle="modal"
                     data-target="#delete_modal"
                     @click="remove(file, 'file')"
+                    title="Delete"
                   ></i
                   >&nbsp;
                 </td>

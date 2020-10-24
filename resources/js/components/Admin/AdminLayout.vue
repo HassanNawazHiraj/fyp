@@ -8,12 +8,15 @@
         id="accordionSidebar"
       >
         <!-- Sidebar - Brand -->
-        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+        <router-link
+          class="sidebar-brand d-flex align-items-center justify-content-center"
+          to="/portal"
+        >
           <div class="sidebar-brand-icon rotate-n-15">
             <i class="fas fa-graduation-cap"></i>
           </div>
           <div class="sidebar-brand-text mx-2">NCEAC Portal</div>
-        </a>
+        </router-link>
 
         <!-- Divider -->
         <hr class="sidebar-divider my-0" />
@@ -124,7 +127,9 @@
         <div
           class="sidebar-heading"
           v-if="permissions.includes('assigned_teachers_view')"
-        >Information</div>
+        >
+          Information
+        </div>
 
         <li class="nav-item">
           <router-link
@@ -210,9 +215,14 @@
         <!-- Main Content -->
         <div id="content">
           <!-- Topbar -->
-          <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+          <nav
+            class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow"
+          >
             <!-- Sidebar Toggle (Topbar) -->
-            <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+            <button
+              id="sidebarToggleTop"
+              class="btn btn-link d-md-none rounded-circle mr-3"
+            >
               <i class="fa fa-bars"></i>
             </button>
 
@@ -307,7 +317,8 @@
                   <span
                     class="mr-2 d-none d-lg-inline text-gray-600 small"
                     id="user_name"
-                  >{{ user_login_name }}</span>
+                    >{{ user_login_name }}</span
+                  >
                 </a>
                 <!-- Dropdown - User Information -->
                 <div
@@ -319,8 +330,15 @@
                     Settings
                   </a>
                   <div class="dropdown-divider"></div>
-                  <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
-                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                  <a
+                    class="dropdown-item"
+                    href="#"
+                    data-toggle="modal"
+                    data-target="#logoutModal"
+                  >
+                    <i
+                      class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"
+                    ></i>
                     Logout
                   </a>
                 </div>
@@ -367,17 +385,29 @@
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+            <button
+              class="close"
+              type="button"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
               <span aria-hidden="true">×</span>
             </button>
           </div>
           <div class="modal-body">
-            Select "Logout" below if you are ready to end your
-            current session.
+            Select "Logout" below if you are ready to end your current session.
           </div>
           <div class="modal-footer">
-            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-            <button class="btn btn-primary" v-on:click="logout()">Logout</button>
+            <button
+              class="btn btn-secondary"
+              type="button"
+              data-dismiss="modal"
+            >
+              Cancel
+            </button>
+            <button class="btn btn-primary" v-on:click="logout()">
+              Logout
+            </button>
           </div>
         </div>
       </div>
