@@ -95,7 +95,9 @@
               </tr>
 
               <tr v-for="file in files" :key="file">
-                <td><i class="fas fa-file"></i> &nbsp;{{ file }}</td>
+                <td class="link-folder" @click="viewFile(file)">
+                  <i class="fas fa-file"></i> &nbsp;{{ file }}
+                </td>
                 <td>
                   <span class="badge badge-primary text-center"> File </span>
                 </td>
@@ -627,6 +629,26 @@ export default {
     show_folder_modal() {
       this.new_folder = "";
       $("#folderModal").modal("show");
+    },
+
+    viewFile(current_file) {
+      let me = this;
+
+      var path = encodeURI(JSON.stringify(me.current_position));
+      var file_name = encodeURI(current_file);
+      let url =
+        me.base_path +
+        "folder/" +
+        me.main_folder +
+        "/" +
+        path +
+        "/" +
+        file_name +
+        "/download";
+
+      window.open(
+        `https://docs.google.com/gview?url=http://fyp.test${url}&embedded=true`
+      );
     },
   },
 };
