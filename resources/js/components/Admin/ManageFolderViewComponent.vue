@@ -647,7 +647,7 @@ export default {
         "/download";
 
       window.open(
-        `https://docs.google.com/gview?url=http://fyp.test${url}&embedded=true`
+        `https://docs.google.com/gview?url=${window.location.origin}${url}&embedded=true`
       );
     },
   },
