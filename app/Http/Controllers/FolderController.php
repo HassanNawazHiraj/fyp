@@ -171,6 +171,31 @@ class FolderController extends Controller
         return $request->all();
     }
 
+    public function moveFolder(Request $request) {
+        $main_folder = $request->main_folder;
+        $to_path = $request->to_path;
+        $from_path = $request->from_path;
+        $folder_name = $request->folder;
+
+        $to_full_path = $main_folder;
+        $to_path_array = json_decode($to_path);
+        if (isset($to_path_array) && is_array($to_path_array) && count($to_path_array) > 0) {
+            foreach ($to_path_array as $p) {
+                $to_full_path .= "/" . $p;
+            }
+        }
+
+        $from_full_path = $main_folder;
+        $from_path_array = json_decode($from_path);
+        if (isset($from_path_array) && is_array($from_path_array) && count($from_path_array) > 0) {
+            foreach ($from_path_array as $p) {
+                $from_full_path .= "/" . $p;
+            }
+        }
+        Storage::move("data/" . $from_full_path . "/" . $folder_name, "data/" . $to_full_path . "/" . $folder_name);
+        return $request->all();
+    }
+
     public function zip($name, $path, $folder)
     {
 

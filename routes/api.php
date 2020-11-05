@@ -60,6 +60,7 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::post("/folder/{name}/new", "FolderController@folder");
     Route::post("/folder/upload", "FolderController@upload");
     Route::post("/folder/file/move", "FolderController@moveFile");
+    Route::post("/folder/move", "FolderController@moveFolder");
 
 
 });
