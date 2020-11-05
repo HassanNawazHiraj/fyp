@@ -143,4 +143,29 @@ class FolderController extends Controller
         $request->file->storeAs($full_path, $request->filename);
         return response("success", 200);
     }
+
+    public function moveFile(Request $request) {
+        $main_folder = $request->main_folder;
+        $to_path = $request->to_path;
+        $from_path = $request->from_path;
+        $file_name = $request->file;
+
+        $to_full_path = $main_folder;
+        $to_path_array = json_decode($to_path);
+        if (isset($to_path_array) && is_array($to_path_array) && count($to_path_array) > 0) {
+            foreach ($to_path_array as $p) {
+                $to_full_path .= "/" . $p;
+            }
+        }
+
+        $from_full_path = $main_folder;
+        $from_path_array = json_decode($from_path);
+        if (isset($from_path_array) && is_array($from_path_array) && count($from_path_array) > 0) {
+            foreach ($from_path_array as $p) {
+                $from_full_path .= "/" . $p;
+            }
+        }
+        Storage::move("data/". $from_full_path ."/". $file_name, "data/". $to_full_path."/". $file_name);
+        return $request->all();
+    }
 }
