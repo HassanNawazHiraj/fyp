@@ -46,7 +46,7 @@
             </ol>
           </nav>
         </div>
-        <div v-if="to_move_file != ''" style="position:relative;">
+        <div v-if="to_move_file != ''" style="position: relative">
           <nav aria-label="breadcrumb">
             <ol class="breadcrumb bg-light">
               <li>
@@ -54,8 +54,13 @@
                 ><b>{{ to_move_file }}</b>
               </li>
               <li></li>
-              <button class="btn btn-outline-primary btn-sm" style="position:absolute;
-              right:1rem;top:0.5rem" @click="move_file_process()">Move here</button>
+              <button
+                class="btn btn-outline-primary btn-sm"
+                style="position: absolute; right: 1rem; top: 0.5rem"
+                @click="move_file_process()"
+              >
+                Move here
+              </button>
             </ol>
           </nav>
         </div>
@@ -87,6 +92,12 @@
                   <span class="badge badge-primary text-center"> Folder </span>
                 </td>
                 <td>
+                  <i
+                    class="fa fa-download fa-lg btn-icon btn-icon-primary mr-1"
+                    @click="zip(folder)"
+                    aria-hidden="true"
+                    title="Zip folder"
+                  ></i>
                   <i
                     class="fa fa-pen fa-lg btn-icon btn-icon-primary"
                     aria-hidden="true"
@@ -673,23 +684,40 @@ export default {
     },
     move_file(current_file) {
       this.to_move_file = current_file;
-      this.to_move_path= Object.assign([],this.current_position);
+      this.to_move_path = Object.assign([], this.current_position);
     },
     move_file_process() {
-        //process moving of file
-        let formData = new FormData();
-        formData.set("main_folder", this.main_folder);
-        formData.set("to_path",JSON.stringify(this.current_position));
-        formData.set("from_path", JSON.stringify(this.to_move_path));
-        formData.set("file", this.to_move_file);
-        let me = this;
-        axios.post(this.base_path + "folder/file/move", formData).then((response) => {
-            me.list();
-            me.to_move_file = "";
-        }).catch(function (error) {
+      //process moving of file
+      let formData = new FormData();
+      formData.set("main_folder", this.main_folder);
+      formData.set("to_path", JSON.stringify(this.current_position));
+      formData.set("from_path", JSON.stringify(this.to_move_path));
+      formData.set("file", this.to_move_file);
+      let me = this;
+      axios
+        .post(this.base_path + "folder/file/move", formData)
+        .then((response) => {
+          me.list();
+          me.to_move_file = "";
+        })
+        .catch(function (error) {});
+    },
+    zip(folder) {
+      let me = this;
 
-        });
-    }
+      var path = encodeURI(JSON.stringify(me.current_position));
+      var folder = encodeURI(folder);
+
+      window.location =
+        me.base_path +
+        "folder/" +
+        me.main_folder +
+        "/" +
+        path +
+        "/" +
+        folder +
+        "/zip";
+    },
   },
 };
 </script>

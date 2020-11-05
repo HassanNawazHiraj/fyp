@@ -61,5 +61,7 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::post("/folder/upload", "FolderController@upload");
     Route::post("/folder/file/move", "FolderController@moveFile");
 
+
 });
 Route::get("/folder/{name}/{path}/{file_name}/download", "FolderController@download");
+Route::get("/folder/{name}/{path}/{folder}/zip", "FolderController@zip");

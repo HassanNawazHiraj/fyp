@@ -6,6 +6,7 @@ use App\Folder;
 use Auth;
 use Illuminate\Http\Request;
 use Storage;
+use ZipArchive;
 
 class FolderController extends Controller
 {
@@ -131,7 +132,7 @@ class FolderController extends Controller
 
     public function upload(Request $request)
     {
-        $full_path = "data/".$request->folder;
+        $full_path = "data/" . $request->folder;
         $path = json_decode($request->path);
         if (isset($path) && is_array($path) && count($path) > 0) {
             foreach ($path as $p) {
@@ -144,7 +145,8 @@ class FolderController extends Controller
         return response("success", 200);
     }
 
-    public function moveFile(Request $request) {
+    public function moveFile(Request $request)
+    {
         $main_folder = $request->main_folder;
         $to_path = $request->to_path;
         $from_path = $request->from_path;
@@ -165,7 +167,45 @@ class FolderController extends Controller
                 $from_full_path .= "/" . $p;
             }
         }
-        Storage::move("data/". $from_full_path ."/". $file_name, "data/". $to_full_path."/". $file_name);
+        Storage::move("data/" . $from_full_path . "/" . $file_name, "data/" . $to_full_path . "/" . $file_name);
         return $request->all();
+    }
+
+    public function zip($name, $path, $folder)
+    {
+
+        $full_path = "data/" . $name;
+        $path = json_decode($path);
+
+        if (isset($path) && is_array($path) && count($path) > 0) {
+            foreach ($path as $p) {
+                $full_path .= "/" . $p;
+            }
+        }
+        $full_path .= "/" . $folder;
+        $files = Storage::allFiles($full_path);
+        if(count($files) < 1) {
+            return response()->download("empty.zip", $folder . ".zip");
+        }
+        $files_full_path = [];
+        for ($i = 0; $i < count($files); $i++) {
+            $files_full_path[$i] = storage_path() . "/app/" . $files[$i];
+            $files[$i] = explode($folder. "/", $files[$i])[1];
+        }
+
+        $zip = new ZipArchive;
+        $name = rand(1,1000). "zip";
+        if ($zip->open($name, (ZipArchive::CREATE | ZipArchive::OVERWRITE)) === TRUE) {
+            // Add File in ZipArchive
+            for($i=0; $i< count($files);$i++) {
+                $zip->addFile($files_full_path[$i], $files[$i]);
+            }
+
+            // Close ZipArchive
+            $zip->close();
+        }
+
+
+        return response()->download($name, $folder . ".zip");
     }
 }
