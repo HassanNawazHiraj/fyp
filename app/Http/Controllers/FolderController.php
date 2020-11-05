@@ -233,4 +233,26 @@ class FolderController extends Controller
 
         return response()->download($name, $folder . ".zip");
     }
+
+    public function getChecklist($name, Request $request)
+    {
+        // Read File
+        $jsonString = file_get_contents(base_path('storage/app/data/'. $name .'.json'));
+        $data = json_decode($jsonString, true);
+
+        return response($data, 200);
+    }
+
+    public function updateChecklist($name, Request $request)
+    {
+        $request->validate([
+            "checklist" => "required"
+        ]);
+        
+        // Write File
+        $newJsonString = json_encode($request->checklist, JSON_PRETTY_PRINT);
+        file_put_contents(base_path('storage/app/data/'. $name .'.json'), stripslashes($newJsonString));
+
+        return response()->json($request, 200);
+    }
 }

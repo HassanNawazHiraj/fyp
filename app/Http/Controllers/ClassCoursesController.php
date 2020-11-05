@@ -61,8 +61,10 @@ class ClassCoursesController extends Controller
         $folder_name = "s" . $current_session . "-class" . $request->class_id . "-course" . $request->course_id . "-" .sha1(time());
 
         File::copyDirectory("../storage/app/theory", "../storage/app/data/" . $folder_name);
+        File::copy(base_path('storage/app/checklist.json'), base_path('storage/app/data/' . $folder_name . '.json'));
         if($request->has_lab) {
             File::copyDirectory("../storage/app/lab", "../storage/app/data/" . $folder_name . "-l");
+            File::copy(base_path('storage/app/checklist.json'), base_path('storage/app/data/' . $folder_name . '-l.json'));
         }
 
 

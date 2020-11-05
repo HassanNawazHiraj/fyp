@@ -11,6 +11,15 @@
           <div class="col">
             <button
               class="btn btn-outline-primary btn-sm float-right"
+              @click="openChecklist()"
+              data-toggle="tooltip"
+              data-placement="bottom"
+              title="Open Checklist"
+            >
+              <i class="fas fa-th-list" aria-hidden="true"></i> &nbsp; Checklist
+            </button>
+            <button
+              class="btn btn-outline-primary btn-sm float-right mr-2"
               @click="upload()"
               data-toggle="tooltip"
               data-placement="bottom"
@@ -245,6 +254,7 @@
         </div>
       </div>
     </div>
+
     <!-- rename Form -->
     <div
       class="modal fade"
@@ -429,6 +439,55 @@
         <div class="toast-body">{{ toastMessage }}</div>
       </div>
     </div>
+
+    <!-- checklist -->
+    <div
+      class="modal fade"
+      id="checklistModal"
+      tabindex="-1"
+      role="dialog"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title text-capitalize">Check List</h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="pl-4">
+              <div
+                class="checklist form-group"
+                v-for="(item, index) in checklist"
+                :key="index"
+              >
+                <input
+                  type="checkbox"
+                  class="form-check-input"
+                  v-model="item.value"
+                />
+                <label>{{ item.label }}</label>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              class="btn btn-outline-primary ml-auto"
+              @click="saveChecklist()"
+            >
+              Save
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -488,6 +547,7 @@ export default {
       isActive: (p) => {
         return this.current_position[current_position.length - 1] === p;
       },
+      checklist: [],
     };
   },
 
@@ -762,6 +822,32 @@ export default {
         "/" +
         folder +
         "/zip";
+    },
+    getChecklist() {
+      axios
+        .get(this.base_path + "folder/" + this.main_folder + "/checklist")
+        .then((res) => {
+          this.checklist = res.data;
+        })
+        .catch((error) => {
+          console.log("error in gettting checklist: ", error);
+        });
+    },
+    openChecklist() {
+      this.getChecklist();
+      $("#checklistModal").modal("show");
+    },
+    saveChecklist() {
+      axios
+        .post(this.base_path + "folder/" + this.main_folder + "/checklist", {
+          checklist: this.checklist,
+        })
+        .then((res) => {
+          if (res.status === 200) {
+            this.closeModal("checklistModal");
+          }
+        })
+        .catch((error) => console.log("error saving checklist: ", error));
     },
   },
 };
