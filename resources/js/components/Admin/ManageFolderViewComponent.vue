@@ -65,10 +65,21 @@
               <li></li>
               <button
                 class="btn btn-outline-primary btn-sm"
-                style="position: absolute; right: 1rem; top: 0.5rem"
+                style="position: absolute; right: 5rem; top: 0.5rem"
                 @click="move_file_process()"
               >
                 Move here
+              </button>
+              <button
+                class="btn btn-outline-danger btn-sm"
+                style="position: absolute; right: 1rem; top: 0.5rem"
+                @click="
+                  () => {
+                    to_move_file = '';
+                  }
+                "
+              >
+                Cancel
               </button>
             </ol>
           </nav>
@@ -83,10 +94,21 @@
               <li></li>
               <button
                 class="btn btn-outline-primary btn-sm"
-                style="position: absolute; right: 1rem; top: 0.5rem"
+                style="position: absolute; right: 5rem; top: 0.5rem"
                 @click="move_folder_process()"
               >
                 Move here
+              </button>
+              <button
+                class="btn btn-outline-danger btn-sm"
+                style="position: absolute; right: 1rem; top: 0.5rem"
+                @click="
+                  () => {
+                    to_move_folder = '';
+                  }
+                "
+              >
+                Cancel
               </button>
             </ol>
           </nav>
