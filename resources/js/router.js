@@ -19,6 +19,7 @@ import ViewAssignedTeachersComponent from "./components/Admin/ViewAssignedTeache
 import ManageSessionComponent from './components/Admin/ManageSessionComponent.vue';
 import ManageFolderComponent from './components/Admin/ManageFolderComponent.vue';
 import ManageFolderViewComponent from './components/Admin/ManageFolderViewComponent.vue';
+import ManageChecklistTemplateComponent from './components/Admin/ManageChecklistTemplateComponent.vue';
 Vue.use(VueRouter);
 
 const routes = [{
@@ -100,6 +101,10 @@ const routes = [{
             {
                 path: "view/:folder",
                 component: ManageFolderViewComponent
+            },
+            {
+                path: "manage-checklist-template",
+                component: ManageChecklistTemplateComponent
             }
         ]
     }

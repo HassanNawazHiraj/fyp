@@ -255,4 +255,25 @@ class FolderController extends Controller
 
         return response()->json($request, 200);
     }
+
+    public function getChecklistTemplate(Request $request)
+    {
+        // Read File
+        $jsonString = file_get_contents(base_path('storage/app/checklist.json'));
+        $data = json_decode($jsonString, true);
+
+        return response($data, 200);
+    }
+
+    public function updateChecklistTemplate(Request $request)
+    {
+        $request->validate([
+            "checklist" => "required"
+        ]);
+
+        $newJsonString = json_encode($request->checklist, JSON_PRETTY_PRINT);
+        file_put_contents(base_path('storage/app/checklist.json'), stripslashes($newJsonString));
+
+        return response()->json($request, 200);
+    }
 }

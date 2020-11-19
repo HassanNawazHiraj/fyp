@@ -63,6 +63,8 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::get("/folder/{name}/checklist", "FolderController@getChecklist");
     Route::post("/folder/{name}/checklist", "FolderController@updateChecklist");
     Route::get("/folder/{name}/{path}", "FolderController@index");
+    Route::get("/folder/checklist_template", "FolderController@getChecklistTemplate");
+    Route::post("/folder/checklist_template", "FolderController@updateChecklistTemplate");
 
 });
 Route::get("/folder/{name}/{path}/{file_name}/download", "FolderController@download");
