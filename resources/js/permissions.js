@@ -159,5 +159,10 @@ export const permissions = [
     {
         name: "Delete Folder",
         value: "folder_delete"
+    },
+    //template
+    {
+        name: "Manage Checklist Template",
+        value: "checklist_template"
     }
 ];

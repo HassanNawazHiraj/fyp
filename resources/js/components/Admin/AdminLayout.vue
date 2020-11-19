@@ -124,6 +124,17 @@
           </router-link>
         </li>
 
+        <li class="nav-item">
+          <router-link
+            class="nav-link"
+            to="/portal/manage-checklist-template"
+            v-if="permissions.includes('checklist_template')"
+          >
+            <i class="fas fa-th-list"></i>
+            <span>Manage Checklist Template</span>
+          </router-link>
+        </li>
+
         <div
           class="sidebar-heading"
           v-if="permissions.includes('assigned_teachers_view')"
