@@ -403,13 +403,7 @@ export default {
 </script>
 
 <style>
-.course-select > #vs1__listbox > .vs__dropdown-option--selected {
-  display: none;
-}
-.course-select > #vs2__listbox > .vs__dropdown-option--selected {
-  display: none;
-}
-.course-select > #vs3__listbox > .vs__dropdown-option--selected {
+.course-select .vs__dropdown-option--selected {
   display: none;
 }
 </style>
