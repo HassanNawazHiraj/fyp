@@ -18,7 +18,7 @@ class TAICourseController extends Controller
      */
     public function index(Request $request)
     {
-        if($request->session) {
+        if ($request->session) {
             $current_session = $request->session;
         } else {
             $current_session = Session::where("active", 1)->first()->id;
@@ -38,9 +38,10 @@ class TAICourseController extends Controller
         //
     }
 
-    public function assigned() {
+    public function assigned()
+    {
         $tai_id = Auth::user()->id;
-        $items = TaiCourse::where("tai_id",$tai_id)->with(['classes.teacherCourse.teacher', 'course', 'classes.class.batch', 'classes.class.program'])->get();
+        $items = TaiCourse::where("tai_id", $tai_id)->with(['classes.teacherCourse.teacher', 'course', 'classes.class.batch', 'classes.class.program'])->get();
         return response()->json([
             "items" => $items
         ]);
@@ -58,9 +59,16 @@ class TAICourseController extends Controller
             "tai_id" => "required"
         ]);
 
+        if ($request->session_id) {
+            $current_session = $request->session_id;
+        } else {
+            $current_session = Session::where("active", 1)->first()->id;
+        }
+
         $taiCourse = new TaiCourse();
         $taiCourse->course_id = $request->course_id;
         $taiCourse->tai_id = $request->tai_id;
+        $taiCourse->session_id = $current_session;
         $taiCourse->save();
         return response()->json($request, 200);
     }
