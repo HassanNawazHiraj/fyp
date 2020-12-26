@@ -93,33 +93,6 @@
             </div>
         </div>
 
-        <!-- Toast -->
-        <div
-            style="position: absolute; bottom: 0; right: 0"
-            v-bind:class="toastClass"
-        >
-            <div
-                class="toast m-5"
-                role="alert"
-                data-delay="5000"
-                data-autohide="true"
-            >
-                <div class="toast-header" v-bind:class="toastClass">
-                    <strong class="mr-auto">{{ toastTitle }}</strong>
-                    <small class="text-muted ml-5">just now</small>
-                    <button
-                        type="button"
-                        class="ml-2 mb-1 close"
-                        data-dismiss="toast"
-                        aria-label="Close"
-                    >
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="toast-body">{{ toastMessage }}</div>
-            </div>
-        </div>
-
         <!-- checklist -->
         <div
             class="modal fade"
@@ -158,14 +131,6 @@
                             </div>
                         </div>
                     </div>
-                    <!-- <div class="modal-footer">
-            <button
-              class="btn btn-outline-primary ml-auto"
-              @click="saveChecklist()"
-            >
-              Save
-            </button>
-          </div> -->
                 </div>
             </div>
         </div>
@@ -177,7 +142,6 @@ export default {
     props: ["selectedSession"],
     watch: {
         selectedSession: function(val, oldVal) {
-            //console.log("new :" , val.id , " | old : " , oldVal.id);
             this.list(val.id);
         }
     },
@@ -187,9 +151,6 @@ export default {
             items: [],
             base_path: "/api/",
             errors: [],
-            toastTitle: "",
-            toastMessage: "",
-            toastClass: "d-none",
             checklist: []
         };
     },
