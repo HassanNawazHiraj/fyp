@@ -21,6 +21,7 @@ import ManageFolderComponent from "./components/Admin/ManageFolderComponent.vue"
 import ManageFolderViewComponent from "./components/Admin/ManageFolderViewComponent.vue";
 import ManageChecklistTemplateComponent from "./components/Admin/ManageChecklistTemplateComponent.vue";
 import TAIViewFolderComponent from "./components/Admin/TAIViewFolderComponent.vue";
+import TAIFolderViewComponent from "./components/Admin/TAIFolderViewComponent.vue";
 
 Vue.use(VueRouter);
 
@@ -115,6 +116,10 @@ const routes = [
             {
                 path: "view-folder",
                 component: TAIViewFolderComponent
+            },
+            {
+                path: "view-folder/:folder",
+                component: TAIFolderViewComponent
             }
         ]
     }

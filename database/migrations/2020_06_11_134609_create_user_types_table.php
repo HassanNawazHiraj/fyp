@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddSessionToClassCoursesTable extends Migration
+class CreateUserTypesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,11 @@ class AddSessionToClassCoursesTable extends Migration
      */
     public function up()
     {
-        Schema::table('class_courses', function (Blueprint $table) {
-            $table->bigInteger('session_id');
+        Schema::create('user_types', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->softDeletes();
+            $table->timestamps();
         });
     }
 
@@ -25,8 +28,6 @@ class AddSessionToClassCoursesTable extends Migration
      */
     public function down()
     {
-        Schema::table('class_courses', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('user_types');
     }
 }

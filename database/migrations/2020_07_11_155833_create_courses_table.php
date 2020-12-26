@@ -18,6 +18,8 @@ class CreateCoursesTable extends Migration
             $table->string("title");
             $table->string("code");
             $table->bigInteger("credit_hours");
+            $table->foreignId('session_id')->constrained('sessions')->onDelete('cascade');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

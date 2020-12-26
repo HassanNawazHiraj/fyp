@@ -17,6 +17,7 @@ class CreateProgramsTable extends Migration
             $table->id();
             $table->string("short_name");
             $table->string("full_name");
+            $table->softDeletes();
             $table->timestamps();
         });
     }

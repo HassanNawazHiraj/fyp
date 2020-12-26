@@ -4,8 +4,11 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use App\ClassCourses;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
 class TaiCourse extends Model
 {
+    use SoftDeletes;
 
     public function tai() {
         return $this->hasOne("App\User", "id", "tai_id");

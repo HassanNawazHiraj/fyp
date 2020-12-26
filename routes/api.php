@@ -17,6 +17,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:api')->get('/user', "UsersController@getUser");
 
+Route::post("login", "LoginController@login");
+
 Route::group(['middleware' => 'auth:api'], function () {
     Route::resource("formFields", "FormFieldController");
     Route::post("formFields/order", "FormFieldController@order");

@@ -29,7 +29,7 @@
                                 <td>
                                     <router-link
                                         :to="
-                                            `/portal/view/${
+                                            `/portal/view-folder/${
                                                 item.class_courses.folder_name
                                             }${
                                                 item.course_type == 'lab'

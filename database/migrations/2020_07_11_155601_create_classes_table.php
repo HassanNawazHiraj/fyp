@@ -15,9 +15,10 @@ class CreateClassesTable extends Migration
     {
         Schema::create('classes', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger("batch_id");
-            $table->bigInteger("program_id");
+            $table->foreignId('batch_id')->constrained('batches')->onDelete('cascade');
+            $table->foreignId('program_id')->constrained('programs')->onDelete('cascade');
             $table->string("section");
+            $table->softDeletes();
             $table->timestamps();
         });
     }

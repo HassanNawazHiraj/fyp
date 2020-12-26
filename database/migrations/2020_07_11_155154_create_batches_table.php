@@ -17,6 +17,7 @@ class CreateBatchesTable extends Migration
             $table->id();
             $table->string('season');
             $table->string('year');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

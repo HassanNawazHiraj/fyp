@@ -15,8 +15,10 @@ class CreateTeacherCoursesTable extends Migration
     {
         Schema::create('teacher_courses', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('teacher_id');
-            $table->bigInteger('class_course_id');
+            $table->foreignId('teacher_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('class_course_id')->constrained('class_courses')->onDelete('cascade');
+            $table->foreignId('session_id')->constrained('sessions')->onDelete('cascade');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

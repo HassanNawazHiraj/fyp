@@ -15,8 +15,10 @@ class CreateTaiCoursesTable extends Migration
     {
         Schema::create('tai_courses', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('tai_id');
-            $table->bigInteger('course_id');
+            $table->foreignId('tai_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('course_id')->constrained('courses')->onDelete('cascade');
+            $table->foreignId('session_id')->constrained('sessions')->onDelete('cascade');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

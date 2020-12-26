@@ -3,9 +3,12 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class ClassCourses extends Model
 {
+    use SoftDeletes;
+
     protected $table = "class_courses";
     public function class() {
         return $this->hasOne('App\ClassModel', 'id', 'class_id');

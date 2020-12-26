@@ -1,5 +1,4 @@
 export default function(Vue) {
-
     Vue.auth = {
         getBaseUrl() {
             return "http://fyp.test/";
@@ -13,14 +12,9 @@ export default function(Vue) {
             }
             axios.defaults.headers.common["Authorization"] = "Bearer " + token;
         },
-        checkPermission(permission) {
-
-        },
+        checkPermission(permission) {},
         setUserCookie(redirect = false) {
             axios.get("/api/user").then(function(response) {
-                //console.log(response.data);
-                //console.log(redirect);
-                //console.log(response.data);
                 localStorage.setItem("name", response.data.user.name);
                 localStorage.setItem("types", response.data.types);
                 localStorage.setItem("permissions", response.data.permissions);
@@ -65,14 +59,14 @@ export default function(Vue) {
         isAuthenticated() {
             if (this.getToken()) return true;
             return false;
-        },
+        }
     };
 
     Object.defineProperties(Vue.prototype, {
         $auth: {
             get() {
                 return Vue.auth;
-            },
-        },
+            }
+        }
     });
 }
