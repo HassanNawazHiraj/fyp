@@ -149,7 +149,7 @@ export const permissions = [
     },
     //manage folder
     {
-        name: "View Folder",
+        name: "Manage Folder",
         value: "folder_view"
     },
     {
@@ -164,5 +164,10 @@ export const permissions = [
     {
         name: "Manage Checklist Template",
         value: "checklist_template"
+    },
+    //tai view folder
+    {
+        name: "View Folders",
+        value: "tai_folder_view"
     }
 ];

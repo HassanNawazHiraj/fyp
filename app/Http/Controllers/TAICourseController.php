@@ -6,6 +6,7 @@ use App\Course;
 use App\User;
 use App\TaiCourse;
 use App\Session;
+use App\TeacherCourse;
 use Auth;
 use Illuminate\Http\Request;
 
@@ -125,5 +126,20 @@ class TAICourseController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function getCourses(Request $request)
+    {
+        if($request->session) {
+            $current_session = $request->session;
+        } else {
+            $current_session = Session::where("active", 1)->first()->id;
+        }
+
+        $tai_courses = TaiCourse::where("tai_id", $request->user()->id)->with(['teacher_courses', 'teacher_courses.teacher', 'teacher_courses.class_courses',
+        'teacher_courses.class_courses.class.program', 'teacher_courses.class_courses.class.batch',  'teacher_courses.class_courses.course' ])->get();
+
+        return response(["items" => $tai_courses]);
+
     }
 }

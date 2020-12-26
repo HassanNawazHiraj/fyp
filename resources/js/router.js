@@ -16,22 +16,27 @@ import ManageCourseAssignmentComponent from "./components/Admin/ManageCourseAssi
 import ManageCourseTeacherAssignmentComponent from "./components/Admin/ManageCourseTeacherAssignmentComponent.vue";
 import ManageTaiCourseAssignmentComponent from "./components/Admin/ManageTaiCourseAssignmentComponent.vue";
 import ViewAssignedTeachersComponent from "./components/Admin/ViewAssignedTeachersComponent.vue";
-import ManageSessionComponent from './components/Admin/ManageSessionComponent.vue';
-import ManageFolderComponent from './components/Admin/ManageFolderComponent.vue';
-import ManageFolderViewComponent from './components/Admin/ManageFolderViewComponent.vue';
-import ManageChecklistTemplateComponent from './components/Admin/ManageChecklistTemplateComponent.vue';
+import ManageSessionComponent from "./components/Admin/ManageSessionComponent.vue";
+import ManageFolderComponent from "./components/Admin/ManageFolderComponent.vue";
+import ManageFolderViewComponent from "./components/Admin/ManageFolderViewComponent.vue";
+import ManageChecklistTemplateComponent from "./components/Admin/ManageChecklistTemplateComponent.vue";
+import TAIViewFolderComponent from "./components/Admin/TAIViewFolderComponent.vue";
+
 Vue.use(VueRouter);
 
-const routes = [{
+const routes = [
+    {
         path: "/",
         component: Layout,
         meta: {
             guest: true
         },
-        children: [{
-            path: "",
-            component: Login
-        }]
+        children: [
+            {
+                path: "",
+                component: Login
+            }
+        ]
     },
     {
         path: "/portal",
@@ -39,7 +44,8 @@ const routes = [{
         meta: {
             auth: true
         },
-        children: [{
+        children: [
+            {
                 path: "",
                 component: DashboardComponent
             },
@@ -105,6 +111,10 @@ const routes = [{
             {
                 path: "manage-checklist-template",
                 component: ManageChecklistTemplateComponent
+            },
+            {
+                path: "view-folder",
+                component: TAIViewFolderComponent
             }
         ]
     }

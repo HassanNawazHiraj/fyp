@@ -16,7 +16,11 @@ class TaiCourse extends Model
     }
 
     public function classes() {
-        //$class = ClassCourses::where("course_id", $this->course_id)->get();
         return $this->hasMany("App\ClassCourses", "course_id", "course_id");
     }
+
+    public function teacher_courses()
+        {
+            return $this->hasManyThrough('App\TeacherCourse', 'App\ClassCourses', 'course_id', 'class_course_id');
+        }
 }

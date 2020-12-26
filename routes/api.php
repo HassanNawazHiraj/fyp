@@ -46,6 +46,7 @@ Route::group(['middleware' => 'auth:api'], function () {
 
     Route::resource("tai_courses", "TAICourseController");
     Route::get("assigned_courses", "TAICourseController@assigned");
+    Route::get("tai_course_folders", "TAICourseController@getCourses");
 
     Route::resource("session", "SessionController");
 
