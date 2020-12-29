@@ -156,10 +156,12 @@ class UsersController extends Controller
         $types = explode(",", $request->user_types);
         UserTypeRelation::where('user_id', $id)->delete();
         foreach ($types as $type) {
-            $userTypeRelation = new UserTypeRelation();
-            $userTypeRelation->user_id = $id;
-            $userTypeRelation->user_type_id = $type;
-            $userTypeRelation->save();
+            if((UserTypeRelation::where('user_id', $id)->where('user_type_id', $type)->get())->count() < 1) {
+                $userTypeRelation = new UserTypeRelation();
+                $userTypeRelation->user_id = $id;
+                $userTypeRelation->user_type_id = $type;
+                $userTypeRelation->save();
+            }
         }
 
         return response()->json($request, 200);
