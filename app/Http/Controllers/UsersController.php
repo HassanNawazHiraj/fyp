@@ -27,9 +27,9 @@ class UsersController extends Controller
         }
 
 
-        $users = User::whereHas('types', function ($q) {
+        $users = User::with(['types' => function ($q) {
             $q->where('name', 'not like', 'Super admin');
-        })->with(['types'])->get();
+        }, 'types'])->get();
 
         return response()->json([
             "items" => $users,
@@ -37,26 +37,26 @@ class UsersController extends Controller
         ]);
     }
 
-    public function getUser(Request $request) {
+    public function getUser(Request $request)
+    {
         $types = $request->user()->types;
         $permissions = [];
-        foreach($types as $type) {
-            foreach($type->permissions as $permission) {
-                if(!in_array($permission, $permissions))
-                array_push($permissions, $permission);
+        foreach ($types as $type) {
+            foreach ($type->permissions as $permission) {
+                if (!in_array($permission, $permissions))
+                    array_push($permissions, $permission);
             }
-
         }
         return [
             "types" => json_encode($request->user()->types),
             "permissions" => $permissions,
             "user" => $request->user()
-    ];
+        ];
     }
 
     public function getTeachers(Request $request)
     {
-        if($request->session) {
+        if ($request->session) {
             $current_session = $request->session;
         } else {
             $current_session = Session::where("active", 1)->first()->id;
@@ -68,10 +68,10 @@ class UsersController extends Controller
         $users = User::whereHas('types', function ($q) {
             $q->where('name', 'like', 'teacher');
         })->with(['types', 'course_type'])->get();
-        foreach($users as $user) {
+        foreach ($users as $user) {
             $courses = TeacherCourse::where("session_id", $current_session)->where("teacher_id", $user->id)
-            ->with(['class_courses.course', 'class_courses.class.batch', 'class_courses.class.program'])
-            ->get();
+                ->with(['class_courses.course', 'class_courses.class.batch', 'class_courses.class.program'])
+                ->get();
             $user->class_courses = $courses;
         }
 
