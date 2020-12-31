@@ -161,6 +161,76 @@ export default {
         this.list(this.selectedSession.id);
     },
     methods: {
+        onMessageWasSent(message) {
+            let me = this;
+            me.errors = [];
+            let user = JSON.parse(localStorage.getItem("user"));
+            let formData = new FormData();
+            formData.set("user_id", user.id);
+            formData.set("user_type", "teacher");
+            formData.set("message", message.data.text);
+            axios
+                .post(
+                    me.base_path + "chat/store/" + this.main_folder,
+                    formData,
+                    {}
+                )
+                .then(function(response) {})
+                .catch(function(error) {
+                    console.log(error);
+                });
+        },
+        loadChat() {
+            let me = this;
+            me.errors = [];
+            let formData = new FormData();
+
+            axios
+                .get(
+                    me.base_path + "chat/get/" + this.main_folder,
+                    formData,
+                    {}
+                )
+                .then(function(response) {
+                    if (response.status == 200) {
+                        if (response.data.length > 0) {
+                            //get both user names
+                            var teacher =
+                                response.data[0].class_course.teacher_course[0]
+                                    .teacher;
+                            var tai =
+                                response.data[0].class_course.course.tai[0];
+                            me.participants.push({
+                                id: "teacher",
+                                name: teacher.name
+                            });
+                            me.participants.push({
+                                id: "tai",
+                                name: tai.name
+                            });
+
+                            //get chat data
+                            me.messageList = [];
+                            response.data.forEach(message => {
+                                let user_type =
+                                    message.user_type == "teacher"
+                                        ? "me"
+                                        : "tai";
+                                me.messageList.push({
+                                    type: "text",
+                                    author: user_type,
+                                    data: {
+                                        text: message.message
+                                    }
+                                });
+                            });
+                        }
+                    }
+                })
+                .catch(function(error) {
+                    console.log(error);
+                });
+        },
         list(s = 0) {
             let me = this;
             let path = me.base_path + "tai_course_folders";

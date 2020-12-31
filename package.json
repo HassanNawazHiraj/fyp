@@ -24,6 +24,7 @@
         "vue-template-compiler": "^2.6.10"
     },
     "dependencies": {
+        "vue-beautiful-chat": "^2.5.0",
         "vue-router": "^3.3.2",
         "vue-select": "^3.10.7",
         "vue-simple-uploader": "^0.7.5",

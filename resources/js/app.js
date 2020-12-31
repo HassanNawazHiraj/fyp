@@ -6,6 +6,7 @@ import App from "./App.vue";
 import router from "./router.js";
 import Auth from "./packages/Auth.js";
 import uploader from "vue-simple-uploader";
+import Chat from "vue-beautiful-chat";
 // import BackendService from "./services/backend-service";
 
 // const backendService = new BackendService();
@@ -13,6 +14,7 @@ import uploader from "vue-simple-uploader";
 
 Vue.use(Auth);
 Vue.use(uploader);
+Vue.use(Chat);
 
 window.axios = require("axios");
 window.axios.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";
