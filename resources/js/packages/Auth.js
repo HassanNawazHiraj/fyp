@@ -16,6 +16,7 @@ export default function(Vue) {
         setUserCookie(redirect = false) {
             axios.get("/api/user").then(function(response) {
                 localStorage.setItem("name", response.data.user.name);
+                localStorage.setItem("user", JSON.stringify(response.data.user));
                 localStorage.setItem("types", response.data.types);
                 localStorage.setItem("permissions", response.data.permissions);
                 // ret = "asd";
