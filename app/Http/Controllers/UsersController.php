@@ -154,7 +154,7 @@ class UsersController extends Controller
         $user->save();
 
         $types = explode(",", $request->user_types);
-        UserTypeRelation::where('user_id', $id)->delete();
+        UserTypeRelation::where('user_id', $id)->forceDelete();
         foreach ($types as $type) {
             $userTypeRelation = new UserTypeRelation();
             $userTypeRelation->user_id = $id;
