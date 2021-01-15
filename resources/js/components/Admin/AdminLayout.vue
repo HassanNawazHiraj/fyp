@@ -379,12 +379,15 @@
                                     class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                     aria-labelledby="userDropdown"
                                 >
-                                    <a class="dropdown-item" href="#">
+                                    <router-link
+                                        class="dropdown-item"
+                                        to="/portal/settings"
+                                    >
                                         <i
                                             class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"
-                                        ></i>
+                                        />
                                         Settings
-                                    </a>
+                                    </router-link>
                                     <div class="dropdown-divider"></div>
                                     <a
                                         class="dropdown-item"

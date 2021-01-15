@@ -24,6 +24,8 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::post("formFields/order", "FormFieldController@order");
 
     Route::resource("users", "UsersController");
+    Route::post("user/change-password", "UsersController@changePassword");
+    Route::post("user/change-name", "UsersController@changeName");
     Route::get("user/types", "UsersController@getUserTypes");
     Route::get("user/teachers", "UsersController@getTeachers");
     Route::get("user/tais", "UsersController@getTAIs");

@@ -128,8 +128,6 @@ class UsersController extends Controller
         return response()->json($request, 200);
     }
 
-
-
     /**
      * Update the specified resource in storage.
      *
@@ -184,5 +182,46 @@ class UsersController extends Controller
         return response()->json([
             "items" => UserType::get()
         ]);
+    }
+
+    public function changePassword(Request $request)
+    {
+        $validatedData = $request->validate([
+            'old_password' => 'required',
+            'new_password' => 'required|confirmed'
+        ]);
+
+        $oldPassword = $request->user()->password;
+
+        if (!Hash::check($request->old_password, $oldPassword)) {
+            return response(['message' => 'The given data was invalid.', 'errors' => ["old_password" => ["The old password does not match."]]], 400);
+        } else if ($request->old_password == $request->new_password) {
+            return response(['message' => 'The given data was invalid.', 'errors' => ["new_password" => ["New password cannot be same as old password."]]], 400);
+        }
+
+        $user = User::find($request->user()->id);
+        $user->password = Hash::make($request->new_password);
+        $user->save();
+
+        return response(['message' => 'Password Changed'], 200);
+    }
+
+    public function changeName(Request $request)
+    {
+        $validatedData = $request->validate([
+            'name' => 'required',
+        ]);
+
+        $oldName = $request->user()->name;
+
+        if($oldName == $request->name){
+            return response(['message' => 'The given data was invalid.', 'errors' => ["name" => ["New name cannot be same as old name."]]], 400);
+        }
+
+        $user = User::find($request->user()->id);
+        $user->name = $request->name;
+        $user->save();
+
+        return response(['message' => 'Name Changed'], 200);
     }
 }
