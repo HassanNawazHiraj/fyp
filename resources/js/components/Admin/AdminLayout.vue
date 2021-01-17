@@ -22,7 +22,12 @@
                 <hr class="sidebar-divider my-0" />
 
                 <!-- Nav Item - Dashboard -->
-                <li class="nav-item active">
+                <li
+                    :class="[
+                        'nav-item',
+                        { active: this.$route.path === '/portal' }
+                    ]"
+                >
                     <router-link class="nav-link" to="/portal">
                         <i class="fas fa-fw fa-tachometer-alt"></i>
                         <span>Dashboard</span>
@@ -52,7 +57,16 @@
 
                 <!-- Nav Item - Pages Collapse Menu -->
 
-                <li class="nav-item">
+                <li
+                    :class="[
+                        'nav-item',
+                        {
+                            active:
+                                this.$route.path ===
+                                '/portal/course-performa-form'
+                        }
+                    ]"
+                >
                     <router-link
                         class="nav-link"
                         to="/portal/course-performa-form"
@@ -62,7 +76,12 @@
                         <span>Course Performa Form</span>
                     </router-link>
                 </li>
-                <li class="nav-item">
+                <li
+                    :class="[
+                        'nav-item',
+                        { active: this.$route.path === '/portal/manage-users' }
+                    ]"
+                >
                     <router-link
                         class="nav-link"
                         to="/portal/manage-users"
@@ -73,7 +92,12 @@
                     </router-link>
                 </li>
 
-                <li class="nav-item">
+                <li
+                    :class="[
+                        'nav-item',
+                        { active: this.$route.path === '/portal/manage-roles' }
+                    ]"
+                >
                     <router-link
                         class="nav-link"
                         to="/portal/manage-roles"
@@ -84,7 +108,12 @@
                     </router-link>
                 </li>
 
-                <li class="nav-item">
+                <li
+                    :class="[
+                        'nav-item',
+                        { active: this.$route.path === '/portal/manage-batch' }
+                    ]"
+                >
                     <router-link
                         class="nav-link"
                         to="/portal/manage-batch"
@@ -95,7 +124,15 @@
                     </router-link>
                 </li>
 
-                <li class="nav-item">
+                <li
+                    :class="[
+                        'nav-item',
+                        {
+                            active:
+                                this.$route.path === '/portal/manage-program'
+                        }
+                    ]"
+                >
                     <router-link
                         class="nav-link"
                         to="/portal/manage-program"
@@ -106,7 +143,12 @@
                     </router-link>
                 </li>
 
-                <li class="nav-item">
+                <li
+                    :class="[
+                        'nav-item',
+                        { active: this.$route.path === '/portal/manage-course' }
+                    ]"
+                >
                     <router-link
                         class="nav-link"
                         to="/portal/manage-course"
@@ -117,7 +159,12 @@
                     </router-link>
                 </li>
 
-                <li class="nav-item">
+                <li
+                    :class="[
+                        'nav-item',
+                        { active: this.$route.path === '/portal/manage-class' }
+                    ]"
+                >
                     <router-link
                         class="nav-link"
                         to="/portal/manage-class"
@@ -128,7 +175,15 @@
                     </router-link>
                 </li>
 
-                <li class="nav-item">
+                <li
+                    :class="[
+                        'nav-item',
+                        {
+                            active:
+                                this.$route.path === '/portal/manage-session'
+                        }
+                    ]"
+                >
                     <router-link
                         class="nav-link"
                         to="/portal/manage-session"
@@ -139,7 +194,16 @@
                     </router-link>
                 </li>
 
-                <li class="nav-item">
+                <li
+                    :class="[
+                        'nav-item',
+                        {
+                            active:
+                                this.$route.path ===
+                                '/portal/manage-checklist-template'
+                        }
+                    ]"
+                >
                     <router-link
                         class="nav-link"
                         to="/portal/manage-checklist-template"
@@ -157,7 +221,16 @@
                     Information
                 </div>
 
-                <li class="nav-item">
+                <li
+                    :class="[
+                        'nav-item',
+                        {
+                            active:
+                                this.$route.path ===
+                                '/portal/view-assigned-teachers'
+                        }
+                    ]"
+                >
                     <router-link
                         class="nav-link"
                         to="/portal/view-assigned-teachers"
@@ -179,7 +252,16 @@
                     Assignments
                 </div>
 
-                <li class="nav-item">
+                <li
+                    :class="[
+                        'nav-item',
+                        {
+                            active:
+                                this.$route.path ===
+                                '/portal/manage-course-assignment'
+                        }
+                    ]"
+                >
                     <router-link
                         class="nav-link"
                         to="/portal/manage-course-assignment"
@@ -190,7 +272,16 @@
                     </router-link>
                 </li>
 
-                <li class="nav-item">
+                <li
+                    :class="[
+                        'nav-item',
+                        {
+                            active:
+                                this.$route.path ===
+                                '/portal/manage-teacher-assignment'
+                        }
+                    ]"
+                >
                     <router-link
                         class="nav-link"
                         to="/portal/manage-teacher-assignment"
@@ -201,7 +292,16 @@
                     </router-link>
                 </li>
 
-                <li class="nav-item">
+                <li
+                    :class="[
+                        'nav-item',
+                        {
+                            active:
+                                this.$route.path ===
+                                '/portal/manage-tai-assignment'
+                        }
+                    ]"
+                >
                     <router-link
                         class="nav-link"
                         to="/portal/manage-tai-assignment"
@@ -222,7 +322,12 @@
                     Files & Folders
                 </div>
 
-                <li class="nav-item">
+                <li
+                    :class="[
+                        'nav-item',
+                        { active: this.$route.path === '/portal/manage-folder' }
+                    ]"
+                >
                     <router-link
                         class="nav-link"
                         to="/portal/manage-folder"
@@ -233,7 +338,12 @@
                     </router-link>
                 </li>
 
-                <li class="nav-item">
+                <li
+                    :class="[
+                        'nav-item',
+                        { active: this.$route.path === '/portal/view-folder' }
+                    ]"
+                >
                     <router-link
                         class="nav-link"
                         to="/portal/view-folder"
