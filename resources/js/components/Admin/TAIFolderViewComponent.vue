@@ -262,7 +262,7 @@ export default {
     data() {
         let me = this;
         return {
-            chat_status: true,
+            chat_status: false,
             messageList: [],
             participants: [],
             colors: {

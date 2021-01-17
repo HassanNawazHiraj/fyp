@@ -61,7 +61,11 @@
                                         {{ item.course_type }}
                                     </span>
                                 </td>
-                                <td>{{ item.teacher.name }}</td>
+                                <td>
+                                    {{
+                                        `${item.teacher.name} (${item.teacher.email})`
+                                    }}
+                                </td>
                                 <td class="text-center">
                                     <i
                                         class="fas fa-th-list btn-icon btn-icon-primary"
@@ -241,11 +245,9 @@ export default {
                 .get(path)
                 .then(async response => {
                     const items = response.data.items;
-                    console.log("items: ", items);
                     let teacherCourses = [];
 
                     for await (let item of items) {
-                        console.log("item: ", item);
                         for await (let tc of item.teacher_courses) {
                             teacherCourses.push(tc);
                         }

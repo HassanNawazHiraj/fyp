@@ -24,12 +24,11 @@
                         <tbody>
                             <tr v-for="item in items" :key="item.id">
                                 <td class>
-                                    {{ item.name }}
+                                    {{ `${item.name} (${item.email})` }}
                                 </td>
                                 <td class="text-capitalize">
                                     {{ item.course }}
                                 </td>
-
                             </tr>
                         </tbody>
                     </table>
@@ -150,13 +149,13 @@ export default {
             id: "",
             toastTitle: "",
             toastMessage: "",
-            toastClass: "d-none",
-
+            toastClass: "d-none"
         };
     },
     mounted: function() {
         var localPermission = localStorage.getItem("permissions");
-    if (localPermission != null) this.permissions = localPermission.split(",");
+        if (localPermission != null)
+            this.permissions = localPermission.split(",");
         this.list();
     },
     methods: {
@@ -167,8 +166,6 @@ export default {
                 .then(response => {
                     me.items = [];
                     response.data.items.forEach(element => {
-
-
                         element.classes.forEach(c => {
                             let course = element.course.title;
                             course += " [";
@@ -182,10 +179,11 @@ export default {
 
                             c.teacher_course.forEach(t => {
                                 //console.log("adeas");
-                                let course_name = course+ " " + t.course_type;
+                                let course_name = course + " " + t.course_type;
                                 me.items.push({
                                     name: t.teacher.name,
-                                    course : course_name
+                                    email: t.teacher.email,
+                                    course: course_name
                                 });
                             });
                         });

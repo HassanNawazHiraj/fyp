@@ -27,9 +27,11 @@
                             <tr v-for="item in items" :key="item.id">
                                 <td>{{ item.id }}</td>
                                 <td class>{{ item.title }}</td>
-                                <td class="text-capitalize">
+                                <td class="">
                                     <span class v-if="item.tai.length > 0">
-                                        {{ item.tai[0].name }}
+                                        {{
+                                            `${item.tai[0].name} (${item.tai[0].email})`
+                                        }}
                                     </span>
                                     <span class="badge badge-danger" v-else
                                         >Not assigned</span
@@ -97,7 +99,6 @@
                                 :options="tais"
                                 :reduce="t => t.id"
                                 v-model="tai_id"
-                                label="name"
                                 class="mt-n1 tai-select"
                             />
                         </div>
@@ -201,7 +202,13 @@ export default {
                     axios
                         .get(me.base_path + "user/tais")
                         .then(response => {
-                            me.tais = response.data.items;
+                            let items = response.data.items;
+                            let newItems = [];
+                            for (let tai of items) {
+                                tai.label = `${tai.name} (${tai.email})`;
+                                newItems.push(tai);
+                            }
+                            me.tais = newItems;
                         })
                         .catch(error => {
                             console.log(error);
