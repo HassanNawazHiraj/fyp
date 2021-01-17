@@ -76,6 +76,9 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::get("/chat/get/{id}", "ClassCourseChatController@get");
     Route::post("/chat/store/{id}", "ClassCourseChatController@store");
 
+    //dashboard
+    Route::get("/dashboard", "DashboardController@index");
+
 
 });
 Route::get("/folder/{name}/{path}/{file_name}/download", "FolderController@download");
