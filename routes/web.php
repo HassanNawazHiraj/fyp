@@ -16,3 +16,5 @@ use Illuminate\Support\Facades\Route;
 //     return view('welcome');
 // });
 Route::get('/{any}', 'AppController@index')->where('any', '.*');
+
+

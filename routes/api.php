@@ -70,6 +70,7 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::get("/folder/{name}/{path}", "FolderController@index");
     Route::get("/folder/checklist_template", "FolderController@getChecklistTemplate");
     Route::post("/folder/checklist_template", "FolderController@updateChecklistTemplate");
+    Route::get("/folder/update_checklist_from_template", "FolderController@updateChecklistFromTemplate");
 
     //chat
     Route::get("/chat/get/{id}", "ClassCourseChatController@get");

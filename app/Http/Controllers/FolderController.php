@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Folder;
 use Auth;
 use Illuminate\Http\Request;
+use stdClass;
 use Storage;
 use ZipArchive;
 
@@ -248,7 +249,7 @@ class FolderController extends Controller
         $request->validate([
             "checklist" => "required"
         ]);
-        
+
         // Write File
         $newJsonString = json_encode($request->checklist, JSON_PRETTY_PRINT);
         file_put_contents(base_path('storage/app/data/'. $name .'.json'), stripslashes($newJsonString));
@@ -275,5 +276,27 @@ class FolderController extends Controller
         file_put_contents(base_path('storage/app/checklist.json'), stripslashes($newJsonString));
 
         return response()->json($request, 200);
+    }
+
+    public function updateChecklistFromTemplate() {
+        $files = Storage::disk('local')->files("theory/");
+        $folders = Storage::disk('local')->directories("theory/");
+        $all = array_merge($files, $folders);
+        for($i=0; $i<count($all); $i++) {
+            $all[$i] = str_replace("theory/", "", $all[$i]);
+        }
+        sort($all);
+        $checklist = [];
+        foreach($all as $item) {
+            $checklist_item = new stdClass();
+            $checklist_item->label = $item;
+            $checklist_item->value = false;
+            array_push($checklist, $checklist_item);
+        }
+
+        $newJsonString = json_encode($checklist, JSON_PRETTY_PRINT);
+        file_put_contents(base_path('storage/app/checklist.json'), stripslashes($newJsonString));
+
+        return response()->json(["success"], 200);
     }
 }
