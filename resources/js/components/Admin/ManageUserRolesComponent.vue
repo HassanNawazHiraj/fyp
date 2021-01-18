@@ -51,7 +51,11 @@
                                         data-toggle="modal"
                                         data-target="#add_update_modal"
                                         @click="edit(item)"
-                                        v-if="current_permissions.includes('user_role_add')"
+                                        v-if="
+                                            current_permissions.includes(
+                                                'user_role_add'
+                                            )
+                                        "
                                     >
                                         Edit
                                     </button>
@@ -61,7 +65,11 @@
                                         data-toggle="modal"
                                         data-target="#delete_modal"
                                         @click="remove(item.id)"
-                                        v-if="current_permissions.includes('user_role_delete')"
+                                        v-if="
+                                            current_permissions.includes(
+                                                'user_role_delete'
+                                            )
+                                        "
                                     >
                                         Delete
                                     </button>
@@ -262,7 +270,8 @@ export default {
     },
     mounted: function() {
         var localPermission = localStorage.getItem("permissions");
-    if (localPermission != null) this.current_permissions = localPermission.split(",");
+        if (localPermission != null)
+            this.current_permissions = localPermission.split(",");
         this.list();
     },
     methods: {
@@ -358,7 +367,7 @@ export default {
                 item.permissions === null ? [] : item.permissions;
             this.id = item.id;
             this.modal_mode = "edit";
-            $("#addModal").modal("show");
+            $("#addModal").modal({ backdrop: "static", keyboard: false });
         },
         update() {
             let me = this;

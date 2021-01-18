@@ -323,7 +323,7 @@ export default {
             this.full_name = item.full_name;
             this.id = item.id;
             this.modal_mode = "edit";
-            $("#addModal").modal("show");
+            $("#addModal").modal({ backdrop: "static", keyboard: false });
         },
         update() {
             let me = this;
