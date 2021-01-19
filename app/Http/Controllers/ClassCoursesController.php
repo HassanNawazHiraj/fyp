@@ -26,7 +26,7 @@ class ClassCoursesController extends Controller
         return response()->json([
             "items" => ClassCourses::with(['class', 'class.batch', 'class.program', 'course'])->where('session_id', $current_session)->get(),
             'classes' => ClassModel::with(['batch', 'program'])->get(),
-            'courses' => Course::get()
+            'courses' => Course::where('session_id', $current_session)->get()
         ]);
     }
 
