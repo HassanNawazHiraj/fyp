@@ -162,7 +162,7 @@
                 <div
                     class="d-sm-flex align-items-center justify-content-between mb-4"
                 >
-                    <h2>Your assigned teacher statistics</h2>
+                    <h2>Your assigned teacher's statistics</h2>
                 </div>
                 <div class="row">
                     <!-- Earnings (Monthly) Card Example -->
