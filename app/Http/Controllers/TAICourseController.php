@@ -39,10 +39,16 @@ class TAICourseController extends Controller
         //
     }
 
-    public function assigned()
+    public function assigned(Request $request)
     {
+        if($request->session) {
+            $current_session = $request->session;
+        } else {
+            $current_session = Session::where("active", 1)->first()->id;
+        }
+
         $tai_id = Auth::user()->id;
-        $items = TaiCourse::where("tai_id", $tai_id)->with(['classes.teacherCourse.teacher', 'course', 'classes.class.batch', 'classes.class.program'])->get();
+        $items = TaiCourse::where("tai_id", $tai_id)->where('session_id', $current_session)->with(['classes.teacherCourse.teacher', 'course', 'classes.class.batch', 'classes.class.program'])->get();
         return response()->json([
             "items" => $items
         ]);

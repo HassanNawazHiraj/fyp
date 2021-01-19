@@ -133,6 +133,12 @@
 import vSelect from "vue-select";
 import "vue-select/dist/vue-select.css";
 export default {
+    props: ["selectedSession"],
+    watch: {
+        selectedSession: function(val, oldVal) {
+            this.list(val.id);
+        }
+    },
     components: {
         vSelect
     },
@@ -156,13 +162,17 @@ export default {
         var localPermission = localStorage.getItem("permissions");
         if (localPermission != null)
             this.permissions = localPermission.split(",");
-        this.list();
+        this.list(this.selectedSession);
     },
     methods: {
-        list() {
+        list(s = 0) {
+            let path = this.base_path + "assigned_courses";
+            if (s !== 0) {
+                path += "?session=" + s;
+            }
             let me = this;
             axios
-                .get(me.base_path + "assigned_courses")
+                .get(path)
                 .then(response => {
                     me.items = [];
                     response.data.items.forEach(element => {
@@ -230,7 +240,7 @@ export default {
                 .then(response => {
                     if (response.status === 200) {
                         this.closeModal("addModal");
-                        this.list();
+                        this.list(this.selectedSession);
                         this.toastTitle = "Add";
                         this.toastMessage =
                             "Teaching area in-charge assigned successfully";
@@ -261,7 +271,7 @@ export default {
                 .then(response => {
                     if (response.status === 200) {
                         this.closeModal("addModal");
-                        this.list();
+                        this.list(this.selectedSession);
                         this.toastTitle = "Update";
                         this.toastMessage =
                             "Teaching area in-charge assigned successfully";
