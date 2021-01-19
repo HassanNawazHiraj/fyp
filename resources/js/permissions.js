@@ -169,5 +169,11 @@ export const permissions = [
     {
         name: "View Folders",
         value: "tai_folder_view"
+    },
+    //Dashboard
+    //tai view folder
+    {
+        name: "View Dashboard",
+        value: "view_dashboard"
     }
 ];

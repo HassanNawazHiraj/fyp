@@ -12,11 +12,17 @@ use stdClass;
 
 class DashboardController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $user = Auth::user();
-        //get active session
-        $active_session = Session::where("active", 1)->first();
+
+        //get current session
+        if($request->session) {
+            $current_session = $request->session;
+        } else {
+            $current_session = Session::where("active", 1)->first()->id;
+        }
+
         //get roles
         $roles = UserTypeRelation::where("user_id", $user->id)->with("UserType")->get();
 
@@ -38,45 +44,13 @@ class DashboardController extends Controller
         //teacher
         if ($teacher) {
             $number_of_completed_courses = 0;
-            $courses = TeacherCourse::where("teacher_id", $user->id)->where("session_id", $active_session->id)->with(["class_courses.course"])->get();
-            $checklist_total = 0;
-            $checklist_checked = 0;
-            foreach ($courses as $course) {
-                $folder_name = $course->class_courses->folder_name;
-                $json = file_get_contents(base_path("storage/app/data/" . $folder_name . ".json"));
-                $checklist = json_decode($json);
-                $total = count($checklist);
-                $checklist_total += $total;
-                $checked = 0;
-                foreach ($checklist as $item) {
-                    if ($item->value) $checked++;
-                }
-                $checklist_checked += $checked;
-                if ($checklist_total == $checked) {
-                    $number_of_completed_courses++;
-                }
-            }
-            $completed_percentage = $checklist_checked / $checklist_total * 100;
-            $result->teacher = [
-                "checklist_total" => $checklist_total,
-                "checklist_checked" => $checklist_checked,
-                "completed_courses" => $number_of_completed_courses,
-                "checklist_percentage" => round($completed_percentage)
-            ];
-        }
-
-        //tai
-        if ($tai) {
-            $number_of_completed_courses = 0;
-            $courses = TaiCourse::where("tai_id", $user->id)->where("session_id", $active_session->id)->with([
-                'teacher_courses', 'teacher_courses.teacher', 'teacher_courses.class_courses',
-                'teacher_courses.class_courses.class.program', 'teacher_courses.class_courses.class.batch',  'teacher_courses.class_courses.course'
-            ])->get();
-
-            $checklist_total = 0;
-            $checklist_checked = 0;
-            foreach ($courses as $class_course) {
-                foreach ($class_course->teacher_courses as $course) {
+            $courses = TeacherCourse::where("teacher_id", $user->id)->where("session_id", $current_session)->with(["class_courses.course"])->get();
+            // dd(["teacher courses" => count($courses)]);
+            if(count($courses))
+            {
+                $checklist_total = 0;
+                $checklist_checked = 0;
+                foreach ($courses as $course) {
                     $folder_name = $course->class_courses->folder_name;
                     $json = file_get_contents(base_path("storage/app/data/" . $folder_name . ".json"));
                     $checklist = json_decode($json);
@@ -92,16 +66,54 @@ class DashboardController extends Controller
                     }
                 }
                 $completed_percentage = $checklist_checked / $checklist_total * 100;
-                $result->tai = [
+                $result->teacher = [
                     "checklist_total" => $checklist_total,
                     "checklist_checked" => $checklist_checked,
                     "completed_courses" => $number_of_completed_courses,
                     "checklist_percentage" => round($completed_percentage)
                 ];
             }
-            return [
-                "stats" => $result
-            ];
         }
+
+        //tai
+        if ($tai) {
+            $number_of_completed_courses = 0;
+            $courses = TaiCourse::where("tai_id", $user->id)->where("session_id", $current_session)->with([
+                'teacher_courses', 'teacher_courses.teacher', 'teacher_courses.class_courses',
+                'teacher_courses.class_courses.class.program', 'teacher_courses.class_courses.class.batch',  'teacher_courses.class_courses.course'
+            ])->get();
+
+            if(count($courses))
+            {
+                $checklist_total = 0;
+                $checklist_checked = 0;
+                foreach ($courses as $class_course) {
+                    foreach ($class_course->teacher_courses as $course) {
+                        $folder_name = $course->class_courses->folder_name;
+                        $json = file_get_contents(base_path("storage/app/data/" . $folder_name . ".json"));
+                        $checklist = json_decode($json);
+                        $total = count($checklist);
+                        $checklist_total += $total;
+                        $checked = 0;
+                        foreach ($checklist as $item) {
+                            if ($item->value) $checked++;
+                        }
+                        $checklist_checked += $checked;
+                        if ($checklist_total == $checked) {
+                            $number_of_completed_courses++;
+                        }
+                    }
+                    $completed_percentage = $checklist_checked / $checklist_total * 100;
+                    $result->tai = [
+                        "checklist_total" => $checklist_total,
+                        "checklist_checked" => $checklist_checked,
+                        "completed_courses" => $number_of_completed_courses,
+                        "checklist_percentage" => round($completed_percentage)
+                    ];
+                }
+            }
+        }
+
+        return ["stats" => $result];
     }
 }

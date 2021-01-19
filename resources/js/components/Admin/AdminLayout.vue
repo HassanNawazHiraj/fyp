@@ -19,7 +19,10 @@
                 </router-link>
 
                 <!-- Divider -->
-                <hr class="sidebar-divider my-0" />
+                <hr
+                    class="sidebar-divider my-0"
+                    v-if="permissions.includes('view_dashboard')"
+                />
 
                 <!-- Nav Item - Dashboard -->
                 <li
@@ -27,6 +30,7 @@
                         'nav-item',
                         { active: this.$route.path === '/portal' }
                     ]"
+                    v-if="permissions.includes('view_dashboard')"
                 >
                     <router-link class="nav-link" to="/portal">
                         <i class="fas fa-fw fa-tachometer-alt"></i>

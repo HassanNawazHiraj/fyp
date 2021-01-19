@@ -11,73 +11,70 @@
                         <div class="card">
                             <div class="card-header">NCEAC Portal Login</div>
                             <div class="card-body">
-                                <div
-                                    class="alert alert-danger"
-                                    role="alert"
-                                    v-if="error.show"
-                                >
-                                    {{ error.message }}
-                                </div>
-                                <div class="form-group row">
-                                    <label
-                                        for="email_address"
-                                        class="col-md-4 col-form-label text-md-right"
-                                        >E-Mail Address</label
+                                <form @submit="login">
+                                    <div
+                                        class="alert alert-danger"
+                                        role="alert"
+                                        v-if="error.show"
                                     >
-                                    <div class="col-md-6">
-                                        <input
-                                            type="text"
-                                            id="email_address"
-                                            class="form-control"
-                                            name="email-address"
-                                            v-model="email"
-                                            required
-                                            autofocus
-                                        />
+                                        {{ error.message }}
                                     </div>
-                                </div>
-
-                                <div class="form-group row">
-                                    <label
-                                        for="password"
-                                        class="col-md-4 col-form-label text-md-right"
-                                        >Password</label
-                                    >
-                                    <div class="col-md-6">
-                                        <input
-                                            type="password"
-                                            id="password"
-                                            class="form-control"
-                                            v-model="password"
-                                            name="password"
-                                            required
-                                        />
-                                    </div>
-                                </div>
-
-                                <div class="form-group row">
-                                    <div class="col-md-6 offset-md-4">
-                                        <div class="checkbox">
-                                            <label>
-                                                <input
-                                                    type="checkbox"
-                                                    name="remember"
-                                                />
-                                                Remember Me
-                                            </label>
+                                    <div class="form-group row">
+                                        <label
+                                            for="email_address"
+                                            class="col-md-4 col-form-label text-md-right"
+                                            >E-Mail Address</label
+                                        >
+                                        <div class="col-md-6">
+                                            <input
+                                                type="email"
+                                                id="email_address"
+                                                class="form-control"
+                                                name="email-address"
+                                                v-model="email"
+                                                required
+                                                autofocus
+                                            />
                                         </div>
                                     </div>
-                                </div>
 
-                                <div class="col-md-6 offset-md-8">
-                                    <button
-                                        type="submit"
-                                        class="btn btn-primary"
-                                        v-on:click="login()"
-                                    >
-                                        Login
-                                    </button>
-                                </div>
+                                    <div class="form-group row">
+                                        <label
+                                            for="password"
+                                            class="col-md-4 col-form-label text-md-right"
+                                            >Password</label
+                                        >
+                                        <div class="col-md-6">
+                                            <input
+                                                type="password"
+                                                id="password"
+                                                class="form-control"
+                                                v-model="password"
+                                                name="password"
+                                                required
+                                            />
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6 offset-md-8">
+                                        <button
+                                            type="submit"
+                                            class="btn btn-primary"
+                                            :disabled="loading"
+                                        >
+                                            <div
+                                                class="spinner-border spinner-border-sm"
+                                                role="status"
+                                                v-if="loading"
+                                            >
+                                                <span class="sr-only"
+                                                    >Loading...</span
+                                                >
+                                            </div>
+                                            <span v-if="!loading">Login</span>
+                                        </button>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -96,16 +93,13 @@ export default {
         }
     },
     methods: {
-        login() {
+        login(e) {
+            e.preventDefault();
+
+            this.error.show = false;
+
             this.loading = true;
             let me = this;
-            let access_data = {
-                client_id: 2,
-                client_secret: "FpLFIh7RRQeeJpmHj6tChq7yg85KNb8Chr1zpAVu",
-                grant_type: "password",
-                username: this.email,
-                password: this.password
-            };
             let formData = new FormData();
             formData.append("email", this.email);
             formData.append("password", this.password);
@@ -133,7 +127,8 @@ export default {
             error: {
                 show: false,
                 message: "Invalid username or password!"
-            }
+            },
+            loading: false
         };
     }
 };
