@@ -174,7 +174,7 @@
                         to="/portal/manage-class"
                         v-if="permissions.includes('class_view')"
                     >
-                        <i class="fa fa-users"></i>
+                        <i class="fa fa-chalkboard-teacher"></i>
                         <span>Manage Class</span>
                     </router-link>
                 </li>
@@ -193,7 +193,7 @@
                         to="/portal/manage-session"
                         v-if="permissions.includes('session_view')"
                     >
-                        <i class="fa fa-users"></i>
+                        <i class="fa fa-stopwatch"></i>
                         <span>Manage Session</span>
                     </router-link>
                 </li>
@@ -240,7 +240,7 @@
                         to="/portal/view-assigned-teachers"
                         v-if="permissions.includes('assigned_teachers_view')"
                     >
-                        <i class="fa fa-users"></i>
+                        <i class="fa fa-id-card-alt"></i>
                         <span>View Assigned Teachers</span>
                     </router-link>
                 </li>
@@ -271,7 +271,7 @@
                         to="/portal/manage-course-assignment"
                         v-if="permissions.includes('class_courses_view')"
                     >
-                        <i class="fa fa-users"></i>
+                        <i class="fa fa-object-group"></i>
                         <span>Assign course to class</span>
                     </router-link>
                 </li>
@@ -291,7 +291,7 @@
                         to="/portal/manage-teacher-assignment"
                         v-if="permissions.includes('course_teacher_view')"
                     >
-                        <i class="fa fa-users"></i>
+                        <i class="fa fa-user-shield"></i>
                         <span>Assign course to teacher</span>
                     </router-link>
                 </li>
@@ -311,7 +311,7 @@
                         to="/portal/manage-tai-assignment"
                         v-if="permissions.includes('tai_course_view')"
                     >
-                        <i class="fa fa-users"></i>
+                        <i class="fa fa-book-reader"></i>
                         <span>Assign TAI to Course</span>
                     </router-link>
                 </li>
@@ -337,7 +337,7 @@
                         to="/portal/manage-folder"
                         v-if="permissions.includes('folder_view')"
                     >
-                        <i class="fa fa-users"></i>
+                        <i class="fa fa-folder-plus"></i>
                         <span>Manage Course Folders</span>
                     </router-link>
                 </li>
@@ -353,7 +353,7 @@
                         to="/portal/view-folder"
                         v-if="permissions.includes('tai_folder_view')"
                     >
-                        <i class="fa fa-users"></i>
+                        <i class="fa fa-folder-open"></i>
                         <span>View Course Folders</span>
                     </router-link>
                 </li>
