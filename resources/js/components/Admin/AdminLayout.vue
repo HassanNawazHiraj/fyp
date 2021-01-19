@@ -338,7 +338,7 @@
                         v-if="permissions.includes('folder_view')"
                     >
                         <i class="fa fa-folder-plus"></i>
-                        <span>Manage Course Folders</span>
+                        <span>Manage your Course Folders</span>
                     </router-link>
                 </li>
 
@@ -354,7 +354,7 @@
                         v-if="permissions.includes('tai_folder_view')"
                     >
                         <i class="fa fa-folder-open"></i>
-                        <span>View Course Folders</span>
+                        <span>View assigned Course Folders</span>
                     </router-link>
                 </li>
 
