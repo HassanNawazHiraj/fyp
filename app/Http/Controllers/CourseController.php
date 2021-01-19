@@ -118,4 +118,32 @@ class CourseController extends Controller
 
         return response()->json([], 200);
     }
+
+    public function importPreviousCourses(Request $request)
+    {
+        $validatedData = $request->validate([
+            'session' => 'required'
+        ]);
+
+        $current_session = Session::where("id", $request->session)->first();
+
+        $session = Session::where('created_at', '<', $current_session->created_at)->first();
+
+        // dd(['previous_session' => $session]);
+
+        if(!$session)
+        {
+            return response(['message' => 'This is the first session in the system.'], 400);
+        }
+
+        $courses = Course::where('session_id', $session->id)->get();
+
+        foreach ($courses as $course) {
+            $newCourse = $course->replicate();
+            $newCourse->session_id = $current_session->id;
+
+            $newCourse->save();
+        }
+        return response(["message" => "Courses imported from previous session."]);
+    }
 }

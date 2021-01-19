@@ -40,7 +40,7 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::resource("program", "ProgramController");
 
     Route::resource("course", "CourseController");
-    // Route::get("tai/course", "CourseController@getTai");
+    Route::get("course-import-previous", "CourseController@importPreviousCourses");
 
     Route::resource("class", "ClassController");
 

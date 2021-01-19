@@ -16,6 +16,18 @@
                         v-on:click="add()"
                         >Add</a
                     >
+                    <button
+                        v-if="
+                            selectedSession.active &&
+                                permissions.includes('course_add')
+                        "
+                        type="button"
+                        class="btn btn-outline-primary float-right btn-sm mr-1"
+                        data-toggle="modal"
+                        data-target="#importModal"
+                    >
+                        Import from previous session
+                    </button>
                 </h6>
             </div>
             <div class="card-body">
@@ -232,6 +244,56 @@
                 <div class="toast-body">{{ toastMessage }}</div>
             </div>
         </div>
+
+        <!-- Import Courses -->
+        <div
+            class="modal fade"
+            id="importModal"
+            tabindex="-1"
+            role="dialog"
+            aria-hidden="true"
+        >
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Confirm</h5>
+                        <button
+                            type="button"
+                            class="close"
+                            data-dismiss="modal"
+                            aria-label="Close"
+                        >
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        Are you sure you want to import course from previous
+                        session?
+                    </div>
+                    <div class="modal-footer">
+                        <button
+                            type="button"
+                            class="btn btn-outline-success"
+                            id="deleteModalButton"
+                            @click="
+                                importCoursesFromPreviousSession(
+                                    selectedSession.id
+                                )
+                            "
+                        >
+                            Confirm
+                        </button>
+                        <button
+                            type="button"
+                            class="btn btn-secondary"
+                            data-dismiss="modal"
+                        >
+                            Close
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -240,7 +302,6 @@ export default {
     props: ["selectedSession"],
     watch: {
         selectedSession: function(val, oldVal) {
-            //console.log("new :" , val.id , " | old : " , oldVal.id);
             this.list(val.id);
         }
     },
@@ -395,6 +456,22 @@ export default {
                             me.errors.push(error.response.data.errors[key][0]);
                         }
                     }
+                });
+        },
+        importCoursesFromPreviousSession(s = 0) {
+            let path = this.base_path + "course-import-previous";
+            if (s !== 0) {
+                path += "?session=" + s;
+            }
+            let me = this;
+            axios
+                .get(path)
+                .then(response => {
+                    this.list(s);
+                    this.closeModal("importModal");
+                })
+                .catch(function(error) {
+                    me.loading = false;
                 });
         }
     }
