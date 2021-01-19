@@ -142,10 +142,8 @@ class TAICourseController extends Controller
             $current_session = Session::where("active", 1)->first()->id;
         }
 
-        $tai_courses = TaiCourse::where("tai_id", $request->user()->id)->with(['classes', 'classes.course'])
+        $tai_courses = TaiCourse::where("tai_id", $request->user()->id)->with(['classes', 'classes.course', 'classes.class', 'classes.class.batch', 'classes.class.program', 'classes.teacherCourse.teacher',])
         ->where("session_id", $current_session)->get();
-        // 'teacher_courses', 'teacher_courses.teacher', 'teacher_courses.class_courses',
-        // 'teacher_courses.class_courses.class.program', 'teacher_courses.class_courses.class.batch',  'teacher_courses.class_courses.course'
 
         return response(["items" => $tai_courses]);
 

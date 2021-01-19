@@ -30,7 +30,7 @@
                                     <router-link
                                         :to="
                                             `/portal/view-folder/${
-                                                item.class_courses.folder_name
+                                                item.folder_name
                                             }${
                                                 item.course_type == 'lab'
                                                     ? '-l'
@@ -39,19 +39,12 @@
                                         "
                                     >
                                         <i class="fas fa-folder"></i> &nbsp;{{
-                                            item.class_courses.course.title
+                                            item.course.title
                                         }}
-                                        &nbsp; [{{
-                                            item.class_courses.class.batch
-                                                .season
-                                        }}{{
-                                            item.class_courses.class.batch.year
-                                        }}-{{
-                                            item.class_courses.class.program
-                                                .short_name
-                                        }}-{{
-                                            item.class_courses.class.section
-                                        }}]
+                                        &nbsp; [{{ item.class.batch.season
+                                        }}{{ item.class.batch.year }}-{{
+                                            item.class.program.short_name
+                                        }}-{{ item.class.section }}]
                                     </router-link>
                                 </td>
                                 <td>
@@ -74,7 +67,7 @@
                                         title="Open Checklist"
                                         @click="
                                             openChecklist(
-                                                item.class_courses.folder_name +
+                                                item.folder_name +
                                                     (item.course_type == 'lab'
                                                         ? '-l'
                                                         : '')
@@ -86,7 +79,7 @@
                                 <td>
                                     {{
                                         new Date(
-                                            item.class_courses.created_at
+                                            item.created_at
                                         ).toLocaleString()
                                     }}
                                 </td>
@@ -248,8 +241,21 @@ export default {
                     let teacherCourses = [];
 
                     for await (let item of items) {
-                        for await (let tc of item.teacher_courses) {
-                            teacherCourses.push(tc);
+                        for await (let c of item.classes) {
+                            for await (let t of c.teacher_course) {
+                                let obj = {
+                                    id: c.id,
+                                    folder_name: c.folder_name,
+                                    class: c.class,
+                                    course: c.course,
+                                    created_at: c.created_at,
+                                    teacher: t.teacher,
+                                    course_type: t.course_type
+                                };
+                                teacherCourses.push(obj);
+                            }
+
+                            // teacherCourses.push(c);
                         }
                     }
                     me.items = teacherCourses;
