@@ -52,6 +52,7 @@ class DashboardController extends Controller
                 $checklist_checked = 0;
                 foreach ($courses as $course) {
                     $folder_name = $course->class_courses->folder_name;
+                    if($course->course_type == "lab") $folder_name.= "-l";
                     $json = file_get_contents(base_path("storage/app/data/" . $folder_name . ".json"));
                     $checklist = json_decode($json);
                     $total = count($checklist);
@@ -90,6 +91,7 @@ class DashboardController extends Controller
                 foreach ($courses as $class_course) {
                     foreach ($class_course->teacher_courses as $course) {
                         $folder_name = $course->class_courses->folder_name;
+                        if($course->course_type == "lab") $folder_name.= "-l";
                         $json = file_get_contents(base_path("storage/app/data/" . $folder_name . ".json"));
                         $checklist = json_decode($json);
                         $total = count($checklist);
@@ -103,14 +105,14 @@ class DashboardController extends Controller
                             $number_of_completed_courses++;
                         }
                     }
-                    $completed_percentage = $checklist_checked / $checklist_total * 100;
+                }
+                $completed_percentage = $checklist_checked / $checklist_total * 100;
                     $result->tai = [
                         "checklist_total" => $checklist_total,
                         "checklist_checked" => $checklist_checked,
                         "completed_courses" => $number_of_completed_courses,
                         "checklist_percentage" => round($completed_percentage)
                     ];
-                }
             }
         }
 
