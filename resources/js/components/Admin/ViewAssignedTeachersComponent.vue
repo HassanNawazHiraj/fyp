@@ -162,7 +162,7 @@ export default {
         var localPermission = localStorage.getItem("permissions");
         if (localPermission != null)
             this.permissions = localPermission.split(",");
-        this.list(this.selectedSession);
+        this.list(this.selectedSession.id);
     },
     methods: {
         list(s = 0) {
@@ -240,7 +240,7 @@ export default {
                 .then(response => {
                     if (response.status === 200) {
                         this.closeModal("addModal");
-                        this.list(this.selectedSession);
+                        this.list(this.selectedSession.id);
                         this.toastTitle = "Add";
                         this.toastMessage =
                             "Teaching area in-charge assigned successfully";
@@ -271,7 +271,7 @@ export default {
                 .then(response => {
                     if (response.status === 200) {
                         this.closeModal("addModal");
-                        this.list(this.selectedSession);
+                        this.list(this.selectedSession.id);
                         this.toastTitle = "Update";
                         this.toastMessage =
                             "Teaching area in-charge assigned successfully";
