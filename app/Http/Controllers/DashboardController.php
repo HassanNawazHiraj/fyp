@@ -17,7 +17,7 @@ class DashboardController extends Controller
         $user = Auth::user();
 
         //get current session
-        if($request->session) {
+        if ($request->session) {
             $current_session = $request->session;
         } else {
             $current_session = Session::where("active", 1)->first()->id;
@@ -46,13 +46,12 @@ class DashboardController extends Controller
             $number_of_completed_courses = 0;
             $courses = TeacherCourse::where("teacher_id", $user->id)->where("session_id", $current_session)->with(["class_courses.course"])->get();
             // dd(["teacher courses" => count($courses)]);
-            if(count($courses))
-            {
+            if (count($courses)) {
                 $checklist_total = 0;
                 $checklist_checked = 0;
                 foreach ($courses as $course) {
                     $folder_name = $course->class_courses->folder_name;
-                    if($course->course_type == "lab") $folder_name.= "-l";
+                    if ($course->course_type == "lab") $folder_name .= "-l";
                     $json = file_get_contents(base_path("storage/app/data/" . $folder_name . ".json"));
                     $checklist = json_decode($json);
                     $total = count($checklist);
@@ -66,7 +65,11 @@ class DashboardController extends Controller
                         $number_of_completed_courses++;
                     }
                 }
-                $completed_percentage = $checklist_checked / $checklist_total * 100;
+                if ($checklist_total == 0) {
+                    $completed_percentage = 0;
+                } else {
+                    $completed_percentage = $checklist_checked / $checklist_total * 100;
+                }
                 $result->teacher = [
                     "checklist_total" => $checklist_total,
                     "checklist_checked" => $checklist_checked,
@@ -84,14 +87,13 @@ class DashboardController extends Controller
                 'teacher_courses.class_courses.class.program', 'teacher_courses.class_courses.class.batch',  'teacher_courses.class_courses.course'
             ])->get();
 
-            if(count($courses))
-            {
+            if (count($courses)) {
                 $checklist_total = 0;
                 $checklist_checked = 0;
                 foreach ($courses as $class_course) {
                     foreach ($class_course->teacher_courses as $course) {
                         $folder_name = $course->class_courses->folder_name;
-                        if($course->course_type == "lab") $folder_name.= "-l";
+                        if ($course->course_type == "lab") $folder_name .= "-l";
                         $json = file_get_contents(base_path("storage/app/data/" . $folder_name . ".json"));
                         $checklist = json_decode($json);
                         $total = count($checklist);
@@ -106,13 +108,17 @@ class DashboardController extends Controller
                         }
                     }
                 }
-                $completed_percentage = $checklist_checked / $checklist_total * 100;
-                    $result->tai = [
-                        "checklist_total" => $checklist_total,
-                        "checklist_checked" => $checklist_checked,
-                        "completed_courses" => $number_of_completed_courses,
-                        "checklist_percentage" => round($completed_percentage)
-                    ];
+                if ($checklist_total == 0) {
+                    $completed_percentage = 0;
+                } else {
+                    $completed_percentage = $checklist_checked / $checklist_total * 100;
+                }
+                $result->tai = [
+                    "checklist_total" => $checklist_total,
+                    "checklist_checked" => $checklist_checked,
+                    "completed_courses" => $number_of_completed_courses,
+                    "checklist_percentage" => round($completed_percentage)
+                ];
             }
         }
 
