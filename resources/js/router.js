@@ -26,19 +26,16 @@ import UserSettings from "./components/Admin/UserSettings.vue";
 
 Vue.use(VueRouter);
 
-const routes = [
-    {
+const routes = [{
         path: "/",
         component: Layout,
         meta: {
             guest: true
         },
-        children: [
-            {
-                path: "",
-                component: Login
-            }
-        ]
+        children: [{
+            path: "",
+            component: Login
+        }]
     },
     {
         path: "/portal",
@@ -46,8 +43,7 @@ const routes = [
         meta: {
             auth: true
         },
-        children: [
-            {
+        children: [{
                 path: "",
                 component: DashboardComponent
             },
@@ -107,6 +103,7 @@ const routes = [
                 component: ManageFolderComponent
             },
             {
+                name: "ManageFolderViewComponent",
                 path: "view/:folder",
                 component: ManageFolderViewComponent
             },
