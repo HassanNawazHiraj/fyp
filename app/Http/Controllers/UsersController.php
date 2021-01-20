@@ -139,7 +139,7 @@ class UsersController extends Controller
     {
         $formData = $request->validate([
             "name" => "required",
-            "email" => "required|email|unique:users,email",
+            "email" => "required|email",
             "user_types" => "required"
         ]);
 
