@@ -82,30 +82,50 @@ class DashboardController extends Controller
         //tai
         if ($tai) {
             $number_of_completed_courses = 0;
-            $courses = TaiCourse::where("tai_id", $user->id)->where("session_id", $current_session)->with([
-                'teacher_courses', 'teacher_courses.teacher', 'teacher_courses.class_courses',
-                'teacher_courses.class_courses.class.program', 'teacher_courses.class_courses.class.batch',  'teacher_courses.class_courses.course'
-            ])->get();
+            $courses = TaiCourse::where("tai_id", $request->user()->id)->with(['classes', 'classes.course', 'classes.class', 'classes.class.batch', 'classes.class.program', 'classes.teacherCourse.teacher',])
+        ->where("session_id", $current_session)->get();
 
             if (count($courses)) {
                 $checklist_total = 0;
                 $checklist_checked = 0;
-                foreach ($courses as $class_course) {
-                    foreach ($class_course->teacher_courses as $course) {
-                        $folder_name = $course->class_courses->folder_name;
-                        if ($course->course_type == "lab") $folder_name .= "-l";
-                        $json = file_get_contents(base_path("storage/app/data/" . $folder_name . ".json"));
-                        $checklist = json_decode($json);
-                        $total = count($checklist);
-                        $checklist_total += $total;
-                        $checked = 0;
-                        foreach ($checklist as $item) {
-                            if ($item->value) $checked++;
+
+                $new_courses = [];
+
+                foreach($courses as $class_course)
+                {
+                    foreach($class_course->classes as $class)
+                    {
+                        $teacherCourses = $class->teacherCourse;
+                        foreach($teacherCourses as $t)
+                        {
+                            $obj = [
+                                "id" => $class->id,
+                                "folder_name" => $class->folder_name,
+                                "class" => $class->class,
+                                "course" => $class->course,
+                                "created_at" => $class->created_at,
+                                "teacher" => $t->teacher,
+                                "course_type" => $t->course_type
+                            ];
+                            array_push($new_courses, $obj);
                         }
-                        $checklist_checked += $checked;
-                        if ($checklist_total == $checked) {
-                            $number_of_completed_courses++;
-                        }
+                    }
+                }
+
+                foreach ($new_courses as $course) {
+                    $folder_name = $course['folder_name'];
+                    if ($course['course_type'] == "lab") $folder_name .= "-l";
+                    $json = file_get_contents(base_path("storage/app/data/" . $folder_name . ".json"));
+                    $checklist = json_decode($json);
+                    $total = count($checklist);
+                    $checklist_total += $total;
+                    $checked = 0;
+                    foreach ($checklist as $item) {
+                        if ($item->value) $checked++;
+                    }
+                    $checklist_checked += $checked;
+                    if ($checklist_total == $checked) {
+                        $number_of_completed_courses++;
                     }
                 }
                 if ($checklist_total == 0) {
